@@ -31,9 +31,6 @@
     <loc>https://ibarraespinosa.github.io/robspack/reference/obs_addtime.html</loc>
   </url>
   <url>
-    <loc>https://ibarraespinosa.github.io/robspack/reference/obs_addzero.html</loc>
-  </url>
-  <url>
     <loc>https://ibarraespinosa.github.io/robspack/reference/obs_agg.html</loc>
   </url>
   <url>
@@ -47,12 +44,6 @@
   </url>
   <url>
     <loc>https://ibarraespinosa.github.io/robspack/reference/obs_freq.html</loc>
-  </url>
-  <url>
-    <loc>https://ibarraespinosa.github.io/robspack/reference/obs_getcase.html</loc>
-  </url>
-  <url>
-    <loc>https://ibarraespinosa.github.io/robspack/reference/obs_index.html</loc>
   </url>
   <url>
     <loc>https://ibarraespinosa.github.io/robspack/reference/obs_invfiles.html</loc>
@@ -91,15 +82,9 @@
     <loc>https://ibarraespinosa.github.io/robspack/reference/obs_trunc.html</loc>
   </url>
   <url>
-    <loc>https://ibarraespinosa.github.io/robspack/reference/obs_write.html</loc>
-  </url>
-  <url>
     <loc>https://ibarraespinosa.github.io/robspack/reference/obs_write_csvy.html</loc>
   </url>
   <url>
     <loc>https://ibarraespinosa.github.io/robspack/reference/robspack-deprecated.html</loc>
-  </url>
-  <url>
-    <loc>https://ibarraespinosa.github.io/robspack/reference/robspackfilter-deprecated.html</loc>
   </url>
 </urlset>
