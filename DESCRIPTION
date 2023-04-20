@@ -1,0 +1,23 @@
+Package: robspack
+Type: Package
+Title: 'robspack' Obspack GLOBALView Filter
+Version: 0.7.0
+Authors@R: c( 
+  person(given = "Sergio", family = "Ibarra-Espinosa",
+         role = c("aut", "cre"),
+         email = "sergio.ibarra-espinosa@noaa.gov",
+         comment = c(ORCID = "0000-0002-3162-1905")),
+         person(given="Lei", family="Hu", 
+         role="ctb", 
+         email="lei.hu@noaa.gov",
+         comment = c(ORCID = "0000-0002-5624-3832"))) 
+Description: Reads the OBspack GLOBALView data from NOAA and perform different filters and analyses. 
+Depends: R (>= 2.10)
+Imports: data.table, utils, lubridate, R.utils, cptcity, graphics
+License: MIT + file LICENSE
+URL: https://github.com/ibarraespinosa/robspack,
+    https://ibarraespinosa.github.io/robspack/
+BugReports: https://github.com/ibarraespinosa/robspack/issues/
+Encoding: UTF-8
+RoxygenNote: 7.2.3
+Date: 2023-04-04

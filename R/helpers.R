@@ -1,0 +1,525 @@
+#' Helpers
+#'
+#'
+#' @title outersect
+#' @family helpers
+#' @name obs_out
+#' @description Just the opposite of intersect
+#' @param x vector
+#' @param y vector
+#' @return vector opposite of intersect
+#' @export
+#' @examples {
+#' \dontrun{
+#' # Do not run
+#' }
+#' }
+obs_out <- function(x, y) {
+  sort(c(setdiff(x, y),
+         setdiff(y, x)))
+}
+
+
+#' @title list.dt
+#' @family helpers
+#' @name obs_list.dt
+#' @description Some treatments for list of data.frames
+#' @param ldf list of data.frames
+#' @param na common names in the final data.frame
+#' @param verbose Logical to show more information
+#' @return long data.table
+#' @note 1. Filter out empty data.frames
+#' 2. identify common names
+#' 3. rbindlist and return data.table
+#' @importFrom data.table rbindlist
+#' @importFrom utils object.size
+#' @export
+#' @examples {
+#' \dontrun{
+#' # Do not run
+#' }
+#' }
+obs_list.dt <- function(ldf, na, verbose = TRUE) {
+
+  ldf <- Filter(function(x) dim(x)[1] > 0, ldf)
+
+  lm <- lapply(ldf, names)
+
+  na <- Reduce(intersect, lapply(ldf, names))
+
+
+  lxx <- function(x, names) {
+    lapply(seq_along(x), function(i) {
+      x[[i]][, names, with = FALSE]
+    }) -> lx
+    data.table::rbindlist(lx)
+  }
+  dt <- lxx(ldf, na)
+  if(verbose) print(format(utils::object.size(dt), units = "Mb"))
+  return(dt)
+}
+
+
+#' @title Number to character
+#' @family helpers
+#' @description transform integer to character and add zero at left
+#' @param x integer
+#' @param char Character to be added ad the beginning of x
+#' @return transform integer in character
+#' @name robspack-deprecated
+#' @seealso \code{\link{robspack-deprecated}}
+#' @keywords internal
+NULL
+# obs_addzero <- function(x, char) {
+#
+#   # if(!inherits(x, "integer")) stop("x must be integer")
+#
+#   dd <- as.character(x)
+#   nch <- nchar(dd)
+#   nchmax <- max(nchar(dd))
+#
+#   difch <- nchmax - nch
+#
+#   if(length(unique(nch)) == 1 ) {
+#     if (unique(nch) == 1) {
+#       message("Character has same length. Adding one zero.")
+#       y <- paste0("0", x)
+#     } else {
+#       y <- x
+#     }
+#
+#   } else {
+#     unlist(lapply(seq_along(difch), function(i) {
+#       paste(rep("0", difch[i]), collapse = "")
+#     })) -> zero
+#
+#     y <- paste0(zero, x)
+#
+#   }
+#
+#
+#   if(!missing(char)) {
+#     y <- paste0(char, y)
+#   }
+#
+#   return(y)
+# }
+
+
+#' @title return numeric vector in intervals
+#' @family helpers
+#' @description return numeric vector in intervals
+#' @param x numeric, longer than `freq`
+#' @param freq numeric vector
+#' @param ... findInterval arguments
+#' @return numeric vector
+#' @name obs_freq
+#' @export
+obs_freq <- function(x, freq, ...) {
+  if(freq[1] > (min(x, na.rm = TRUE))) {
+    stop("first freq must be equal or lower than min(x)")
+  }
+  # add and feq
+  return(freq[findInterval(x = x,
+                           vec = freq,
+                           rightmost.closed = T,
+                           left.open = T,
+                           ...)])
+}
+
+#' @title round seconds from "POSIXct" "POSIXt"  classes
+#' @family helpers
+#' @name obs_roundtime
+#' @description return rounded seconds from time
+#' @param x time as "POSIXct" "POSIXt"
+#' @param n factor
+#' @return numeric vector
+#' @importFrom data.table second
+#' @export
+#' @examples {
+#' x <- Sys.time() + seq(1, 55, 1)
+#' paste0(x,"  ",
+#'        obs_roundtime(x), "  ",
+#'        obs_freq(data.table::second(x),
+#'                 seq(0, 55, 10)))
+#' }
+obs_roundtime <- function(x, n = 10) {
+  if(!inherits(x, "POSIXct")) stop("`x` must have classes `POSIXct` `POSIXt` ")
+  y <- (( data.table::second(x) + 5/2) %/% n)*n
+  y <- ifelse(y == 60, 0, y)
+  return(y)
+}
+
+#' @title rbind obspack
+#' @family helpers
+#' @name obs_rbind
+#' @description return rbind obs data.tables
+#' @param dt1 first data.table
+#' @param dt2  second data.table
+#' @param verbose logical to show more information
+#' @return numeric vector
+#' @importFrom data.table data.table
+#' @export
+#' @examples \dontrun{
+#' # do not run
+#' }
+obs_rbind <- function(dt1,
+                      dt2,
+                      verbose = TRUE) {
+  if(verbose) cat("Identifying common names\n")
+
+  neco <- intersect(names(dt1),
+                    names(dt2))
+  if(verbose) print(neco)
+
+  dt1 <- dt1[,
+             neco,
+             with = F]
+
+  dt2 <- dt2[,
+             neco,
+             with = F]
+
+  cl1 <- (lapply(dt1, class))
+  cl2 <- (lapply(dt2, class))
+
+  dt <- data.table::data.table(names = neco,
+                               class1 = cl1,
+                               class2 = cl2)
+
+  lx <- lapply(1:nrow(dt), function(i) {
+    (cl1[[i]] == cl2[[i]])[1]
+  })
+
+  dt$equal <- lx
+
+  if(verbose) cat("Comparing classes by column\n")
+
+  equal <- NULL
+  if(nrow(dt[equal == F]) > 0) {
+    if(verbose) cat("Found different classes:\n")
+    print(dt[equal == F])
+    # stop()
+  }
+  dx <- rbind(dt1, dt2, use.names = TRUE)
+
+  return(dx)
+}
+
+
+#' @title local hour (bsed on longitude and time)
+#' @family helpers
+#' @name obs_addltime
+#' @description Calculate an approximation of local hour
+#' @param dt data.table
+#' @param timeUTC Character indicating the Time column as POSIXct
+#' @param utc2lt Character indicating the integer column to convert to local time
+#' if available
+#' @param longitude Character indicating the column with the lingitude
+#' @importFrom data.table hour
+#' @return data.table with local time columns
+#' @note time depending n longitude is by John Miller (GML/NOAA)
+#' @export
+#' @examples {
+#' \dontrun{
+#' # Do not run
+#' }
+#' }
+obs_addltime <- function(dt,
+                         timeUTC = "timeUTC",
+                         utc2lt = "site_utc2lst",
+                         longitude = "longitude") {
+
+  # Priority site_utc2lst and if it is not available,
+  dt$local_time <- dt[[timeUTC]] + as.numeric(dt[[utc2lt]])*60*60
+
+
+  dt$local_time <- ifelse(
+    is.na(dt$local_time),
+    dt[[timeUTC]] + dt[[longitude]]/15*60*60, #john miller approach
+    dt$local_time)
+
+
+  if(inherits(dt$local_time, "numeric")) {
+    dt$local_time <- as.POSIXct(dt$local_time,
+                                origin = "1970-01-01",
+                                tz = "UTC")
+  }
+
+  dt$lh <- data.table::hour(dt$local_time)
+  return(dt)
+}
+
+#' @title Generates YAML and write data.frame
+#' @family helpers
+#' @name obs_write_csvy
+#' @description Add YAML header info and writes a the data.frame
+#' into disk. The YAML section includes notes and str(dt).
+#' @param dt data.table
+#' @param notes notes.
+#' @param out outfile path.
+#' @param sep  The separator between columns. Default is ",".
+#' @param nchar.max  Max nchar for str.
+#' @param ... extra data.table arguments
+#' @importFrom utils str
+#' @export
+#' @examples {
+#' df <- data.frame(a = rnorm(n = 10),
+#'                  time = Sys.time() + 1:10)
+#'
+#' f <- paste0(tempfile(), ".csvy")
+#' notes <- c("notes",
+#'            "more notes")
+#' obs_write_csvy(dt = df, notes = notes, out = f)
+#' readLines(f)
+#' data.table::fread(f)
+#' }
+obs_write_csvy <- function(dt,
+                      notes,
+                      out = paste0(tempfile(), ".csvy"),
+                      sep = ",",
+                      nchar.max = 80,
+                      ...) {
+  sink(file = out)
+  cat("---\n")
+  cat("name: Metadata \n")
+  cat(notes, sep = "\n")
+  cat("structure: \n")
+  print(utils::str(object = dt,
+                   vec.len = 2,
+                   width = 60,
+                   strict.width = "cut",
+                   nchar.max = nchar.max))
+  cat("---\n")
+  sink()
+  data.table::fwrite(x = dt,
+                     file = out,
+                     sep = sep,
+                     append = TRUE,
+                     col.names = TRUE,
+                     ...)
+
+}
+
+
+
+#' @title reads CSVY
+#' @family helpers
+#' @name obs_read_csvy
+#' @description Reads CSVY, print YAML and fread file.
+#' @param f path to csvy file
+#' @param n number of files to search for "---" yaml
+#' @param ... extra data.table arguments
+#' @export
+#' @examples {
+#' df <- data.frame(a = rnorm(n = 10),
+#'                  time = Sys.time() + 1:10)
+#'
+#' f <- paste0(tempfile(), ".csvy")
+#' notes <- c("notes",
+#'            "more notes")
+#' obs_write_csvy(dt = df, notes = notes, out = f)
+#' s <- obs_read_csvy(f)
+#' s
+#' # or
+#' readLines(f)
+#' data.table::fread(f)
+#' }
+obs_read_csvy <- function(f,
+                          n = 100,
+                          ...) {
+
+
+  nr <- readLines(f, n = 100)
+
+  lis <- grep("---", nr)
+  if(length(lis) == 1) {
+    nr <- readLines(f, n = 200)
+    lis <- grep("---", nr)
+  }
+  l1 <- lis[1]
+  l2 <- lis[2]
+
+  yaml <- readLines(f, n = l2)
+  print(yaml)
+  data.table::fread(f,
+                    skip = l2+1,
+                    ...)
+
+
+}
+
+#' @title Trunc numbers with a desired number of decimals
+#' @family helpers
+#' @name obs_trunc
+#' @description Trunc numbers with a specified number of decimals.
+#' @param n Numeric  number
+#' @param dec Integer, number of decimals
+#' @note source https://stackoverflow.com/a/47015304/2418532
+#' @export
+#' @examples {
+#' # in bash:
+#' # printf "%07.4f" 72.05785
+#' # results in 72.0578
+#' # but:
+#' formatC(72.05785, digits = 4, width = 8, format = "f", flag = "0")
+#' # results in
+#' "072.0579"
+#' # the goal is to obtain the same trunc number as using bash, then:
+#' formatC(obs_trunc(72.05785, 4),
+#'         digits = 4,
+#'         width = 8,
+#'         format = "f",
+#'         flag = "0")
+#'}
+obs_trunc <- function(n, dec){
+  n <- n + (10^-(dec+5))
+  f <- NULL
+  splitNumber <- strsplit(x=format(n, digits=20, format=f), split="\\.")[[1]]
+  decimalPartTrunc <- substr(x=splitNumber[2], start=1, stop=dec)
+  truncatedNumber <- as.numeric(paste0(splitNumber[1], ".", decimalPartTrunc))
+  return(truncatedNumber)
+}
+
+
+#' @title Expected footprint name
+#' @family helpers
+#' @name obs_footname
+#' @description return the expected name for the NetCDF footprint
+#' @param year numeric number
+#' @param month numeric number
+#' @param day numeric number
+#' @param hour numeric number
+#' @param minute numeric number
+#' @param lat numeric number
+#' @param lon numeric number
+#' @param alt numeric number
+#' @param out outfile path.
+#' @param ... data.table::fwrite arguments.
+#' @note source https://stackoverflow.com/a/47015304/2418532
+#'
+#' # IMPORTANT!!!
+#' # This function will generate the expected NetCDF file name.
+#' # It assumes that the name was generated under the following considerations:
+#' # time variables (year, month, day, etc) have a format of two digits, eg "0.1"
+#' # latitude and longitude have been round with 4 decimals
+#' # The format for latitude is 2 integers, a point and 4 decimals
+#' # The format for longitude is 3 integers, a point and 4 decimals
+#'
+#' # In other words, it is similar to `obs_format`, but `obs_footname`,
+#' generates the expected name.
+#'
+#' @export
+#' @examples \dontrun{
+#' # do not run
+#' }
+obs_footname <- function(year,
+                         month,
+                         day,
+                         hour,
+                         minute,
+                         lat,
+                         lon,
+                         alt,
+                         out,
+                         ...){
+
+
+  lats <- ifelse(lat > 0, "N", "S")
+  lat <- abs(lat)
+
+  lons <- ifelse(lon > 0, "E", "W")
+  lon <- abs(lon)
+
+  agl <- alt
+
+  dt <- paste0(sprintf(year, fmt = '%02d'),
+               "/",
+               sprintf(month, fmt = '%02d'),
+               "/hysplit",
+               sprintf(year, fmt = '%02d'),
+               "x",
+               sprintf(month, fmt = '%02d'),
+               "x",
+               sprintf(day, fmt = '%02d'),
+               "x",
+               sprintf(hour, fmt = '%02d'),
+               "x",
+               sprintf(minute, fmt = '%02d'),
+               "x",
+               sprintf(round(lat, 4), fmt = '%7.4f'),
+               lats,
+               "x",
+               # sprintf(round(lon, 4), fmt = '0%7.4f'),
+               formatC(lon, # this approach works whendata is round(x, 4)
+                       digits = 4,
+                       width = 8,
+                       format = "f",
+                       flag = "0"),
+               lons,
+               "x",
+               sprintf(round(agl), fmt = '%05d'),
+               ".nc")
+
+  if(!missing(out)) {
+    data.table::fwrite(x = dt,
+                       x = out,
+                       ...)
+  }
+  return(dt)
+
+}
+
+
+#' @title Formatting data
+#' @family helpers
+#' @name obs_format
+#' @description return data.frame with formatted fields
+#' @param dt `data.table`
+#' @param spf columns to be formatted with `sprintf`
+#' @param spffmt format to be applied to spf
+#' @param rnd columns to be round
+#' @param rndn Round number to be applied to `rnd`
+#' @param spfrnd Logical, sprintf `rnd` columns after being round ?
+#' @param out outfile path used by data.table::fwrite.
+#' @param ... data.table::fwrite arguments.
+#' @note source https://stackoverflow.com/a/47015304/2418532
+#' @export
+#' @examples \dontrun{
+#' # do not run
+#' }
+obs_format <- function(dt,
+                       spf = c("month", "day", "hour",
+                               "minute", "second",
+                               "month_end", "day_end", "hour_end",
+                               "minute_end", "second_end"),
+                       spffmt = "%02d",
+                       rnd = c("latitude", "longitude"),
+                       rndn = 4,
+                       spfrnd = TRUE,
+                       out,
+                       ...){
+
+  for(i in seq_along(spf)) {
+    dt[[spf[i]]] <- sprintf(fmt = spffmt, as.numeric(dt[[spf[i]]]))
+  }
+
+  for(i in seq_along(rnd)) {
+    dt[[rnd[i]]] <- round(dt[[rnd[i]]], rndn)
+  }
+
+  if(spfrnd) {
+    for(i in seq_along(rnd)) {
+      dt[[rnd[i]]] <- sprintf(fmt = "%2.4f", dt[[rnd[i]]])
+    }
+
+  }
+
+  if(!missing(out)) {
+    data.table::fwrite(x = dt,
+                       x = out,
+                       ...)
+  }
+  return(dt)
+
+}

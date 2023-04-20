@@ -1,0 +1,14 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^README.*$
+^example*$
+^.github*$
+^paper.md$
+^paper.bib$
+^.*\figs$
+^docs$
+^paper$
+^rscripts$
+^_pkgdown\.yml$
+^pkgdown$
+^\.github$

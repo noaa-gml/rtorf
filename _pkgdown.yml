@@ -1,0 +1,7 @@
+url: https://ibarraespinosa.github.io/robspack/
+template:
+  bootstrap: 5
+  bootswatch: cyborg
+  theme: arrow-dark
+  bslib:
+    code-bg: "#2b2b2b"
