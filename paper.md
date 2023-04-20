@@ -389,13 +389,8 @@ add local time again.
 ```r
 df4 <- obs_agg(dt = df3,
                gby = "mean",
-               cols = c("value",
-                        "latitude",
-                        "longitude",
-                        "type_altitude",
-                        "dif_time",
-                        "year_end",
-                        "site_utc2lst"),
+               cols = c("value", "latitude", "longitude", "type_altitude",
+                        "dif_time", "year_end", "site_utc2lst"),
                verbose = FALSE,
                byalt = TRUE)
 ```

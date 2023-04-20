@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.3) (preloaded format=xelatex 2022.8.23)  20 APR 2023 14:22
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.3) (preloaded format=xelatex 2022.8.23)  20 APR 2023 15:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1423,7 +1423,7 @@ Package fancyhdr Warning: \headheight is too small (62.59596pt):
 
 [5]
 LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 708.
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 709.
 File: C:/Users/sibarrae/Documents/R/R-4.1.3/library/rticles/rmarkdown/templates
 /joss/resources/JOSS-logo.png Graphic file (type bmp)
 <C:/Users/sibarrae/Documents/R/R-4.1.3/library/rticles/rmarkdown/templates/joss

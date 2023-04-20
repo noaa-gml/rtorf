@@ -403,7 +403,7 @@ df4 <- obs_agg(dt = df3,
 df5 <- obs_addltime(df4)
 ```
 
-Now there are 4394 observations,
+Now there are 4394 observations,  
 3997 less observations.
 Here we add the column `max_altitude` to identify the max altitude
 by site. 
