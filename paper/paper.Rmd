@@ -99,7 +99,6 @@ Table 1. Functions and classes in `robspack`.
 | `invfile`             | Class with `print`, `summary` and `plot` methods  |
 | `obs_addltime()`      | Add local time based on metadata and longitude    |
 | `obs_addtime()`       | Add UTC time                                      |
-| `obs_addzero()`       | Format numbers to match specific requirements     |
 | `obs_agg()`           | Aggregates ObsPack by time                        |
 | `obs_find_receptors()`| Find expected receptors and NetCDF files          |
 | `obs_format()`        | Format for some columns of data.table             |

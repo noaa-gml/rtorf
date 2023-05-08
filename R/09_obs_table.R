@@ -35,18 +35,18 @@
 #' dx <- obs_table(index, categories = "aircraft-flask")
 #' }
 obs_table <- function(index,
-                     categories = "tower-insitu",
-                     verbose = TRUE,
-                     n_site_code = 15,
-                     n_site_name = 15,
-                     n_site_country = 18,
-                     n_dataset_project = 21,
-                     n_lab = 16,
-                     n_scales = 31,
-                     n_site_elevation = 20,
-                     n_altitude_comment = 22,
-                     n_utc = 18,
-                     fill_value = -1e+34){
+                      categories = "tower-insitu",
+                      verbose = TRUE,
+                      n_site_code = 15,
+                      n_site_name = 15,
+                      n_site_country = 18,
+                      n_dataset_project = 21,
+                      n_lab = 16,
+                      n_scales = 31,
+                      n_site_elevation = 20,
+                      n_altitude_comment = 22,
+                      n_utc = 18,
+                      fill_value = -1e+34){
 
 
   # categories = "tower-insitu"
@@ -262,9 +262,11 @@ obs_table <- function(index,
                                "not available",
                                dt$type_altitude)
     dt$id <- i
-.SD <- . <- name <- altitude_final <- NULL
+    .SD <- . <- name <- altitude_final <- NULL
+
     if(length(grep("aircraft", categories)) > 0) {
-      dt[, lapply(.SD, summary, na.rm = TRUE),
+      dt[,
+         lapply(.SD, summary, na.rm = TRUE),
          by = .(name,
                 sector,
                 site_name,
@@ -351,11 +353,11 @@ obs_table <- function(index,
 
   type_altitude <- NULL
   .N <- NULL
-    dt <- data.table::rbindlist(lx, use.names = T)
-    # if(verbose) cat("Adding id\n")
-    # dt$id <- 1:nrow(dt)
-    # print(dt[, .N, by = type_altitude])
-    return(dt)
+  dt <- data.table::rbindlist(lx, use.names = T)
+  # if(verbose) cat("Adding id\n")
+  # dt$id <- 1:nrow(dt)
+  # print(dt[, .N, by = type_altitude])
+  return(dt)
 
 
 }
