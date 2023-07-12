@@ -7,7 +7,7 @@
 obs_table(
   index,
   categories = "tower-insitu",
-  verbose = TRUE,
+  verbose = FALSE,
   n_site_code = 15,
   n_site_name = 15,
   n_site_country = 18,

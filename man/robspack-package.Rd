@@ -4,9 +4,9 @@
 \name{robspack-package}
 \alias{robspack}
 \alias{robspack-package}
-\title{robspack: 'robspack' Obspack GLOBALView Filter}
+\title{robspack: 'robspack' CH4 Obspack GLOBALView+}
 \description{
-Reads the OBspack GLOBALView data from NOAA and perform different filters and analyses.
+Reads, process, and plots the CH4 ObsPack GLOBALView+ data from NOAA and perform different filters and analyses.
 }
 \seealso{
 Useful links:

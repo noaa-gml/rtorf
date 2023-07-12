@@ -260,7 +260,7 @@ hela <- c(dfaircraft$footprints_hera_hysplit,
 
 
 fwrite(x = as.data.table(hela),
-       file = "invfiles/footprints_hera_hysplit.txt",
+       file = "receptors/footprints_hera_hysplit.txt",
        quote = FALSE,
        row.names = FALSE,
        col.names = FALSE,
@@ -274,7 +274,7 @@ obsh <- c(dfaircraft$obs_hysplit,
 
 
 fwrite(x = as.data.table(obsh),
-       file = "invfiles/obs_hysplit.txt",
+       file = "receptors/obs_hysplit.txt",
        quote = FALSE,
        row.names = FALSE,
        col.names = FALSE,
@@ -289,7 +289,7 @@ reih <- rbind(dfaircraft$receptor_info_hysplit,
 
 
 fwrite(x = reih,
-       file = "invfiles/receptor_info_hysplit.txt",
+       file = "receptors/receptor_info_hysplit.txt",
        quote = FALSE,
        sep = "\t",
        row.names = FALSE,
@@ -301,7 +301,7 @@ reihnos <- reih
 reihnos$Scale <- NULL
 
 fwrite(x = reihnos,
-       file = "invfiles/receptor_info_hysplit_noscale.txt",
+       file = "receptors/receptor_info_hysplit_noscale.txt",
        quote = FALSE,
        sep = "\t",
        row.names = FALSE,

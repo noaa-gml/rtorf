@@ -11,6 +11,7 @@
 #' @param lnchar Integer; last nchar, default = 11.
 #' @param out Path to the ObsPack index output
 #' @param verbose Logical to show more information
+#' @param aslist Logical to return list of index and summary
 #' @return A data.frame with with an index of the obspack Globalview.
 #' @importFrom data.table fwrite ".N" ":=" setDT data.table
 #' @export
@@ -32,7 +33,8 @@ obs_summary <- function(obs,
                                        "flask"),
                         lnchar = 11,
                         out = paste0(tempfile(), "_index.csv"),
-                        verbose = TRUE){
+                        verbose = TRUE,
+                        aslist = FALSE){
 
 
   x <- list.files(obs,
@@ -52,11 +54,13 @@ obs_summary <- function(obs,
   }
 
 
-  cat(paste0("Number of files of index: ", nrow(index), "\n"))
+  if(verbose) cat(paste0("Number of files of index: ", nrow(index), "\n"))
   xx <- index[, .N, by = sector]
   dx <- data.table::data.table(sector = c("Total sectors"),
                                N = sum(xx$N))
-  print(rbind(xx, dx))
+
+  lx1 <- rbind(xx, dx)
+  if(verbose) print(lx1)
 
 
   # function to extract last n characters
@@ -94,5 +98,11 @@ obs_summary <- function(obs,
     cat(paste0("Detected ", sum(nai, na.rm = T), " files without agl\n"))
   }
 
-  return(index)
+  if(aslist) {
+    return(list(summary = lx1,
+                files = index))
+
+  } else {
+    return(index)
+  }
 }

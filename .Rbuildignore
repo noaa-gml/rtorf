@@ -8,6 +8,7 @@
 ^.*\figs$
 ^docs$
 ^paper$
+^paper_elsevier$
 ^rscripts$
 ^_pkgdown\.yml$
 ^pkgdown$

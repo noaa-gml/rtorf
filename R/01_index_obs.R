@@ -58,7 +58,7 @@ obs_index <- function(obs,
   xx <- index[, .N, by = sector]
   dx <- data.table::data.table(sector = c("Total sectors"),
                                N = sum(xx$N))
-  print(rbind(xx, dx))
+  if(verbose) print(rbind(xx, dx))
 
 
   # function to extract last n characters

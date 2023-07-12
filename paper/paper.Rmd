@@ -196,6 +196,7 @@ sector, site, altitude and mode. For instance,
 the observations in the site "SCT" in
 South Carolina, USA, were between "2015-08-19 21:30:00 UTC" and
 "2020-12-31 23:30:00 UTC".
+
 ```{r}
 dft <- obs_table(index = index,
                  categories = "tower-insitu",
@@ -456,6 +457,8 @@ if(nrow(receptor_asl) > 0) {
   sep = " ")}
 
 ```
+
+
 ## Recommendation for other applications
 The approach to generate receptors depends on each type of 
 observation and other considerations. For instance, aircraft with 

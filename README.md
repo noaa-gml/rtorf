@@ -123,8 +123,11 @@ obs_plot(dt = df, time = "time", yfactor = 1e+09, cex = 0.5)
     ## Plotting the following sites: 
     ## [1] AZV BRZ
 
-![First two sites in
-ObsPack](README_files/figure-gfm/unnamed-chunk-6-1.png)
+<figure>
+<img src="README_files/figure-gfm/unnamed-chunk-6-1.png"
+alt="First two sites in ObsPack" />
+<figcaption aria-hidden="true">First two sites in ObsPack</figcaption>
+</figure>
 
 Here we can see 2.32 million observations for `tower-insitu`. These
 observations are made between 2004 and 2020. The identification of the

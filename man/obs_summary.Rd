@@ -20,7 +20,8 @@ obs_summary(
     "aircore", "surface-pfp", "shipboard-insitu", "flask"),
   lnchar = 11,
   out = paste0(tempfile(), "_index.csv"),
-  verbose = TRUE
+  verbose = TRUE,
+  aslist = FALSE
 )
 }
 \arguments{
@@ -36,6 +37,8 @@ this function identifies which files has these words and add them as columns.}
 \item{out}{Path to the ObsPack index output}
 
 \item{verbose}{Logical to show more information}
+
+\item{aslist}{Logical to return list of index and summary}
 }
 \value{
 A data.frame with with an index of the obspack Globalview.
