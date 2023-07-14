@@ -121,9 +121,9 @@ the global methane budget for the year 2017 was 596 $Tgy^{-1}$,
 in agreement with other studies
 [@saunois2020global;@saunois2016global]
 @lu2021global, characterized global methane emissions in 
-between 2014 and 2017, including a comparison with Greenhouse gases Observing 
-SATellite (GOSAT) data. 
-@saunois2016global 
+between 2014 and 2017, including a comparison with Greenhouse gases 
+Observing SATellite (GOSAT) data. 
+@saunois2016global.
 At regional scale, @lu2022methane performed another studied focused
 on north america using as priors local emissions inventories. 
 Furthermore, @hu2023trend presented trends and cycles of methane over the 
@@ -132,10 +132,8 @@ US.
 The NOAA ObsPack data is delivered to the public as NetCDF and 
 text files. The structure of the files including descriptor fields
 depend on the type of file. For instance, the metadata
-from aircrfats is different than surface stations, but all the files
+from aircrafts is different than surface stations, but all the files
 include concentrations and other critical fields. 
-An important information is the scale of measurement, which isXX.
-Cite Importance of scale and what is WMOX2014.
 Given the complexity of ObsPack format, reading and analyzing the data
 can be cumbersome.
 The `robspack` package provides the 
@@ -144,11 +142,10 @@ process ObsPack products for GHG modeling and analyses.
 
 In this manuscript we present `robspack`, an R package to read,
 process and plot NOAA ObsPack data. For this release, we are 
-focued on the $CH_4$ ObsPack GLOBALVIEW+ product.
-The general process 
-consists in create a 
+focused on the $CH_4$ ObsPack GLOBALVIEW+ product.
+The general process consists in creating a 
 summary of the ObsPack files, reading them in an iteration process, 
-filter and generating another output and plots.
+filtering, and generating another output and plots.
 
 <!-- 4. Objective -->
 
