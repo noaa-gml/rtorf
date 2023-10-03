@@ -230,12 +230,24 @@ library(data.table)
 categories <- c("aircraft-pfp","aircraft-insitu","surface-insitu",
   "aircore","surface-pfp","tower-insitu","shipboard-insitu","flask")
 obs <- "../../../obspack_ch4_1_GLOBALVIEWplus_v4.0_2021-10-14/data/txt"
-index <- obs_summary(obs = obs, verbose = F)
+index <- obs_summary(obs = obs, 
+                     categories = c("aircraft",
+                                    "surface",
+                                    "aircore",
+                                    "shipboard",
+                                    "tower"),
+                     verbose = T)
 ```
 
 
 ```{r kable, echo = FALSE}
-ta <- obs_summary(obs = obs, verbose = F, aslist = TRUE)$summary
+ta <- obs_summary(obs = obs, 
+                  categories =  c("aircraft",
+                                    "surface",
+                                    "aircore",
+                                    "shipboard",
+                                    "tower"),
+                  verbose = F, aslist = TRUE)$summary
 knitr::kable(ta, format = "latex", caption = "Summary of ObsPack")
 ```
 
@@ -258,7 +270,7 @@ towers are found in the south to east coast.
 ```{r sf, echo = FALSE, message=FALSE}
 library(sf)
 library(ggplot2)
-dft <- obs_table(index =  index, categories = "tower-insitu")
+dft <- obs_table(index =  index, categories = "tower")
 dft <- dft[stat == "mean"]
 sdft <- st_as_sf(dft, coords = c("longitude", "latitude"), crs = 4326)
 sdft$value <- sdft$value*1e09

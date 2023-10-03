@@ -2,6 +2,11 @@ NEWS
 ===========
 
 
+### robspack 0.8.0 (Release date: 2023-09-13)
+
+- Adding support for NetCDF.
+- obs_index detect file extension
+
 ### robspack 0.7.0 (Release date: 2023-04-18)
 
 - rename package to `robspack`

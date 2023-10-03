@@ -45,7 +45,7 @@ data.table::fread(f)
 }
 \seealso{
 Other helpers: 
-\code{\link{obs_addltime}()},
+\code{\link{fex}()},
 \code{\link{obs_footname}()},
 \code{\link{obs_format}()},
 \code{\link{obs_freq}()},
@@ -55,6 +55,7 @@ Other helpers:
 \code{\link{obs_read_csvy}()},
 \code{\link{obs_roundtime}()},
 \code{\link{obs_trunc}()},
-\code{\link{robspack-deprecated}}
+\code{\link{robspack-deprecated}},
+\code{\link{sr}()}
 }
 \concept{helpers}

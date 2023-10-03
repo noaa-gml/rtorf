@@ -1,7 +1,7 @@
 Package: robspack
 Type: Package
 Title: 'robspack' CH4 Obspack GLOBALView+
-Version: 0.7.0
+Version: 0.8.0
 Authors@R: c( 
   person(given = "Sergio", family = "Ibarra-Espinosa",
          role = c("aut", "cre"),
@@ -13,7 +13,7 @@ Authors@R: c(
          comment = c(ORCID = "0000-0002-5624-3832"))) 
 Description: Reads, process, and plots the CH4 ObsPack GLOBALView+ data from NOAA and perform different filters and analyses. 
 Depends: R (>= 2.10)
-Imports: data.table, utils, lubridate, R.utils, cptcity, graphics
+Imports: data.table, utils, lubridate, cptcity, graphics, ncdf4
 License: MIT + file LICENSE
 URL: https://github.com/ibarraespinosa/robspack,
     https://ibarraespinosa.github.io/robspack/

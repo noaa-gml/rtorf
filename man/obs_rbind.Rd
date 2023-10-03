@@ -26,7 +26,7 @@ return rbind obs data.tables
 }
 \seealso{
 Other helpers: 
-\code{\link{obs_addltime}()},
+\code{\link{fex}()},
 \code{\link{obs_footname}()},
 \code{\link{obs_format}()},
 \code{\link{obs_freq}()},
@@ -36,6 +36,7 @@ Other helpers:
 \code{\link{obs_roundtime}()},
 \code{\link{obs_trunc}()},
 \code{\link{obs_write_csvy}()},
-\code{\link{robspack-deprecated}}
+\code{\link{robspack-deprecated}},
+\code{\link{sr}()}
 }
 \concept{helpers}

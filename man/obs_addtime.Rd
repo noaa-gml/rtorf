@@ -34,3 +34,8 @@ dt <- obs_read(index)
 dt <- obs_addtime(dt)
 }
 }
+\seealso{
+Other time: 
+\code{\link{obs_addltime}()}
+}
+\concept{time}

@@ -1,10 +1,10 @@
-#' Add times into obspack
+#' @title Add times into obspack
 #'
+#' @description
 #' This function add timeUTC as POSIX class,
 #' local time and ending sampling time
 #'
-#'
-#'
+#' @family time
 #' @param dt obspack data.table
 #' @param verbose obspack data.table
 #' @return A data.frame with with an index obspack.
@@ -48,7 +48,7 @@ obs_addtime <- function(dt,
   time_interval <- NULL
   timeUTC_start <- NULL
   if(any("time_interval" == names(dt))) {
-    dt[, timeUTC_end := fifelse(
+    dt[, timeUTC_end := data.table::fifelse(
       is.na(time_interval),
       timeUTC_start + (midpoint_time - start_time)*2,
       timeUTC_start + time_interval
@@ -82,5 +82,49 @@ obs_addtime <- function(dt,
   # 0,
   # dt$new_second)
 
+  return(dt)
+}
+
+
+
+#' @title local hour (bsed on longitude and time)
+#' @family time
+#' @name obs_addltime
+#' @description Calculate an approximation of local hour
+#' @param dt data.table
+#' @param timeUTC Character indicating the Time column as POSIXct
+#' @param utc2lt Character indicating the integer column to convert to local time
+#' if available
+#' @param longitude Character indicating the column with the lingitude
+#' @importFrom data.table hour
+#' @return data.table with local time columns
+#' @note time depending n longitude is by John Miller (GML/NOAA)
+#' @export
+#' @examples {
+#' \dontrun{
+#' # Do not run
+#' }
+#' }
+obs_addltime <- function(dt,
+                         timeUTC = "timeUTC",
+                         utc2lt = "site_utc2lst",
+                         longitude = "longitude") {
+
+  # Priority site_utc2lst and if it is not available,
+  dt$local_time <- dt[[timeUTC]] + as.numeric(dt[[utc2lt]])*60*60
+
+
+  dt$local_time <- ifelse(
+    is.na(dt$local_time),
+    dt[[timeUTC]] + dt[[longitude]]/15*60*60, #john miller approach
+    dt$local_time)
+
+  if(inherits(dt$local_time, "numeric")) {
+    dt$local_time <- as.POSIXct(dt$local_time,
+                                origin = "1970-01-01",
+                                tz = "UTC")
+  }
+
+  dt$lh <- data.table::hour(dt$local_time)
   return(dt)
 }

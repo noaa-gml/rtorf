@@ -46,7 +46,7 @@ source https://stackoverflow.com/a/47015304/2418532
 }
 \seealso{
 Other helpers: 
-\code{\link{obs_addltime}()},
+\code{\link{fex}()},
 \code{\link{obs_footname}()},
 \code{\link{obs_freq}()},
 \code{\link{obs_list.dt}()},
@@ -56,6 +56,7 @@ Other helpers:
 \code{\link{obs_roundtime}()},
 \code{\link{obs_trunc}()},
 \code{\link{obs_write_csvy}()},
-\code{\link{robspack-deprecated}}
+\code{\link{robspack-deprecated}},
+\code{\link{sr}()}
 }
 \concept{helpers}

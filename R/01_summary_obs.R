@@ -1,8 +1,10 @@
-#' Summary of the ObsPack files
+#' @title Summary of the ObsPack files (.txt)
 #'
+#' @description
 #' This function returns a data.frame index of all files
 #' available in ObsPack.
 #'
+#' @family obs_summary
 #' @param obs Path to the Obspack GLOBALview txt data
 #' @param categories character; default are c("aircraft-pfp", "aircraft-insitu",
 #' "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
@@ -36,7 +38,6 @@ obs_summary <- function(obs,
                         verbose = TRUE,
                         aslist = FALSE){
 
-
   x <- list.files(obs,
                   full.names = T)
 
@@ -54,35 +55,35 @@ obs_summary <- function(obs,
   }
 
 
-  if(verbose) cat(paste0("Number of files of index: ", nrow(index), "\n"))
+  cat(paste0("Number of files of index: ", nrow(index), "\n"))
   xx <- index[, .N, by = sector]
   dx <- data.table::data.table(sector = c("Total sectors"),
                                N = sum(xx$N))
-
-  lx1 <- rbind(xx, dx)
-  if(verbose) print(lx1)
+  if(verbose) print(rbind(xx, dx))
 
 
-  # function to extract last n characters
-  sr <- function(x, n){
-    substr(x, nchar(x)-n+1, nchar(x))
-  }
+  # detecting file extension
+  # using tools::file_ext function instead of import
+  fiex <- fex(index$id[1])
 
-  # add the last 11 characters of each name file'
-  agl <- NULL
-  id <- NULL
-  index[grepl(pattern = "magl", x = x),
-        agl := sr(id, 11)]
+  idfiex <- ifelse(fiex == "nc", 10, 11)
+    # add the last 11 characters of each name file'
+    agl <- NULL
+    id <- NULL
+    index[grepl(pattern = "magl", x = x),
+          agl := sr(id, idfiex)]
 
-  # This line replaces removes the characters magl.txt
-  # for instance, remove "magl.txt" from -11magl.txt
-  index$agl <- gsub("magl.txt", "", index$agl)
+    # This line replaces removes the characters magl.txt
+    # for instance, remove "magl.txt" from -11magl.txt
+    index$agl <- gsub(paste0("magl.", fiex), "", index$agl)
+    # assuming d-{number}magl.txt
+    index$agl <- gsub("d", "", index$agl)
 
-  # check
-  index
-  # Now we transform the column
-  # then get the absolute number and now we have magl
-  index$agl <- suppressWarnings(abs(as.numeric(index$agl)))
+    # check
+    index
+    # Now we transform the column
+    # then get the absolute number and now we have magl
+    index$agl <- suppressWarnings(abs(as.numeric(index$agl)))
 
   if(!missing(out)) {
     data.table::fwrite(index, out)
@@ -90,7 +91,8 @@ obs_summary <- function(obs,
     if(verbose) cat("index in: ", out, "\n")
 
   }
-
+  # identifying agl when reading the data instead of name file
+  # 2023/09/13
   if(verbose) {
     yai <- !is.na(index$agl)
     nai <- is.na(index$agl)
@@ -98,11 +100,5 @@ obs_summary <- function(obs,
     cat(paste0("Detected ", sum(nai, na.rm = T), " files without agl\n"))
   }
 
-  if(aslist) {
-    return(list(summary = lx1,
-                files = index))
-
-  } else {
-    return(index)
-  }
+  return(index)
 }

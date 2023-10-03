@@ -60,51 +60,6 @@ obs_list.dt <- function(ldf, na, verbose = TRUE) {
 }
 
 
-#' @title Number to character
-#' @family helpers
-#' @description transform integer to character and add zero at left
-#' @param x integer
-#' @param char Character to be added ad the beginning of x
-#' @return transform integer in character
-#' @name robspack-deprecated
-#' @seealso \code{\link{robspack-deprecated}}
-#' @keywords internal
-NULL
-# obs_addzero <- function(x, char) {
-#
-#   # if(!inherits(x, "integer")) stop("x must be integer")
-#
-#   dd <- as.character(x)
-#   nch <- nchar(dd)
-#   nchmax <- max(nchar(dd))
-#
-#   difch <- nchmax - nch
-#
-#   if(length(unique(nch)) == 1 ) {
-#     if (unique(nch) == 1) {
-#       message("Character has same length. Adding one zero.")
-#       y <- paste0("0", x)
-#     } else {
-#       y <- x
-#     }
-#
-#   } else {
-#     unlist(lapply(seq_along(difch), function(i) {
-#       paste(rep("0", difch[i]), collapse = "")
-#     })) -> zero
-#
-#     y <- paste0(zero, x)
-#
-#   }
-#
-#
-#   if(!missing(char)) {
-#     y <- paste0(char, y)
-#   }
-#
-#   return(y)
-# }
-
 
 #' @title return numeric vector in intervals
 #' @family helpers
@@ -204,50 +159,6 @@ obs_rbind <- function(dt1,
   dx <- rbind(dt1, dt2, use.names = TRUE)
 
   return(dx)
-}
-
-
-#' @title local hour (bsed on longitude and time)
-#' @family helpers
-#' @name obs_addltime
-#' @description Calculate an approximation of local hour
-#' @param dt data.table
-#' @param timeUTC Character indicating the Time column as POSIXct
-#' @param utc2lt Character indicating the integer column to convert to local time
-#' if available
-#' @param longitude Character indicating the column with the lingitude
-#' @importFrom data.table hour
-#' @return data.table with local time columns
-#' @note time depending n longitude is by John Miller (GML/NOAA)
-#' @export
-#' @examples {
-#' \dontrun{
-#' # Do not run
-#' }
-#' }
-obs_addltime <- function(dt,
-                         timeUTC = "timeUTC",
-                         utc2lt = "site_utc2lst",
-                         longitude = "longitude") {
-
-  # Priority site_utc2lst and if it is not available,
-  dt$local_time <- dt[[timeUTC]] + as.numeric(dt[[utc2lt]])*60*60
-
-
-  dt$local_time <- ifelse(
-    is.na(dt$local_time),
-    dt[[timeUTC]] + dt[[longitude]]/15*60*60, #john miller approach
-    dt$local_time)
-
-
-  if(inherits(dt$local_time, "numeric")) {
-    dt$local_time <- as.POSIXct(dt$local_time,
-                                origin = "1970-01-01",
-                                tz = "UTC")
-  }
-
-  dt$lh <- data.table::hour(dt$local_time)
-  return(dt)
 }
 
 #' @title Generates YAML and write data.frame
@@ -523,3 +434,35 @@ obs_format <- function(dt,
   return(dt)
 
 }
+
+#' @title File extension
+#' @family helpers
+#' @name fex
+#' @description file extension
+#' @param x character vector giving file paths.
+#' @note source tools::file_ext
+#' @export
+#' @seealso \code{tools::file_ext()}
+#' @examples \dontrun{
+#' # do not run
+#' }
+fex <- function (x) {
+  pos <- regexpr("\\.([[:alnum:]]+)$", x)
+  ifelse(pos > -1L, substring(x, pos + 1L), "")
+}
+
+
+#' @title Extacts n last characters
+#' @family helpers
+#' @name sr
+#' @description file extension
+#' @param x a character vector.
+#' @param n integer.
+#' @export
+#' @examples \dontrun{
+#' # do not run
+#' }
+sr <- function(x, n){
+  substr(x, nchar(x)-n+1, nchar(x))
+}
+
