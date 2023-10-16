@@ -14,6 +14,8 @@
 #' "flask").
 #' @param verbose Logical to show more information
 #' @param n_site_code number of characters extraced from metadata after search
+#' @param n_site_lat number of characters for latitude
+#' @param n_site_lon number of characters for longitude
 #' @param n_site_name number of characters extraced from metadata after search
 #' @param n_site_country number of characters extraced from metadata after search
 #' @param n_dataset_project number of characters extraced from metadata after search
@@ -38,6 +40,8 @@ obs_table <- function(index,
                       categories = "tower-insitu",
                       verbose = FALSE,
                       n_site_code = 15,
+                      n_site_lat = 18,
+                      n_site_lon = 19,
                       n_site_name = 15,
                       n_site_country = 18,
                       n_dataset_project = 21,
@@ -113,6 +117,31 @@ obs_table <- function(index,
     site_country <- substr(x = pattern,
                            start = n_site_country,
                            stop = nchar(pattern))
+
+    # site_latitude ####
+    pattern <- grep(pattern = "site_latitude",
+                    x = att,
+                    value = T)[1]
+
+    # everything after char 18
+    (site_latitude <- substr(x = pattern,
+                             start = n_site_lat,
+                             stop = nchar(pattern)))
+
+
+
+
+    # site_longitude ####
+    pattern <- grep(pattern = "site_longitude",
+                    x = att,
+                    value = T)[1]
+
+    # everything after char 18
+    (site_longitude <- substr(x = pattern,
+                              start = 19,
+                              stop = nchar(pattern)))
+
+
 
     # dataset_project ####
     pattern <- grep(pattern = "dataset_project",
@@ -228,6 +257,8 @@ obs_table <- function(index,
     dt$site_code <- site_code
     dt$site_name <- site_name
     dt$site_country <- site_country
+    dt$site_latitude <- site_latitude
+    dt$site_longitude <- site_longitude
     dt$site_elevation <- site_elevation
     dt$dataset_project <- dataset_project
     dt$lab_1_abbr <- lab_1_abbr

@@ -67,23 +67,23 @@ obs_summary <- function(obs,
   fiex <- fex(index$id[1])
 
   idfiex <- ifelse(fiex == "nc", 10, 11)
-    # add the last 11 characters of each name file'
-    agl <- NULL
-    id <- NULL
-    index[grepl(pattern = "magl", x = x),
-          agl := sr(id, idfiex)]
+  # add the last 11 characters of each name file'
+  agl <- NULL
+  id <- NULL
+  index[grepl(pattern = "magl", x = x),
+        agl := sr(id, idfiex)]
 
-    # This line replaces removes the characters magl.txt
-    # for instance, remove "magl.txt" from -11magl.txt
-    index$agl <- gsub(paste0("magl.", fiex), "", index$agl)
-    # assuming d-{number}magl.txt
-    index$agl <- gsub("d", "", index$agl)
+  # This line replaces removes the characters magl.txt
+  # for instance, remove "magl.txt" from -11magl.txt
+  index$agl <- gsub(paste0("magl.", fiex), "", index$agl)
+  # assuming d-{number}magl.txt
+  index$agl <- gsub("d", "", index$agl)
 
-    # check
-    index
-    # Now we transform the column
-    # then get the absolute number and now we have magl
-    index$agl <- suppressWarnings(abs(as.numeric(index$agl)))
+  # check
+  index
+  # Now we transform the column
+  # then get the absolute number and now we have magl
+  index$agl <- suppressWarnings(abs(as.numeric(index$agl)))
 
   if(!missing(out)) {
     data.table::fwrite(index, out)

@@ -79,7 +79,7 @@ obs_plot <- function(dt,
   lx <- split(dt, dt[[colu]])
 
   colores <- cptcity::cpt(pal,
-                          n = length(lx), alpha = 0.5)
+                          n = length(lx))
 
   par(mar = c(5, 4, 1.4, 0.2))
 

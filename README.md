@@ -66,8 +66,8 @@ index <- obs_summary(obs = obs)
     ## 7:     tower-insitu  51
     ## 8: shipboard-insitu   1
     ## 9:    Total sectors 362
-    ## Detected 136 files with agl
-    ## Detected 226 files without agl
+    ## Detected 147 files with agl
+    ## Detected 215 files without agl
 
 There are 362 files in the ObsPack directory. The printed information
 also shows the total at the bottom, as the sum of the individual file by
@@ -262,18 +262,18 @@ df5[,
 ```
 
     ##     site_code altitude_final max_altitude
-    ##  1:       CRV           17.0           32
-    ##  2:       CRV           32.0           32
-    ##  3:       CRV            4.9           32
-    ##  4:       LEF          122.0          396
-    ##  5:       LEF           30.0          396
-    ##  6:       LEF          396.0          396
-    ##  7:       SCT          305.0          305
-    ##  8:       SCT           31.0          305
-    ##  9:       SCT           61.0          305
-    ## 10:       WGC           30.0          483
-    ## 11:       WGC          483.0          483
-    ## 12:       WGC           91.0          483
+    ##  1:       CRV             17           32
+    ##  2:       CRV             32           32
+    ##  3:       CRV              5           32
+    ##  4:       LEF            122          396
+    ##  5:       LEF             30          396
+    ##  6:       LEF            396          396
+    ##  7:       SCT            305          305
+    ##  8:       SCT             31          305
+    ##  9:       SCT             61          305
+    ## 10:       WGC             30          483
+    ## 11:       WGC            483          483
+    ## 12:       WGC             91          483
 
 ### Saving master as text and csvy
 

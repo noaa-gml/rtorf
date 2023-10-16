@@ -9,6 +9,8 @@ obs_table(
   categories = "tower-insitu",
   verbose = FALSE,
   n_site_code = 15,
+  n_site_lat = 18,
+  n_site_lon = 19,
   n_site_name = 15,
   n_site_country = 18,
   n_dataset_project = 21,
@@ -31,6 +33,10 @@ obs_table(
 \item{verbose}{Logical to show more information}
 
 \item{n_site_code}{number of characters extraced from metadata after search}
+
+\item{n_site_lat}{number of characters for latitude}
+
+\item{n_site_lon}{number of characters for longitude}
 
 \item{n_site_name}{number of characters extraced from metadata after search}
 

@@ -4,22 +4,7 @@
 \alias{obs_read_nc}
 \title{Read obspack (.nc)}
 \usage{
-obs_read_nc(
-  index,
-  categories = "flask",
-  verbose = TRUE,
-  n_site_code = 15,
-  n_site_name = 15,
-  n_site_country = 18,
-  n_dataset_project = 21,
-  n_lab = 16,
-  n_scales = 31,
-  n_site_elevation = 20,
-  n_altitude_comment = 22,
-  n_utc = 18,
-  fill_value = -1e+34,
-  as_list = FALSE
-)
+obs_read_nc(index, categories = "flask", as_list = FALSE, verbose = FALSE)
 }
 \arguments{
 \item{index}{data.table}
@@ -29,29 +14,9 @@ obs_read_nc(
 "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
 "flask").}
 
-\item{verbose}{Logical to show more information}
-
-\item{n_site_code}{number of characters extraced from metadata after search}
-
-\item{n_site_name}{number of characters extraced from metadata after search}
-
-\item{n_site_country}{number of characters extraced from metadata after search}
-
-\item{n_dataset_project}{number of characters extraced from metadata after search}
-
-\item{n_lab}{number of characters extraced from metadata after search}
-
-\item{n_scales}{number of characters extraced from metadata after search}
-
-\item{n_site_elevation}{number of characters extraced from metadata after search}
-
-\item{n_altitude_comment}{number of characters extraced from metadata after search}
-
-\item{n_utc}{number of characters extraced from metadata after search}
-
-\item{fill_value}{fill value. Appeared in aoa_aircraft-flask_19_allvalid.txt}
-
 \item{as_list}{Logical to return as list}
+
+\item{verbose}{Logical to show more information}
 }
 \value{
 A data.frame with with an index obspack.
@@ -61,27 +26,6 @@ Each obspack file has a header with metadata and this
 function reads selected fields from the metadata and add
 them as columns. This new columns are used later to
 be filtered
-}
-\note{
-The identification of the altitude and type is critical.
-The approach used here consists of:
-1. Identify agl from the name of the tile.
-2. If magl not present, search dill_values used in elevation and
-transform them into NA (not available)
-3. If magl is not present, agl = altitude - elevation
-4. If there are some NA in elevation, will result some NA in agl
-5. A new column is added named `altitude_final` to store agl or asl
-6. Another column named `type_altitude` is added to identify "magl" or "masl"
-7. If there is any case NA in `altitude_final`,
-`type_altitude` is "not available"
-
-Then, the relationship with hysplit is:
-\tabular{ccc}{
-  type_altitude \tab hysplit  \cr
-  magl          \tab agl      \cr
-  masl          \tab asl      \cr
-  not available \tab f-PBL    \cr
-}
 }
 \examples{
 {
