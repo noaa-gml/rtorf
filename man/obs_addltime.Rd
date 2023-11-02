@@ -39,6 +39,7 @@ time depending n longitude is by John Miller (GML/NOAA)
 }
 \seealso{
 Other time: 
+\code{\link{obs_addstime}()},
 \code{\link{obs_addtime}()}
 }
 \concept{time}

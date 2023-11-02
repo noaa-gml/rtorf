@@ -134,3 +134,42 @@ obs_addltime <- function(dt,
   dt$lh <- data.table::hour(dt$local_time)
   return(dt)
 }
+
+#' @title Add solar time into obspack
+#'
+#' @description
+#' This function add timeUTC as POSIX class,
+#' local time and ending sampling time
+#'
+#' @family time
+#' @param dt obspack data.table
+#' @param verbose obspack data.table
+#' @return return the same data.frame adding solar time
+#' @importFrom data.table setDT
+#'
+#' @export
+#' @examples {
+#' # Do not run
+#' obs <- system.file("data-raw", package = "robspack")
+#' index <-  obs_summary(obs)
+#' dt <- obs_read(index)
+#' dt <- obs_addtime(dt)
+#' }
+obs_addstime <- function(dt,
+                        verbose = TRUE){
+
+  if(!inherits(dt, "data.table")) data.table::setDT(dt)
+
+  if(verbose) cat("Adding Solar Time in column timeUTCsl\n")
+  # Time is already UTC
+  dt$timeUTC_sl <- ISOdatetime(dt$year_sl,
+                               dt$month_sl,
+                               dt$day_sl,
+                               dt$hour_sl,
+                               dt$minute_sl,
+                               dt$second_sl)
+
+  return(dt)
+}
+
+
