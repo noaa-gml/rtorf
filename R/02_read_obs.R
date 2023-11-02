@@ -316,6 +316,7 @@ obs_read <- function(index,
 #' : of c("aircraft-pfp", "aircraft-insitu",
 #' "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
 #' "flask").
+#' @param solar_time Logical, add solar time?
 #' @param as_list Logical to return as list
 #' @param verbose Logical to show more information
 #' @return A data.frame with with an index obspack.
@@ -330,9 +331,9 @@ obs_read <- function(index,
 #' }
 obs_read_nc <- function(index,
                         categories = "flask",
+                        solar_time = FALSE,
                         as_list = FALSE,
-                        verbose = FALSE
-){
+                        verbose = FALSE){
 
   if(nrow(index) == 0) stop("empty index")
 
@@ -384,11 +385,14 @@ obs_read_nc <- function(index,
     dt <- as.data.table(t(x2))
     names(dt) <- c("year", "month", "day", "hour", "minute", "second")
 
-    st <- ncdf4::ncvar_get(nc = nc,
-                           varid = "solartime_components")
+    if(solar_time) {
+      st <- ncdf4::ncvar_get(nc = nc,
+                             varid = "solartime_components")
 
-    dtst <- as.data.table(t(st))
-    names(dtst) <- paste0(names(dt), "_st")
+      dtst <- as.data.table(t(st))
+      names(dtst) <- paste0(names(dt), "_st")
+
+    }
 
     xx <- d[dim == 1]
 
@@ -396,10 +400,12 @@ obs_read_nc <- function(index,
       dt[[xx$names[i]]] <- lv[[xx$names[i]]]
     }
 
-    for(i in 1:ncol(dtst)) {
-      dt[[names(dtst)[i]]] <- dtst[[names(dtst)[i]]]
-    }
+    if(solar_time) {
+      for(i in 1:ncol(dtst)) {
+        dt[[names(dtst)[i]]] <- dtst[[names(dtst)[i]]]
+      }
 
+    }
 
     dt$scale <- la$value[["scale_comment"]]
 

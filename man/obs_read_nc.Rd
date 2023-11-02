@@ -4,7 +4,13 @@
 \alias{obs_read_nc}
 \title{Read obspack (.nc)}
 \usage{
-obs_read_nc(index, categories = "flask", as_list = FALSE, verbose = FALSE)
+obs_read_nc(
+  index,
+  categories = "flask",
+  solar_time = FALSE,
+  as_list = FALSE,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{index}{data.table}
@@ -13,6 +19,8 @@ obs_read_nc(index, categories = "flask", as_list = FALSE, verbose = FALSE)
 : of c("aircraft-pfp", "aircraft-insitu",
 "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
 "flask").}
+
+\item{solar_time}{Logical, add solar time?}
 
 \item{as_list}{Logical to return as list}
 
