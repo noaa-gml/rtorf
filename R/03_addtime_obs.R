@@ -48,6 +48,8 @@ obs_addtime <- function(dt,
   time_interval <- NULL
   timeUTC_start <- NULL
   if(any("time_interval" == names(dt))) {
+
+    cat("Found time_interval\n")
     dt[, timeUTC_end := data.table::fifelse(
       is.na(time_interval),
       timeUTC_start + (midpoint_time - start_time)*2,
@@ -111,7 +113,11 @@ obs_addltime <- function(dt,
                          longitude = "longitude") {
 
   # Priority site_utc2lst and if it is not available,
-  dt$local_time <- dt[[timeUTC]] + as.numeric(dt[[utc2lt]])*60*60
+  if(any(utc2lt == names(dt))) {
+
+    cat("Found site_utc2lst\n")
+    dt$local_time <- dt[[timeUTC]] + as.numeric(dt[[utc2lt]])*60*60
+  }
 
 
   dt$local_time <- ifelse(

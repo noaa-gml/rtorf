@@ -12,15 +12,15 @@
 #' "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
 #' "flask").
 #' @param verbose Logical to show more information
-#' @param n_site_code number of characters extraced from metadata after search
-#' @param n_site_name number of characters extraced from metadata after search
-#' @param n_site_country number of characters extraced from metadata after search
-#' @param n_dataset_project number of characters extraced from metadata after search
-#' @param n_lab number of characters extraced from metadata after search
-#' @param n_scales number of characters extraced from metadata after search
-#' @param n_site_elevation number of characters extraced from metadata after search
-#' @param n_altitude_comment number of characters extraced from metadata after search
-#' @param n_utc number of characters extraced from metadata after search
+#' @param n_site_code number of characters extratced from metadata after search
+#' @param n_site_name number of characters extracted from metadata after search
+#' @param n_site_country number of characters extracted from metadata after search
+#' @param n_dataset_project number of characters extracted from metadata after search
+#' @param n_lab number of characters extracted from metadata after search
+#' @param n_scales number of characters extracted from metadata after search
+#' @param n_site_elevation number of characters extracted from metadata after search
+#' @param n_altitude_comment number of characters extracted from metadata after search
+#' @param n_utc number of characters extracted from metadata after search
 #' @param fill_value fill value. Appeared in aoa_aircraft-flask_19_allvalid.txt
 #' @param as_list Logical to return as list
 #' @return A data.frame with with an index obspack.
@@ -384,17 +384,22 @@ obs_read_nc <- function(index,
     dt <- as.data.table(t(x2))
     names(dt) <- c("year", "month", "day", "hour", "minute", "second")
 
-    ac <- ncdf4::ncvar_get(nc = nc,
-                           varid = "assimilation_concerns")
+    st <- ncdf4::ncvar_get(nc = nc,
+                           varid = "solartime_components")
 
-    dtac <- as.data.table(t(ac))
-    names(dtac) <- paste0(names(dt), "_ac")
+    dtst <- as.data.table(t(st))
+    names(dtst) <- paste0(names(dt), "_st")
 
     xx <- d[dim == 1]
 
     for(i in 1:nrow(xx)) {
       dt[[xx$names[i]]] <- lv[[xx$names[i]]]
     }
+
+    for(i in 1:ncol(dtst)) {
+      dt[[names(dtst)[i]]] <- dtst[[names(dtst)[i]]]
+    }
+
 
     dt$scale <- la$value[["scale_comment"]]
 

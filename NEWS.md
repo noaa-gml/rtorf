@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### robspack 0.8.1 (Release date: 2023-11-02)
+
+- Adding solar time in NetCDF.
+
 ### robspack 0.8.0 (Release date: 2023-09-13)
 
 - Adding support for NetCDF.

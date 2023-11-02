@@ -31,23 +31,23 @@ obs_read(
 
 \item{verbose}{Logical to show more information}
 
-\item{n_site_code}{number of characters extraced from metadata after search}
+\item{n_site_code}{number of characters extratced from metadata after search}
 
-\item{n_site_name}{number of characters extraced from metadata after search}
+\item{n_site_name}{number of characters extracted from metadata after search}
 
-\item{n_site_country}{number of characters extraced from metadata after search}
+\item{n_site_country}{number of characters extracted from metadata after search}
 
-\item{n_dataset_project}{number of characters extraced from metadata after search}
+\item{n_dataset_project}{number of characters extracted from metadata after search}
 
-\item{n_lab}{number of characters extraced from metadata after search}
+\item{n_lab}{number of characters extracted from metadata after search}
 
-\item{n_scales}{number of characters extraced from metadata after search}
+\item{n_scales}{number of characters extracted from metadata after search}
 
-\item{n_site_elevation}{number of characters extraced from metadata after search}
+\item{n_site_elevation}{number of characters extracted from metadata after search}
 
-\item{n_altitude_comment}{number of characters extraced from metadata after search}
+\item{n_altitude_comment}{number of characters extracted from metadata after search}
 
-\item{n_utc}{number of characters extraced from metadata after search}
+\item{n_utc}{number of characters extracted from metadata after search}
 
 \item{fill_value}{fill value. Appeared in aoa_aircraft-flask_19_allvalid.txt}
 
