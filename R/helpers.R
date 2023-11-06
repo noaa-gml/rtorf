@@ -255,7 +255,7 @@ obs_read_csvy <- function(f,
   print(yaml)
   data.table::fread(f,
                     h = TRUE,
-                    skip = l2+1,
+                    skip = l2,
                     ...)
 
 
