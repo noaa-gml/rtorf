@@ -183,7 +183,7 @@ obs_rbind <- function(dt1,
 #'            "more notes")
 #' obs_write_csvy(dt = df, notes = notes, out = f)
 #' readLines(f)
-#' data.table::fread(f)
+#' data.table::fread(f, h = TRUE)
 #' }
 obs_write_csvy <- function(dt,
                       notes,
@@ -254,6 +254,7 @@ obs_read_csvy <- function(f,
   yaml <- readLines(f, n = l2)
   print(yaml)
   data.table::fread(f,
+                    h = TRUE,
                     skip = l2+1,
                     ...)
 

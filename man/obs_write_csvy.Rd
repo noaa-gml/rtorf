@@ -40,7 +40,7 @@ notes <- c("notes",
            "more notes")
 obs_write_csvy(dt = df, notes = notes, out = f)
 readLines(f)
-data.table::fread(f)
+data.table::fread(f, h = TRUE)
 }
 }
 \seealso{
