@@ -160,9 +160,9 @@ obs_addstime <- function(dt,
 
   if(!inherits(dt, "data.table")) data.table::setDT(dt)
 
-  if(verbose) cat("Adding Solar Time in column timeUTCsl\n")
+  if(verbose) cat("Adding Solar Time in column timeUTCst\n")
   # Time is already UTC
-  dt$timeUTC_sl <- ISOdatetime(dt$year_st,
+  dt$timeUTC_st <- ISOdatetime(dt$year_st,
                                dt$month_st,
                                dt$day_st,
                                dt$hour_st,
