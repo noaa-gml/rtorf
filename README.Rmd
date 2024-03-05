@@ -275,14 +275,13 @@ before writing into the disk.
 The separation is space " ".
 
 ```{r, eval = T}
-tmp <- tempfile()
 master <- df5
 master$timeUTC <- as.character(master$timeUTC)
 master$timeUTC_end <- as.character(master$timeUTC_end)
 master$local_time <- as.character(master$local_time)
 
 fwrite(master, 
-       file =  "paper/tower_insitu_2020.txt",
+       file =  paste0(tempdir(), "/tower_insitu_2020.txt"),
        sep = " ")
 ```
 
@@ -295,9 +294,11 @@ provides a vertical summary of the data, known as
 structure.
 
 ```{r, eval = T}
+csvy <- paste0(tempdir(), "/tower_insitu_2020.csvy")
 obs_write_csvy(dt = master,
-          notes = "tower 2020",
-          out = "paper/tower_insitu_2020.csvy")
+               notes = "tower 2020",
+               out = csvy
+)
 ```
 
 To check the YAML header we read the first 38 lines of 
@@ -306,7 +307,7 @@ the column names, type of data and first observations.
 The YAML header is delimited by the characters "---".
 
 ```{r, eval = F}
-readLines("paper/tower_insitu_2020.csvy")[1:38]
+readLines(csvy)[1:38]
 ```
 
 ### Saving receptors
@@ -352,13 +353,13 @@ receptor <- obs_format(receptor)
 
 if(nrow(receptor_agl) > 0) {
   fwrite(x = receptor_agl,
-         file = "paper/receptor_tower_insitu_2020_AGL.txt"),
-  sep = " ")}
+         file = paste0(tempdir(), "/receptor_tower_insitu_2020_AGL.txt"),
+         sep = " ")}
 
 if(nrow(receptor_asl) > 0) {
   fwrite(x = receptor_asl,
-         file = "paper/receptor_tower_insitu_2020_ASL.txt"),
-  sep = " ")}
+         file = paste0(tempdir(), "/receptor_tower_insitu_2020_ASL.txt"),
+         sep = " ")}
 
 ```
 
