@@ -293,7 +293,6 @@ transformed into character before writing into the disk. The separation
 is space ” “.
 
 ``` r
-tmp <- tempfile()
 master <- df5
 master$timeUTC <- as.character(master$timeUTC)
 master$timeUTC_end <- as.character(master$timeUTC_end)
