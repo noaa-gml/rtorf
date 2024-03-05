@@ -1,7 +1,7 @@
-Package: robspack
+Package: rtorf
 Type: Package
-Title: 'robspack' CH4 Obspack GLOBALView+
-Version: 0.8.1
+Title: 'rtorf' Obspack GLOBALView+
+Version: 0.9.0
 Authors@R: c( 
   person(given = "Sergio", family = "Ibarra-Espinosa",
          role = c("aut", "cre"),
@@ -15,9 +15,9 @@ Description: Reads, process, and plots the CH4 ObsPack GLOBALView+ data from NOA
 Depends: R (>= 2.10)
 Imports: data.table, utils, lubridate, cptcity, graphics, ncdf4
 License: MIT + file LICENSE
-URL: https://github.com/ibarraespinosa/robspack,
-    https://ibarraespinosa.github.io/robspack/
-BugReports: https://github.com/ibarraespinosa/robspack/issues/
+URL: https://github.com/ibarraespinosa/rtorf,
+    https://ibarraespinosa.github.io/robspackrtorf/
+BugReports: https://github.com/ibarraespinosa/rtorf/issues/
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Date: 2023-11-02

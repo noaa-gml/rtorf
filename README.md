@@ -1,27 +1,27 @@
-robspack
+R Tools for Obspack, Footprints and Receptors (rtorf)
 ================
 
 ![GitHub commit
-activity](https://img.shields.io/github/commit-activity/y/ibarraespinosa/robspack)
+activity](https://img.shields.io/github/commit-activity/y/ibarraespinosa/rtorf)
 [![R build
-status](https://github.com/ibarraespinosa/robspack/workflows/R-CMD-check/badge.svg)](https://github.com/ibarraespinosa/robspack/actions)
+status](https://github.com/ibarraespinosa/rtorf/workflows/R-CMD-check/badge.svg)](https://github.com/ibarraespinosa/rtorf/actions)
 [![R build
-status](https://github.com/ibarraespinosa/robspack/workflows/draft-pdf/badge.svg)](https://github.com/ibarraespinosa/robspack/actions)
+status](https://github.com/ibarraespinosa/rtorf/workflows/draft-pdf/badge.svg)](https://github.com/ibarraespinosa/rtorf/actions)
 
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of
 green house gases observations
 
-`robspack` only depends on `data.table`, which is basically parallel C,
-so it can be installed in any machine.
+`rtorf` only depends on `data.table`, which is basically parallel C, so
+it can be installed in any machine.
 
 ## installation
 
 ``` r
-remotes::install_github("ibarraespinosa/robspack")
+remotes::install_github("ibarraespinosa/rtorf")
 ```
 
 ``` r
-library(robspack)
+library(rtorf)
 library(data.table)
 ```
 
@@ -212,6 +212,7 @@ df2 <- obs_addtime(df)
     ## Adding timeUTC
     ## Adding timeUTC_start
     ## Adding timeUTC_end
+    ## Found time_interval
 
 ``` r
 df2$timeUTC <- cut(x = df2$timeUTC+3600,
@@ -219,6 +220,11 @@ df2$timeUTC <- cut(x = df2$timeUTC+3600,
   as.character() |>
   as.POSIXct(tz = "UTC")
 df3 <- obs_addltime(df2)
+```
+
+    ## Found site_utc2lst
+
+``` r
 df3 <- df3[lh %in% evening]
 ```
 
@@ -247,6 +253,8 @@ df4 <- obs_agg(dt = df3,
 ``` r
 df5 <- obs_addltime(df4)
 ```
+
+    ## Found site_utc2lst
 
 Now there are 4394 observations, 3997 less observations. Here we add the
 column `max_altitude` to identify the max altitude by site.
@@ -379,4 +387,4 @@ observations.
 
 In this package we are sharing scripts to process other sectors The
 scripts are available in the path
-`https://github.com/ibarraespinosa/robspack/tree/main/rscripts`
+`https://github.com/ibarraespinosa/rtorf/tree/main/rscripts`

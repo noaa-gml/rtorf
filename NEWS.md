@@ -2,6 +2,12 @@ NEWS
 ===========
 
 
+### rtorf 0.9.0 (Release date: 2024-03-05)
+
+- Rename robspack to rtorf.
+- Prepare to submit to JOSS and https://github.com/noaa-gml.
+
+
 ### robspack 0.8.1 (Release date: 2023-11-02)
 
 - Adding solar time in NetCDF.

@@ -1,5 +1,5 @@
 ---
-title: "robspack"
+title: "R Tools for Obspack, Footprints and Receptors (rtorf)"
 output: github_document
 ---
 
@@ -8,26 +8,26 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ![GitHub commit
-activity](https://img.shields.io/github/commit-activity/y/ibarraespinosa/robspack)
+activity](https://img.shields.io/github/commit-activity/y/ibarraespinosa/rtorf)
 [![R build
-status](https://github.com/ibarraespinosa/robspack/workflows/R-CMD-check/badge.svg)](https://github.com/ibarraespinosa/robspack/actions)
+status](https://github.com/ibarraespinosa/rtorf/workflows/R-CMD-check/badge.svg)](https://github.com/ibarraespinosa/rtorf/actions)
 [![R build
-status](https://github.com/ibarraespinosa/robspack/workflows/draft-pdf/badge.svg)](https://github.com/ibarraespinosa/robspack/actions)
+status](https://github.com/ibarraespinosa/rtorf/workflows/draft-pdf/badge.svg)](https://github.com/ibarraespinosa/rtorf/actions)
 
 
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of green house gases observations
 
-`robspack` only depends on `data.table`, which is basically parallel C, 
+`rtorf` only depends on `data.table`, which is basically parallel C, 
 so it can be installed in any machine.
 
 ## installation
 
 ```{r, eval = F}
-remotes::install_github("ibarraespinosa/robspack")
+remotes::install_github("ibarraespinosa/rtorf")
 ```
 
 ```{r, include = T, message=F, warning=F}
-library(robspack)
+library(rtorf)
 library(data.table)
 ```
 
@@ -376,4 +376,4 @@ presenting the generation of receptors based on tower observations.
 ## Application for other sectors
 In this package we are sharing scripts to process other sectors
 The scripts are available in the path 
-`https://github.com/ibarraespinosa/robspack/tree/main/rscripts`
+`https://github.com/ibarraespinosa/rtorf/tree/main/rscripts`
