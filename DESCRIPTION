@@ -16,7 +16,7 @@ Depends: R (>= 2.10)
 Imports: data.table, utils, lubridate, cptcity, graphics, ncdf4
 License: MIT + file LICENSE
 URL: https://github.com/ibarraespinosa/rtorf,
-    https://ibarraespinosa.github.io/robspackrtorf/
+    https://ibarraespinosa.github.io/rtorfrtorf/
 BugReports: https://github.com/ibarraespinosa/rtorf/issues/
 Encoding: UTF-8
 RoxygenNote: 7.2.3

@@ -19,7 +19,7 @@ out <- paste0("master/master_flask_no_noaa_", yy)
 
 message("All missing values are filled with 999999")
 
-cat("                 _     robspackfilter              \n")
+cat("                 _     rtorffilter              \n")
 cat("               (`  ).                  _           \n")
 cat("              (     ).             .:(`  )`.       \n")
 cat(")           _(       '`.          :(   .    )      \n")
@@ -34,7 +34,7 @@ cat("\n")
 cat("--..,___.--,--'`,---..-.--+--.,,-,,..._.--..-._.-a:f--.\n")
 
 library(data.table)
-library(robspack)
+library(rtorf)
 
 # 0 filters ####
 north <- 80

@@ -1,7 +1,7 @@
 
 library(colorout)
 library(data.table)
-library(robspackfilter)
+library(rtorffilter)
 
 # dir.create("invfiles")
 

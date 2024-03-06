@@ -46,7 +46,7 @@ authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={robspack An R package for processing atmospheric greenhouse gas observations in NOAA's ObsPack},
+            pdftitle={rtorf An R package for processing atmospheric greenhouse gas observations in NOAA's ObsPack},
             colorlinks=false,
             urlcolor=blue,
             linkcolor=magenta,
@@ -123,7 +123,7 @@ authoryear]{elsarticle} %review=doublespace preprint=single 5p=2 column
 
 \begin{frontmatter}
 
-  \title{robspack An R package for processing atmospheric greenhouse gas
+  \title{rtorf An R package for processing atmospheric greenhouse gas
 observations in NOAA's ObsPack}
     \author[a,b]{Sergio Ibarra-Espinosa%
   \corref{cor1}%
@@ -147,7 +147,7 @@ Broadway},postcode={80309},state={Colorado},country={United States},}
   
   \begin{abstract}
   In this study, we present a new open-source R package
-  \texttt{robspack}, to read, process, select, and plot NOAA Observation
+  \texttt{rtorf}, to read, process, select, and plot NOAA Observation
   Package (ObsPack) data products. We use a methane ObsPack data product
   as an example in this code base, but it can be easily modified to
   analyze ObsPack products for other greenhouse gasses. The R package
@@ -160,7 +160,7 @@ Broadway},postcode={80309},state={Colorado},country={United States},}
   package imports functions from data.table R package, which contains C
   bindings with parallel implementation via Open-MP \citep{dt}.
   data.table is faster than other Python, Julia and R implementations
-  for data-science, providing a strong basis for robspack. robspack
+  for data-science, providing a strong basis for rtorf. rtorf
   provides functions to perform these tasks in a transparent and
   efficient way, supporting open-source communities in environmental
   sciences.
@@ -225,11 +225,11 @@ than surface stations, but all the files include concentrations and
 other critical fields. An important information is the scale of
 measurement, which isXX. Cite Importance of scale and what is WMOX2014.
 Given the complexity of ObsPack format, reading and analyzing the data
-can be cumbersome. The \texttt{robspack} package provides the GHG
+can be cumbersome. The \texttt{rtorf} package provides the GHG
 science and research community a transparent and efficient tool to
 process ObsPack products for GHG modeling and analyses.
 
-In this manuscript we present \texttt{robspack}, an R package to read,
+In this manuscript we present \texttt{rtorf}, an R package to read,
 process and plot NOAA ObsPack data. For this release, we are focued on
 the \(CH_4\) ObsPack GLOBALVIEW+ product. The general process consists
 in create a summary of the ObsPack files, reading them in an iteration
@@ -238,7 +238,7 @@ process, filter and generating another output and plots.
 \hypertarget{installation}{%
 \section{Installation}\label{installation}}
 
-To install \texttt{robspack}, the user must have installed the R package
+To install \texttt{rtorf}, the user must have installed the R package
 remotes and run the following script. This process will install all the
 required dependencies, such as data.table, \texttt{cptcity}, an R
 package with more than 7000 color palettes, and \texttt{lubridate}, a
@@ -247,15 +247,15 @@ libraries to load the function into the environment.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"ibarraespinosa/robspack"}\NormalTok{)}
-\FunctionTok{library}\NormalTok{(robspack)}
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"ibarraespinosa/rtorf"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(rtorf)}
 \end{Highlighting}
 \end{Shaded}
 
 \hypertarget{overview}{%
 \section{Overview}\label{overview}}
 
-\texttt{robspack} is a collection of function organized together to read
+\texttt{rtorf} is a collection of function organized together to read
 and process ObsPack files \citep{masarie2014obspack}. The general
 process consists in create a summary of the ObsPack files, reading them
 in an iteration process, filter and generating another output. In other
@@ -264,7 +264,7 @@ shown below. This directory includes a README file with all the required
 information and scripts generate process each category. The structure of
 the directory is:
 
-https://github.com/ibarraespinosa/robspack/tree/main/rscripts
+https://github.com/ibarraespinosa/rtorf/tree/main/rscripts
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -370,9 +370,9 @@ Higher concentration are found over Russia. Over the United States
 \hypertarget{functions}{%
 \subsection{Functions}\label{functions}}
 
-The \texttt{robspack} functions are shown in table 1.
+The \texttt{rtorf} functions are shown in table 1.
 
-Table 1. Functions and classes in \texttt{robspack}.
+Table 1. Functions and classes in \texttt{rtorf}.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3108}}
@@ -736,7 +736,7 @@ observations.
 In this manuscript we presented an robskpack, an R package to read and
 process CH4 ObsPack GLOBALVIEW+ published by the Global Monitoring
 Laboratory (GML) from the National Oceanographic and Atmospheric
-Administration (NOAA). robspack reads the text data which have different
+Administration (NOAA). rtorf reads the text data which have different
 headers and organizes them in a common format. Then, this software
 applies calculations to filter observations by time and space. Finally,
 this software generates receptors in a suitable format that allows it to

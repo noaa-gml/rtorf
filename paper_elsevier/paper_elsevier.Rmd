@@ -1,5 +1,5 @@
 ---
-title: robspack An R package for processing atmospheric greenhouse gas observations in NOAA's ObsPack
+title: rtorf An R package for processing atmospheric greenhouse gas observations in NOAA's ObsPack
 author:
   - name: Sergio Ibarra-Espinosa
     email: sergio.ibarra-espinosa@noaa.gov
@@ -27,7 +27,7 @@ footnote:
   - code: 1
     text: "This is the first author footnote."
 abstract: |
-  In this study, we present a new open-source R package `robspack`, 
+  In this study, we present a new open-source R package `rtorf`, 
   to read, process, select, and plot NOAA Observation Package (ObsPack)
   data products. We use a methane ObsPack data product as an example
   in this code base, but it can be easily modified to analyze ObsPack
@@ -42,7 +42,7 @@ abstract: |
   contains C bindings with parallel implementation via Open-MP 
   [@dt]. data.table is faster than other 
   Python, Julia and R implementations for data-science, 
-  providing a strong basis for robspack. robspack provides functions 
+  providing a strong basis for rtorf. rtorf provides functions 
   to perform these tasks in a transparent and efficient way, 
   supporting open-source communities in environmental sciences.
 keywords: 
@@ -136,11 +136,11 @@ from aircrafts is different than surface stations, but all the files
 include concentrations and other critical fields. 
 Given the complexity of ObsPack format, reading and analyzing the data
 can be cumbersome.
-The `robspack` package provides the 
+The `rtorf` package provides the 
 GHG science and research community a transparent and efficient tool to 
 process ObsPack products for GHG modeling and analyses. 
 
-In this manuscript we present `robspack`, an R package to read,
+In this manuscript we present `rtorf`, an R package to read,
 process and plot NOAA ObsPack data. For this release, we are 
 focused on the $CH_4$ ObsPack GLOBALVIEW+ product.
 The general process consists in creating a 
@@ -152,7 +152,7 @@ filtering, and generating another output and plots.
 
 # Installation
 
-To install `robspack`, the user must have installed the R package 
+To install `rtorf`, the user must have installed the R package 
 remotes and run the following script. This process will install 
 all the required dependencies, such as data.table, `cptcity`, an R 
 package with more than 7000 color palettes, and `lubridate`, a package 
@@ -161,14 +161,14 @@ to load the function into the environment.
 
 
 ```{r install, eval = F}
-remotes::install_github("ibarraespinosa/robspack")
-library(robspack)
+remotes::install_github("ibarraespinosa/rtorf")
+library(rtorf)
 ```
 
 
 # Overview
 
-`robspack` is a collection of function organized together to read and 
+`rtorf` is a collection of function organized together to read and 
 process ObsPack files [@masarie2014obspack]. The general process 
 consists in create a 
 summary of the ObsPack files, reading them in an iteration process, 
@@ -177,7 +177,7 @@ we are letting to the public the directory shown below. This directory
 includes a README file with all the required information and scripts 
 generate process each category. The structure of the directory is:
 
-https://github.com/ibarraespinosa/robspack/tree/main/rscripts
+https://github.com/ibarraespinosa/rtorf/tree/main/rscripts
 
 ```{bash, eval = F}
 |--"README.md"
@@ -220,7 +220,7 @@ user must run `?obs_summary`.
 
 
 ```{r libs, include = F, message=F, warning=F}
-library(robspack)
+library(rtorf)
 library(data.table)
 ```
 
@@ -287,9 +287,9 @@ maps::map(add = T)
 
 ## Functions
 
-The `robspack` functions are shown in table 1.
+The `rtorf` functions are shown in table 1.
 
-Table 1. Functions and classes in `robspack`.
+Table 1. Functions and classes in `rtorf`.
 
 | Function              | Description                                       |
 |-----------------------|---------------------------------------------------|
@@ -550,7 +550,7 @@ on tower observations.
 In this manuscript we presented an robskpack, an R package to read 
 and process CH4 ObsPack GLOBALVIEW+ published by the Global 
 Monitoring Laboratory (GML) from the National Oceanographic and 
-Atmospheric Administration (NOAA). robspack reads the text data which 
+Atmospheric Administration (NOAA). rtorf reads the text data which 
 have different headers and organizes them in a common format. Then, 
 this software applies calculations to filter observations by time and 
 space. Finally, this software generates receptors in a suitable format 

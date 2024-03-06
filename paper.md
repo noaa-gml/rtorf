@@ -1,6 +1,6 @@
 ---
 # Example from https://joss.readthedocs.io/en/latest/submitting.html
-title: 'rObsPack: An R package for the NOAA global observations ObsPack methane GLOBALVIEW+'
+title: 'rtorf: An R package for the NOAA global observations ObsPack methane GLOBALVIEW+'
 tags:
   - R
   - NOAA
@@ -57,20 +57,20 @@ header across files.
 # Statement of need
 
 In order to analyze greenhouse gasses measurements we developed the 
-R package `robspack`, which reads and processes NOAA/GML ObsPack
+R package `rtorf`, which reads and processes NOAA/GML ObsPack
 GLOBALVIEW+ CH4 data. This package imports functions from 
 `data.table` R package, which contains C bindings with 
 parallel implementation via Open-MP [@dt]. 
 `data.table` is faster than other Python, Julia and R 
 implementations for data-science, providing a strong basis
-for `robspack`. The main objective of `robspack` is to
+for `rtorf`. The main objective of `rtorf` is to
 integrate different CH4 ObsPack text files in a long 
 format, adding fields for specific metadata information,
 with a tidy structure [@Silge2016]. Hence, the data 
 can easily be processed with `data-table`, allowing
 to produce plots with `ggplot2` and other R packages [@g2]. 
 
-The steps followed by `robspack` are described in the 
+The steps followed by `rtorf` are described in the 
 following lines. First, it is necessary to create a 
 summary of the data , read all the file names, identify 
 key-words, sectors and full paths. The data is read
@@ -89,10 +89,10 @@ are shown in the following sections.
 
 # Functions
 
-The `robspack` functions are shown in the table 1.
+The `rtorf` functions are shown in the table 1.
 
 
-Table 1. Functions and classes in `robspack`.
+Table 1. Functions and classes in `rtorf`.
 
 | Function              | Description                                       |
 |-----------------------|---------------------------------------------------|
@@ -120,7 +120,7 @@ Table 1. Functions and classes in `robspack`.
 
 # Installation
 
-To install `robspack`, the user must have installed the
+To install `rtorf`, the user must have installed the
 R package `remotes` and run the following script. 
 This process will install all the required 
 dependencies, such as `data.table`, `cptcity`, an R package with
@@ -131,15 +131,15 @@ function into the environment.
 
 
 ```r
-remotes::install_github("ibarraespinosa/robspack")
-library(robspack)
+remotes::install_github("ibarraespinosa/rtorf")
+library(rtorf)
 library(data.table)
 ```
 
 
 
 For this manuscript, we are presenting
-the application of `robspack` on tower observations.
+the application of `rtorf` on tower observations.
 
 ## ObsPack summary
 
@@ -536,7 +536,7 @@ and objective of the study. For this manuscript, we are
 presenting the generation of receptors based on tower observations. 
 Furthermore, in this package we are sharing scripts to process other sectors
 The scripts are available in the path 
-`https://github.com/ibarraespinosa/robspack/tree/main/rscripts`
+`https://github.com/ibarraespinosa/rtorf/tree/main/rscripts`
 
 
 ## Conclusion
@@ -545,7 +545,7 @@ In this manuscript we presented an `robskpack`,
 an R package to read and process
 $CH_4$ ObsPack GLOBALVIEW+ published by the Global Monitoring 
 Laboratory (GML) from the National Oceanographic and Atmospheric
-Administration (NOAA). `robspack` reads the text data
+Administration (NOAA). `rtorf` reads the text data
 which have different headers and organizes them in a common 
 format. Then, this software applies calculations to
 filter observations by time and space. Finally,

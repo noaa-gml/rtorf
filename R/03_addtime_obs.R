@@ -18,7 +18,7 @@
 #' @export
 #' @examples {
 #' # Do not run
-#' obs <- system.file("data-raw", package = "robspack")
+#' obs <- system.file("data-raw", package = "rtorf")
 #' index <-  obs_summary(obs)
 #' dt <- obs_read(index)
 #' dt <- obs_addtime(dt)
@@ -150,7 +150,7 @@ obs_addltime <- function(dt,
 #' @export
 #' @examples {
 #' # Do not run
-#' obs <- system.file("data-raw", package = "robspack")
+#' obs <- system.file("data-raw", package = "rtorf")
 #' index <-  obs_summary(obs)
 #' dt <- obs_read(index)
 #' dt <- obs_addtime(dt)

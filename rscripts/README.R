@@ -1,7 +1,7 @@
 
 # README ####
 # The directory `rscripts` contains the required files
-# to generate the list of receptors using `robspack`
+# to generate the list of receptors using `rtorf`
 
 # The scripts will run from a defined working directory
 

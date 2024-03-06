@@ -32,7 +32,7 @@
 #' then `obs_table` will calculate stats for altitude_final.
 #' @examples {
 #' # Do not run
-#' obs <- system.file("data-raw", package = "robspack")
+#' obs <- system.file("data-raw", package = "rtorf")
 #' index <- obs_summary(obs, "aircraft-flask")
 #' dx <- obs_table(index, categories = "aircraft-flask")
 #' }

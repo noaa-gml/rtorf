@@ -63,7 +63,7 @@ Read obspack metadata
 \examples{
 \dontrun{
 # Do not run
-obs <- system.file("data-raw", package = "robspack")
+obs <- system.file("data-raw", package = "rtorf")
 index <- obs_summary(obs)
 dt <- obs_read(index)
 obs_plot(dt, time = "time")

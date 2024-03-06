@@ -11,7 +11,7 @@ README
     ## [11] "README.Rmd"
 
 The directory `rscripts` contains the required files to generate the
-list of receptors using `robspack` The scripts will run from a defined
+list of receptors using `rtorf` The scripts will run from a defined
 working directory
 
 ### 1. Run index (summary)

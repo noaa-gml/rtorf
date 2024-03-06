@@ -48,7 +48,7 @@
 #'
 #' @examples {
 #' # Do not run
-#' obs <- system.file("data-raw", package = "robspack")
+#' obs <- system.file("data-raw", package = "rtorf")
 #' index <- obs_summary(obs)
 #' dt <- obs_read(index)
 #' }
@@ -325,7 +325,7 @@ obs_read <- function(index,
 #'
 #' @examples {
 #' # Do not run
-#' obs <- system.file("data-raw", package = "robspack")
+#' obs <- system.file("data-raw", package = "rtorf")
 #' index <- obs_summary(obs)
 #' dt <- obs_read(index)
 #' }

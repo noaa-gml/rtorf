@@ -56,14 +56,14 @@ available in obspack.
 {
 \dontrun{
 # Do not run
-obs <- system.file("data-raw", package = "robspack")
+obs <- system.file("data-raw", package = "rtorf")
 index <- obs_summary(obs)
 }
 }
 {
 \dontrun{
 # Do not run
-obs <- system.file("data-raw", package = "robspack")
+obs <- system.file("data-raw", package = "rtorf")
 index <- obs_summary(obs)
 }
 }

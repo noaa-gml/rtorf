@@ -12,7 +12,7 @@ Reads, process, and plots the CH4 ObsPack GLOBALView+ data from NOAA and perform
 Useful links:
 \itemize{
   \item \url{https://github.com/ibarraespinosa/rtorf}
-  \item \url{https://ibarraespinosa.github.io/robspackrtorf/}
+  \item \url{https://ibarraespinosa.github.io/rtorfrtorf/}
   \item Report bugs at \url{https://github.com/ibarraespinosa/rtorf/issues/}
 }
 

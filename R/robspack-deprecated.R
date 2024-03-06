@@ -1,10 +1,10 @@
-## robspack-deprecated.r
-#' @title Deprecated functions in package \pkg{robspack}.
+## rtorf-deprecated.r
+#' @title Deprecated functions in package \pkg{rtorf}.
 #' @description The functions listed below are deprecated and will be defunct in
 #'   the near future. When possible, alternative functions with similar
 #'   functionality are also mentioned. Help pages for deprecated functions are
 #'   available at \code{help("-deprecated")}.
-#' @name robspack-deprecated
+#' @name rtorf-deprecated
 #' @keywords internal
 NULL
 
@@ -32,7 +32,7 @@ NULL
 #' @examples {
 #' \dontrun{
 #' # Do not run
-#' obs <- system.file("data-raw", package = "robspack")
+#' obs <- system.file("data-raw", package = "rtorf")
 #' index <- obs_summary(obs)
 #' }
 #' }
@@ -123,8 +123,8 @@ obs_index <- function(obs,
 #' @family helpers
 #' @description transform integer to character and add zero at left
 #' @param x integer
-#' @rdname robspack-deprecated
-#' @seealso \code{\link{robspack-deprecated}}
+#' @rdname rtorf-deprecated
+#' @seealso \code{\link{rtorf-deprecated}}
 #' @export
 #' @examples {\dontrun{
 #' #do not run

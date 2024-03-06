@@ -18,7 +18,7 @@ out <- paste0("master/master_tower_insitu_", yy)
 
 message("All missing values are filled with 999999")
 
-n01 <- ("                  _     robspackfilter              \n")
+n01 <- ("                  _     rtorffilter              \n")
 n02 <- ("               (`  ).                  _           \n")
 n03 <- ("              (     ).             .:(`  )`.       \n")
 n04 <- (")           _(       '`.          :(   .    )      \n")
@@ -36,7 +36,7 @@ cat(c(n01, n02,n03, n04, n05,
       n11, n12, n13))
 
 library(data.table)
-library(robspack)
+library(rtorf)
 
 # 0 filters ####
 north <- 80

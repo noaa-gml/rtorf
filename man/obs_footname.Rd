@@ -61,7 +61,7 @@ Other helpers:
 \code{\link{obs_roundtime}()},
 \code{\link{obs_trunc}()},
 \code{\link{obs_write_csvy}()},
-\code{\link{robspack-deprecated}},
+\code{\link{rtorf-deprecated}},
 \code{\link{sr}()}
 }
 \concept{helpers}
