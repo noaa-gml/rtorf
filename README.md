@@ -1,12 +1,17 @@
 R Tools for Obspack, Footprints and Receptors (rtorf)
 ================
 
-![GitHub commit
-activity](https://img.shields.io/github/commit-activity/y/ibarraespinosa/rtorf)
-[![R build
-status](https://github.com/ibarraespinosa/rtorf/workflows/R-CMD-check/badge.svg)](https://github.com/ibarraespinosa/rtorf/actions)
+<figure>
+<img
+src="https://img.shields.io/github/commit-activity/y/ibarraespinosa/rtorf"
+alt="GitHub commit activity" />
+<figcaption aria-hidden="true">GitHub commit activity</figcaption>
+</figure>
+
 [![R build
 status](https://github.com/ibarraespinosa/rtorf/workflows/draft-pdf/badge.svg)](https://github.com/ibarraespinosa/rtorf/actions)
+
+[![R-CMD-check](https://github.com/ibarraespinosa/torf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ibarraespinosa/torf/actions/workflows/R-CMD-check.yaml)
 
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of
 green house gases observations
