@@ -47,6 +47,8 @@ obs_summary <- function(obs,
   # create index ####
   # the idea
   index <- data.table::data.table(id = x, name = na)
+  data.table::setorderv(index, "name")
+
   index$n <- 1:nrow(index)
   sector <- NULL
   for(i in seq_along(categories)) {
