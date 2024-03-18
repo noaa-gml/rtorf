@@ -3,7 +3,7 @@ R Tools for Obspack, Footprints and Receptors (rtorf)
 
 <figure>
 <img
-src="https://img.shields.io/github/commit-activity/y/ibarraespinosa/rtorf"
+src="https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf"
 alt="GitHub commit activity" />
 <figcaption aria-hidden="true">GitHub commit activity</figcaption>
 </figure>
@@ -11,7 +11,7 @@ alt="GitHub commit activity" />
 [![R build
 status](https://github.com/ibarraespinosa/rtorf/workflows/draft-pdf/badge.svg)](https://github.com/ibarraespinosa/rtorf/actions)
 
-[![R-CMD-check](https://github.com/ibarraespinosa/torf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ibarraespinosa/torf/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/noaa-gml/torf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noaa-gml/torf/actions/workflows/R-CMD-check.yaml)
 
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of
 green house gases observations
@@ -22,7 +22,7 @@ it can be installed in any machine.
 ## installation
 
 ``` r
-remotes::install_github("ibarraespinosa/rtorf")
+remotes::install_github("noaa-gml/rtorf")
 ```
 
 ``` r
@@ -45,6 +45,8 @@ the column `agl` which indicates the `agl` indicated in the name of the
 file if available. To read the documentation of this function, the user
 must run `?obs_summary`.
 
+## This exampel reads text files but it will be updated to read NetCDF
+
 ``` r
 categories <- c(
   "aircraft-pfp",
@@ -59,20 +61,6 @@ categories <- c(
 obs <- "../../obspack_ch4_1_GLOBALVIEWplus_v4.0_2021-10-14/data/txt"
 index <- obs_summary(obs = obs)
 ```
-
-    ## Number of files of index: 362
-    ##              sector   N
-    ## 1:     aircraft-pfp  40
-    ## 2:  aircraft-insitu  11
-    ## 3:            flask 101
-    ## 4:   surface-insitu 124
-    ## 5:          aircore   1
-    ## 6:      surface-pfp  33
-    ## 7:     tower-insitu  51
-    ## 8: shipboard-insitu   1
-    ## 9:    Total sectors 362
-    ## Detected 147 files with agl
-    ## Detected 215 files without agl
 
 There are 362 files in the ObsPack directory. The printed information
 also shows the total at the bottom, as the sum of the individual file by
@@ -96,7 +84,7 @@ dft[site_code == "SCT", ]$timeUTC |>
   range()
 ```
 
-    ## [1] "2015-08-19 21:30:00 UTC" "2020-12-31 23:30:00 UTC"
+    ## [1] "2015-08-19 21:30:00 UTC" "2021-12-31 23:30:00 UTC"
 
 ### Read data
 
@@ -129,13 +117,13 @@ obs_plot(dt = df, time = "time", yfactor = 1e+09, cex = 0.5)
     ## [1] AZV BRZ
 
 <figure>
-<img src="README_files/figure-gfm/unnamed-chunk-6-1.png"
+<img src="README_files/figure-gfm/unnamed-chunk-7-1.png"
 alt="First two sites in ObsPack" />
 <figcaption aria-hidden="true">First two sites in ObsPack</figcaption>
 </figure>
 
-Here we can see 2.32 million observations for `tower-insitu`. These
-observations are made between 2004 and 2020. The identification of the
+Here we can see 2.61 million observations for `tower-insitu`. These
+observations are made between 2004 and 2021. The identification of the
 altitude and type is critical. The approach used here consists of:
 
 1.  Identify `agl` from the name of the tile.
@@ -177,7 +165,7 @@ df <- df[altitude_final < max_altitude &
            longitude > west]
 ```
 
-After filtering by space and time, we have 1.0487^{5} million
+After filtering by space and time, we have 1.12883^{5} million
 observations. Towers can have observations at different heights. Here we
 need to select one site with the observations registered at the highest
 height. The column with the height is named `altitude_final` and the max
@@ -233,7 +221,7 @@ df3 <- obs_addltime(df2)
 df3 <- df3[lh %in% evening]
 ```
 
-Now there are 8391 observations. At this point we can calculate the
+Now there are 9025 observations. At this point we can calculate the
 averages of several columns by the cut time. The function `obs_agg` does
 this aggregation as shown in the following lines of code. The argument
 `gby` establish the function used to aggregate `cols`, in this case the
@@ -261,7 +249,7 @@ df5 <- obs_addltime(df4)
 
     ## Found site_utc2lst
 
-Now there are 4394 observations, 3997 less observations. Here we add the
+Now there are 4726 observations, 4299 less observations. Here we add the
 column `max_altitude` to identify the max altitude by site.
 
 ``` r
@@ -377,17 +365,6 @@ if(nrow(receptor_asl) > 0) {
          file = paste0(tempdir(), "/receptor_tower_insitu_2020_ASL.txt"),
          sep = " ")}
 ```
-
-## Recommendation for other applications
-
-The approach to generate receptors depends on each type of observation
-and other considerations. For instance, aircraft with continuous
-observations at each second can be filtered and averaged every 20
-seconds. In that way, the footprints are still representative and it
-would not be necessary to run HYSPLIT every second. Of course, it
-depends on the application and objective of the study. For this
-manuscript, we are presenting the generation of receptors based on tower
-observations.
 
 ## Application for other sectors
 
