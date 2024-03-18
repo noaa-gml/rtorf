@@ -45,7 +45,7 @@ the column `agl` which indicates the `agl` indicated in the name of the
 file if available. To read the documentation of this function, the user
 must run `?obs_summary`.
 
-## This exampel reads text files but it will be updated to read NetCDF
+> This example reads text files but it will be updated to read NetCDF
 
 ``` r
 categories <- c(
