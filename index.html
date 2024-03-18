@@ -63,17 +63,17 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="r-tools-for-obspack-footprints-and-receptors-rtorf">R Tools for Obspack, Footprints and Receptors (rtorf)<a class="anchor" aria-label="anchor" href="#r-tools-for-obspack-footprints-and-receptors-rtorf"></a>
 </h1></div>
-<figure><img src="https://img.shields.io/github/commit-activity/y/ibarraespinosa/rtorf" alt="GitHub commit activity"><figcaption aria-hidden="true">
+<figure><img src="https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf" alt="GitHub commit activity"><figcaption aria-hidden="true">
 GitHub commit activity
 </figcaption></figure><p><a href="https://github.com/ibarraespinosa/rtorf/actions" class="external-link"><img src="https://github.com/ibarraespinosa/rtorf/workflows/draft-pdf/badge.svg" alt="R build status"></a></p>
-<p><a href="https://github.com/ibarraespinosa/torf/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/ibarraespinosa/torf/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></p>
+<p><a href="https://github.com/noaa-gml/torf/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/noaa-gml/torf/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></p>
 <p><a href="https://gml.noaa.gov/ccgg/obspack/" class="external-link">NOAA Obspack</a> is a collection of green house gases observations</p>
 <p><code>rtorf</code> only depends on <code>data.table</code>, which is basically parallel C, so it can be installed in any machine.</p>
 <div class="section level2">
 <h2 id="installation">installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ibarraespinosa/rtorf"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"noaa-gml/rtorf"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ibarraespinosa/rtorf" class="external-link">rtorf</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
@@ -82,6 +82,10 @@ GitHub commit activity
 <h2 id="obspack-summary">ObsPack summary<a class="anchor" aria-label="anchor" href="#obspack-summary"></a>
 </h2>
 <p>The first step consists in constructing a summary for the ObsPack. This is required to read the data, but also, identify <code>agl</code>, which is present in some of the file names. This function returns a <code>data.frame</code>. Optionally, the user can indicate a path to store the <code>data.frame</code>. <code>obs_summary</code> also prints a summary of the data. The second argument is the categories, and by default includes the categories shown below, to account for all the files. Then the summary <code>data.frame</code> contains the columns <code>id</code> as the full path to each file, <code>name</code> which is the name or relative path of the file, <code>n</code> just an id, <code>sector</code> such as tower, and the column <code>agl</code> which indicates the <code>agl</code> indicated in the name of the file if available. To read the documentation of this function, the user must run <code><a href="reference/obs_summary.html">?obs_summary</a></code>.</p>
+</div>
+<div class="section level2">
+<h2 id="this-exampel-reads-text-files-but-it-will-be-updated-to-read-netcdf">This exampel reads text files but it will be updated to read NetCDF<a class="anchor" aria-label="anchor" href="#this-exampel-reads-text-files-but-it-will-be-updated-to-read-netcdf"></a>
+</h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">categories</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"aircraft-pfp"</span>,</span>
@@ -95,47 +99,34 @@ GitHub commit activity
 <span><span class="op">)</span></span>
 <span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="st">"../../obspack_ch4_1_GLOBALVIEWplus_v4.0_2021-10-14/data/txt"</span></span>
 <span><span class="va">index</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_summary.html">obs_summary</a></span><span class="op">(</span>obs <span class="op">=</span> <span class="va">obs</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## Number of files of index: 362</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="do">##              sector   N</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="do">## 1:     aircraft-pfp  40</span></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="do">## 2:  aircraft-insitu  11</span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">## 3:            flask 101</span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="do">## 4:   surface-insitu 124</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">## 5:          aircore   1</span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="do">## 6:      surface-pfp  33</span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="do">## 7:     tower-insitu  51</span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="do">## 8: shipboard-insitu   1</span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="do">## 9:    Total sectors 362</span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="do">## Detected 147 files with agl</span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="do">## Detected 215 files without agl</span></span></code></pre></div>
 <p>There are 362 files in the ObsPack directory. The printed information also shows the total at the bottom, as the sum of the individual file by sector. This is to ensure that the sum of files is equal to the total number of files found, shown at the top. furthermore, the printed information also shows that there are 136 files with the <code>agl</code> explicitly mentioned in the name of the file.</p>
 <p>Sometimes we need more information about the site. For instance, what do the observations start and end. Then, we added the function <code>obs_table</code>, which calculates statistics summary of “time” and other numeric variables by file name, sector, site, altitude and mode. For instance, the observations in the site “SCT” in South Carolina, USA, were between “2015-08-19 21:30:00 UTC” and “2020-12-31 23:30:00 UTC”.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dft</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_table.html">obs_table</a></span><span class="op">(</span>index <span class="op">=</span> <span class="va">index</span>,</span>
 <span>                 categories <span class="op">=</span> <span class="st">"tower-insitu"</span>,</span>
 <span>                 verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">dft</span><span class="op">[</span><span class="va">site_code</span> <span class="op">==</span> <span class="st">"SCT"</span>, <span class="op">]</span><span class="op">$</span><span class="va">timeUTC</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="do">## [1] "2015-08-19 21:30:00 UTC" "2020-12-31 23:30:00 UTC"</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="do">## [1] "2015-08-19 21:30:00 UTC" "2021-12-31 23:30:00 UTC"</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="read-data">Read data<a class="anchor" aria-label="anchor" href="#read-data"></a>
 </h3>
 <p>Once the summary is built, the function <code>obs_read</code> will read the files available in the index file previously generated. Here we selected the category “tower-insitu”. The argument verbose prints which files are being read each time, by default. At the end, this function prints the total number of observations by type of altitude (agl or asl).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_read.html">obs_read</a></span><span class="op">(</span>index <span class="op">=</span> <span class="va">index</span>,</span>
 <span>               categories <span class="op">=</span> <span class="st">"tower-insitu"</span>,</span>
 <span>               verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>We added a function to plot the data read from ObsPack. The y-axis is the field <code>value</code> and the x-axis is by default <code>time</code>. The data illustrated sorted by color is the field <code>site_code</code>, with the default number of 3 sites. The argument <code>pal</code> is to define the color palette, used by the internally imported function <code><a href="https://rdrr.io/pkg/cptcity/man/cpt.html" class="external-link">cptcity::cpt</a></code>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/obs_plot.html">obs_plot</a></span><span class="op">(</span>dt <span class="op">=</span> <span class="va">df</span>, time <span class="op">=</span> <span class="st">"time"</span>, yfactor <span class="op">=</span> <span class="fl">1e+09</span>, cex <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="do">## Found the following sites: </span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="do">##  [1] AZV   BRZ   BSD   CRV   DEM   DVV   GCI01 GCI02 GCI03 GCI04 HUN   IGR  </span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="do">## [13] KRS   LEF   MRC   NOY   RGL   SCT   SVV   TAC   VGN   WGC   WSD   YAK  </span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="do">## Plotting the following sites: </span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="do">## [1] AZV BRZ</span></span></code></pre></div>
-<figure><img src="README_files/figure-gfm/unnamed-chunk-6-1.png" alt="First two sites in ObsPack"><figcaption aria-hidden="true">
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Found the following sites: </span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">##  [1] AZV   BRZ   BSD   CRV   DEM   DVV   GCI01 GCI02 GCI03 GCI04 HUN   IGR  </span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## [13] KRS   LEF   MRC   NOY   RGL   SCT   SVV   TAC   VGN   WGC   WSD   YAK  </span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## Plotting the following sites: </span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## [1] AZV BRZ</span></span></code></pre></div>
+<figure><img src="README_files/figure-gfm/unnamed-chunk-7-1.png" alt="First two sites in ObsPack"><figcaption aria-hidden="true">
 First two sites in ObsPack
-</figcaption></figure><p>Here we can see 2.32 million observations for <code>tower-insitu</code>. These observations are made between 2004 and 2020. The identification of the altitude and type is critical. The approach used here consists of:</p>
+</figcaption></figure><p>Here we can see 2.61 million observations for <code>tower-insitu</code>. These observations are made between 2004 and 2021. The identification of the altitude and type is critical. The approach used here consists of:</p>
 <ol style="list-style-type: decimal">
 <li>Identify <code>agl</code> from the name of the tile.</li>
 <li>If <code>agl</code> not present, search fill_values used in elevation and transform them into NA (not available)</li>
@@ -152,7 +143,7 @@ First two sites in ObsPack
 <h3 id="filtering">Filtering<a class="anchor" aria-label="anchor" href="#filtering"></a>
 </h3>
 <p>ObsPack includes global observations and sometimes we need to extract data for a specific region and periods of time. In this part we include spatial and temporal parameters to filter data. The year of interest is 2020, but we also included December of 2019 and January of 2021. At this stage, we can apply the spatial filter by using the coordinates.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">north</span> <span class="op">&lt;-</span> <span class="fl">80</span></span>
 <span><span class="va">south</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
 <span><span class="va">west</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">170</span></span>
@@ -170,8 +161,8 @@ First two sites in ObsPack
 <span>           <span class="va">latitude</span> <span class="op">&gt;</span> <span class="va">south</span> <span class="op">&amp;</span></span>
 <span>           <span class="va">longitude</span> <span class="op">&lt;</span> <span class="va">east</span> <span class="op">&amp;</span></span>
 <span>           <span class="va">longitude</span> <span class="op">&gt;</span> <span class="va">west</span><span class="op">]</span></span></code></pre></div>
-<p>After filtering by space and time, we have 1.0487^{5} million observations. Towers can have observations at different heights. Here we need to select one site with the observations registered at the highest height. The column with the height is named <code>altitude_final</code> and the max altitude was named <code>max_altitude</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<p>After filtering by space and time, we have 1.12883^{5} million observations. Towers can have observations at different heights. Here we need to select one site with the observations registered at the highest height. The column with the height is named <code>altitude_final</code> and the max altitude was named <code>max_altitude</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfa</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">[</span>,</span>
 <span>          <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">altitude_final</span><span class="op">)</span>,</span>
 <span>          by <span class="op">=</span> <span class="va">site_code</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -183,23 +174,23 @@ First two sites in ObsPack
 </h3>
 <p>Here we need to start time columns. The function <code>obs_addtime</code> adds time columns <code>timeUTC</code>, <code>timeUTC_start</code> which shows the start time of each observation and <code>timeUTC_end</code> which shows the end time for each observation. Then we need to identify the local time with the function <code>add_ltime</code>. This is important because to identifying observations in the evening in local time. <code>add_ltime</code> uses two methods, first identify the time difference with utc by identifying the metadata column “site_utc2lst”. If this information is not available, with the aircrafts for instance, the local time is calculated with an approximation based on longitude:</p>
 <p><span class="math display"><em>l</em><em>t</em> = <em>U</em><em>T</em><em>C</em> + <em>l</em><em>o</em><em>n</em><em>g</em><em>i</em><em>t</em><em>u</em><em>d</em><em>e</em>/15 * 60 * 60</span> Where <span class="math inline"><em>l</em><em>t</em></span> is the local time, <span class="math inline"><em>U</em><em>T</em><em>C</em></span> the time, <span class="math inline"><em>l</em><em>o</em><em>n</em><em>g</em><em>i</em><em>t</em><em>u</em><em>d</em><em>e</em></span> the coordinate. Then, the time is cut every two hours. Now, we identify the local time to select evening hours.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_addtime.html">obs_addtime</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="do">## Adding timeUTC</span></span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="do">## Adding timeUTC_start</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="do">## Adding timeUTC_end</span></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="do">## Found time_interval</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="do">## Adding timeUTC</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="do">## Adding timeUTC_start</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="do">## Adding timeUTC_end</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a><span class="do">## Found time_interval</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span><span class="op">$</span><span class="va">timeUTC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">df2</span><span class="op">$</span><span class="va">timeUTC</span><span class="op">+</span><span class="fl">3600</span>,</span>
 <span>                   breaks <span class="op">=</span> <span class="st">"2 hour"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/as.POSIXlt.html" class="external-link">as.POSIXct</a></span><span class="op">(</span>tz <span class="op">=</span> <span class="st">"UTC"</span><span class="op">)</span></span>
 <span><span class="va">df3</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_addltime.html">obs_addltime</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="do">## Found site_utc2lst</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="do">## Found site_utc2lst</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df3</span> <span class="op">&lt;-</span> <span class="va">df3</span><span class="op">[</span><span class="va">lh</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">evening</span><span class="op">]</span></span></code></pre></div>
-<p>Now there are 8391 observations. At this point we can calculate the averages of several columns by the cut time. The function <code>obs_agg</code> does this aggregation as shown in the following lines of code. The argument <code>gby</code> establish the function used to aggregate <code>cols</code>, in this case the function mean by time and altitude. Finally, we add local time again.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<p>Now there are 9025 observations. At this point we can calculate the averages of several columns by the cut time. The function <code>obs_agg</code> does this aggregation as shown in the following lines of code. The argument <code>gby</code> establish the function used to aggregate <code>cols</code>, in this case the function mean by time and altitude. Finally, we add local time again.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_agg.html">obs_agg</a></span><span class="op">(</span>dt <span class="op">=</span> <span class="va">df3</span>,</span>
 <span>               gby <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>               cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"value"</span>,</span>
@@ -211,12 +202,12 @@ First two sites in ObsPack
 <span>                        <span class="st">"site_utc2lst"</span><span class="op">)</span>,</span>
 <span>               verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>               byalt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a><span class="do">## Detecting dif_time. Adding ending times</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">## Detecting dif_time. Adding ending times</span></span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df5</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_addltime.html">obs_addltime</a></span><span class="op">(</span><span class="va">df4</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="do">## Found site_utc2lst</span></span></code></pre></div>
-<p>Now there are 4394 observations, 3997 less observations. Here we add the column <code>max_altitude</code> to identify the max altitude by site.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="do">## Found site_utc2lst</span></span></code></pre></div>
+<p>Now there are 4726 observations, 4299 less observations. Here we add the column <code>max_altitude</code> to identify the max altitude by site.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df5</span><span class="op">[</span>,</span>
 <span>    <span class="va">max_altitude</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">altitude_final</span><span class="op">)</span>,</span>
 <span>    by <span class="op">=</span> <span class="va">site_code</span><span class="op">]</span></span>
@@ -224,25 +215,25 @@ First two sites in ObsPack
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site_code"</span>,</span>
 <span>      <span class="st">"altitude_final"</span>,</span>
 <span>      <span class="st">"max_altitude"</span><span class="op">)</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="do">##     site_code altitude_final max_altitude</span></span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="do">##  1:       CRV             17           32</span></span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="do">##  2:       CRV             32           32</span></span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="do">##  3:       CRV              5           32</span></span>
-<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="do">##  4:       LEF            122          396</span></span>
-<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="do">##  5:       LEF             30          396</span></span>
-<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a><span class="do">##  6:       LEF            396          396</span></span>
-<span id="cb22-8"><a href="#cb22-8" tabindex="-1"></a><span class="do">##  7:       SCT            305          305</span></span>
-<span id="cb22-9"><a href="#cb22-9" tabindex="-1"></a><span class="do">##  8:       SCT             31          305</span></span>
-<span id="cb22-10"><a href="#cb22-10" tabindex="-1"></a><span class="do">##  9:       SCT             61          305</span></span>
-<span id="cb22-11"><a href="#cb22-11" tabindex="-1"></a><span class="do">## 10:       WGC             30          483</span></span>
-<span id="cb22-12"><a href="#cb22-12" tabindex="-1"></a><span class="do">## 11:       WGC            483          483</span></span>
-<span id="cb22-13"><a href="#cb22-13" tabindex="-1"></a><span class="do">## 12:       WGC             91          483</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="do">##     site_code altitude_final max_altitude</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="do">##  1:       CRV             17           32</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="do">##  2:       CRV             32           32</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="do">##  3:       CRV              5           32</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="do">##  4:       LEF            122          396</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="do">##  5:       LEF             30          396</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="do">##  6:       LEF            396          396</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="do">##  7:       SCT            305          305</span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="do">##  8:       SCT             31          305</span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="do">##  9:       SCT             61          305</span></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="do">## 10:       WGC             30          483</span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="do">## 11:       WGC            483          483</span></span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a><span class="do">## 12:       WGC             91          483</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="saving-master-as-text-and-csvy">Saving master as text and csvy<a class="anchor" aria-label="anchor" href="#saving-master-as-text-and-csvy"></a>
 </h3>
 <p>Now that we have all the required information, we can save the files. Here, we name the data.frame as master, because it contains all the information. This is important because some fields can be used in the future, and for traceability. For convenience, time variables are transformed into character before writing into the disk. The separation is space ” “.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">master</span> <span class="op">&lt;-</span> <span class="va">df5</span></span>
 <span><span class="va">master</span><span class="op">$</span><span class="va">timeUTC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">master</span><span class="op">$</span><span class="va">timeUTC</span><span class="op">)</span></span>
 <span><span class="va">master</span><span class="op">$</span><span class="va">timeUTC_end</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">master</span><span class="op">$</span><span class="va">timeUTC_end</span><span class="op">)</span></span>
@@ -252,21 +243,21 @@ First two sites in ObsPack
 <span>       file <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/tower_insitu_2020.txt"</span><span class="op">)</span>,</span>
 <span>       sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span></code></pre></div>
 <p>The format Comma Separated Value with YAML (CSVY)[^3] consists in a typical CSV with a YAML header. The function<code>obs_write_csvy</code> includes the argument <code>notes</code> which allows adding custom notes at the header of the file. Below the notes, <code>obs_write_csvy</code> adds the output of the R function <code>str</code>, which provides a vertical summary of the data, known as structure.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">csvy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/tower_insitu_2020.csvy"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/obs_write_csvy.html">obs_write_csvy</a></span><span class="op">(</span>dt <span class="op">=</span> <span class="va">master</span>,</span>
 <span>               notes <span class="op">=</span> <span class="st">"tower 2020"</span>,</span>
 <span>               out <span class="op">=</span> <span class="va">csvy</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>To check the YAML header we read the first 38 lines of the files that were generated. Here we can see the column names, type of data and first observations. The YAML header is delimited by the characters “—”.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">csvy</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">38</span><span class="op">]</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="saving-receptors">Saving receptors<a class="anchor" aria-label="anchor" href="#saving-receptors"></a>
 </h3>
 <p>We need to filter some columns from the master files in a new object called receptors. This is needed because internally we run HYSPLIT [@hy] using the information from the receptors. In the case of a tower, we need to select observations with the highest altitude. The specific columns are selected as shown on the following code. We are selecting the ending times, because later HYSPLIT is run backwards based on the time of measurement, between ending and starting times. The columns about time are formatted to have two characters. For instance, the month 1, is formatted as “01”. We also need to filter for <code>type_altitude</code> equal 0, representing <code>agl</code>observations , or equal to 1, <code>asl</code>.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">receptor</span> <span class="op">&lt;-</span> <span class="va">master</span><span class="op">[</span><span class="va">altitude_final</span> <span class="op">==</span> <span class="va">max_altitude</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site_code"</span>,</span>
 <span>                     <span class="st">"year"</span>,</span>
@@ -298,11 +289,6 @@ First two sites in ObsPack
 <span>         file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/receptor_tower_insitu_2020_ASL.txt"</span><span class="op">)</span>,</span>
 <span>         sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">}</span></span></code></pre></div>
 </div>
-</div>
-<div class="section level2">
-<h2 id="recommendation-for-other-applications">Recommendation for other applications<a class="anchor" aria-label="anchor" href="#recommendation-for-other-applications"></a>
-</h2>
-<p>The approach to generate receptors depends on each type of observation and other considerations. For instance, aircraft with continuous observations at each second can be filtered and averaged every 20 seconds. In that way, the footprints are still representative and it would not be necessary to run HYSPLIT every second. Of course, it depends on the application and objective of the study. For this manuscript, we are presenting the generation of receptors based on tower observations.</p>
 </div>
 <div class="section level2">
 <h2 id="application-for-other-sectors">Application for other sectors<a class="anchor" aria-label="anchor" href="#application-for-other-sectors"></a>
