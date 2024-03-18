@@ -82,10 +82,9 @@ GitHub commit activity
 <h2 id="obspack-summary">ObsPack summary<a class="anchor" aria-label="anchor" href="#obspack-summary"></a>
 </h2>
 <p>The first step consists in constructing a summary for the ObsPack. This is required to read the data, but also, identify <code>agl</code>, which is present in some of the file names. This function returns a <code>data.frame</code>. Optionally, the user can indicate a path to store the <code>data.frame</code>. <code>obs_summary</code> also prints a summary of the data. The second argument is the categories, and by default includes the categories shown below, to account for all the files. Then the summary <code>data.frame</code> contains the columns <code>id</code> as the full path to each file, <code>name</code> which is the name or relative path of the file, <code>n</code> just an id, <code>sector</code> such as tower, and the column <code>agl</code> which indicates the <code>agl</code> indicated in the name of the file if available. To read the documentation of this function, the user must run <code><a href="reference/obs_summary.html">?obs_summary</a></code>.</p>
-</div>
-<div class="section level2">
-<h2 id="this-exampel-reads-text-files-but-it-will-be-updated-to-read-netcdf">This exampel reads text files but it will be updated to read NetCDF<a class="anchor" aria-label="anchor" href="#this-exampel-reads-text-files-but-it-will-be-updated-to-read-netcdf"></a>
-</h2>
+<blockquote>
+<p>This example reads text files but it will be updated to read NetCDF</p>
+</blockquote>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">categories</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"aircraft-pfp"</span>,</span>
