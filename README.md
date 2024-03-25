@@ -374,7 +374,7 @@ scripts are available in the path
 
 ## Implementation in python:
 
-I’m currently implementing a verison in python:
+I’m currently implementing a version in python:
 
 | R                  | description                                     | Python |
 |:-------------------|:------------------------------------------------|:-------|
