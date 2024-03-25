@@ -371,3 +371,39 @@ if(nrow(receptor_asl) > 0) {
 In this package we are sharing scripts to process other sectors The
 scripts are available in the path
 `https://github.com/ibarraespinosa/rtorf/tree/main/rscripts`
+
+## Implementation in python:
+
+I’m currently implementing a verison in python:
+
+| R                  | description                                     | Python |
+|:-------------------|:------------------------------------------------|:-------|
+| fex                | File extension                                  |        |
+| invfile            | Methods for objects with class ‘invfile’        |        |
+| obs_addltime       | local hour (bsed on longitude and time)         |        |
+| obs_addstime       | Add solar time into obspack                     |        |
+| obs_addtime        | Add times into obspack                          |        |
+| obs_agg            | Aggregates ObsPack by time                      |        |
+| obs_find_receptors | Compares expected receptors                     |        |
+| obs_footname       | Expected footprint name                         |        |
+| obs_format         | Formatting data                                 |        |
+| obs_freq           | return numeric vector in intervals              |        |
+| obs_index          | Summary of the ObsPack files (.txt)             | OK     |
+| obs_invfiles       | Generate files to perform inverse modeling      |        |
+| obs_list.dt        | list.dt                                         |        |
+| obs_meta           | Read obspack metadata                           |        |
+| obs_out            | outersect                                       |        |
+| obs_plot           | Read obspack metadata                           |        |
+| obs_rbind          | rbind obspack                                   |        |
+| obs_read           | Read obspack (.txt)                             |        |
+| obs_read_csvy      | reads CSVY                                      |        |
+| obs_read_nc        | Read obspack (.nc)                              | OK     |
+| obs_roundtime      | round seconds from “POSIXct” “POSIXt” classes   |        |
+| obs_summary        | Summary of the ObsPack files (.txt)             |        |
+| obs_table          | Obspack Table                                   |        |
+| obs_trunc          | Trunc numbers with a desired number of decimals |        |
+| obs_write_csvy     | Generates YAML and write data.frame             |        |
+| plot.invfile       | Methods for objects with class ‘invfile’        |        |
+| print.invfile      | Methods for objects with class ‘invfile’        |        |
+| sr                 | Extacts n last characters                       |        |
+| summary.invfile    | Methods for objects with class ’invfile         |        |

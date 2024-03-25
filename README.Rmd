@@ -391,4 +391,49 @@ In this package we are sharing scripts to process other sectors
 The scripts are available in the path 
 `https://github.com/ibarraespinosa/rtorf/tree/main/rscripts`
 
+## Implementation in python:
+
+I'm currently implementing a verison in python:
+
+
+```{r, include=F}
+data.frame(
+  stringsAsFactors = FALSE,
+                 R = c("fex","invfile",
+                       "obs_addltime","obs_addstime","obs_addtime","obs_agg",
+                       "obs_find_receptors","obs_footname","obs_format","obs_freq",
+                       "obs_index","obs_invfiles","obs_list.dt","obs_meta",
+                       "obs_out","obs_plot","obs_rbind","obs_read","obs_read_csvy",
+                       "obs_read_nc","obs_roundtime","obs_summary",
+                       "obs_table","obs_trunc","obs_write_csvy","plot.invfile",
+                       "print.invfile","sr","summary.invfile"),
+       description = c("File extension",
+                       "Methods for objects with class 'invfile'",
+                       "local hour (bsed on longitude and time)","Add solar time into obspack",
+                       "Add times into obspack","Aggregates ObsPack by time",
+                       "Compares expected receptors","Expected footprint name",
+                       "Formatting data","return numeric vector in intervals",
+                       "Summary of the ObsPack files (.txt)",
+                       "Generate files to perform inverse modeling","list.dt","Read obspack metadata",
+                       "outersect","Read obspack metadata","rbind obspack",
+                       "Read obspack (.txt)","reads CSVY","Read obspack (.nc)",
+                       "round seconds from \"POSIXct\" \"POSIXt\" classes",
+                       "Summary of the ObsPack files (.txt)","Obspack Table",
+                       "Trunc numbers with a desired number of decimals",
+                       "Generates YAML and write data.frame",
+                       "Methods for objects with class 'invfile'","Methods for objects with class 'invfile'",
+                       "Extacts n last characters",
+                       "Methods for objects with class 'invfile"),
+            Python = c("","","","","","","","",
+                       "","","OK","","","","","","","","","OK","",
+                       "","","","","","","","")
+) -> df
+
+```
+
+
+```{r, eval=TRUE, echo=FALSE}
+knitr::kable(df)
+
+```
 
