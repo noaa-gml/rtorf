@@ -14,7 +14,7 @@ activity](https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf)
 status](https://github.com/ibarraespinosa/rtorf/workflows/draft-pdf/badge.svg)](https://github.com/ibarraespinosa/rtorf/actions)
 
 [![R-CMD-check](https://github.com/noaa-gml/torf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noaa-gml/torf/actions/workflows/R-CMD-check.yaml)
-  
+
 
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of green house gases observations
 
@@ -52,53 +52,33 @@ the user must run `?obs_summary`.
 
 >  This example reads text files but it will be updated to read NetCDF
 
-```{r, eval = F}
+```{r, eval = T}
 
-categories <- c(
-  "aircraft-pfp",
-  "aircraft-insitu",
-  "surface-insitu",
-  "aircore",
-  "surface-pfp",
-  "tower-insitu",
-  "shipboard-insitu",
-  "flask"
-)
-obs <- "../../obspack_ch4_1_GLOBALVIEWplus_v4.0_2021-10-14/data/txt"
-index <- obs_summary(obs = obs)
+cate = c("aircraft-pfp",
+         "aircraft-insitu",
+         "aircraft-flask",
+         "surface-insitu",
+         "surface-flask", 
+         "surface-pfp",   
+         "tower-insitu",  
+         "aircore",       
+         "shipboard-insitu",
+         "shipboard-flask") 
 
-```
-
-
-
-
-```{r, eval = T, include = F}
-
-categories <- c(
-  "aircraft-pfp",
-  "aircraft-insitu",
-  "surface-insitu",
-  "aircore",
-  "surface-pfp",
-  "tower-insitu",
-  "shipboard-insitu",
-  "flask"
-)
-obs <- "Z:/torf/obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08/data/txt/"
-index <- obs_summary(obs = obs, verbose = T)
+obs <- "Z:/torf/obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08/data/nc/"
+index <- obs_summary(obs = obs, categories = cate)
 
 ```
 
 
-There are 362 files in the ObsPack directory.
+There are `r nrow(index)` files in the ObsPack directory.
 The printed information also shows the total at the bottom,
 as the sum of the individual file by sector. This
 is to ensure that the sum of files is equal to the
 total number of files found, shown at the top.
 furthermore, the printed information
-also shows that there are 136 files with the
+also shows that there are 109 files with the
 `agl` explicitly mentioned in the name of the file.
-
 
 
 
@@ -114,9 +94,8 @@ At the end, this function prints the total number
 of observations by type of altitude (agl or asl).
 
 ```{r}
-df <- obs_read(index = index,
-               categories = "tower-insitu",
-               verbose = FALSE)
+df <- obs_read_nc(index = index,
+               categories = "tower-insitu")
 
 ```
 
@@ -126,15 +105,15 @@ Sometimes we need more information about the site. For instance,
 what do the observations start and end. Then, we added 
 the function `obs_table`, which calculates statistics
 summary of "time" and other numeric variables by file name,
-sector, site, altitude and mode.
-
+sector, site, altitude and mode. For instance,
+the observations in the site "SCT" in
+South Carolina, USA, were between "2015-08-19 21:30:00 UTC" and
+"2020-12-31 23:30:00 UTC".
 
 ```{r}
-dft <- obs_table(df)
+dft <- obs_table(df = df)
 dft[site_name %in% unique(site_name)[sample(1:length(unique(dft$site_code)), 2)]]
-
 ```
-
 
 We added a function to plot the data read from ObsPack.
 The y-axis is the field `value` and the 
@@ -145,7 +124,10 @@ color palette, used by the internally imported function
 `cptcity::cpt`.
 
 ```{r, tidy = TRUE, dpi=300, fig.cap="First two sites in ObsPack"}
-obs_plot(dt = df, time = "time", yfactor = 1e9, cex = 0.5)
+obs_plot(dt = df, 
+         time = "time", 
+         yfactor = 1e9, 
+         cex = 0.5)
 ```
 
 
@@ -181,18 +163,32 @@ south <- 10
 west <- -170
 east <- -50
 max_altitude <- 8000
-evening <- 14:15
+evening <- 14
 
 yy <- 2020
 df <- rbind(df[year == yy - 1 & month == 12],
             df[year == yy],
             df[year == yy + 1 & month == 1])
 
-df <- df[altitude_final < max_altitude &
+
+if(any(names(df) %in% "intake_height")) {
+  df <- df[intake_height < max_altitude &
            latitude < north &
            latitude > south &
            longitude < east &
            longitude > west]
+} else {
+  df <- df[altitude_final < max_altitude &
+           latitude < north &
+           latitude > south &
+           longitude < east &
+           longitude > west]
+}
+
+unique(df[, c("intake_height", "site_elevation", "elevation",
+              "dataset_selection_tag",
+              "site_name")])
+
 ```
 
 After filtering by space and time, we have `r round(nrow(df), 2)`
@@ -204,11 +200,22 @@ max altitude was named `max_altitude`.
 
 
 ```{r}
+
+
+if(any(names(df) %in% "intake_height")) {
+dfa <- df[,
+          max(intake_height),
+          by = site_code] |> unique()
+
+names(dfa)[2] <- "max_altitude"
+} else {
 dfa <- df[,
           max(altitude_final),
           by = site_code] |> unique()
 
 names(dfa)[2] <- "max_altitude"
+}
+dfa
 ```
 
 
@@ -239,12 +246,21 @@ Now, we identify the local time to select evening hours.
 
 ```{r}
 df2 <- obs_addtime(df)
-df2$timeUTC <- cut(x = df2$timeUTC+3600,
-                   breaks = "2 hour") |>
-  as.character() |>
-  as.POSIXct(tz = "UTC")
-df3 <- obs_addltime(df2)
-df3 <- df3[lh %in% evening]
+```
+
+"_st". 
+
+```{r}
+df2 <- obs_addstime(df2)
+
+```
+solar time is not exact, then I need to cut every hour and aggregate observations
+by hour. At the end I want one daily observation per day and site
+
+# TODO ...
+```{r}
+df2 <- df2[hour_st %in% evening]
+
 ```
 
 Now there are `r nrow(df3)` observations.

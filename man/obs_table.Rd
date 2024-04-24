@@ -2,59 +2,17 @@
 % Please edit documentation in R/09_obs_table.R
 \name{obs_table}
 \alias{obs_table}
-\title{Obspack Table}
+\title{Obspack Table Summary}
 \usage{
 obs_table(
-  index,
-  categories = "tower-insitu",
-  verbose = FALSE,
-  n_site_code = 15,
-  n_site_lat = 18,
-  n_site_lon = 19,
-  n_site_name = 15,
-  n_site_country = 18,
-  n_dataset_project = 21,
-  n_lab = 16,
-  n_scales = 31,
-  n_site_elevation = 20,
-  n_altitude_comment = 22,
-  n_utc = 18,
-  fill_value = -1e+34
+  df,
+  cols = c("value", "time", "time_decimal", "latitude", "longitude")
 )
 }
 \arguments{
-\item{index}{data.table}
+\item{df}{data.table}
 
-\item{categories}{character; ONE category
-: of c("aircraft-pfp", "aircraft-insitu",
-"surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
-"flask").}
-
-\item{verbose}{Logical to show more information}
-
-\item{n_site_code}{number of characters extraced from metadata after search}
-
-\item{n_site_lat}{number of characters for latitude}
-
-\item{n_site_lon}{number of characters for longitude}
-
-\item{n_site_name}{number of characters extraced from metadata after search}
-
-\item{n_site_country}{number of characters extraced from metadata after search}
-
-\item{n_dataset_project}{number of characters extraced from metadata after search}
-
-\item{n_lab}{number of characters extraced from metadata after search}
-
-\item{n_scales}{number of characters extraced from metadata after search}
-
-\item{n_site_elevation}{number of characters extraced from metadata after search}
-
-\item{n_altitude_comment}{number of characters extraced from metadata after search}
-
-\item{n_utc}{number of characters extraced from metadata after search}
-
-\item{fill_value}{fill value. Appeared in aoa_aircraft-flask_19_allvalid.txt}
+\item{cols}{String of columns to be summarized.}
 }
 \value{
 A data.frame with with an index obspack.
@@ -67,15 +25,12 @@ are made by the columns "name", "sector", "site_name",
 "site_country", "type_altitude", "lab_1_abbr" and
 "site_utc2lst"
 }
-\note{
-Categories are defined in `obs_summary`. If aircraft* is used,
-then `obs_table` will calculate stats for altitude_final.
-}
 \examples{
 {
 # Do not run
 obs <- system.file("data-raw", package = "rtorf")
-index <- obs_summary(obs, "aircraft-flask")
-dx <- obs_table(index, categories = "aircraft-flask")
+index <- obs_summary(obs)
+dt <- obs_read(index)
+dx <- obs_table(dt)
 }
 }

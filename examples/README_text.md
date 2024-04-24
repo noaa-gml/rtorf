@@ -45,23 +45,6 @@ the column `agl` which indicates the `agl` indicated in the name of the
 file if available. To read the documentation of this function, the user
 must run `?obs_summary`.
 
-> This example reads text files but it will be updated to read NetCDF
-
-``` r
-categories <- c(
-  "aircraft-pfp",
-  "aircraft-insitu",
-  "surface-insitu",
-  "aircore",
-  "surface-pfp",
-  "tower-insitu",
-  "shipboard-insitu",
-  "flask"
-)
-obs <- "../../obspack_ch4_1_GLOBALVIEWplus_v4.0_2021-10-14/data/txt"
-index <- obs_summary(obs = obs)
-```
-
 There are 362 files in the ObsPack directory. The printed information
 also shows the total at the bottom, as the sum of the individual file by
 sector. This is to ensure that the sum of files is equal to the total
@@ -81,57 +64,84 @@ total number of observations by type of altitude (agl or asl).
 df <- obs_read(index = index,
                categories = "tower-insitu",
                verbose = FALSE)
+df[1:5]
 ```
+
+    ##    year month day hour minute second       time start_time midpoint_time
+    ## 1: 2009    10   7    5     30      0 1254893400 1254891600    1254893400
+    ## 2: 2009    10   7    6     30      0 1254897000 1254895200    1254897000
+    ## 3: 2009    10   7    7     30      0 1254900600 1254898800    1254900600
+    ## 4: 2009    10   7    8     30      0 1254904200 1254902400    1254904200
+    ## 5: 2009    10   7    9     30      0 1254907800 1254906000    1254907800
+    ##    time_decimal time_interval     value latitude longitude altitude elevation
+    ## 1:     2009.765          3600 1.907e-06   54.705   73.0292      139       110
+    ## 2:     2009.765          3600 1.904e-06   54.705   73.0292      139       110
+    ## 3:     2009.765          3600 1.903e-06   54.705   73.0292      139       110
+    ## 4:     2009.765          3600 1.906e-06   54.705   73.0292      139       110
+    ## 5:     2009.765          3600 1.903e-06   54.705   73.0292      139       110
+    ##    intake_height unique_sample_location_num obs_flag obspack_num
+    ## 1:            29                   46849218        1     5856371
+    ## 2:            29                   46849219        1     5856372
+    ## 3:            29                   46849220        1     5856373
+    ## 4:            29                   46849221        1     5856374
+    ## 5:            29                   46849222        1     5856375
+    ##                                                                                      obspack_id
+    ## 1: obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_azv_tower-insitu_20_allvalid-29magl~5856371
+    ## 2: obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_azv_tower-insitu_20_allvalid-29magl~5856372
+    ## 3: obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_azv_tower-insitu_20_allvalid-29magl~5856373
+    ## 4: obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_azv_tower-insitu_20_allvalid-29magl~5856374
+    ## 5: obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_azv_tower-insitu_20_allvalid-29magl~5856375
+    ##                                           name       sector site_code site_name
+    ## 1: ch4_azv_tower-insitu_20_allvalid-29magl.txt tower-insitu       AZV     Azovo
+    ## 2: ch4_azv_tower-insitu_20_allvalid-29magl.txt tower-insitu       AZV     Azovo
+    ## 3: ch4_azv_tower-insitu_20_allvalid-29magl.txt tower-insitu       AZV     Azovo
+    ## 4: ch4_azv_tower-insitu_20_allvalid-29magl.txt tower-insitu       AZV     Azovo
+    ## 5: ch4_azv_tower-insitu_20_allvalid-29magl.txt tower-insitu       AZV     Azovo
+    ##    site_country site_elevation site_latitude site_longitude dataset_project
+    ## 1:       Russia          110.0        54.705        73.0292    tower-insitu
+    ## 2:       Russia          110.0        54.705        73.0292    tower-insitu
+    ## 3:       Russia          110.0        54.705        73.0292    tower-insitu
+    ## 4:       Russia          110.0        54.705        73.0292    tower-insitu
+    ## 5:       Russia          110.0        54.705        73.0292    tower-insitu
+    ##    lab_1_abbr dataset_calibration_scale
+    ## 1:       NIES         NIES 94 CH4 scale
+    ## 2:       NIES         NIES 94 CH4 scale
+    ## 3:       NIES         NIES 94 CH4 scale
+    ## 4:       NIES         NIES 94 CH4 scale
+    ## 5:       NIES         NIES 94 CH4 scale
+    ##                                                            altitude_comment
+    ## 1: Altitude (in meters above sea level). See provider_comment if available.
+    ## 2: Altitude (in meters above sea level). See provider_comment if available.
+    ## 3: Altitude (in meters above sea level). See provider_comment if available.
+    ## 4: Altitude (in meters above sea level). See provider_comment if available.
+    ## 5: Altitude (in meters above sea level). See provider_comment if available.
+    ##    site_utc2lst agl type_altitude altitude_final id inst_repeatability method
+    ## 1:            6  29             0             29  1                 NA     NA
+    ## 2:            6  29             0             29  1                 NA     NA
+    ## 3:            6  29             0             29  1                 NA     NA
+    ## 4:            6  29             0             29  1                 NA     NA
+    ## 5:            6  29             0             29  1                 NA     NA
+    ##    nvalue qcflag value_std_dev value_unc
+    ## 1:     NA   <NA>            NA        NA
+    ## 2:     NA   <NA>            NA        NA
+    ## 3:     NA   <NA>            NA        NA
+    ## 4:     NA   <NA>            NA        NA
+    ## 5:     NA   <NA>            NA        NA
 
 Sometimes we need more information about the site. For instance, what do
 the observations start and end. Then, we added the function `obs_table`,
 which calculates statistics summary of “time” and other numeric
-variables by file name, sector, site, altitude and mode.
+variables by file name, sector, site, altitude and mode. For instance,
+the observations in the site “SCT” in South Carolina, USA, were between
+“2015-08-19 21:30:00 UTC” and “2020-12-31 23:30:00 UTC”.
 
 ``` r
-dft <- obs_table(df)
-dft[site_name %in% unique(site_name)[sample(1:length(unique(dft$site_code)), 2)]]
+dft <- obs_table(df = df)
+dft[site_code == "SCT", ]$timeUTC |> 
+  range()
 ```
 
-    ##           site_name site_latitude site_longitude   site_country site_code
-    ##  1: Millerville, AL       33.1759       -85.8911 United  States     GCI04
-    ##  2: Millerville, AL       33.1759       -85.8911 United  States     GCI04
-    ##  3: Millerville, AL       33.1759       -85.8911 United  States     GCI04
-    ##  4: Millerville, AL       33.1759       -85.8911 United  States     GCI04
-    ##  5: Millerville, AL       33.1759       -85.8911 United  States     GCI04
-    ##  6: Millerville, AL       33.1759       -85.8911 United  States     GCI04
-    ##  7:      Ridge Hill       51.9976          -2.54 United Kingdom       RGL
-    ##  8:      Ridge Hill       51.9976          -2.54 United Kingdom       RGL
-    ##  9:      Ridge Hill       51.9976          -2.54 United Kingdom       RGL
-    ## 10:      Ridge Hill       51.9976          -2.54 United Kingdom       RGL
-    ## 11:      Ridge Hill       51.9976          -2.54 United Kingdom       RGL
-    ## 12:      Ridge Hill       51.9976          -2.54 United Kingdom       RGL
-    ##         value       time time_decimal latitude longitude   stat
-    ##  1: 1.883e-06 1507854600         2018    33.18    -85.89    min
-    ##  2: 1.949e-06 1512750600         2018    33.18    -85.89     q1
-    ##  3: 1.967e-06 1517808600         2018    33.18    -85.89 median
-    ##  4: 1.972e-06 1517782301         2018    33.18    -85.89   mean
-    ##  5: 1.992e-06 1522740600         2018    33.18    -85.89     q3
-    ##  6: 2.831e-06 1527636600         2018    33.18    -85.89    max
-    ##  7: 1.832e-06 1330014600         2012    52.00     -2.54    min
-    ##  8: 1.930e-06 1400777100         2014    52.00     -2.54     q1
-    ##  9: 1.958e-06 1470645000         2017    52.00     -2.54 median
-    ## 10: 1.966e-06 1472074215         2017    52.00     -2.54   mean
-    ## 11: 1.991e-06 1544257800         2019    52.00     -2.54     q3
-    ## 12: 5.690e-06 1614123000         2021    52.00     -2.54    max
-    ##                 timeUTC
-    ##  1: 2017-10-13 00:30:00
-    ##  2: 2017-12-08 16:30:00
-    ##  3: 2018-02-05 05:30:00
-    ##  4: 2018-02-04 22:11:41
-    ##  5: 2018-04-03 07:30:00
-    ##  6: 2018-05-29 23:30:00
-    ##  7: 2012-02-23 16:30:00
-    ##  8: 2014-05-22 16:45:00
-    ##  9: 2016-08-08 08:30:00
-    ## 10: 2016-08-24 21:30:15
-    ## 11: 2018-12-08 08:30:00
-    ## 12: 2021-02-23 23:30:00
+    ## [1] "2015-08-19 21:30:00 UTC" "2021-12-31 23:30:00 UTC"
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
@@ -150,7 +160,7 @@ obs_plot(dt = df, time = "time", yfactor = 1e+09, cex = 0.5)
     ## [1] AZV BRZ
 
 <figure>
-<img src="README_files/figure-gfm/unnamed-chunk-7-1.png"
+<img src="README_text_files/figure-gfm/unnamed-chunk-6-1.png"
 alt="First two sites in ObsPack" />
 <figcaption aria-hidden="true">First two sites in ObsPack</figcaption>
 </figure>

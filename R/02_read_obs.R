@@ -13,6 +13,8 @@
 #' "flask").
 #' @param verbose Logical to show more information
 #' @param n_site_code number of characters extratced from metadata after search
+#' @param n_site_latitude number of characters extracted from metadata after search
+#' @param n_site_longitude number of characters extracted from metadata after search
 #' @param n_site_name number of characters extracted from metadata after search
 #' @param n_site_country number of characters extracted from metadata after search
 #' @param n_dataset_project number of characters extracted from metadata after search
@@ -56,6 +58,8 @@ obs_read <- function(index,
                      categories = "flask",
                      verbose = TRUE,
                      n_site_code = 15,
+                     n_site_latitude = 18,
+                     n_site_longitude = 19,
                      n_site_name = 15,
                      n_site_country = 18,
                      n_dataset_project = 21,
@@ -104,17 +108,34 @@ obs_read <- function(index,
                     x = att,
                     value = T)
 
-    # everything after char 15
     site_name <- substr(x = pattern,
                         start = n_site_name,
                         stop = nchar(pattern))
+
+
+    # site_latitude ####
+    pattern <- grep(pattern = "site_latitude",
+                    x = att,
+                    value = T)[1]
+
+    (site_latitude <- substr(x = pattern,
+                             start = n_site_latitude,
+                             stop = nchar(pattern)))
+
+    # site_longitude ####
+    pattern <- grep(pattern = "site_longitude",
+                    x = att,
+                    value = T)[1]
+
+    (site_longitude <- substr(x = pattern,
+                              start = n_site_longitude,
+                              stop = nchar(pattern)))
 
     # site_country ####
     pattern <- grep(pattern = "site_country",
                     x = att,
                     value = T)[1]
 
-    # everything after char 18
     site_country <- substr(x = pattern,
                            start = n_site_country,
                            stop = nchar(pattern))
@@ -124,7 +145,6 @@ obs_read <- function(index,
                     x = att,
                     value = T)[1]
 
-    # everything after char 21
     dataset_project <- substr(x = pattern,
                               start = n_dataset_project,
                               stop = nchar(pattern))
@@ -134,10 +154,10 @@ obs_read <- function(index,
                     x = att,
                     value = T)[1]
 
-    # everything after char 16
     (lab_1_abbr <- substr(x = pattern,
                           start = n_lab,
                           stop = nchar(pattern)))
+
 
 
     # dataset_calibration_scale ####
@@ -145,7 +165,6 @@ obs_read <- function(index,
                     x = att,
                     value = T)[1]
 
-    # everything after char 21
     (dataset_calibration_scale <- substr(x = pattern,
                                          start = n_scales,
                                          stop = nchar(pattern)))
@@ -157,7 +176,6 @@ obs_read <- function(index,
                     x = att,
                     value = T)[1]
 
-    # everything after char 16
     (site_elevation <- substr(x = pattern,
                               start = n_site_elevation,
                               stop = nchar(pattern)))
@@ -234,6 +252,8 @@ obs_read <- function(index,
     dt$site_name <- site_name
     dt$site_country <- site_country
     dt$site_elevation <- site_elevation
+    dt$site_latitude <- site_latitude
+    dt$site_longitude <- site_longitude
     dt$dataset_project <- dataset_project
     dt$lab_1_abbr <- lab_1_abbr
     dt$dataset_calibration_scale <- dataset_calibration_scale
@@ -319,8 +339,11 @@ obs_read <- function(index,
 #' @param solar_time Logical, add solar time?
 #' @param as_list Logical to return as list
 #' @param verbose Logical to show more information
+#' @param warnings Logical to show warnings when reading NetCDF, especially
+#' global attributes
 #' @return A data.frame with with an index obspack.
 #' @importFrom data.table fwrite ".N" ":=" rbindlist "%chin%"
+#' @importFrom utils capture.output
 #' @export
 #'
 #' @examples {
@@ -331,9 +354,10 @@ obs_read <- function(index,
 #' }
 obs_read_nc <- function(index,
                         categories = "flask",
-                        solar_time = FALSE,
+                        solar_time = TRUE,
                         as_list = FALSE,
-                        verbose = FALSE){
+                        verbose = FALSE,
+                        warnings = FALSE){
 
   if(nrow(index) == 0) stop("empty index")
 
@@ -360,14 +384,18 @@ obs_read_nc <- function(index,
     na <- data.frame(vars = names(nc$var), stringsAsFactors = FALSE)
 
     la <- lapply(1:nrow(na), function(i) {
-      unlist(ncdf4::ncatt_get(nc = nc,
-                              varid = na$vars[i]))
+      suppressWarnings(
+        unlist(ncdf4::ncatt_get(nc = nc,
+                                varid = na$vars[i]))
+      )
     })
     names(la) <- na$vars
 
     lv <- lapply(1:nrow(na), function(i) {
-      x <- ncdf4::ncvar_get(nc = nc,
-                            varid = na$vars[i])
+      suppressWarnings(
+        x <- ncdf4::ncvar_get(nc = nc,
+                              varid = na$vars[i])
+      )
     })
     names(lv) <- na$vars
 
@@ -409,8 +437,12 @@ obs_read_nc <- function(index,
 
     dt$scale <- la$value[["scale_comment"]]
 
-    global <- ncdf4::ncatt_get(nc = nc,
-                               varid = 0)
+
+    log <- utils::capture.output(
+      global <- ncdf4::ncatt_get(nc = nc,
+                                 varid = 0, verbose = F)
+    )
+    if(warnings) print(log)
 
     x <- do.call("cbind", global)
     x <- as.data.frame(x)

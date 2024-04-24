@@ -9,6 +9,8 @@ obs_read(
   categories = "flask",
   verbose = TRUE,
   n_site_code = 15,
+  n_site_latitude = 18,
+  n_site_longitude = 19,
   n_site_name = 15,
   n_site_country = 18,
   n_dataset_project = 21,
@@ -32,6 +34,10 @@ obs_read(
 \item{verbose}{Logical to show more information}
 
 \item{n_site_code}{number of characters extratced from metadata after search}
+
+\item{n_site_latitude}{number of characters extracted from metadata after search}
+
+\item{n_site_longitude}{number of characters extracted from metadata after search}
 
 \item{n_site_name}{number of characters extracted from metadata after search}
 

@@ -7,9 +7,10 @@
 obs_read_nc(
   index,
   categories = "flask",
-  solar_time = FALSE,
+  solar_time = TRUE,
   as_list = FALSE,
-  verbose = FALSE
+  verbose = FALSE,
+  warnings = FALSE
 )
 }
 \arguments{
@@ -25,6 +26,9 @@ obs_read_nc(
 \item{as_list}{Logical to return as list}
 
 \item{verbose}{Logical to show more information}
+
+\item{warnings}{Logical to show warnings when reading NetCDF, especially
+global attributes}
 }
 \value{
 A data.frame with with an index obspack.

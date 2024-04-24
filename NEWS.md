@@ -2,6 +2,11 @@ NEWS
 ===========
 
 
+### rtorf 0.9.2 (Release date: 2024-04-23)
+
+- reformatted obs_table to read df from obs_read
+- obs_read now read intake_height, site_longitude and site_latitude
+
 ### rtorf 0.9.1 (Release date: 2024-03-05)
 
 - order summary index by name
