@@ -28,7 +28,7 @@
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
       <ul class="navbar-nav"><li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/ibarraespinosa/rtorf/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/noaa-gml/rtorf/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -41,7 +41,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>local hour (bsed on longitude and time)</h1>
-      <small class="dont-index">Source: <a href="https://github.com/ibarraespinosa/rtorf/blob/HEAD/R/03_addtime_obs.R" class="external-link"><code>R/03_addtime_obs.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/noaa-gml/rtorf/blob/HEAD/R/03_addtime_obs.R" class="external-link"><code>R/03_addtime_obs.R</code></a></small>
       <div class="d-none name"><code>obs_addltime.Rd</code></div>
     </div>
 
@@ -55,7 +55,8 @@
 <span>  <span class="va">dt</span>,</span>
 <span>  timeUTC <span class="op">=</span> <span class="st">"timeUTC"</span>,</span>
 <span>  utc2lt <span class="op">=</span> <span class="st">"site_utc2lst"</span>,</span>
-<span>  longitude <span class="op">=</span> <span class="st">"longitude"</span></span>
+<span>  longitude <span class="op">=</span> <span class="st">"longitude"</span>,</span>
+<span>  tz <span class="op">=</span> <span class="st">"UTC"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -76,6 +77,10 @@ if available</p></dd>
 
 <dt>longitude</dt>
 <dd><p>Character indicating the column with the lingitude</p></dd>
+
+
+<dt>tz</dt>
+<dd><p>Timezone, default "UTC"</p></dd>
 
 </dl></div>
     <div class="section level2">
