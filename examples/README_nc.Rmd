@@ -95,25 +95,57 @@ of observations by type of altitude (agl or asl).
 
 ```{r}
 df <- obs_read_nc(index = index,
-               categories = "tower-insitu")
+                  categories = "tower-insitu")
 
 ```
-
 
 
 Sometimes we need more information about the site. For instance,
 what do the observations start and end. Then, we added 
 the function `obs_table`, which calculates statistics
 summary of "time" and other numeric variables by file name,
-sector, site, altitude and mode. For instance,
-the observations in the site "SCT" in
-South Carolina, USA, were between "2015-08-19 21:30:00 UTC" and
-"2020-12-31 23:30:00 UTC".
+sector, site, altitude and mode.
+
 
 ```{r}
 dft <- obs_table(df = df)
-dft[site_name %in% unique(site_name)[sample(1:length(unique(dft$site_code)), 2)]]
 ```
+
+
+Now we can visualize the average of observations by site.
+
+
+
+```{r sf, echo = TRUE, message=FALSE}
+library(sf)
+sdft <- st_as_sf(dft[stat == "mean"], 
+                 coords = c("longitude", "latitude"), 
+                 crs = 4326)
+sdft$value <- sdft$value*1e09
+plot(sdft["value"], 
+     reset = FALSE, 
+     axes = TRUE, 
+     graticule = TRUE,
+     pch = 16, 
+     cex = 1.5, 
+     pal = cptcity::lucky(colorRampPalette = T), 
+     main = NULL)
+maps::map(add = T)
+```
+
+
+Let us randomly select a couples of sites from the database. 
+
+```{r}
+usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
+usites
+```
+
+
+```{r}
+knitr::kable(dft[site_name %in% usites])
+```
+
 
 We added a function to plot the data read from ObsPack.
 The y-axis is the field `value` and the 
@@ -124,7 +156,7 @@ color palette, used by the internally imported function
 `cptcity::cpt`.
 
 ```{r, tidy = TRUE, dpi=300, fig.cap="First two sites in ObsPack"}
-obs_plot(dt = df, 
+obs_plot(dt = df[site_name %in% usites], 
          time = "time", 
          yfactor = 1e9, 
          cex = 0.5)
@@ -173,16 +205,16 @@ df <- rbind(df[year == yy - 1 & month == 12],
 
 if(any(names(df) %in% "intake_height")) {
   df <- df[intake_height < max_altitude &
-           latitude < north &
-           latitude > south &
-           longitude < east &
-           longitude > west]
+             latitude < north &
+             latitude > south &
+             longitude < east &
+             longitude > west]
 } else {
   df <- df[altitude_final < max_altitude &
-           latitude < north &
-           latitude > south &
-           longitude < east &
-           longitude > west]
+             latitude < north &
+             latitude > south &
+             longitude < east &
+             longitude > west]
 }
 
 unique(df[, c("intake_height", "site_elevation", "elevation",
@@ -201,19 +233,18 @@ max altitude was named `max_altitude`.
 
 ```{r}
 
-
 if(any(names(df) %in% "intake_height")) {
-dfa <- df[,
-          max(intake_height),
-          by = site_code] |> unique()
-
-names(dfa)[2] <- "max_altitude"
+  dfa <- df[,
+            max(intake_height),
+            by = site_code] |> unique()
+  
+  names(dfa)[2] <- "max_altitude"
 } else {
-dfa <- df[,
-          max(altitude_final),
-          by = site_code] |> unique()
-
-names(dfa)[2] <- "max_altitude"
+  dfa <- df[,
+            max(altitude_final),
+            by = site_code] |> unique()
+  
+  names(dfa)[2] <- "max_altitude"
 }
 dfa
 ```
@@ -248,31 +279,23 @@ Now, we identify the local time to select evening hours.
 df2 <- obs_addtime(df)
 ```
 
-"_st". 
-
-```{r}
-df2 <- obs_addstime(df2)
-
-```
-solar time is not exact, then I need to cut every hour and aggregate observations
-by hour. At the end I want one daily observation per day and site
-
-# TODO ...
 ```{r}
 df2 <- df2[hour_st %in% evening]
 
 ```
 
-Now there are `r nrow(df3)` observations.
+
+
+Now there are `r nrow(df2)` observations.
 At this point we can calculate the averages of several columns by
 the cut time. The function `obs_agg` does this aggregation as shown
 in the following lines of code. The argument `gby`
-establish the function used to aggregate `cols`, in this case
-the function mean by time and altitude. Finally, we
-add local time again.
+establish the function used to aggregate `cols`. I need to aggregate the data
+by date (year, month, date), because it is already filtered by
+the hours of interest. Then, I would have 1 observation per day.
 
 ```{r}
-df4 <- obs_agg(dt = df3,
+df3 <- obs_agg(dt = df2,
                gby = "mean",
                cols = c("value",
                         "latitude",
@@ -416,34 +439,34 @@ I'm currently implementing a version in python:
 ```{r, include=F}
 data.frame(
   stringsAsFactors = FALSE,
-                 R = c("fex","invfile",
-                       "obs_addltime","obs_addstime","obs_addtime","obs_agg",
-                       "obs_find_receptors","obs_footname","obs_format","obs_freq",
-                       "obs_index","obs_invfiles","obs_list.dt","obs_meta",
-                       "obs_out","obs_plot","obs_rbind","obs_read","obs_read_csvy",
-                       "obs_read_nc","obs_roundtime","obs_summary",
-                       "obs_table","obs_trunc","obs_write_csvy","plot.invfile",
-                       "print.invfile","sr","summary.invfile"),
-       description = c("File extension",
-                       "Methods for objects with class 'invfile'",
-                       "local hour (bsed on longitude and time)","Add solar time into obspack",
-                       "Add times into obspack","Aggregates ObsPack by time",
-                       "Compares expected receptors","Expected footprint name",
-                       "Formatting data","return numeric vector in intervals",
-                       "Summary of the ObsPack files (.txt)",
-                       "Generate files to perform inverse modeling","list.dt","Read obspack metadata",
-                       "outersect","Read obspack metadata","rbind obspack",
-                       "Read obspack (.txt)","reads CSVY","Read obspack (.nc)",
-                       "round seconds from \"POSIXct\" \"POSIXt\" classes",
-                       "Summary of the ObsPack files (.txt)","Obspack Table",
-                       "Trunc numbers with a desired number of decimals",
-                       "Generates YAML and write data.frame",
-                       "Methods for objects with class 'invfile'","Methods for objects with class 'invfile'",
-                       "Extacts n last characters",
-                       "Methods for objects with class 'invfile"),
-            Python = c("","","","","","","","",
-                       "","","OK","","","","","","","","","OK","",
-                       "","","","","","","","")
+  R = c("fex","invfile",
+        "obs_addltime","obs_addstime","obs_addtime","obs_agg",
+        "obs_find_receptors","obs_footname","obs_format","obs_freq",
+        "obs_index","obs_invfiles","obs_list.dt","obs_meta",
+        "obs_out","obs_plot","obs_rbind","obs_read","obs_read_csvy",
+        "obs_read_nc","obs_roundtime","obs_summary",
+        "obs_table","obs_trunc","obs_write_csvy","plot.invfile",
+        "print.invfile","sr","summary.invfile"),
+  description = c("File extension",
+                  "Methods for objects with class 'invfile'",
+                  "local hour (bsed on longitude and time)","Add solar time into obspack",
+                  "Add times into obspack","Aggregates ObsPack by time",
+                  "Compares expected receptors","Expected footprint name",
+                  "Formatting data","return numeric vector in intervals",
+                  "Summary of the ObsPack files (.txt)",
+                  "Generate files to perform inverse modeling","list.dt","Read obspack metadata",
+                  "outersect","Read obspack metadata","rbind obspack",
+                  "Read obspack (.txt)","reads CSVY","Read obspack (.nc)",
+                  "round seconds from \"POSIXct\" \"POSIXt\" classes",
+                  "Summary of the ObsPack files (.txt)","Obspack Table",
+                  "Trunc numbers with a desired number of decimals",
+                  "Generates YAML and write data.frame",
+                  "Methods for objects with class 'invfile'","Methods for objects with class 'invfile'",
+                  "Extacts n last characters",
+                  "Methods for objects with class 'invfile"),
+  Python = c("","","","","","","","",
+             "","","OK","","","","","","","","","OK","",
+             "","","","","","","","")
 ) -> df
 
 ```

@@ -7,10 +7,11 @@ NEWS
 - reformatted obs_table to read df from obs_read
 - obs_read now read intake_height, site_longitude and site_latitude
 
+obs_addstime return a POSIXct vector, (fix #6 )
+
 ### rtorf 0.9.1 (Release date: 2024-03-05)
 
-- order summary index by name
-(obs_summary)
+- order summary index by name (obs_summary)
 
 ### rtorf 0.9.0 (Release date: 2024-03-05)
 

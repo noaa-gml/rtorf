@@ -10,6 +10,7 @@ obs_agg(
   cols = c("year", "month", "day", "hour", "minute", "second", "time", "time_decimal",
     "value", "latitude", "longitude", "altitude", "pressure", "u", "v", "temperature",
     "type_altitude", "altitude_final"),
+  time = c("UTC", "solar", "local"),
   byalt = FALSE,
   verbose = TRUE
 )
@@ -23,6 +24,8 @@ will be averaged by the new_second column established in the `idcol`}
 
 \item{cols}{Character which defines columns to be aggregated}
 
+\item{time}{Character to aggregate time (solar, local, UTC)}
+
 \item{byalt}{Logical, to aggregate by altitude or not (used in tower)}
 
 \item{verbose}{logical to show more information}
@@ -33,6 +36,9 @@ A data.frame with with an index obspack.
 \description{
 This function add timeUTC as POSIX class,
 local time and ending sampling time
+}
+\note{
+By default add column timeUTC with parameters from time loca, solar or UTC
 }
 \examples{
 \dontrun{

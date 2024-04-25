@@ -4,12 +4,14 @@
 \alias{obs_addtime}
 \title{Add times into obspack}
 \usage{
-obs_addtime(dt, verbose = TRUE)
+obs_addtime(dt, verbose = TRUE, tz = "UTC")
 }
 \arguments{
 \item{dt}{obspack data.table}
 
 \item{verbose}{obspack data.table}
+
+\item{tz}{Timezone, default "UTC"}
 }
 \value{
 A data.frame with with an index obspack.

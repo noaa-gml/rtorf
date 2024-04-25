@@ -4,12 +4,12 @@
 \alias{obs_addstime}
 \title{Add solar time into obspack}
 \usage{
-obs_addstime(dt, verbose = TRUE)
+obs_addstime(dt, tz = "UTC")
 }
 \arguments{
 \item{dt}{obspack data.table}
 
-\item{verbose}{obspack data.table}
+\item{tz}{Timezone, default "UTC"}
 }
 \value{
 return the same data.frame adding solar time

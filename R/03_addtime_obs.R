@@ -7,6 +7,7 @@
 #' @family time
 #' @param dt obspack data.table
 #' @param verbose obspack data.table
+#' @param tz Timezone, default "UTC"
 #' @return A data.frame with with an index obspack.
 #' @importFrom data.table year month hour minute second setDT fifelse uniqueN
 #' @note timeUTC is calculated based on the field column start_time,
@@ -24,7 +25,8 @@
 #' dt <- obs_addtime(dt)
 #' }
 obs_addtime <- function(dt,
-                        verbose = TRUE){
+                        verbose = TRUE,
+                        tz = "UTC"){
 
   if(!inherits(dt, "data.table")) data.table::setDT(dt)
 
@@ -38,7 +40,7 @@ obs_addtime <- function(dt,
   # Time is already UTC
   dt$timeUTC_start <- as.POSIXct(dt$start_time,
                                  origin = "1970-01-01",
-                                 tz = "UTC")
+                                 tz = tz)
 
   if(verbose) cat("Adding timeUTC_end\n")
   # adding timeUTC_end
@@ -98,6 +100,7 @@ obs_addtime <- function(dt,
 #' @param utc2lt Character indicating the integer column to convert to local time
 #' if available
 #' @param longitude Character indicating the column with the lingitude
+#' @param tz Timezone, default "UTC"
 #' @importFrom data.table hour
 #' @return data.table with local time columns
 #' @note time depending n longitude is by John Miller (GML/NOAA)
@@ -110,7 +113,8 @@ obs_addtime <- function(dt,
 obs_addltime <- function(dt,
                          timeUTC = "timeUTC",
                          utc2lt = "site_utc2lst",
-                         longitude = "longitude") {
+                         longitude = "longitude",
+                         tz = "UTC") {
 
   # Priority site_utc2lst and if it is not available,
   if(any(utc2lt == names(dt))) {
@@ -128,7 +132,7 @@ obs_addltime <- function(dt,
   if(inherits(dt$local_time, "numeric")) {
     dt$local_time <- as.POSIXct(dt$local_time,
                                 origin = "1970-01-01",
-                                tz = "UTC")
+                                tz = tz)
   }
 
   dt$lh <- data.table::hour(dt$local_time)
@@ -143,7 +147,7 @@ obs_addltime <- function(dt,
 #'
 #' @family time
 #' @param dt obspack data.table
-#' @param verbose obspack data.table
+#' @param tz Timezone, default "UTC"
 #' @return return the same data.frame adding solar time
 #' @importFrom data.table setDT
 #'
@@ -156,20 +160,20 @@ obs_addltime <- function(dt,
 #' dt <- obs_addtime(dt)
 #' }
 obs_addstime <- function(dt,
-                        verbose = TRUE){
+                         tz = "UTC"){
 
   if(!inherits(dt, "data.table")) data.table::setDT(dt)
 
-  if(verbose) cat("Adding Solar Time in column timeUTCst\n")
   # Time is already UTC
-  dt$timeUTC_st <- ISOdatetime(dt$year_st,
-                               dt$month_st,
-                               dt$day_st,
-                               dt$hour_st,
-                               dt$minute_st,
-                               dt$second_st)
+  timeUTC_st <- ISOdatetime(dt$year_st,
+                            dt$month_st,
+                            dt$day_st,
+                            dt$hour_st,
+                            dt$minute_st,
+                            dt$second_st,
+                            tz = tz)
 
-  return(dt)
+  return(timeUTC_st)
 }
 
 
