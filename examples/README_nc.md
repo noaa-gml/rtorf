@@ -126,13 +126,13 @@ plot(sdft["value"],
      main = NULL)
 ```
 
-    ## Colour gradient: jjg_ccolo_hana_r_a_i_n_y, number: 3973
+    ## Colour gradient: cmocean_balance, number: 572
 
 ``` r
 maps::map(add = T)
 ```
 
-![](README_files/figure-gfm/sf-1.png)<!-- -->
+![](README_nc_files/figure-gfm/sf-1.png)<!-- -->
 
 Let us randomly select a couples of sites from the database.
 
@@ -141,26 +141,27 @@ usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
-    ## [1] "Tacolneston"        "Danville, Virginia"
+    ## [1] "Azovo"                                                       
+    ## [2] "Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)"
 
 ``` r
 knitr::kable(dft[site_name %in% usites])
 ```
 
-| site_name          | site_latitude | site_longitude | site_country   | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
-|:-------------------|--------------:|---------------:|:---------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
-| Danville, Virginia |       36.7058 |       -79.4369 | United States  | DVV       | 1.847e-06 | 1468449000 |         2017 |    36.71 |   -79.437 | min    | 2016-07-13 22:30:00 |
-| Danville, Virginia |       36.7058 |       -79.4369 | United States  | DVV       | 1.945e-06 | 1483676100 |         2017 |    36.71 |   -79.437 | q1     | 2017-01-06 04:15:00 |
-| Danville, Virginia |       36.7058 |       -79.4369 | United States  | DVV       | 1.966e-06 | 1494000000 |         2017 |    36.71 |   -79.437 | median | 2017-05-05 16:00:00 |
-| Danville, Virginia |       36.7058 |       -79.4369 | United States  | DVV       | 1.970e-06 | 1493261865 |         2017 |    36.71 |   -79.437 | mean   | 2017-04-27 02:57:45 |
-| Danville, Virginia |       36.7058 |       -79.4369 | United States  | DVV       | 1.994e-06 | 1504986300 |         2018 |    36.71 |   -79.437 | q3     | 2017-09-09 19:45:00 |
-| Danville, Virginia |       36.7058 |       -79.4369 | United States  | DVV       | 2.356e-06 | 1514763000 |         2018 |    36.71 |   -79.437 | max    | 2017-12-31 23:30:00 |
-| Tacolneston        |       52.5177 |         1.1386 | United Kingdom | TAC       | 1.830e-06 | 1343302200 |         2013 |    52.52 |     1.139 | min    | 2012-07-26 11:30:00 |
-| Tacolneston        |       52.5177 |         1.1386 | United Kingdom | TAC       | 1.934e-06 | 1418884200 |         2015 |    52.52 |     1.139 | q1     | 2014-12-18 06:30:00 |
-| Tacolneston        |       52.5177 |         1.1386 | United Kingdom | TAC       | 1.963e-06 | 1489437000 |         2017 |    52.52 |     1.139 | median | 2017-03-13 20:30:00 |
-| Tacolneston        |       52.5177 |         1.1386 | United Kingdom | TAC       | 1.972e-06 | 1492570417 |         2017 |    52.52 |     1.139 | mean   | 2017-04-19 02:53:37 |
-| Tacolneston        |       52.5177 |         1.1386 | United Kingdom | TAC       | 1.998e-06 | 1566329400 |         2020 |    52.52 |     1.139 | q3     | 2019-08-20 19:30:00 |
-| Tacolneston        |       52.5177 |         1.1386 | United Kingdom | TAC       | 4.496e-06 | 1640993400 |         2022 |    52.52 |     1.139 | max    | 2021-12-31 23:30:00 |
+| site_name                                                    | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
+|:-------------------------------------------------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 1.776e-06 | 1254893400 |         2010 |    54.70 |     73.03 | min    | 2009-10-07 05:30:00 |
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 1.956e-06 | 1323138600 |         2012 |    54.70 |     73.03 | q1     | 2011-12-06 02:30:00 |
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.011e-06 | 1481661000 |         2017 |    54.70 |     73.03 | median | 2016-12-13 20:30:00 |
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.019e-06 | 1440860069 |         2016 |    54.70 |     73.03 | mean   | 2015-08-29 14:54:29 |
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.059e-06 | 1519223400 |         2018 |    54.70 |     73.03 | q3     | 2018-02-21 14:30:00 |
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 3.173e-06 | 1577835000 |         2020 |    54.70 |     73.03 | max    | 2019-12-31 23:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.830e-06 | 1319340600 |         2012 |    64.99 |   -147.60 | min    | 2011-10-23 03:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.904e-06 | 1401946200 |         2014 |    64.99 |   -147.60 | q1     | 2014-06-05 05:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.926e-06 | 1477751400 |         2017 |    64.99 |   -147.60 | median | 2016-10-29 14:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.929e-06 | 1479259585 |         2017 |    64.99 |   -147.60 | mean   | 2016-11-16 01:26:25 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.951e-06 | 1556659800 |         2019 |    64.99 |   -147.60 | q3     | 2019-04-30 21:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 2.224e-06 | 1640968200 |         2022 |    64.99 |   -147.60 | max    | 2021-12-31 16:30:00 |
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
@@ -173,12 +174,12 @@ obs_plot(dt = df[site_name %in% usites], time = "time", yfactor = 1e+09, cex = 0
 ```
 
     ## Found the following sites: 
-    ## [1] DVV TAC
+    ## [1] AZV CRV
     ## Plotting the following sites: 
-    ## [1] DVV TAC
+    ## [1] AZV CRV
 
 <figure>
-<img src="README_files/figure-gfm/unnamed-chunk-8-1.png"
+<img src="README_nc_files/figure-gfm/unnamed-chunk-8-1.png"
 alt="First two sites in ObsPack" />
 <figcaption aria-hidden="true">First two sites in ObsPack</figcaption>
 </figure>

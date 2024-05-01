@@ -189,6 +189,9 @@ December of 2019 and January of 2021.
 At this stage, we can apply the spatial filter
 by using the coordinates.
 
+# TODO ADD identifier of type of altitude of intake_height
+
+
 ```{r}
 north <- 80
 south <- 10
@@ -250,19 +253,65 @@ dfa
 ```
 
 
-### Time
+### Key Time
 
 Here we need to start time columns.
 The function `obs_addtime` adds time columns
 `timeUTC`, `timeUTC_start` which shows the start time
 of each observation and `timeUTC_end`
 which shows the end time for each observation.
+
+
+```{r}
+df2 <- obs_addtime(df)
+```
+Then we need a *key_time* to aggregate data.
+This can be done using UTC, solar, or local time.
+The normal approach is using afteroon solar or local time.
+
+
+#### Hierarchy of solar or local time
+
+1) solar time
+2) local time with columns `site_utc2lst`
+3) local time longitude
+
+
+1) solar time (default)
+
+Here we select the hours of interest and then
+aggregate data by year, month and day of solar time.
+In this way, we will have one information per day. however
+this approach is not appropiate for aircraft
+which are aggregated every 10 or 20 seconds. Hence
+we need to aggregate data by one time column.
+Also, this helps to generate the receptor info 
+files including hour, minute and second.
+Hence, *we need to add solar or local time column*.
+
+```{r}
+df2$solar_time <- obs_addstime(df2)
+
+```
+
+
+2) local time with column `site_utc2lst`
+
 Then we need to identify the local time with the function
 `add_ltime`. This is important because to identifying
 observations in the evening in local time.
 `add_ltime` uses two methods, first identify
 the time difference with utc by identifying the
-metadata column "site_utc2lst". If this information
+metadata column "site_utc2lst". 
+If solar time is not available
+#now we need to cut solar time for the frequency needed. 
+As we will work with 
+
+
+
+3) local time longitude
+
+If this information
 is not available, with the aircrafts for instance,
 the local time is calculated with an approximation
 based on longitude:
@@ -275,18 +324,39 @@ $longitude$ the coordinate.
 Then, the time is cut every two hours.
 Now, we identify the local time to select evening hours.
 
-```{r}
-df2 <- obs_addtime(df)
-```
+
+
+#### Cut time
+
+Now we have they key column time, we can cut it accordingly.
 
 ```{r}
-df2 <- df2[hour_st %in% evening]
+df2$solar_time_cut <- cut(x = df2$solar_time,
+                   breaks = "1 hour") |>
+  as.character()
 
 ```
 
 
+How we can check the solar time and the cut solar time.
+Please note that solar_time_cut,
+the column that it will be used to aggregate data
 
-Now there are `r nrow(df2)` observations.
+
+```{r}
+df2[, c("solar_time", "solar_time_cut")]
+```
+
+How we filter for the required solar time, in this case `r evening`. 
+
+```{r}
+df3 <- df2[hour_st %in% evening]
+
+```
+
+
+Now there are `r nrow(df3)` observations and before filtering
+`r nrow(df2)`.
 At this point we can calculate the averages of several columns by
 the cut time. The function `obs_agg` does this aggregation as shown
 in the following lines of code. The argument `gby`
@@ -294,34 +364,52 @@ establish the function used to aggregate `cols`. I need to aggregate the data
 by date (year, month, date), because it is already filtered by
 the hours of interest. Then, I would have 1 observation per day.
 
+As standard, let us define `key_time` as `solar_time`. 
+The `obs_agg` function will aggregate the desired data by that column.
+
 ```{r}
-df3 <- obs_agg(dt = df2,
+df3$key_time <- df3$solar_time_cut
+```
+
+
+```{r}
+df4 <- obs_agg(dt = df3,
                gby = "mean",
                cols = c("value",
                         "latitude",
                         "longitude",
-                        "type_altitude",
-                        "dif_time",
+                        # "type_altitude",
                         "year_end",
                         "site_utc2lst"),
-               verbose = FALSE,
+               verbose = T,
                byalt = TRUE)
-df5 <- obs_addltime(df4)
 ```
 
-Now there are `r nrow(df5)` observations,
-`r nrow(df3) - nrow(df5)` less observations.
+Now there are `r nrow(df4)` observations,
+`r nrow(df) - nrow(df4)` less observations.
 Here we add the column `max_altitude` to identify the max altitude
 by site. 
 
 ```{r}
-df5[,
-    max_altitude := max(altitude_final),
-    by = site_code]
-df5[,
-    c("site_code",
-      "altitude_final",
-      "max_altitude")] |> unique()
+if(any(names(df) %in% "intake_height")) {
+  df4[,
+      max_altitude := max(intake_height),
+      by = site_code]
+  df4[,
+      c("site_code",
+        "intake_height",
+        "max_altitude")] |> unique()
+} else {
+  df4[,
+      max_altitude := max(altitude_final),
+      by = site_code]
+  df4[,
+      c("site_code",
+        "altitude_final",
+        "max_altitude")] |> unique()
+}
+
+
 ```
 
 ### Saving master as text and csvy
@@ -337,11 +425,8 @@ before writing into the disk.
 The separation is space " ".
 
 ```{r, eval = T}
-master <- df5
+master <- df3
 master$timeUTC <- as.character(master$timeUTC)
-master$timeUTC_end <- as.character(master$timeUTC_end)
-master$local_time <- as.character(master$local_time)
-
 fwrite(master, 
        file =  paste0(tempdir(), "/tower_insitu_2020.txt"),
        sep = " ")
@@ -369,7 +454,7 @@ the column names, type of data and first observations.
 The YAML header is delimited by the characters "---".
 
 ```{r, eval = F}
-readLines(csvy)[1:38]
+readLines(csvy)[1:33]
 ```
 
 ### Saving receptors
@@ -392,6 +477,28 @@ is formatted as "01". We also need to filter for
 
 ```{r, eval = F}
 
+if(any(names(df) %in% "intake_height")) {
+receptor <- master[intake_height == max_altitude,
+                   c("site_code",
+                     "year",
+                     "month",
+                     "day",
+                     "hour", 
+                     "minute",
+                     "second",
+                     "latitude",
+                     "longitude",
+                     "intake_height",
+                     "type_altitude",
+                     "year_end",
+                     "month_end",
+                     "day_end",
+                     "hour_end",
+                     "minute_end",
+                     "second_end")]
+receptor$intake_height <- round(receptor$intake_height)
+
+} else {
 receptor <- master[altitude_final == max_altitude,
                    c("site_code",
                      "year",
@@ -410,7 +517,13 @@ receptor <- master[altitude_final == max_altitude,
                      "hour_end",
                      "minute_end",
                      "second_end")]
+
 receptor$altitude_final <- round(receptor$altitude_final)
+}
+
+
+
+
 receptor <- obs_format(receptor)
 
 if(nrow(receptor_agl) > 0) {
