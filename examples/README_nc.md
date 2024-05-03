@@ -16,10 +16,10 @@ status](https://github.com/ibarraespinosa/rtorf/workflows/draft-pdf/badge.svg)](
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of
 green house gases observations
 
-`rtorf` only depends on `data.table`, which is basically parallel C, so
-it can be installed in any machine.
+`rtorf` only depends on `data.table` and `ncdf4`, which is basically
+parallel C, so it can be installed in any machine.
 
-## installation
+## Installation
 
 ``` r
 remotes::install_github("noaa-gml/rtorf")
@@ -45,7 +45,7 @@ the column `agl` which indicates the `agl` indicated in the name of the
 file if available. To read the documentation of this function, the user
 must run `?obs_summary`.
 
-> This example reads text files but it will be updated to read NetCDF
+> We first define the categories
 
 ``` r
 cate = c("aircraft-pfp",
@@ -99,6 +99,23 @@ df <- obs_read_nc(index = index,
                   categories = "tower-insitu")
 ```
 
+> intake_height or altitude_final
+
+The identification of the altitude and type is critical. The approach
+used here consists of:
+
+1.  Use intake_height
+2.  Identify `agl` from the name of the tile.
+3.  If `agl` is not present, `agl = altitude - site_elevation`.
+4.  If there are some NA in elevation, will result some NA in `agl`
+5.  A new column is added named `altitude_final` to store `agl` or `asl`
+6.  Another column named `type_altitude` is added to identify `agl` as
+    0, or `asl` as 1.
+
+To maintain a coherent approach among text and NetCDF files, we will add
+a column altitude_final and type_altitude. This is done in `obs_read_nc`
+or `obs_read`.
+
 Sometimes we need more information about the site. For instance, what do
 the observations start and end. Then, we added the function `obs_table`,
 which calculates statistics summary of “time” and other numeric
@@ -122,11 +139,11 @@ plot(sdft["value"],
      graticule = TRUE,
      pch = 16, 
      cex = 1.5, 
-     pal = cptcity::lucky(colorRampPalette = T), 
+     pal = cptcity::lucky(colorRampPalette = T), #random
      main = NULL)
 ```
 
-    ## Colour gradient: cmocean_balance, number: 572
+    ## Colour gradient: rc_scoutie, number: 6877
 
 ``` r
 maps::map(add = T)
@@ -141,27 +158,26 @@ usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
-    ## [1] "Azovo"                                                       
-    ## [2] "Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)"
+    ## [1] "Demyanskoe"                   "Beech Island, South Carolina"
 
 ``` r
 knitr::kable(dft[site_name %in% usites])
 ```
 
-| site_name                                                    | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
-|:-------------------------------------------------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 1.776e-06 | 1254893400 |         2010 |    54.70 |     73.03 | min    | 2009-10-07 05:30:00 |
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 1.956e-06 | 1323138600 |         2012 |    54.70 |     73.03 | q1     | 2011-12-06 02:30:00 |
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.011e-06 | 1481661000 |         2017 |    54.70 |     73.03 | median | 2016-12-13 20:30:00 |
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.019e-06 | 1440860069 |         2016 |    54.70 |     73.03 | mean   | 2015-08-29 14:54:29 |
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.059e-06 | 1519223400 |         2018 |    54.70 |     73.03 | q3     | 2018-02-21 14:30:00 |
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 3.173e-06 | 1577835000 |         2020 |    54.70 |     73.03 | max    | 2019-12-31 23:30:00 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.830e-06 | 1319340600 |         2012 |    64.99 |   -147.60 | min    | 2011-10-23 03:30:00 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.904e-06 | 1401946200 |         2014 |    64.99 |   -147.60 | q1     | 2014-06-05 05:30:00 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.926e-06 | 1477751400 |         2017 |    64.99 |   -147.60 | median | 2016-10-29 14:30:00 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.929e-06 | 1479259585 |         2017 |    64.99 |   -147.60 | mean   | 2016-11-16 01:26:25 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.951e-06 | 1556659800 |         2019 |    64.99 |   -147.60 | q3     | 2019-04-30 21:30:00 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 2.224e-06 | 1640968200 |         2022 |    64.99 |   -147.60 | max    | 2021-12-31 16:30:00 |
+| site_name                    | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
+|:-----------------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
+| Demyanskoe                   |       59.7914 |        70.8711 | Russia        | DEM       | 1.853e-06 | 1124461800 |         2006 |    59.79 |     70.87 | min    | 2005-08-19 14:30:00 |
+| Demyanskoe                   |       59.7914 |        70.8711 | Russia        | DEM       | 1.949e-06 | 1257992100 |         2010 |    59.79 |     70.87 | q1     | 2009-11-12 02:15:00 |
+| Demyanskoe                   |       59.7914 |        70.8711 | Russia        | DEM       | 1.989e-06 | 1384389000 |         2014 |    59.79 |     70.87 | median | 2013-11-14 00:30:00 |
+| Demyanskoe                   |       59.7914 |        70.8711 | Russia        | DEM       | 2.005e-06 | 1371167046 |         2013 |    59.79 |     70.87 | mean   | 2013-06-13 23:44:06 |
+| Demyanskoe                   |       59.7914 |        70.8711 | Russia        | DEM       | 2.038e-06 | 1471498200 |         2017 |    59.79 |     70.87 | q3     | 2016-08-18 05:30:00 |
+| Demyanskoe                   |       59.7914 |        70.8711 | Russia        | DEM       | 3.822e-06 | 1577835000 |         2020 |    59.79 |     70.87 | max    | 2019-12-31 23:30:00 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.839e-06 | 1440019800 |         2016 |    33.41 |    -81.83 | min    | 2015-08-19 21:30:00 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.947e-06 | 1493130600 |         2017 |    33.41 |    -81.83 | q1     | 2017-04-25 14:30:00 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.978e-06 | 1541687400 |         2019 |    33.41 |    -81.83 | median | 2018-11-08 14:30:00 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.987e-06 | 1540739442 |         2019 |    33.41 |    -81.83 | mean   | 2018-10-28 15:10:42 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 2.015e-06 | 1586813400 |         2020 |    33.41 |    -81.83 | q3     | 2020-04-13 21:30:00 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 3.482e-06 | 1640993400 |         2022 |    33.41 |    -81.83 | max    | 2021-12-31 23:30:00 |
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
@@ -170,13 +186,9 @@ number of 3 sites. The argument `pal` is to define the color palette,
 used by the internally imported function `cptcity::cpt`.
 
 ``` r
-obs_plot(dt = df[site_name %in% usites], time = "time", yfactor = 1e+09, cex = 0.5)
+obs_plot(dt = df[site_name %in% usites], time = "time", yfactor = 1e+09, cex = 0.5,
+    verbose = FALSE)
 ```
-
-    ## Found the following sites: 
-    ## [1] AZV CRV
-    ## Plotting the following sites: 
-    ## [1] AZV CRV
 
 <figure>
 <img src="README_nc_files/figure-gfm/unnamed-chunk-8-1.png"
@@ -185,19 +197,7 @@ alt="First two sites in ObsPack" />
 </figure>
 
 Here we can see 2.61 million observations for `tower-insitu`. These
-observations are made between 2004 and 2021. The identification of the
-altitude and type is critical. The approach used here consists of:
-
-1.  Identify `agl` from the name of the tile.
-2.  If `agl` not present, search fill_values used in elevation and
-    transform them into NA (not available)
-3.  If `agl` is not present, `agl = altitude - elevation`.
-4.  If there are some NA in elevation, will result some NA in `agl`
-5.  A new column is added named `altitude_final` to store `agl` or `asl`
-6.  Another column named `type_altitude` is added to identify `agl` or
-    `asl`.
-7.  If there is any case NA in `altitude_final`, `type_altitude` is “not
-    available”
+observations are made between 2004 and 2021.
 
 ### Filtering
 
@@ -206,8 +206,6 @@ data for a specific region and periods of time. In this part we include
 spatial and temporal parameters to filter data. The year of interest is
 2020, but we also included December of 2019 and January of 2021. At this
 stage, we can apply the spatial filter by using the coordinates.
-
-# TODO ADD identifier of type of altitude of intake_height
 
 ``` r
 north <- 80
@@ -222,39 +220,30 @@ df <- rbind(df[year == yy - 1 & month == 12],
             df[year == yy],
             df[year == yy + 1 & month == 1])
 
+df <- df[altitude_final < max_altitude &
+           latitude < north &
+           latitude > south &
+           longitude < east &
+           longitude > west]
 
-if(any(names(df) %in% "intake_height")) {
-  df <- df[intake_height < max_altitude &
-             latitude < north &
-             latitude > south &
-             longitude < east &
-             longitude > west]
-} else {
-  df <- df[altitude_final < max_altitude &
-             latitude < north &
-             latitude > south &
-             longitude < east &
-             longitude > west]
-}
-
-unique(df[, c("intake_height", "site_elevation", "elevation",
+unique(df[, c("altitude_final", "site_elevation", "elevation",
               "dataset_selection_tag",
               "site_name")])
 ```
 
-    ##     intake_height site_elevation elevation dataset_selection_tag
-    ##  1:          17.1         611.43    611.43       allvalid-17magl
-    ##  2:          31.7         611.43    611.43       allvalid-32magl
-    ##  3:           4.9         611.43    611.43        allvalid-5magl
-    ##  4:         122.0         472.00    472.00      allvalid-122magl
-    ##  5:          30.0         472.00    472.00       allvalid-30magl
-    ##  6:         396.0         472.00    472.00      allvalid-396magl
-    ##  7:         304.8         115.20    115.20      allvalid-305magl
-    ##  8:          31.0         115.20    115.20       allvalid-31magl
-    ##  9:          61.0         115.20    115.20       allvalid-61magl
-    ## 10:          30.0           2.00      2.00       allvalid-30magl
-    ## 11:         484.0           2.00      2.00      allvalid-483magl
-    ## 12:          89.1           2.00      2.00       allvalid-91magl
+    ##     altitude_final site_elevation elevation dataset_selection_tag
+    ##  1:           17.1         611.43    611.43       allvalid-17magl
+    ##  2:           31.7         611.43    611.43       allvalid-32magl
+    ##  3:            4.9         611.43    611.43        allvalid-5magl
+    ##  4:          122.0         472.00    472.00      allvalid-122magl
+    ##  5:           30.0         472.00    472.00       allvalid-30magl
+    ##  6:          396.0         472.00    472.00      allvalid-396magl
+    ##  7:          304.8         115.20    115.20      allvalid-305magl
+    ##  8:           31.0         115.20    115.20       allvalid-31magl
+    ##  9:           61.0         115.20    115.20       allvalid-61magl
+    ## 10:           30.0           2.00      2.00       allvalid-30magl
+    ## 11:          484.0           2.00      2.00      allvalid-483magl
+    ## 12:           89.1           2.00      2.00       allvalid-91magl
     ##                                                        site_name
     ##  1: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)
     ##  2: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)
@@ -276,19 +265,11 @@ height. The column with the height is named `altitude_final` and the max
 altitude was named `max_altitude`.
 
 ``` r
-if(any(names(df) %in% "intake_height")) {
-  dfa <- df[,
-            max(intake_height),
-            by = site_code] |> unique()
-  
-  names(dfa)[2] <- "max_altitude"
-} else {
-  dfa <- df[,
-            max(altitude_final),
-            by = site_code] |> unique()
-  
-  names(dfa)[2] <- "max_altitude"
-}
+dfa <- df[,
+          max(altitude_final),
+          by = site_code] |> unique()
+
+names(dfa)[2] <- "max_altitude"
 dfa
 ```
 
@@ -315,22 +296,20 @@ df2 <- obs_addtime(df)
     ## Found time_interval
 
 Then we need a *key_time* to aggregate data. This can be done using UTC,
-solar, or local time. The normal approach is using afteroon solar or
+solar, or local time. The normal approach is using afternoon solar or
 local time.
 
 #### Hierarchy of solar or local time
 
-1)  solar time
+1)  Solar time
+2)  Local time with columns `site_utc2lst`
+3)  Local time longitude
 
-2)  local time with columns `site_utc2lst`
-
-3)  local time longitude
-
-4)  solar time (default)
+> solar time (default)
 
 Here we select the hours of interest and then aggregate data by year,
 month and day of solar time. In this way, we will have one information
-per day. however this approach is not appropiate for aircraft which are
+per day. however this approach is not appropriate for aircraft which are
 aggregated every 10 or 20 seconds. Hence we need to aggregate data by
 one time column. Also, this helps to generate the receptor info files
 including hour, minute and second. Hence, *we need to add solar or local
@@ -340,7 +319,7 @@ time column*.
 df2$solar_time <- obs_addstime(df2)
 ```
 
-2)  local time with column `site_utc2lst`
+> local time with column `site_utc2lst`
 
 Then we need to identify the local time with the function `add_ltime`.
 This is important because to identifying observations in the evening in
@@ -349,7 +328,7 @@ difference with utc by identifying the metadata column “site_utc2lst”.
 If solar time is not available \#now we need to cut solar time for the
 frequency needed. As we will work with
 
-3)  local time longitude
+> local time longitude
 
 If this information is not available, with the aircrafts for instance,
 the local time is calculated with an approximation based on longitude:
@@ -366,35 +345,32 @@ Now we have they key column time, we can cut it accordingly.
 
 ``` r
 df2$solar_time_cut <- cut(x = df2$solar_time,
-                   breaks = "1 hour") |>
+                          breaks = "1 hour") |>
   as.character()
 ```
 
 How we can check the solar time and the cut solar time. Please note that
 solar_time_cut, the column that it will be used to aggregate data
 
-``` r
-df2[, c("solar_time", "solar_time_cut")]
-```
-
-    ##                  solar_time      solar_time_cut
-    ##      1: 2019-12-02 00:49:35          2019-12-02
-    ##      2: 2019-12-02 01:49:35 2019-12-02 01:00:00
-    ##      3: 2019-12-02 02:49:35 2019-12-02 02:00:00
-    ##      4: 2019-12-02 03:49:35 2019-12-02 03:00:00
-    ##      5: 2019-12-02 04:49:35 2019-12-02 04:00:00
-    ##     ---                                        
-    ## 112879: 2021-01-31 11:10:52 2021-01-31 11:00:00
-    ## 112880: 2021-01-31 12:10:52 2021-01-31 12:00:00
-    ## 112881: 2021-01-31 13:10:52 2021-01-31 13:00:00
-    ## 112882: 2021-01-31 14:10:52 2021-01-31 14:00:00
-    ## 112883: 2021-01-31 15:10:52 2021-01-31 15:00:00
-
 How we filter for the required solar time, in this case 14.
 
 ``` r
 df3 <- df2[hour_st %in% evening]
+df3[, c("solar_time", "solar_time_cut")]
 ```
+
+    ##                solar_time      solar_time_cut
+    ##    1: 2019-12-02 14:49:12 2019-12-02 14:00:00
+    ##    2: 2019-12-03 14:48:48 2019-12-03 14:00:00
+    ##    3: 2019-12-04 14:48:24 2019-12-04 14:00:00
+    ##    4: 2019-12-05 14:48:00 2019-12-05 14:00:00
+    ##    5: 2019-12-06 14:47:35 2019-12-06 14:00:00
+    ##   ---                                        
+    ## 4312: 2021-01-27 14:11:38 2021-01-27 14:00:00
+    ## 4313: 2021-01-28 14:11:26 2021-01-28 14:00:00
+    ## 4314: 2021-01-29 14:11:14 2021-01-29 14:00:00
+    ## 4315: 2021-01-30 14:11:03 2021-01-30 14:00:00
+    ## 4316: 2021-01-31 14:10:52 2021-01-31 14:00:00
 
 Now there are 4316 observations and before filtering 112883. At this
 point we can calculate the averages of several columns by the cut time.
@@ -417,53 +393,40 @@ df4 <- obs_agg(dt = df3,
                cols = c("value",
                         "latitude",
                         "longitude",
-                        # "type_altitude",
-                        "year_end",
                         "site_utc2lst"),
                verbose = T,
                byalt = TRUE)
 ```
 
     ## Selecting by alt
-    ## Identified intake_height
     ## Adding time
 
 Now there are 4316 observations, 108567 less observations. Here we add
 the column `max_altitude` to identify the max altitude by site.
 
 ``` r
-if(any(names(df) %in% "intake_height")) {
-  df4[,
-      max_altitude := max(intake_height),
-      by = site_code]
-  df4[,
-      c("site_code",
-        "intake_height",
-        "max_altitude")] |> unique()
-} else {
-  df4[,
-      max_altitude := max(altitude_final),
-      by = site_code]
-  df4[,
-      c("site_code",
-        "altitude_final",
-        "max_altitude")] |> unique()
-}
+df4[,
+    max_altitude := max(altitude_final),
+    by = site_code]
+df4[,
+    c("site_code",
+      "altitude_final",
+      "max_altitude")] |> unique()
 ```
 
-    ##     site_code intake_height max_altitude
-    ##  1:       CRV          17.1         31.7
-    ##  2:       CRV          31.7         31.7
-    ##  3:       CRV           4.9         31.7
-    ##  4:       LEF         122.0        396.0
-    ##  5:       LEF         396.0        396.0
-    ##  6:       LEF          30.0        396.0
-    ##  7:       SCT         304.8        304.8
-    ##  8:       SCT          31.0        304.8
-    ##  9:       SCT          61.0        304.8
-    ## 10:       WGC          30.0        484.0
-    ## 11:       WGC         484.0        484.0
-    ## 12:       WGC          89.1        484.0
+    ##     site_code altitude_final max_altitude
+    ##  1:       CRV           17.1         31.7
+    ##  2:       CRV           31.7         31.7
+    ##  3:       CRV            4.9         31.7
+    ##  4:       LEF          122.0        396.0
+    ##  5:       LEF          396.0        396.0
+    ##  6:       LEF           30.0        396.0
+    ##  7:       SCT          304.8        304.8
+    ##  8:       SCT           31.0        304.8
+    ##  9:       SCT           61.0        304.8
+    ## 10:       WGC           30.0        484.0
+    ## 11:       WGC          484.0        484.0
+    ## 12:       WGC           89.1        484.0
 
 ### Saving master as text and csvy
 
@@ -502,7 +465,7 @@ were generated. Here we can see the column names, type of data and first
 observations. The YAML header is delimited by the characters “—”.
 
 ``` r
-readLines(csvy)[1:33]
+readLines(csvy)[1:34] # and more
 ```
 
 ### Saving receptors
@@ -520,28 +483,6 @@ the month 1, is formatted as “01”. We also need to filter for
 `asl`.
 
 ``` r
-if(any(names(df) %in% "intake_height")) {
-receptor <- master[intake_height == max_altitude,
-                   c("site_code",
-                     "year",
-                     "month",
-                     "day",
-                     "hour", 
-                     "minute",
-                     "second",
-                     "latitude",
-                     "longitude",
-                     "intake_height",
-                     "type_altitude",
-                     "year_end",
-                     "month_end",
-                     "day_end",
-                     "hour_end",
-                     "minute_end",
-                     "second_end")]
-receptor$intake_height <- round(receptor$intake_height)
-
-} else {
 receptor <- master[altitude_final == max_altitude,
                    c("site_code",
                      "year",
@@ -559,12 +500,10 @@ receptor <- master[altitude_final == max_altitude,
                      "day_end",
                      "hour_end",
                      "minute_end",
-                     "second_end")]
+                     "second_end",
+                     "time_decimal")]
 
 receptor$altitude_final <- round(receptor$altitude_final)
-}
-
-
 
 
 receptor <- obs_format(receptor)

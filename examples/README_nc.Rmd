@@ -90,7 +90,8 @@ also shows that there are 109 files with the
 Once the summary is built, the function `obs_read`
 will read the files available in the
 index file previously generated.
-Here we selected the category "tower-insitu".
+Here we
+selected the category "tower-insitu".
 The argument verbose prints which files are being read each time,
 by default.
 At the end, this function prints the total number
@@ -117,12 +118,8 @@ consists of:
 6. Another column named `type_altitude` is added to identify `agl` as 0, or `asl` as 1.
 
 To maintain a coherent approach among text and NetCDF files, 
-we will add a column altitude_final and type_altitude
-
-```{r}
-df$altitude_final <- df$intake_height
-df$type_altitude <- ifelse(df$dataset_intake_ht_unit == "magl", 0, 1)
-```
+we will add a column altitude_final and type_altitude. This
+is done in `obs_read_nc` or `obs_read`.
 
 
 Sometimes we need more information about the site. For instance,

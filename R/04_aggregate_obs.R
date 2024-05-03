@@ -60,6 +60,7 @@ obs_agg <- function(dt,
   timecol <- NULL
   site_code <- NULL
   altitude_final <- NULL
+  type_altitude <- NULL
   timeUTC <- NULL
   key_time <- NULL
   lab_1_abbr <- NULL

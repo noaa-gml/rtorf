@@ -18,10 +18,12 @@ status](https://github.com/ibarraespinosa/rtorf/workflows/draft-pdf/badge.svg)](
 
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of green house gases observations
 
-`rtorf` only depends on `data.table`, which is basically parallel C, 
+`rtorf` only depends on `data.table` and `ncdf4`, which is basically parallel C, 
 so it can be installed in any machine.
 
-## installation
+
+
+## Installation
 
 ```{r, eval = F}
 remotes::install_github("noaa-gml/rtorf")
@@ -50,7 +52,8 @@ which indicates the `agl` indicated in the name of the file
 if available. To read the documentation of this function,
 the user must run `?obs_summary`.
 
->  This example reads text files but it will be updated to read NetCDF
+>  We first define the categories
+
 
 ```{r, eval = T}
 
@@ -87,7 +90,8 @@ also shows that there are 109 files with the
 Once the summary is built, the function `obs_read`
 will read the files available in the
 index file previously generated.
-Here we selected the category "tower-insitu".
+Here we
+selected the category "tower-insitu".
 The argument verbose prints which files are being read each time,
 by default.
 At the end, this function prints the total number
@@ -98,6 +102,24 @@ df <- obs_read_nc(index = index,
                   categories = "tower-insitu")
 
 ```
+
+
+> intake_height or altitude_final
+
+The identification
+of the altitude and type is critical. The approach used here 
+consists of:
+
+1. Use intake_height
+2. Identify `agl` from the name of the tile.
+3. If `agl` is not present, `agl = altitude - site_elevation`.
+4. If there are some NA in elevation, will result some NA in `agl`
+5. A new column is added named `altitude_final` to store `agl` or `asl`
+6. Another column named `type_altitude` is added to identify `agl` as 0, or `asl` as 1.
+
+To maintain a coherent approach among text and NetCDF files, 
+we will add a column altitude_final and type_altitude. This
+is done in `obs_read_nc` or `obs_read`.
 
 
 Sometimes we need more information about the site. For instance,
@@ -128,7 +150,7 @@ plot(sdft["value"],
      graticule = TRUE,
      pch = 16, 
      cex = 1.5, 
-     pal = cptcity::lucky(colorRampPalette = T), 
+     pal = cptcity::lucky(colorRampPalette = T), #random
      main = NULL)
 maps::map(add = T)
 ```
@@ -159,23 +181,15 @@ color palette, used by the internally imported function
 obs_plot(dt = df[site_name %in% usites], 
          time = "time", 
          yfactor = 1e9, 
-         cex = 0.5)
+         cex = 0.5,
+         verbose = FALSE)
 ```
 
 
 Here we can see `r round(nrow(df)/1000000, 2)` million observations 
 for `tower-insitu`. These observations are made between 
-`r range(df$year)[1]` and `r range(df$year)[2]`. The identification
-of the altitude and type is critical. The approach used here 
-consists of:
+`r range(df$year)[1]` and `r range(df$year)[2]`. 
 
-1. Identify `agl` from the name of the tile.
-2. If `agl` not present, search fill_values used in elevation and transform them into NA (not available)
-3. If `agl` is not present, `agl = altitude - elevation`.
-4. If there are some NA in elevation, will result some NA in `agl`
-5. A new column is added named `altitude_final` to store `agl` or `asl`
-6. Another column named `type_altitude` is added to identify `agl` or `asl`.
-7. If there is any case NA in `altitude_final`, `type_altitude` is "not available"
 
 
 ### Filtering
@@ -188,9 +202,6 @@ The year of interest is 2020, but we also included
 December of 2019 and January of 2021.
 At this stage, we can apply the spatial filter
 by using the coordinates.
-
-# TODO ADD identifier of type of altitude of intake_height
-
 
 ```{r}
 north <- 80
@@ -205,22 +216,13 @@ df <- rbind(df[year == yy - 1 & month == 12],
             df[year == yy],
             df[year == yy + 1 & month == 1])
 
+df <- df[altitude_final < max_altitude &
+           latitude < north &
+           latitude > south &
+           longitude < east &
+           longitude > west]
 
-if(any(names(df) %in% "intake_height")) {
-  df <- df[intake_height < max_altitude &
-             latitude < north &
-             latitude > south &
-             longitude < east &
-             longitude > west]
-} else {
-  df <- df[altitude_final < max_altitude &
-             latitude < north &
-             latitude > south &
-             longitude < east &
-             longitude > west]
-}
-
-unique(df[, c("intake_height", "site_elevation", "elevation",
+unique(df[, c("altitude_final", "site_elevation", "elevation",
               "dataset_selection_tag",
               "site_name")])
 
@@ -235,20 +237,11 @@ max altitude was named `max_altitude`.
 
 
 ```{r}
+dfa <- df[,
+          max(altitude_final),
+          by = site_code] |> unique()
 
-if(any(names(df) %in% "intake_height")) {
-  dfa <- df[,
-            max(intake_height),
-            by = site_code] |> unique()
-  
-  names(dfa)[2] <- "max_altitude"
-} else {
-  dfa <- df[,
-            max(altitude_final),
-            by = site_code] |> unique()
-  
-  names(dfa)[2] <- "max_altitude"
-}
+names(dfa)[2] <- "max_altitude"
 dfa
 ```
 
@@ -267,22 +260,22 @@ df2 <- obs_addtime(df)
 ```
 Then we need a *key_time* to aggregate data.
 This can be done using UTC, solar, or local time.
-The normal approach is using afteroon solar or local time.
+The normal approach is using afternoon solar or local time.
 
 
 #### Hierarchy of solar or local time
 
-1) solar time
-2) local time with columns `site_utc2lst`
-3) local time longitude
+1) Solar time
+2) Local time with columns `site_utc2lst`
+3) Local time longitude
 
 
-1) solar time (default)
+> solar time (default)
 
 Here we select the hours of interest and then
 aggregate data by year, month and day of solar time.
 In this way, we will have one information per day. however
-this approach is not appropiate for aircraft
+this approach is not appropriate for aircraft
 which are aggregated every 10 or 20 seconds. Hence
 we need to aggregate data by one time column.
 Also, this helps to generate the receptor info 
@@ -295,7 +288,7 @@ df2$solar_time <- obs_addstime(df2)
 ```
 
 
-2) local time with column `site_utc2lst`
+> local time with column `site_utc2lst`
 
 Then we need to identify the local time with the function
 `add_ltime`. This is important because to identifying
@@ -309,12 +302,13 @@ As we will work with
 
 
 
-3) local time longitude
+> local time longitude
 
 If this information
 is not available, with the aircrafts for instance,
 the local time is calculated with an approximation
 based on longitude:
+
 
 $$
 lt = UTC + longitude/15 * 60 * 60
@@ -332,7 +326,7 @@ Now we have they key column time, we can cut it accordingly.
 
 ```{r}
 df2$solar_time_cut <- cut(x = df2$solar_time,
-                   breaks = "1 hour") |>
+                          breaks = "1 hour") |>
   as.character()
 
 ```
@@ -342,15 +336,12 @@ How we can check the solar time and the cut solar time.
 Please note that solar_time_cut,
 the column that it will be used to aggregate data
 
-
-```{r}
-df2[, c("solar_time", "solar_time_cut")]
-```
-
 How we filter for the required solar time, in this case `r evening`. 
 
 ```{r}
 df3 <- df2[hour_st %in% evening]
+df3[, c("solar_time", "solar_time_cut")]
+
 
 ```
 
@@ -378,8 +369,6 @@ df4 <- obs_agg(dt = df3,
                cols = c("value",
                         "latitude",
                         "longitude",
-                        # "type_altitude",
-                        "year_end",
                         "site_utc2lst"),
                verbose = T,
                byalt = TRUE)
@@ -391,24 +380,13 @@ Here we add the column `max_altitude` to identify the max altitude
 by site. 
 
 ```{r}
-if(any(names(df) %in% "intake_height")) {
-  df4[,
-      max_altitude := max(intake_height),
-      by = site_code]
-  df4[,
-      c("site_code",
-        "intake_height",
-        "max_altitude")] |> unique()
-} else {
-  df4[,
-      max_altitude := max(altitude_final),
-      by = site_code]
-  df4[,
-      c("site_code",
-        "altitude_final",
-        "max_altitude")] |> unique()
-}
-
+df4[,
+    max_altitude := max(altitude_final),
+    by = site_code]
+df4[,
+    c("site_code",
+      "altitude_final",
+      "max_altitude")] |> unique()
 
 ```
 
@@ -454,7 +432,7 @@ the column names, type of data and first observations.
 The YAML header is delimited by the characters "---".
 
 ```{r, eval = F}
-readLines(csvy)[1:33]
+readLines(csvy)[1:34] # and more
 ```
 
 ### Saving receptors
@@ -477,28 +455,6 @@ is formatted as "01". We also need to filter for
 
 ```{r, eval = F}
 
-if(any(names(df) %in% "intake_height")) {
-receptor <- master[intake_height == max_altitude,
-                   c("site_code",
-                     "year",
-                     "month",
-                     "day",
-                     "hour", 
-                     "minute",
-                     "second",
-                     "latitude",
-                     "longitude",
-                     "intake_height",
-                     "type_altitude",
-                     "year_end",
-                     "month_end",
-                     "day_end",
-                     "hour_end",
-                     "minute_end",
-                     "second_end")]
-receptor$intake_height <- round(receptor$intake_height)
-
-} else {
 receptor <- master[altitude_final == max_altitude,
                    c("site_code",
                      "year",
@@ -516,12 +472,10 @@ receptor <- master[altitude_final == max_altitude,
                      "day_end",
                      "hour_end",
                      "minute_end",
-                     "second_end")]
+                     "second_end",
+                     "time_decimal")]
 
 receptor$altitude_final <- round(receptor$altitude_final)
-}
-
-
 
 
 receptor <- obs_format(receptor)
