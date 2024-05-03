@@ -51,7 +51,7 @@ obs_agg <- function(dt,
 
   if(!any(names(dt) %in% "key_time")) stop("missing `key_time`")
   if(!any(names(dt) %in% "site_code")) stop("missing `site_code`")
-  # if(!any(names(dt) %in% "altitude_final")) stop("missing `altitude_final``")
+  if(!any(names(dt) %in% "altitude_final")) stop("missing `altitude_final`")
 
   # Remember aircraft
   # Only aircraft need to be aggregated every 20 seconds
@@ -87,34 +87,17 @@ obs_agg <- function(dt,
     # Remember tower
     # A site can have different altitudes, then
     # each group must be processed differently
-    if(any(names(dt) %in% "intake_height")) { #solar + alt
-      if(verbose) cat("Identified intake_height\n")
-
-      dt <- dt[,
-               lapply(.SD,
-                      mean,
-                      na.rm = T),
-               .SDcols = cols,
-               by = list(timeUTC = key_time,
-                         site_code,
-                         intake_height,
-                         lab_1_abbr,
-                         dataset_calibration_scale)]
-
-    } else { #solar - alt
-      if(verbose) cat("Identified altitude_final\n")
-
-      dt <- dt[,
-               lapply(.SD,
-                      mean,
-                      na.rm = T),
-               .SDcols = cols,
-               by = list(timeUTC = key_time,
-                         site_code,
-                         altitude_final,
-                         lab_1_abbr,
-                         dataset_calibration_scale)]
-    }
+    dt <- dt[,
+             lapply(.SD,
+                    mean,
+                    na.rm = T),
+             .SDcols = cols,
+             by = list(timeUTC = key_time,
+                       site_code,
+                       altitude_final,
+                       type_altitude,
+                       lab_1_abbr,
+                       dataset_calibration_scale)]
   } else {
     dt <- dt[,
              lapply(.SD,
@@ -136,8 +119,8 @@ obs_agg <- function(dt,
   dt$year <- data.table::year(dt$timeUTC)
   dt$month <- data.table::month(dt$timeUTC)
   dt$day <- strftime(dt$timeUTC,
-                             "%d",
-                             tz = "UTC")
+                     "%d",
+                     tz = "UTC")
   dt$hour <- data.table::hour(dt$timeUTC)
   dt$minute <- data.table::minute(dt$timeUTC)
   dt$second <- data.table::second(dt$timeUTC)
