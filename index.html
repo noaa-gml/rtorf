@@ -49,8 +49,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="r-tools-for-obspack-footprints-and-receptors-rtorf">R Tools for Obspack, Footprints and Receptors (rtorf)<a class="anchor" aria-label="anchor" href="#r-tools-for-obspack-footprints-and-receptors-rtorf"></a>
 </h1></div>
-<!-- badges: start -->
-
+<p><img src="https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf" alt="GitHub commit activity"><a href="https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <img src="https://img.shields.io/github/stars/noaa-gml/rtorf" alt="GitHub Repo stars"></p>
 <p><a href="https://gml.noaa.gov/ccgg/obspack/" class="external-link">NOAA Obspack</a> is a collection of green house gases observations</p>
 <p><code>rtorf</code> only depends on <code>data.table</code> and <code>ncdf4</code>, which is basically parallel C, so it can be installed in any machine.</p>
 <div class="section level2">
@@ -140,7 +139,7 @@
 <span>     cex <span class="op">=</span> <span class="fl">1.5</span>, </span>
 <span>     pal <span class="op">=</span> <span class="fu">cptcity</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/cptcity/man/lucky.html" class="external-link">lucky</a></span><span class="op">(</span>colorRampPalette <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, <span class="co">#random</span></span>
 <span>     main <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Colour gradient: nd_rich_Clash_02, number: 5632</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Colour gradient: nd_turanj_Secondary_02a, number: 5932</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">maps</span><span class="fu">::</span><span class="fu">map</span><span class="op">(</span>add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/sf-1.png"><!-- --></p>
@@ -148,20 +147,20 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">usites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">site_name</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">site_name</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">usites</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## [1] "Park Falls, Wisconsin" "Demyanskoe"</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## [1] "Noyabrsk"           "Danville, Virginia"</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dft</span><span class="op">[</span><span class="va">site_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">usites</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="13%">
-<col width="8%">
+<col width="12%">
 <col width="9%">
-<col width="8%">
+<col width="9%">
+<col width="9%">
 <col width="6%">
 <col width="6%">
 <col width="7%">
 <col width="8%">
-<col width="5%">
+<col width="6%">
 <col width="6%">
 <col width="4%">
 <col width="12%">
@@ -182,172 +181,172 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">1.853e-06</td>
-<td align="right">1124461800</td>
-<td align="right">2006</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">min</td>
-<td align="left">2005-08-19 14:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">1.949e-06</td>
-<td align="right">1257992100</td>
-<td align="right">2010</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">q1</td>
-<td align="left">2009-11-12 02:15:00</td>
-</tr>
-<tr class="odd">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">1.989e-06</td>
-<td align="right">1384389000</td>
-<td align="right">2014</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">median</td>
-<td align="left">2013-11-14 00:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">2.005e-06</td>
-<td align="right">1371167046</td>
-<td align="right">2013</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">mean</td>
-<td align="left">2013-06-13 23:44:06</td>
-</tr>
-<tr class="odd">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">2.038e-06</td>
-<td align="right">1471498200</td>
+<td align="left">Danville, Virginia</td>
+<td align="right">36.7058</td>
+<td align="right">-79.4369</td>
+<td align="left">United States</td>
+<td align="left">DVV</td>
+<td align="right">1.847e-06</td>
+<td align="right">1468449000</td>
 <td align="right">2017</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">q3</td>
-<td align="left">2016-08-18 05:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">3.822e-06</td>
-<td align="right">1577835000</td>
-<td align="right">2020</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">max</td>
-<td align="left">2019-12-31 23:30:00</td>
-</tr>
-<tr class="odd">
-<td align="left">Park Falls, Wisconsin</td>
-<td align="right">45.9451</td>
-<td align="right">-90.2732</td>
-<td align="left">United States</td>
-<td align="left">LEF</td>
-<td align="right">1.789e-06</td>
-<td align="right">1285633800</td>
-<td align="right">2011</td>
-<td align="right">45.95</td>
-<td align="right">-90.27</td>
+<td align="right">36.71</td>
+<td align="right">-79.44</td>
 <td align="left">min</td>
-<td align="left">2010-09-28 00:30:00</td>
+<td align="left">2016-07-13 22:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Park Falls, Wisconsin</td>
-<td align="right">45.9451</td>
-<td align="right">-90.2732</td>
+<td align="left">Danville, Virginia</td>
+<td align="right">36.7058</td>
+<td align="right">-79.4369</td>
 <td align="left">United States</td>
-<td align="left">LEF</td>
-<td align="right">1.921e-06</td>
-<td align="right">1362785400</td>
-<td align="right">2013</td>
-<td align="right">45.95</td>
-<td align="right">-90.27</td>
+<td align="left">DVV</td>
+<td align="right">1.945e-06</td>
+<td align="right">1483676100</td>
+<td align="right">2017</td>
+<td align="right">36.71</td>
+<td align="right">-79.44</td>
 <td align="left">q1</td>
-<td align="left">2013-03-08 23:30:00</td>
+<td align="left">2017-01-06 04:15:00</td>
 </tr>
 <tr class="odd">
-<td align="left">Park Falls, Wisconsin</td>
-<td align="right">45.9451</td>
-<td align="right">-90.2732</td>
+<td align="left">Danville, Virginia</td>
+<td align="right">36.7058</td>
+<td align="right">-79.4369</td>
 <td align="left">United States</td>
-<td align="left">LEF</td>
-<td align="right">1.952e-06</td>
-<td align="right">1454135400</td>
-<td align="right">2016</td>
-<td align="right">45.95</td>
-<td align="right">-90.27</td>
+<td align="left">DVV</td>
+<td align="right">1.966e-06</td>
+<td align="right">1494000000</td>
+<td align="right">2017</td>
+<td align="right">36.71</td>
+<td align="right">-79.44</td>
 <td align="left">median</td>
-<td align="left">2016-01-30 06:30:00</td>
+<td align="left">2017-05-05 16:00:00</td>
 </tr>
 <tr class="even">
-<td align="left">Park Falls, Wisconsin</td>
-<td align="right">45.9451</td>
-<td align="right">-90.2732</td>
+<td align="left">Danville, Virginia</td>
+<td align="right">36.7058</td>
+<td align="right">-79.4369</td>
 <td align="left">United States</td>
-<td align="left">LEF</td>
-<td align="right">1.957e-06</td>
-<td align="right">1460117239</td>
-<td align="right">2016</td>
-<td align="right">45.95</td>
-<td align="right">-90.27</td>
+<td align="left">DVV</td>
+<td align="right">1.970e-06</td>
+<td align="right">1493261865</td>
+<td align="right">2017</td>
+<td align="right">36.71</td>
+<td align="right">-79.44</td>
 <td align="left">mean</td>
-<td align="left">2016-04-08 12:07:19</td>
+<td align="left">2017-04-27 02:57:45</td>
 </tr>
 <tr class="odd">
-<td align="left">Park Falls, Wisconsin</td>
-<td align="right">45.9451</td>
-<td align="right">-90.2732</td>
+<td align="left">Danville, Virginia</td>
+<td align="right">36.7058</td>
+<td align="right">-79.4369</td>
 <td align="left">United States</td>
-<td align="left">LEF</td>
-<td align="right">1.987e-06</td>
-<td align="right">1562632200</td>
-<td align="right">2020</td>
-<td align="right">45.95</td>
-<td align="right">-90.27</td>
+<td align="left">DVV</td>
+<td align="right">1.994e-06</td>
+<td align="right">1504986300</td>
+<td align="right">2018</td>
+<td align="right">36.71</td>
+<td align="right">-79.44</td>
 <td align="left">q3</td>
-<td align="left">2019-07-09 00:30:00</td>
+<td align="left">2017-09-09 19:45:00</td>
 </tr>
 <tr class="even">
-<td align="left">Park Falls, Wisconsin</td>
-<td align="right">45.9451</td>
-<td align="right">-90.2732</td>
+<td align="left">Danville, Virginia</td>
+<td align="right">36.7058</td>
+<td align="right">-79.4369</td>
 <td align="left">United States</td>
-<td align="left">LEF</td>
-<td align="right">2.527e-06</td>
-<td align="right">1640993400</td>
-<td align="right">2022</td>
-<td align="right">45.95</td>
-<td align="right">-90.27</td>
+<td align="left">DVV</td>
+<td align="right">2.356e-06</td>
+<td align="right">1514763000</td>
+<td align="right">2018</td>
+<td align="right">36.71</td>
+<td align="right">-79.44</td>
 <td align="left">max</td>
-<td align="left">2021-12-31 23:30:00</td>
+<td align="left">2017-12-31 23:30:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.7800</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">1.848e-06</td>
+<td align="right">1130434200</td>
+<td align="right">2006</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">min</td>
+<td align="left">2005-10-27 17:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.7800</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">1.985e-06</td>
+<td align="right">1326479400</td>
+<td align="right">2012</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">q1</td>
+<td align="left">2012-01-13 18:30:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.7800</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">2.038e-06</td>
+<td align="right">1418131800</td>
+<td align="right">2015</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">median</td>
+<td align="left">2014-12-09 13:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.7800</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">2.064e-06</td>
+<td align="right">1405484932</td>
+<td align="right">2015</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">mean</td>
+<td align="left">2014-07-16 04:28:52</td>
+</tr>
+<tr class="odd">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.7800</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">2.108e-06</td>
+<td align="right">1500283800</td>
+<td align="right">2018</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">q3</td>
+<td align="left">2017-07-17 09:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.7800</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">3.755e-06</td>
+<td align="right">1572496200</td>
+<td align="right">2020</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">max</td>
+<td align="left">2019-10-31 04:30:00</td>
 </tr>
 </tbody>
 </table>
@@ -800,12 +799,7 @@ lt = UTC + longitude/15 * 60 * 60
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
-</ul>
-</div>
+
 
   </aside>
 </div>
