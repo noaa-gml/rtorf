@@ -1,12 +1,10 @@
 R Tools for Obspack, Footprints and Receptors (rtorf)
 ================
 
-<!-- badges: start -->
-
 ![GitHub commit
 activity](https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf)
 [![R-CMD-check](https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml)
-<!-- badges: end -->
+![GitHub Repo stars](https://img.shields.io/github/stars/noaa-gml/rtorf)
 
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of
 green house gases observations
@@ -139,7 +137,7 @@ plot(sdft["value"],
      main = NULL)
 ```
 
-    ## Colour gradient: nd_rich_Clash_02, number: 5632
+    ## Colour gradient: nd_turanj_Secondary_02a, number: 5932
 
 ``` r
 maps::map(add = T)
@@ -154,26 +152,26 @@ usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
-    ## [1] "Park Falls, Wisconsin" "Demyanskoe"
+    ## [1] "Noyabrsk"           "Danville, Virginia"
 
 ``` r
 knitr::kable(dft[site_name %in% usites])
 ```
 
-| site_name             | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
-|:----------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
-| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 1.853e-06 | 1124461800 |         2006 |    59.79 |     70.87 | min    | 2005-08-19 14:30:00 |
-| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 1.949e-06 | 1257992100 |         2010 |    59.79 |     70.87 | q1     | 2009-11-12 02:15:00 |
-| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 1.989e-06 | 1384389000 |         2014 |    59.79 |     70.87 | median | 2013-11-14 00:30:00 |
-| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 2.005e-06 | 1371167046 |         2013 |    59.79 |     70.87 | mean   | 2013-06-13 23:44:06 |
-| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 2.038e-06 | 1471498200 |         2017 |    59.79 |     70.87 | q3     | 2016-08-18 05:30:00 |
-| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 3.822e-06 | 1577835000 |         2020 |    59.79 |     70.87 | max    | 2019-12-31 23:30:00 |
-| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 1.789e-06 | 1285633800 |         2011 |    45.95 |    -90.27 | min    | 2010-09-28 00:30:00 |
-| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 1.921e-06 | 1362785400 |         2013 |    45.95 |    -90.27 | q1     | 2013-03-08 23:30:00 |
-| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 1.952e-06 | 1454135400 |         2016 |    45.95 |    -90.27 | median | 2016-01-30 06:30:00 |
-| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 1.957e-06 | 1460117239 |         2016 |    45.95 |    -90.27 | mean   | 2016-04-08 12:07:19 |
-| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 1.987e-06 | 1562632200 |         2020 |    45.95 |    -90.27 | q3     | 2019-07-09 00:30:00 |
-| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 2.527e-06 | 1640993400 |         2022 |    45.95 |    -90.27 | max    | 2021-12-31 23:30:00 |
+| site_name          | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
+|:-------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
+| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 1.847e-06 | 1468449000 |         2017 |    36.71 |    -79.44 | min    | 2016-07-13 22:30:00 |
+| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 1.945e-06 | 1483676100 |         2017 |    36.71 |    -79.44 | q1     | 2017-01-06 04:15:00 |
+| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 1.966e-06 | 1494000000 |         2017 |    36.71 |    -79.44 | median | 2017-05-05 16:00:00 |
+| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 1.970e-06 | 1493261865 |         2017 |    36.71 |    -79.44 | mean   | 2017-04-27 02:57:45 |
+| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 1.994e-06 | 1504986300 |         2018 |    36.71 |    -79.44 | q3     | 2017-09-09 19:45:00 |
+| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 2.356e-06 | 1514763000 |         2018 |    36.71 |    -79.44 | max    | 2017-12-31 23:30:00 |
+| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 1.848e-06 | 1130434200 |         2006 |    63.43 |     75.78 | min    | 2005-10-27 17:30:00 |
+| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 1.985e-06 | 1326479400 |         2012 |    63.43 |     75.78 | q1     | 2012-01-13 18:30:00 |
+| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 2.038e-06 | 1418131800 |         2015 |    63.43 |     75.78 | median | 2014-12-09 13:30:00 |
+| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 2.064e-06 | 1405484932 |         2015 |    63.43 |     75.78 | mean   | 2014-07-16 04:28:52 |
+| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 2.108e-06 | 1500283800 |         2018 |    63.43 |     75.78 | q3     | 2017-07-17 09:30:00 |
+| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 3.755e-06 | 1572496200 |         2020 |    63.43 |     75.78 | max    | 2019-10-31 04:30:00 |
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
