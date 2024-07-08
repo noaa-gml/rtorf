@@ -1,17 +1,12 @@
 R Tools for Obspack, Footprints and Receptors (rtorf)
 ================
 
-<figure>
-<img
-src="https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf"
-alt="GitHub commit activity" />
-<figcaption aria-hidden="true">GitHub commit activity</figcaption>
-</figure>
+<!-- badges: start -->
 
-[![R build
-status](https://github.com/ibarraespinosa/rtorf/workflows/draft-pdf/badge.svg)](https://github.com/ibarraespinosa/rtorf/actions)
-
-[![R-CMD-check](https://github.com/noaa-gml/torf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noaa-gml/torf/actions/workflows/R-CMD-check.yaml)
+![GitHub commit
+activity](https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf)
+[![R-CMD-check](https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
 
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of
 green house gases observations
@@ -64,18 +59,19 @@ index <- obs_summary(obs = obs, categories = cate)
 ```
 
     ## Number of files of index: 429
-    ##               sector   N
-    ##  1:     aircraft-pfp  40
-    ##  2:  aircraft-insitu  15
-    ##  3:    surface-flask 106
-    ##  4:   surface-insitu 174
-    ##  5:   aircraft-flask   4
-    ##  6:          aircore   1
-    ##  7:      surface-pfp  33
-    ##  8:     tower-insitu  51
-    ##  9:  shipboard-flask   4
-    ## 10: shipboard-insitu   1
-    ## 11:    Total sectors 429
+    ##               sector     N
+    ##               <char> <int>
+    ##  1:     aircraft-pfp    40
+    ##  2:  aircraft-insitu    15
+    ##  3:    surface-flask   106
+    ##  4:   surface-insitu   174
+    ##  5:   aircraft-flask     4
+    ##  6:          aircore     1
+    ##  7:      surface-pfp    33
+    ##  8:     tower-insitu    51
+    ##  9:  shipboard-flask     4
+    ## 10: shipboard-insitu     1
+    ## 11:    Total sectors   429
     ## Detected 190 files with agl
     ## Detected 239 files without agl
 
@@ -143,7 +139,7 @@ plot(sdft["value"],
      main = NULL)
 ```
 
-    ## Colour gradient: jjg_ccolo_phill_omgwtf_monday_sucks, number: 4023
+    ## Colour gradient: nd_rich_Clash_02, number: 5632
 
 ``` r
 maps::map(add = T)
@@ -158,26 +154,26 @@ usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
-    ## [1] "Karasevoe" "Yakutsk"
+    ## [1] "Park Falls, Wisconsin" "Demyanskoe"
 
 ``` r
 knitr::kable(dft[site_name %in% usites])
 ```
 
-| site_name | site_latitude | site_longitude | site_country | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
-|:----------|--------------:|---------------:|:-------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
-| Karasevoe |       58.2456 |        82.4244 | Russia       | KRS       | 1.848e-06 | 1095777000 |         2005 |    58.25 |     82.42 | min    | 2004-09-21 14:30:00 |
-| Karasevoe |       58.2456 |        82.4244 | Russia       | KRS       | 1.937e-06 | 1208828700 |         2008 |    58.25 |     82.42 | q1     | 2008-04-22 01:45:00 |
-| Karasevoe |       58.2456 |        82.4244 | Russia       | KRS       | 1.974e-06 | 1315166400 |         2012 |    58.25 |     82.42 | median | 2011-09-04 20:00:00 |
-| Karasevoe |       58.2456 |        82.4244 | Russia       | KRS       | 1.991e-06 | 1329570666 |         2012 |    58.25 |     82.42 | mean   | 2012-02-18 13:11:06 |
-| Karasevoe |       58.2456 |        82.4244 | Russia       | KRS       | 2.020e-06 | 1464107400 |         2016 |    58.25 |     82.42 | q3     | 2016-05-24 16:30:00 |
-| Karasevoe |       58.2456 |        82.4244 | Russia       | KRS       | 3.964e-06 | 1577716200 |         2020 |    58.25 |     82.42 | max    | 2019-12-30 14:30:00 |
-| Yakutsk   |       62.0886 |       129.3558 | Russia       | YAK       | 1.846e-06 | 1189791000 |         2008 |    62.09 |    129.36 | min    | 2007-09-14 17:30:00 |
-| Yakutsk   |       62.0886 |       129.3558 | Russia       | YAK       | 1.903e-06 | 1258813800 |         2010 |    62.09 |    129.36 | q1     | 2009-11-21 14:30:00 |
-| Yakutsk   |       62.0886 |       129.3558 | Russia       | YAK       | 1.921e-06 | 1278496800 |         2011 |    62.09 |    129.36 | median | 2010-07-07 10:00:00 |
-| Yakutsk   |       62.0886 |       129.3558 | Russia       | YAK       | 1.933e-06 | 1280083018 |         2011 |    62.09 |    129.36 | mean   | 2010-07-25 18:36:58 |
-| Yakutsk   |       62.0886 |       129.3558 | Russia       | YAK       | 1.950e-06 | 1301175000 |         2011 |    62.09 |    129.36 | q3     | 2011-03-26 21:30:00 |
-| Yakutsk   |       62.0886 |       129.3558 | Russia       | YAK       | 2.672e-06 | 1386912600 |         2014 |    62.09 |    129.36 | max    | 2013-12-13 05:30:00 |
+| site_name             | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
+|:----------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
+| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 1.853e-06 | 1124461800 |         2006 |    59.79 |     70.87 | min    | 2005-08-19 14:30:00 |
+| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 1.949e-06 | 1257992100 |         2010 |    59.79 |     70.87 | q1     | 2009-11-12 02:15:00 |
+| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 1.989e-06 | 1384389000 |         2014 |    59.79 |     70.87 | median | 2013-11-14 00:30:00 |
+| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 2.005e-06 | 1371167046 |         2013 |    59.79 |     70.87 | mean   | 2013-06-13 23:44:06 |
+| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 2.038e-06 | 1471498200 |         2017 |    59.79 |     70.87 | q3     | 2016-08-18 05:30:00 |
+| Demyanskoe            |       59.7914 |        70.8711 | Russia        | DEM       | 3.822e-06 | 1577835000 |         2020 |    59.79 |     70.87 | max    | 2019-12-31 23:30:00 |
+| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 1.789e-06 | 1285633800 |         2011 |    45.95 |    -90.27 | min    | 2010-09-28 00:30:00 |
+| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 1.921e-06 | 1362785400 |         2013 |    45.95 |    -90.27 | q1     | 2013-03-08 23:30:00 |
+| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 1.952e-06 | 1454135400 |         2016 |    45.95 |    -90.27 | median | 2016-01-30 06:30:00 |
+| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 1.957e-06 | 1460117239 |         2016 |    45.95 |    -90.27 | mean   | 2016-04-08 12:07:19 |
+| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 1.987e-06 | 1562632200 |         2020 |    45.95 |    -90.27 | q3     | 2019-07-09 00:30:00 |
+| Park Falls, Wisconsin |       45.9451 |       -90.2732 | United States | LEF       | 2.527e-06 | 1640993400 |         2022 |    45.95 |    -90.27 | max    | 2021-12-31 23:30:00 |
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
@@ -186,8 +182,11 @@ number of 3 sites. The argument `pal` is to define the color palette,
 used by the internally imported function `cptcity::cpt`.
 
 ``` r
-obs_plot(dt = df[site_name %in% usites], time = "time", yfactor = 1e+09, cex = 0.5,
-    verbose = FALSE)
+obs_plot(dt = df[site_name %in% usites], 
+         time = "time", 
+         yfactor = 1e9, 
+         cex = 0.5,
+         verbose = FALSE)
 ```
 
 <figure>
@@ -232,6 +231,7 @@ unique(df[, c("altitude_final", "site_elevation", "elevation",
 ```
 
     ##     altitude_final site_elevation elevation dataset_selection_tag
+    ##              <num>          <num>     <num>                <char>
     ##  1:           17.1         611.43    611.43       allvalid-17magl
     ##  2:           31.7         611.43    611.43       allvalid-32magl
     ##  3:            4.9         611.43    611.43        allvalid-5magl
@@ -245,6 +245,7 @@ unique(df[, c("altitude_final", "site_elevation", "elevation",
     ## 11:          484.0           2.00      2.00      allvalid-483magl
     ## 12:           89.1           2.00      2.00       allvalid-91magl
     ##                                                        site_name
+    ##                                                           <char>
     ##  1: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)
     ##  2: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)
     ##  3: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)
@@ -274,6 +275,7 @@ dfa
 ```
 
     ##    site_code max_altitude
+    ##       <char>        <num>
     ## 1:       CRV         31.7
     ## 2:       LEF        396.0
     ## 3:       SCT        304.8
@@ -360,6 +362,7 @@ df3[, c("solar_time", "solar_time_cut")]
 ```
 
     ##                solar_time      solar_time_cut
+    ##                    <POSc>              <char>
     ##    1: 2019-12-02 14:49:12 2019-12-02 14:00:00
     ##    2: 2019-12-03 14:48:48 2019-12-03 14:00:00
     ##    3: 2019-12-04 14:48:24 2019-12-04 14:00:00
@@ -415,6 +418,7 @@ df4[,
 ```
 
     ##     site_code altitude_final max_altitude
+    ##        <char>          <num>        <num>
     ##  1:       CRV           17.1         31.7
     ##  2:       CRV           31.7         31.7
     ##  3:       CRV            4.9         31.7

@@ -7,13 +7,12 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+ <!-- badges: start -->
+
 ![GitHub commit
 activity](https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf)
-
-[![R build
-status](https://github.com/ibarraespinosa/rtorf/workflows/draft-pdf/badge.svg)](https://github.com/ibarraespinosa/rtorf/actions)
-
-[![R-CMD-check](https://github.com/noaa-gml/torf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noaa-gml/torf/actions/workflows/R-CMD-check.yaml)
+  [![R-CMD-check](https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml)
+  <!-- badges: end -->
 
 
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of green house gases observations
