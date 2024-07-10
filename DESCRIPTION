@@ -1,7 +1,7 @@
 Package: rtorf
 Type: Package
 Title: 'rtorf' Obspack GLOBALView+
-Version: 0.9.2
+Version: 0.9.3
 Authors@R: c( 
   person(given = "Sergio", family = "Ibarra-Espinosa",
          role = c("aut", "cre"),
@@ -19,5 +19,5 @@ URL: https://github.com/noaa-gml/rtorf,
     https://noaa-gml.github.io/rtorf/
 BugReports: https://github.com/noaa-gml/rtorf/issues/
 Encoding: UTF-8
-RoxygenNote: 7.2.3
-Date: 2024-04-25
+RoxygenNote: 7.3.2
+Date: 2024-07-09

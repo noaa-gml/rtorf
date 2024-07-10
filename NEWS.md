@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### rtorf 0.9.3 (Release date: 2024-07-09)
+
+- Add cols argument to obs_read_nc to avoid reading all columns by default
+
 ### rtorf 0.9.2 (Release date: 2024-04-23)
 
 - reformatted obs_table to read df from obs_read

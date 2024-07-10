@@ -94,8 +94,9 @@ At the end, this function prints the total number
 of observations by type of altitude (agl or asl).
 
 ```{r}
-df <- obs_read_nc(index = index,
-                  categories = "tower-insitu")
+df <- obs_read_nc(
+  index = index,
+  categories = "tower-insitu")
 
 ```
 
@@ -399,7 +400,7 @@ before writing into the disk.
 The separation is space " ".
 
 ```{r, eval = T}
-master <- df3
+master <- df4
 master$timeUTC <- as.character(master$timeUTC)
 fwrite(master, 
        file =  paste0(tempdir(), "/tower_insitu_2020.txt"),

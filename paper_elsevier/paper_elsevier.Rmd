@@ -161,7 +161,7 @@ to load the function into the environment.
 
 
 ```{r install, eval = F}
-remotes::install_github("ibarraespinosa/rtorf")
+remotes::install_github("noaa-gml/rtorf")
 library(rtorf)
 ```
 
@@ -177,7 +177,7 @@ we are letting to the public the directory shown below. This directory
 includes a README file with all the required information and scripts 
 generate process each category. The structure of the directory is:
 
-https://github.com/ibarraespinosa/rtorf/tree/main/rscripts
+https://github.com/noaa-gml/rtorf/tree/main/rscripts
 
 ```{bash, eval = F}
 |--"README.md"
@@ -191,10 +191,6 @@ https://github.com/ibarraespinosa/rtorf/tree/main/rscripts
     |-- inputs_inv.R
 ```
 
-
-```{r flow, echo = FALSE, message=FALSE, fig.cap="Methane observations (ppb) by towers-insitu", out.height="50%", out.width="100%"}
-knitr::include_graphics("flow/Slide1.PNG")
-```
 
 The file `index.R` creates a summary of ObsPack, generates the directories
 master, receptor and obs, and store the summaries in obs directory for each

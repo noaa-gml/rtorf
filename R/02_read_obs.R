@@ -381,7 +381,8 @@ obs_read_nc <- function(index,
     names(nc$var)
 
     na <- names(nc$var)
-    na <- data.frame(vars = names(nc$var), stringsAsFactors = FALSE)
+    na <- data.frame(vars = names(nc$var),
+                     stringsAsFactors = FALSE)
 
     la <- lapply(1:nrow(na), function(i) {
       suppressWarnings(
@@ -456,13 +457,18 @@ obs_read_nc <- function(index,
     # }
 
 
-    dt$obspack_citation <- NULL
+    # dt$obspack_citation <- NULL
     ncdf4::nc_close(nc)
 
     # if exist, cool, if not, NA
     dt$altitude_final <- dt$intake_height
     dt$type_altitude <- ifelse(dt$dataset_intake_ht_unit == "magl", 0, 1)
-    dt
+
+    # if(!is.null(cols)) {
+      # dt <- dt[, cols, with = FALSE]
+    # } else {
+      dt
+    # }
   }) -> lx
 
 
