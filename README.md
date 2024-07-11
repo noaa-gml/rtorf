@@ -89,8 +89,9 @@ being read each time, by default. At the end, this function prints the
 total number of observations by type of altitude (agl or asl).
 
 ``` r
-df <- obs_read_nc(index = index,
-                  categories = "tower-insitu")
+df <- obs_read_nc(
+  index = index,
+  categories = "tower-insitu")
 ```
 
 > intake_height or altitude_final
@@ -137,7 +138,7 @@ plot(sdft["value"],
      main = NULL)
 ```
 
-    ## Colour gradient: nd_turanj_Secondary_02a, number: 5932
+    ## Colour gradient: occ_2_occ096, number: 6453
 
 ``` r
 maps::map(add = T)
@@ -152,26 +153,26 @@ usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
-    ## [1] "Noyabrsk"           "Danville, Virginia"
+    ## [1] "Karasevoe"                    "Beech Island, South Carolina"
 
 ``` r
 knitr::kable(dft[site_name %in% usites])
 ```
 
-| site_name          | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
-|:-------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
-| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 1.847e-06 | 1468449000 |         2017 |    36.71 |    -79.44 | min    | 2016-07-13 22:30:00 |
-| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 1.945e-06 | 1483676100 |         2017 |    36.71 |    -79.44 | q1     | 2017-01-06 04:15:00 |
-| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 1.966e-06 | 1494000000 |         2017 |    36.71 |    -79.44 | median | 2017-05-05 16:00:00 |
-| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 1.970e-06 | 1493261865 |         2017 |    36.71 |    -79.44 | mean   | 2017-04-27 02:57:45 |
-| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 1.994e-06 | 1504986300 |         2018 |    36.71 |    -79.44 | q3     | 2017-09-09 19:45:00 |
-| Danville, Virginia |       36.7058 |       -79.4369 | United States | DVV       | 2.356e-06 | 1514763000 |         2018 |    36.71 |    -79.44 | max    | 2017-12-31 23:30:00 |
-| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 1.848e-06 | 1130434200 |         2006 |    63.43 |     75.78 | min    | 2005-10-27 17:30:00 |
-| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 1.985e-06 | 1326479400 |         2012 |    63.43 |     75.78 | q1     | 2012-01-13 18:30:00 |
-| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 2.038e-06 | 1418131800 |         2015 |    63.43 |     75.78 | median | 2014-12-09 13:30:00 |
-| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 2.064e-06 | 1405484932 |         2015 |    63.43 |     75.78 | mean   | 2014-07-16 04:28:52 |
-| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 2.108e-06 | 1500283800 |         2018 |    63.43 |     75.78 | q3     | 2017-07-17 09:30:00 |
-| Noyabrsk           |       63.4292 |        75.7800 | Russia        | NOY       | 3.755e-06 | 1572496200 |         2020 |    63.43 |     75.78 | max    | 2019-10-31 04:30:00 |
+| site_name                    | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
+|:-----------------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
+| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 1.848e-06 | 1095777000 |         2005 |    58.25 |     82.42 | min    | 2004-09-21 14:30:00 |
+| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 1.937e-06 | 1208828700 |         2008 |    58.25 |     82.42 | q1     | 2008-04-22 01:45:00 |
+| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 1.974e-06 | 1315166400 |         2012 |    58.25 |     82.42 | median | 2011-09-04 20:00:00 |
+| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 1.991e-06 | 1329570666 |         2012 |    58.25 |     82.42 | mean   | 2012-02-18 13:11:06 |
+| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 2.020e-06 | 1464107400 |         2016 |    58.25 |     82.42 | q3     | 2016-05-24 16:30:00 |
+| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 3.964e-06 | 1577716200 |         2020 |    58.25 |     82.42 | max    | 2019-12-30 14:30:00 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.839e-06 | 1440019800 |         2016 |    33.41 |    -81.83 | min    | 2015-08-19 21:30:00 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.947e-06 | 1493130600 |         2017 |    33.41 |    -81.83 | q1     | 2017-04-25 14:30:00 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.978e-06 | 1541687400 |         2019 |    33.41 |    -81.83 | median | 2018-11-08 14:30:00 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.987e-06 | 1540739442 |         2019 |    33.41 |    -81.83 | mean   | 2018-10-28 15:10:42 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 2.015e-06 | 1586813400 |         2020 |    33.41 |    -81.83 | q3     | 2020-04-13 21:30:00 |
+| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 3.482e-06 | 1640993400 |         2022 |    33.41 |    -81.83 | max    | 2021-12-31 23:30:00 |
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
@@ -440,7 +441,7 @@ transformed into character before writing into the disk. The separation
 is space ” “.
 
 ``` r
-master <- df3
+master <- df4
 master$timeUTC <- as.character(master$timeUTC)
 fwrite(master, 
        file =  paste0(tempdir(), "/tower_insitu_2020.txt"),

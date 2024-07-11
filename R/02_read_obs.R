@@ -461,7 +461,8 @@ obs_read_nc <- function(index,
     ncdf4::nc_close(nc)
 
     # if exist, cool, if not, NA
-    if(any(grepl("aircraft", unique(dt$dataset_project)))){
+    #aircore or aircraft
+    if(any(grepl("airc", unique(dt$dataset_project)))){
       dt$altitude_final <- dt$altitude
       dt$type_altitude <- 1
 
