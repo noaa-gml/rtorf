@@ -104,8 +104,9 @@
 </h3>
 <p>Once the summary is built, the function <code>obs_read</code> will read the files available in the index file previously generated. Here we selected the category “tower-insitu”. The argument verbose prints which files are being read each time, by default. At the end, this function prints the total number of observations by type of altitude (agl or asl).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_read_nc.html">obs_read_nc</a></span><span class="op">(</span>index <span class="op">=</span> <span class="va">index</span>,</span>
-<span>                  categories <span class="op">=</span> <span class="st">"tower-insitu"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_read_nc.html">obs_read_nc</a></span><span class="op">(</span></span>
+<span>  index <span class="op">=</span> <span class="va">index</span>,</span>
+<span>  categories <span class="op">=</span> <span class="st">"tower-insitu"</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
 <p>intake_height or altitude_final</p>
 </blockquote>
@@ -139,7 +140,7 @@
 <span>     cex <span class="op">=</span> <span class="fl">1.5</span>, </span>
 <span>     pal <span class="op">=</span> <span class="fu">cptcity</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/cptcity/man/lucky.html" class="external-link">lucky</a></span><span class="op">(</span>colorRampPalette <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, <span class="co">#random</span></span>
 <span>     main <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Colour gradient: nd_turanj_Secondary_02a, number: 5932</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Colour gradient: occ_2_occ096, number: 6453</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">maps</span><span class="fu">::</span><span class="fu">map</span><span class="op">(</span>add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/sf-1.png"><!-- --></p>
@@ -147,20 +148,20 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">usites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">site_name</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">site_name</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">usites</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## [1] "Noyabrsk"           "Danville, Virginia"</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## [1] "Karasevoe"                    "Beech Island, South Carolina"</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dft</span><span class="op">[</span><span class="va">site_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">usites</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="12%">
+<col width="17%">
+<col width="8%">
 <col width="9%">
-<col width="9%">
-<col width="9%">
-<col width="6%">
-<col width="6%">
-<col width="7%">
 <col width="8%">
 <col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="8%">
+<col width="5%">
 <col width="6%">
 <col width="4%">
 <col width="12%">
@@ -181,172 +182,172 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Danville, Virginia</td>
-<td align="right">36.7058</td>
-<td align="right">-79.4369</td>
-<td align="left">United States</td>
-<td align="left">DVV</td>
-<td align="right">1.847e-06</td>
-<td align="right">1468449000</td>
-<td align="right">2017</td>
-<td align="right">36.71</td>
-<td align="right">-79.44</td>
-<td align="left">min</td>
-<td align="left">2016-07-13 22:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Danville, Virginia</td>
-<td align="right">36.7058</td>
-<td align="right">-79.4369</td>
-<td align="left">United States</td>
-<td align="left">DVV</td>
-<td align="right">1.945e-06</td>
-<td align="right">1483676100</td>
-<td align="right">2017</td>
-<td align="right">36.71</td>
-<td align="right">-79.44</td>
-<td align="left">q1</td>
-<td align="left">2017-01-06 04:15:00</td>
-</tr>
-<tr class="odd">
-<td align="left">Danville, Virginia</td>
-<td align="right">36.7058</td>
-<td align="right">-79.4369</td>
-<td align="left">United States</td>
-<td align="left">DVV</td>
-<td align="right">1.966e-06</td>
-<td align="right">1494000000</td>
-<td align="right">2017</td>
-<td align="right">36.71</td>
-<td align="right">-79.44</td>
-<td align="left">median</td>
-<td align="left">2017-05-05 16:00:00</td>
-</tr>
-<tr class="even">
-<td align="left">Danville, Virginia</td>
-<td align="right">36.7058</td>
-<td align="right">-79.4369</td>
-<td align="left">United States</td>
-<td align="left">DVV</td>
-<td align="right">1.970e-06</td>
-<td align="right">1493261865</td>
-<td align="right">2017</td>
-<td align="right">36.71</td>
-<td align="right">-79.44</td>
-<td align="left">mean</td>
-<td align="left">2017-04-27 02:57:45</td>
-</tr>
-<tr class="odd">
-<td align="left">Danville, Virginia</td>
-<td align="right">36.7058</td>
-<td align="right">-79.4369</td>
-<td align="left">United States</td>
-<td align="left">DVV</td>
-<td align="right">1.994e-06</td>
-<td align="right">1504986300</td>
-<td align="right">2018</td>
-<td align="right">36.71</td>
-<td align="right">-79.44</td>
-<td align="left">q3</td>
-<td align="left">2017-09-09 19:45:00</td>
-</tr>
-<tr class="even">
-<td align="left">Danville, Virginia</td>
-<td align="right">36.7058</td>
-<td align="right">-79.4369</td>
-<td align="left">United States</td>
-<td align="left">DVV</td>
-<td align="right">2.356e-06</td>
-<td align="right">1514763000</td>
-<td align="right">2018</td>
-<td align="right">36.71</td>
-<td align="right">-79.44</td>
-<td align="left">max</td>
-<td align="left">2017-12-31 23:30:00</td>
-</tr>
-<tr class="odd">
-<td align="left">Noyabrsk</td>
-<td align="right">63.4292</td>
-<td align="right">75.7800</td>
+<td align="left">Karasevoe</td>
+<td align="right">58.2456</td>
+<td align="right">82.4244</td>
 <td align="left">Russia</td>
-<td align="left">NOY</td>
+<td align="left">KRS</td>
 <td align="right">1.848e-06</td>
-<td align="right">1130434200</td>
-<td align="right">2006</td>
-<td align="right">63.43</td>
-<td align="right">75.78</td>
+<td align="right">1095777000</td>
+<td align="right">2005</td>
+<td align="right">58.25</td>
+<td align="right">82.42</td>
 <td align="left">min</td>
-<td align="left">2005-10-27 17:30:00</td>
+<td align="left">2004-09-21 14:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Noyabrsk</td>
-<td align="right">63.4292</td>
-<td align="right">75.7800</td>
+<td align="left">Karasevoe</td>
+<td align="right">58.2456</td>
+<td align="right">82.4244</td>
 <td align="left">Russia</td>
-<td align="left">NOY</td>
-<td align="right">1.985e-06</td>
-<td align="right">1326479400</td>
-<td align="right">2012</td>
-<td align="right">63.43</td>
-<td align="right">75.78</td>
+<td align="left">KRS</td>
+<td align="right">1.937e-06</td>
+<td align="right">1208828700</td>
+<td align="right">2008</td>
+<td align="right">58.25</td>
+<td align="right">82.42</td>
 <td align="left">q1</td>
-<td align="left">2012-01-13 18:30:00</td>
+<td align="left">2008-04-22 01:45:00</td>
 </tr>
 <tr class="odd">
-<td align="left">Noyabrsk</td>
-<td align="right">63.4292</td>
-<td align="right">75.7800</td>
+<td align="left">Karasevoe</td>
+<td align="right">58.2456</td>
+<td align="right">82.4244</td>
 <td align="left">Russia</td>
-<td align="left">NOY</td>
-<td align="right">2.038e-06</td>
-<td align="right">1418131800</td>
-<td align="right">2015</td>
-<td align="right">63.43</td>
-<td align="right">75.78</td>
+<td align="left">KRS</td>
+<td align="right">1.974e-06</td>
+<td align="right">1315166400</td>
+<td align="right">2012</td>
+<td align="right">58.25</td>
+<td align="right">82.42</td>
 <td align="left">median</td>
-<td align="left">2014-12-09 13:30:00</td>
+<td align="left">2011-09-04 20:00:00</td>
 </tr>
 <tr class="even">
-<td align="left">Noyabrsk</td>
-<td align="right">63.4292</td>
-<td align="right">75.7800</td>
+<td align="left">Karasevoe</td>
+<td align="right">58.2456</td>
+<td align="right">82.4244</td>
 <td align="left">Russia</td>
-<td align="left">NOY</td>
-<td align="right">2.064e-06</td>
-<td align="right">1405484932</td>
-<td align="right">2015</td>
-<td align="right">63.43</td>
-<td align="right">75.78</td>
+<td align="left">KRS</td>
+<td align="right">1.991e-06</td>
+<td align="right">1329570666</td>
+<td align="right">2012</td>
+<td align="right">58.25</td>
+<td align="right">82.42</td>
 <td align="left">mean</td>
-<td align="left">2014-07-16 04:28:52</td>
+<td align="left">2012-02-18 13:11:06</td>
 </tr>
 <tr class="odd">
-<td align="left">Noyabrsk</td>
-<td align="right">63.4292</td>
-<td align="right">75.7800</td>
+<td align="left">Karasevoe</td>
+<td align="right">58.2456</td>
+<td align="right">82.4244</td>
 <td align="left">Russia</td>
-<td align="left">NOY</td>
-<td align="right">2.108e-06</td>
-<td align="right">1500283800</td>
-<td align="right">2018</td>
-<td align="right">63.43</td>
-<td align="right">75.78</td>
+<td align="left">KRS</td>
+<td align="right">2.020e-06</td>
+<td align="right">1464107400</td>
+<td align="right">2016</td>
+<td align="right">58.25</td>
+<td align="right">82.42</td>
 <td align="left">q3</td>
-<td align="left">2017-07-17 09:30:00</td>
+<td align="left">2016-05-24 16:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Noyabrsk</td>
-<td align="right">63.4292</td>
-<td align="right">75.7800</td>
+<td align="left">Karasevoe</td>
+<td align="right">58.2456</td>
+<td align="right">82.4244</td>
 <td align="left">Russia</td>
-<td align="left">NOY</td>
-<td align="right">3.755e-06</td>
-<td align="right">1572496200</td>
+<td align="left">KRS</td>
+<td align="right">3.964e-06</td>
+<td align="right">1577716200</td>
 <td align="right">2020</td>
-<td align="right">63.43</td>
-<td align="right">75.78</td>
+<td align="right">58.25</td>
+<td align="right">82.42</td>
 <td align="left">max</td>
-<td align="left">2019-10-31 04:30:00</td>
+<td align="left">2019-12-30 14:30:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Beech Island, South Carolina</td>
+<td align="right">33.4057</td>
+<td align="right">-81.8334</td>
+<td align="left">United States</td>
+<td align="left">SCT</td>
+<td align="right">1.839e-06</td>
+<td align="right">1440019800</td>
+<td align="right">2016</td>
+<td align="right">33.41</td>
+<td align="right">-81.83</td>
+<td align="left">min</td>
+<td align="left">2015-08-19 21:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Beech Island, South Carolina</td>
+<td align="right">33.4057</td>
+<td align="right">-81.8334</td>
+<td align="left">United States</td>
+<td align="left">SCT</td>
+<td align="right">1.947e-06</td>
+<td align="right">1493130600</td>
+<td align="right">2017</td>
+<td align="right">33.41</td>
+<td align="right">-81.83</td>
+<td align="left">q1</td>
+<td align="left">2017-04-25 14:30:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Beech Island, South Carolina</td>
+<td align="right">33.4057</td>
+<td align="right">-81.8334</td>
+<td align="left">United States</td>
+<td align="left">SCT</td>
+<td align="right">1.978e-06</td>
+<td align="right">1541687400</td>
+<td align="right">2019</td>
+<td align="right">33.41</td>
+<td align="right">-81.83</td>
+<td align="left">median</td>
+<td align="left">2018-11-08 14:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Beech Island, South Carolina</td>
+<td align="right">33.4057</td>
+<td align="right">-81.8334</td>
+<td align="left">United States</td>
+<td align="left">SCT</td>
+<td align="right">1.987e-06</td>
+<td align="right">1540739442</td>
+<td align="right">2019</td>
+<td align="right">33.41</td>
+<td align="right">-81.83</td>
+<td align="left">mean</td>
+<td align="left">2018-10-28 15:10:42</td>
+</tr>
+<tr class="odd">
+<td align="left">Beech Island, South Carolina</td>
+<td align="right">33.4057</td>
+<td align="right">-81.8334</td>
+<td align="left">United States</td>
+<td align="left">SCT</td>
+<td align="right">2.015e-06</td>
+<td align="right">1586813400</td>
+<td align="right">2020</td>
+<td align="right">33.41</td>
+<td align="right">-81.83</td>
+<td align="left">q3</td>
+<td align="left">2020-04-13 21:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Beech Island, South Carolina</td>
+<td align="right">33.4057</td>
+<td align="right">-81.8334</td>
+<td align="left">United States</td>
+<td align="left">SCT</td>
+<td align="right">3.482e-06</td>
+<td align="right">1640993400</td>
+<td align="right">2022</td>
+<td align="right">33.41</td>
+<td align="right">-81.83</td>
+<td align="left">max</td>
+<td align="left">2021-12-31 23:30:00</td>
 </tr>
 </tbody>
 </table>
@@ -539,7 +540,7 @@ lt = UTC + longitude/15 * 60 * 60
 </h3>
 <p>Now that we have all the required information, we can save the files. Here, we name the data.frame as master, because it contains all the information. This is important because some fields can be used in the future, and for traceability. For convenience, time variables are transformed into character before writing into the disk. The separation is space ” “.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">master</span> <span class="op">&lt;-</span> <span class="va">df3</span></span>
+<code class="sourceCode R"><span><span class="va">master</span> <span class="op">&lt;-</span> <span class="va">df4</span></span>
 <span><span class="va">master</span><span class="op">$</span><span class="va">timeUTC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">master</span><span class="op">$</span><span class="va">timeUTC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fwrite.html" class="external-link">fwrite</a></span><span class="op">(</span><span class="va">master</span>, </span>
 <span>       file <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/tower_insitu_2020.txt"</span><span class="op">)</span>,</span>
