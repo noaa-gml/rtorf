@@ -461,8 +461,15 @@ obs_read_nc <- function(index,
     ncdf4::nc_close(nc)
 
     # if exist, cool, if not, NA
-    dt$altitude_final <- dt$intake_height
-    dt$type_altitude <- ifelse(dt$dataset_intake_ht_unit == "magl", 0, 1)
+    if(any(grepl("aircraft", unique(dt$dataset_project)))){
+      dt$altitude_final <- dt$altitude
+      dt$type_altitude <- 1
+
+    } else {
+      dt$altitude_final <- dt$intake_height
+      dt$type_altitude <- ifelse(dt$dataset_intake_ht_unit == "magl", 0, 1)
+
+    }
 
     # if(!is.null(cols)) {
       # dt <- dt[, cols, with = FALSE]

@@ -8,15 +8,6 @@ obs_read_nc(
   index,
   categories = "flask",
   solar_time = TRUE,
-  cols = c("year", "month", "day", "hour", "minute", "second", "time", "start_time",
-    "midpoint_time", "datetime", "time_decimal", "value", "latitude", "longitude",
-    "altitude", "elevation", "intake_height", "obs_flag", "obspack_num", "obspack_id",
-    "unique_sample_location_num", "year_st", "month_st", "day_st", "hour_st",
-    "minute_st", "second_st", "scale", "site_code", "site_name", "site_country",
-    "site_country_flag", "site_latitude", "site_longitude", "site_elevation",
-    "site_elevation_unit", "site_utc2lst", 
-     "lab_1_name", "altitude_final",
-    "type_altitude"),
   as_list = FALSE,
   verbose = FALSE,
   warnings = FALSE
@@ -31,8 +22,6 @@ obs_read_nc(
 "flask").}
 
 \item{solar_time}{Logical, add solar time?}
-
-\item{cols}{Character vector with colnames to keep}
 
 \item{as_list}{Logical to return as list}
 
