@@ -13,4 +13,5 @@
 ^_pkgdown\.yml$
 ^pkgdown$
 ^\.github$
-^examples
+^examples$
+

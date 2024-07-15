@@ -21,11 +21,11 @@ so it can be installed in any machine.
 
 ## Installation
 
-```{r, eval = F}
+```{r install, eval = F}
 remotes::install_github("noaa-gml/rtorf")
 ```
 
-```{r, include = T, message=F, warning=F}
+```{r call, include = T, message=F, warning=F}
 library(rtorf)
 library(data.table)
 ```
@@ -51,7 +51,7 @@ the user must run `?obs_summary`.
 >  We first define the categories
 
 
-```{r, eval = T}
+```{r read1, eval = T}
 
 cate = c("aircraft-pfp",
          "aircraft-insitu",
@@ -93,7 +93,7 @@ by default.
 At the end, this function prints the total number
 of observations by type of altitude (agl or asl).
 
-```{r}
+```{r read2}
 df <- obs_read_nc(
   index = index,
   categories = "tower-insitu")
@@ -126,7 +126,7 @@ summary of "time" and other numeric variables by file name,
 sector, site, altitude and mode.
 
 
-```{r}
+```{r table}
 dft <- obs_table(df = df)
 ```
 
@@ -155,13 +155,13 @@ maps::map(add = T)
 
 Let us randomly select a couples of sites from the database. 
 
-```{r}
+```{r uniques}
 usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
 
-```{r}
+```{r table1}
 knitr::kable(dft[site_name %in% usites])
 ```
 
@@ -174,7 +174,7 @@ number of 3 sites. The argument `pal` is to define the
 color palette, used by the internally imported function
 `cptcity::cpt`.
 
-```{r, tidy = TRUE, dpi=300, fig.cap="First two sites in ObsPack"}
+```{r plot1, tidy = TRUE, dpi=300, fig.cap="First two sites in ObsPack"}
 obs_plot(dt = df[site_name %in% usites], 
          time = "time", 
          yfactor = 1e9, 
@@ -200,7 +200,7 @@ December of 2019 and January of 2021.
 At this stage, we can apply the spatial filter
 by using the coordinates.
 
-```{r}
+```{r filter}
 north <- 80
 south <- 10
 west <- -170
@@ -233,7 +233,7 @@ with the height is named `altitude_final` and the
 max altitude was named `max_altitude`.
 
 
-```{r}
+```{r altitude}
 dfa <- df[,
           max(altitude_final),
           by = site_code] |> unique()
@@ -252,7 +252,7 @@ of each observation and `timeUTC_end`
 which shows the end time for each observation.
 
 
-```{r}
+```{r addtime}
 df2 <- obs_addtime(df)
 ```
 Then we need a *key_time* to aggregate data.
@@ -279,7 +279,7 @@ Also, this helps to generate the receptor info
 files including hour, minute and second.
 Hence, *we need to add solar or local time column*.
 
-```{r}
+```{r st}
 df2$solar_time <- obs_addstime(df2)
 
 ```
@@ -321,7 +321,7 @@ Now, we identify the local time to select evening hours.
 
 Now we have they key column time, we can cut it accordingly.
 
-```{r}
+```{r cut}
 df2$solar_time_cut <- cut(x = df2$solar_time,
                           breaks = "1 hour") |>
   as.character()
@@ -335,7 +335,7 @@ the column that it will be used to aggregate data
 
 How we filter for the required solar time, in this case `r evening`. 
 
-```{r}
+```{r checkst}
 df3 <- df2[hour_st %in% evening]
 df3[, c("solar_time", "solar_time_cut")]
 
@@ -355,14 +355,13 @@ the hours of interest. Then, I would have 1 observation per day.
 As standard, let us define `key_time` as `solar_time`. 
 The `obs_agg` function will aggregate the desired data by that column.
 
-```{r}
+```{r keytime}
 df3$key_time <- df3$solar_time_cut
 ```
 
 
-```{r}
+```{r agg}
 df4 <- obs_agg(dt = df3,
-               gby = "mean",
                cols = c("value",
                         "latitude",
                         "longitude",

@@ -6,9 +6,6 @@
 #'
 #'
 #' @param dt obspack data.table
-#' @param gby (groupby) Character indicating the function to group the
-#' data. Default is "mean" meaning that all numeric variables
-#' will be averaged by the new_second column established in the `idcol`
 #' @param cols Character which defines columns to be aggregated
 #' @param byalt Logical, to aggregate by altitude or not (used in tower)
 #' @param verbose logical to show more information
@@ -19,10 +16,9 @@
 #' @export
 #' @examples \dontrun{
 #' # Do not run
-#' dt <- obs_addtime(dt)
+#' # dt <- obs_addtime(dt)
 #' }
 obs_agg <- function(dt,
-                    gby = "mean",
                     cols = c("year",
                              "month",
                              "day",
@@ -71,7 +67,9 @@ obs_agg <- function(dt,
   intake_height  <- NULL
   local_time  <- NULL
   day <- NULL
+  gby <- NULL
   # mean <- NULL
+
 
   # Here we need daily information
   # as this function assumes that the input is already preselected data
@@ -90,7 +88,7 @@ obs_agg <- function(dt,
     # each group must be processed differently
     dt <- dt[,
              lapply(.SD,
-                    mean,
+                    FUN = mean,
                     na.rm = T),
              .SDcols = cols,
              by = list(timeUTC = key_time,
@@ -102,7 +100,7 @@ obs_agg <- function(dt,
   } else {
     dt <- dt[,
              lapply(.SD,
-                    mean,
+                    FUN = mean,
                     na.rm = T),
              .SDcols = cols,
              by = list(timeUTC = key_time,

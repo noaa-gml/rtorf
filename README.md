@@ -138,7 +138,7 @@ plot(sdft["value"],
      main = NULL)
 ```
 
-    ## Colour gradient: occ_2_occ096, number: 6453
+    ## Colour gradient: es_landscape_es_landscape_62, number: 1464
 
 ``` r
 maps::map(add = T)
@@ -153,26 +153,26 @@ usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
-    ## [1] "Karasevoe"                    "Beech Island, South Carolina"
+    ## [1] "Vaganovo"        "Millerville, AL"
 
 ``` r
 knitr::kable(dft[site_name %in% usites])
 ```
 
-| site_name                    | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
-|:-----------------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
-| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 1.848e-06 | 1095777000 |         2005 |    58.25 |     82.42 | min    | 2004-09-21 14:30:00 |
-| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 1.937e-06 | 1208828700 |         2008 |    58.25 |     82.42 | q1     | 2008-04-22 01:45:00 |
-| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 1.974e-06 | 1315166400 |         2012 |    58.25 |     82.42 | median | 2011-09-04 20:00:00 |
-| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 1.991e-06 | 1329570666 |         2012 |    58.25 |     82.42 | mean   | 2012-02-18 13:11:06 |
-| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 2.020e-06 | 1464107400 |         2016 |    58.25 |     82.42 | q3     | 2016-05-24 16:30:00 |
-| Karasevoe                    |       58.2456 |        82.4244 | Russia        | KRS       | 3.964e-06 | 1577716200 |         2020 |    58.25 |     82.42 | max    | 2019-12-30 14:30:00 |
-| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.839e-06 | 1440019800 |         2016 |    33.41 |    -81.83 | min    | 2015-08-19 21:30:00 |
-| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.947e-06 | 1493130600 |         2017 |    33.41 |    -81.83 | q1     | 2017-04-25 14:30:00 |
-| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.978e-06 | 1541687400 |         2019 |    33.41 |    -81.83 | median | 2018-11-08 14:30:00 |
-| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 1.987e-06 | 1540739442 |         2019 |    33.41 |    -81.83 | mean   | 2018-10-28 15:10:42 |
-| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 2.015e-06 | 1586813400 |         2020 |    33.41 |    -81.83 | q3     | 2020-04-13 21:30:00 |
-| Beech Island, South Carolina |       33.4057 |       -81.8334 | United States | SCT       | 3.482e-06 | 1640993400 |         2022 |    33.41 |    -81.83 | max    | 2021-12-31 23:30:00 |
+| site_name       | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
+|:----------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
+| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 1.883e-06 | 1507854600 |         2018 |    33.18 |    -85.89 | min    | 2017-10-13 00:30:00 |
+| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 1.949e-06 | 1512750600 |         2018 |    33.18 |    -85.89 | q1     | 2017-12-08 16:30:00 |
+| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 1.967e-06 | 1517808600 |         2018 |    33.18 |    -85.89 | median | 2018-02-05 05:30:00 |
+| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 1.972e-06 | 1517782301 |         2018 |    33.18 |    -85.89 | mean   | 2018-02-04 22:11:41 |
+| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 1.992e-06 | 1522740600 |         2018 |    33.18 |    -85.89 | q3     | 2018-04-03 07:30:00 |
+| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 2.831e-06 | 1527636600 |         2018 |    33.18 |    -85.89 | max    | 2018-05-29 23:30:00 |
+| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 1.766e-06 | 1212859800 |         2008 |    54.50 |     62.32 | min    | 2008-06-07 17:30:00 |
+| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 1.935e-06 | 1289241000 |         2011 |    54.50 |     62.32 | q1     | 2010-11-08 18:30:00 |
+| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 1.972e-06 | 1393095600 |         2014 |    54.50 |     62.32 | median | 2014-02-22 19:00:00 |
+| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 1.979e-06 | 1401778677 |         2014 |    54.50 |     62.32 | mean   | 2014-06-03 06:57:57 |
+| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 2.010e-06 | 1531341000 |         2019 |    54.50 |     62.32 | q3     | 2018-07-11 20:30:00 |
+| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 2.686e-06 | 1577835000 |         2020 |    54.50 |     62.32 | max    | 2019-12-31 23:30:00 |
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
@@ -181,15 +181,12 @@ number of 3 sites. The argument `pal` is to define the color palette,
 used by the internally imported function `cptcity::cpt`.
 
 ``` r
-obs_plot(dt = df[site_name %in% usites], 
-         time = "time", 
-         yfactor = 1e9, 
-         cex = 0.5,
-         verbose = FALSE)
+obs_plot(dt = df[site_name %in% usites], time = "time", yfactor = 1e+09, cex = 0.5,
+    verbose = FALSE)
 ```
 
 <figure>
-<img src="README_files/figure-gfm/unnamed-chunk-8-1.png"
+<img src="README_files/figure-gfm/plot1-1.png"
 alt="First two sites in ObsPack" />
 <figcaption aria-hidden="true">First two sites in ObsPack</figcaption>
 </figure>
@@ -391,7 +388,6 @@ df3$key_time <- df3$solar_time_cut
 
 ``` r
 df4 <- obs_agg(dt = df3,
-               gby = "mean",
                cols = c("value",
                         "latitude",
                         "longitude",

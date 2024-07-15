@@ -6,7 +6,6 @@
 \usage{
 obs_agg(
   dt,
-  gby = "mean",
   cols = c("year", "month", "day", "hour", "minute", "second", "time", "time_decimal",
     "value", "latitude", "longitude", "altitude", "pressure", "u", "v", "temperature",
     "type_altitude"),
@@ -16,10 +15,6 @@ obs_agg(
 }
 \arguments{
 \item{dt}{obspack data.table}
-
-\item{gby}{(groupby) Character indicating the function to group the
-data. Default is "mean" meaning that all numeric variables
-will be averaged by the new_second column established in the `idcol`}
 
 \item{cols}{Character which defines columns to be aggregated}
 
@@ -40,6 +35,6 @@ By default add column timeUTC based on the input column `key_time`
 \examples{
 \dontrun{
 # Do not run
-dt <- obs_addtime(dt)
+# dt <- obs_addtime(dt)
 }
 }
