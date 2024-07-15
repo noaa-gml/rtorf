@@ -44,7 +44,6 @@ local time and ending sampling time</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">obs_agg</span><span class="op">(</span></span>
 <span>  <span class="va">dt</span>,</span>
-<span>  gby <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>  cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"year"</span>, <span class="st">"month"</span>, <span class="st">"day"</span>, <span class="st">"hour"</span>, <span class="st">"minute"</span>, <span class="st">"second"</span>, <span class="st">"time"</span>, <span class="st">"time_decimal"</span>,</span>
 <span>    <span class="st">"value"</span>, <span class="st">"latitude"</span>, <span class="st">"longitude"</span>, <span class="st">"altitude"</span>, <span class="st">"pressure"</span>, <span class="st">"u"</span>, <span class="st">"v"</span>, <span class="st">"temperature"</span>,</span>
 <span>    <span class="st">"type_altitude"</span><span class="op">)</span>,</span>
@@ -59,12 +58,6 @@ local time and ending sampling time</p>
 
 <dl><dt id="arg-dt">dt<a class="anchor" aria-label="anchor" href="#arg-dt"></a></dt>
 <dd><p>obspack data.table</p></dd>
-
-
-<dt id="arg-gby">gby<a class="anchor" aria-label="anchor" href="#arg-gby"></a></dt>
-<dd><p>(groupby) Character indicating the function to group the
-data. Default is "mean" meaning that all numeric variables
-will be averaged by the new_second column established in the `idcol`</p></dd>
 
 
 <dt id="arg-cols">cols<a class="anchor" aria-label="anchor" href="#arg-cols"></a></dt>
@@ -92,7 +85,7 @@ will be averaged by the new_second column established in the `idcol`</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># Do not run</span></span></span>
-<span class="r-in"><span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="obs_addtime.html">obs_addtime</a></span><span class="op">(</span><span class="va">dt</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># dt &lt;- obs_addtime(dt)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>

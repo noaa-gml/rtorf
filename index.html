@@ -140,7 +140,7 @@
 <span>     cex <span class="op">=</span> <span class="fl">1.5</span>, </span>
 <span>     pal <span class="op">=</span> <span class="fu">cptcity</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/cptcity/man/lucky.html" class="external-link">lucky</a></span><span class="op">(</span>colorRampPalette <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, <span class="co">#random</span></span>
 <span>     main <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Colour gradient: occ_2_occ096, number: 6453</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Colour gradient: es_landscape_es_landscape_62, number: 1464</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">maps</span><span class="fu">::</span><span class="fu">map</span><span class="op">(</span>add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/sf-1.png"><!-- --></p>
@@ -148,23 +148,23 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">usites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">site_name</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">site_name</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">usites</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## [1] "Karasevoe"                    "Beech Island, South Carolina"</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## [1] "Vaganovo"        "Millerville, AL"</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dft</span><span class="op">[</span><span class="va">site_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">usites</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="17%">
-<col width="8%">
+<col width="10%">
 <col width="9%">
+<col width="9%">
+<col width="9%">
+<col width="6%">
+<col width="6%">
+<col width="7%">
 <col width="8%">
 <col width="6%">
-<col width="6%">
-<col width="6%">
-<col width="8%">
-<col width="5%">
 <col width="6%">
 <col width="4%">
-<col width="12%">
+<col width="13%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">site_name</th>
@@ -182,183 +182,180 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Karasevoe</td>
-<td align="right">58.2456</td>
-<td align="right">82.4244</td>
-<td align="left">Russia</td>
-<td align="left">KRS</td>
-<td align="right">1.848e-06</td>
-<td align="right">1095777000</td>
-<td align="right">2005</td>
-<td align="right">58.25</td>
-<td align="right">82.42</td>
+<td align="left">Millerville, AL</td>
+<td align="right">33.1759</td>
+<td align="right">-85.8911</td>
+<td align="left">United States</td>
+<td align="left">GCI04</td>
+<td align="right">1.883e-06</td>
+<td align="right">1507854600</td>
+<td align="right">2018</td>
+<td align="right">33.18</td>
+<td align="right">-85.89</td>
 <td align="left">min</td>
-<td align="left">2004-09-21 14:30:00</td>
+<td align="left">2017-10-13 00:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Karasevoe</td>
-<td align="right">58.2456</td>
-<td align="right">82.4244</td>
+<td align="left">Millerville, AL</td>
+<td align="right">33.1759</td>
+<td align="right">-85.8911</td>
+<td align="left">United States</td>
+<td align="left">GCI04</td>
+<td align="right">1.949e-06</td>
+<td align="right">1512750600</td>
+<td align="right">2018</td>
+<td align="right">33.18</td>
+<td align="right">-85.89</td>
+<td align="left">q1</td>
+<td align="left">2017-12-08 16:30:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Millerville, AL</td>
+<td align="right">33.1759</td>
+<td align="right">-85.8911</td>
+<td align="left">United States</td>
+<td align="left">GCI04</td>
+<td align="right">1.967e-06</td>
+<td align="right">1517808600</td>
+<td align="right">2018</td>
+<td align="right">33.18</td>
+<td align="right">-85.89</td>
+<td align="left">median</td>
+<td align="left">2018-02-05 05:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Millerville, AL</td>
+<td align="right">33.1759</td>
+<td align="right">-85.8911</td>
+<td align="left">United States</td>
+<td align="left">GCI04</td>
+<td align="right">1.972e-06</td>
+<td align="right">1517782301</td>
+<td align="right">2018</td>
+<td align="right">33.18</td>
+<td align="right">-85.89</td>
+<td align="left">mean</td>
+<td align="left">2018-02-04 22:11:41</td>
+</tr>
+<tr class="odd">
+<td align="left">Millerville, AL</td>
+<td align="right">33.1759</td>
+<td align="right">-85.8911</td>
+<td align="left">United States</td>
+<td align="left">GCI04</td>
+<td align="right">1.992e-06</td>
+<td align="right">1522740600</td>
+<td align="right">2018</td>
+<td align="right">33.18</td>
+<td align="right">-85.89</td>
+<td align="left">q3</td>
+<td align="left">2018-04-03 07:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Millerville, AL</td>
+<td align="right">33.1759</td>
+<td align="right">-85.8911</td>
+<td align="left">United States</td>
+<td align="left">GCI04</td>
+<td align="right">2.831e-06</td>
+<td align="right">1527636600</td>
+<td align="right">2018</td>
+<td align="right">33.18</td>
+<td align="right">-85.89</td>
+<td align="left">max</td>
+<td align="left">2018-05-29 23:30:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Vaganovo</td>
+<td align="right">54.4972</td>
+<td align="right">62.3247</td>
 <td align="left">Russia</td>
-<td align="left">KRS</td>
-<td align="right">1.937e-06</td>
-<td align="right">1208828700</td>
+<td align="left">VGN</td>
+<td align="right">1.766e-06</td>
+<td align="right">1212859800</td>
 <td align="right">2008</td>
-<td align="right">58.25</td>
-<td align="right">82.42</td>
-<td align="left">q1</td>
-<td align="left">2008-04-22 01:45:00</td>
-</tr>
-<tr class="odd">
-<td align="left">Karasevoe</td>
-<td align="right">58.2456</td>
-<td align="right">82.4244</td>
-<td align="left">Russia</td>
-<td align="left">KRS</td>
-<td align="right">1.974e-06</td>
-<td align="right">1315166400</td>
-<td align="right">2012</td>
-<td align="right">58.25</td>
-<td align="right">82.42</td>
-<td align="left">median</td>
-<td align="left">2011-09-04 20:00:00</td>
-</tr>
-<tr class="even">
-<td align="left">Karasevoe</td>
-<td align="right">58.2456</td>
-<td align="right">82.4244</td>
-<td align="left">Russia</td>
-<td align="left">KRS</td>
-<td align="right">1.991e-06</td>
-<td align="right">1329570666</td>
-<td align="right">2012</td>
-<td align="right">58.25</td>
-<td align="right">82.42</td>
-<td align="left">mean</td>
-<td align="left">2012-02-18 13:11:06</td>
-</tr>
-<tr class="odd">
-<td align="left">Karasevoe</td>
-<td align="right">58.2456</td>
-<td align="right">82.4244</td>
-<td align="left">Russia</td>
-<td align="left">KRS</td>
-<td align="right">2.020e-06</td>
-<td align="right">1464107400</td>
-<td align="right">2016</td>
-<td align="right">58.25</td>
-<td align="right">82.42</td>
-<td align="left">q3</td>
-<td align="left">2016-05-24 16:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Karasevoe</td>
-<td align="right">58.2456</td>
-<td align="right">82.4244</td>
-<td align="left">Russia</td>
-<td align="left">KRS</td>
-<td align="right">3.964e-06</td>
-<td align="right">1577716200</td>
-<td align="right">2020</td>
-<td align="right">58.25</td>
-<td align="right">82.42</td>
-<td align="left">max</td>
-<td align="left">2019-12-30 14:30:00</td>
-</tr>
-<tr class="odd">
-<td align="left">Beech Island, South Carolina</td>
-<td align="right">33.4057</td>
-<td align="right">-81.8334</td>
-<td align="left">United States</td>
-<td align="left">SCT</td>
-<td align="right">1.839e-06</td>
-<td align="right">1440019800</td>
-<td align="right">2016</td>
-<td align="right">33.41</td>
-<td align="right">-81.83</td>
+<td align="right">54.50</td>
+<td align="right">62.32</td>
 <td align="left">min</td>
-<td align="left">2015-08-19 21:30:00</td>
+<td align="left">2008-06-07 17:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Beech Island, South Carolina</td>
-<td align="right">33.4057</td>
-<td align="right">-81.8334</td>
-<td align="left">United States</td>
-<td align="left">SCT</td>
-<td align="right">1.947e-06</td>
-<td align="right">1493130600</td>
-<td align="right">2017</td>
-<td align="right">33.41</td>
-<td align="right">-81.83</td>
+<td align="left">Vaganovo</td>
+<td align="right">54.4972</td>
+<td align="right">62.3247</td>
+<td align="left">Russia</td>
+<td align="left">VGN</td>
+<td align="right">1.935e-06</td>
+<td align="right">1289241000</td>
+<td align="right">2011</td>
+<td align="right">54.50</td>
+<td align="right">62.32</td>
 <td align="left">q1</td>
-<td align="left">2017-04-25 14:30:00</td>
+<td align="left">2010-11-08 18:30:00</td>
 </tr>
 <tr class="odd">
-<td align="left">Beech Island, South Carolina</td>
-<td align="right">33.4057</td>
-<td align="right">-81.8334</td>
-<td align="left">United States</td>
-<td align="left">SCT</td>
-<td align="right">1.978e-06</td>
-<td align="right">1541687400</td>
-<td align="right">2019</td>
-<td align="right">33.41</td>
-<td align="right">-81.83</td>
+<td align="left">Vaganovo</td>
+<td align="right">54.4972</td>
+<td align="right">62.3247</td>
+<td align="left">Russia</td>
+<td align="left">VGN</td>
+<td align="right">1.972e-06</td>
+<td align="right">1393095600</td>
+<td align="right">2014</td>
+<td align="right">54.50</td>
+<td align="right">62.32</td>
 <td align="left">median</td>
-<td align="left">2018-11-08 14:30:00</td>
+<td align="left">2014-02-22 19:00:00</td>
 </tr>
 <tr class="even">
-<td align="left">Beech Island, South Carolina</td>
-<td align="right">33.4057</td>
-<td align="right">-81.8334</td>
-<td align="left">United States</td>
-<td align="left">SCT</td>
-<td align="right">1.987e-06</td>
-<td align="right">1540739442</td>
-<td align="right">2019</td>
-<td align="right">33.41</td>
-<td align="right">-81.83</td>
+<td align="left">Vaganovo</td>
+<td align="right">54.4972</td>
+<td align="right">62.3247</td>
+<td align="left">Russia</td>
+<td align="left">VGN</td>
+<td align="right">1.979e-06</td>
+<td align="right">1401778677</td>
+<td align="right">2014</td>
+<td align="right">54.50</td>
+<td align="right">62.32</td>
 <td align="left">mean</td>
-<td align="left">2018-10-28 15:10:42</td>
+<td align="left">2014-06-03 06:57:57</td>
 </tr>
 <tr class="odd">
-<td align="left">Beech Island, South Carolina</td>
-<td align="right">33.4057</td>
-<td align="right">-81.8334</td>
-<td align="left">United States</td>
-<td align="left">SCT</td>
-<td align="right">2.015e-06</td>
-<td align="right">1586813400</td>
-<td align="right">2020</td>
-<td align="right">33.41</td>
-<td align="right">-81.83</td>
+<td align="left">Vaganovo</td>
+<td align="right">54.4972</td>
+<td align="right">62.3247</td>
+<td align="left">Russia</td>
+<td align="left">VGN</td>
+<td align="right">2.010e-06</td>
+<td align="right">1531341000</td>
+<td align="right">2019</td>
+<td align="right">54.50</td>
+<td align="right">62.32</td>
 <td align="left">q3</td>
-<td align="left">2020-04-13 21:30:00</td>
+<td align="left">2018-07-11 20:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Beech Island, South Carolina</td>
-<td align="right">33.4057</td>
-<td align="right">-81.8334</td>
-<td align="left">United States</td>
-<td align="left">SCT</td>
-<td align="right">3.482e-06</td>
-<td align="right">1640993400</td>
-<td align="right">2022</td>
-<td align="right">33.41</td>
-<td align="right">-81.83</td>
+<td align="left">Vaganovo</td>
+<td align="right">54.4972</td>
+<td align="right">62.3247</td>
+<td align="left">Russia</td>
+<td align="left">VGN</td>
+<td align="right">2.686e-06</td>
+<td align="right">1577835000</td>
+<td align="right">2020</td>
+<td align="right">54.50</td>
+<td align="right">62.32</td>
 <td align="left">max</td>
-<td align="left">2021-12-31 23:30:00</td>
+<td align="left">2019-12-31 23:30:00</td>
 </tr>
 </tbody>
 </table>
 <p>We added a function to plot the data read from ObsPack. The y-axis is the field <code>value</code> and the x-axis is by default <code>time</code>. The data illustrated sorted by color is the field <code>site_code</code>, with the default number of 3 sites. The argument <code>pal</code> is to define the color palette, used by the internally imported function <code><a href="https://rdrr.io/pkg/cptcity/man/cpt.html" class="external-link">cptcity::cpt</a></code>.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/obs_plot.html">obs_plot</a></span><span class="op">(</span>dt <span class="op">=</span> <span class="va">df</span><span class="op">[</span><span class="va">site_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">usites</span><span class="op">]</span>, </span>
-<span>         time <span class="op">=</span> <span class="st">"time"</span>, </span>
-<span>         yfactor <span class="op">=</span> <span class="fl">1e9</span>, </span>
-<span>         cex <span class="op">=</span> <span class="fl">0.5</span>,</span>
-<span>         verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<figure><img src="README_files/figure-gfm/unnamed-chunk-8-1.png" alt="First two sites in ObsPack"><figcaption aria-hidden="true">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/obs_plot.html">obs_plot</a></span><span class="op">(</span>dt <span class="op">=</span> <span class="va">df</span><span class="op">[</span><span class="va">site_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">usites</span><span class="op">]</span>, time <span class="op">=</span> <span class="st">"time"</span>, yfactor <span class="op">=</span> <span class="fl">1e+09</span>, cex <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>    verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<figure><img src="README_files/figure-gfm/plot1-1.png" alt="First two sites in ObsPack"><figcaption aria-hidden="true">
 First two sites in ObsPack
 </figcaption></figure><p>Here we can see 2.61 million observations for <code>tower-insitu</code>. These observations are made between 2004 and 2021.</p>
 </div>
@@ -501,7 +498,6 @@ lt = UTC + longitude/15 * 60 * 60
 <code class="sourceCode R"><span><span class="va">df3</span><span class="op">$</span><span class="va">key_time</span> <span class="op">&lt;-</span> <span class="va">df3</span><span class="op">$</span><span class="va">solar_time_cut</span></span></code></pre></div>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_agg.html">obs_agg</a></span><span class="op">(</span>dt <span class="op">=</span> <span class="va">df3</span>,</span>
-<span>               gby <span class="op">=</span> <span class="st">"mean"</span>,</span>
 <span>               cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"value"</span>,</span>
 <span>                        <span class="st">"latitude"</span>,</span>
 <span>                        <span class="st">"longitude"</span>,</span>
