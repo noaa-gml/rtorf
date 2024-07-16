@@ -140,7 +140,7 @@
 <span>     cex <span class="op">=</span> <span class="fl">1.5</span>, </span>
 <span>     pal <span class="op">=</span> <span class="fu">cptcity</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/cptcity/man/lucky.html" class="external-link">lucky</a></span><span class="op">(</span>colorRampPalette <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, <span class="co">#random</span></span>
 <span>     main <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Colour gradient: es_landscape_es_landscape_62, number: 1464</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Colour gradient: gacruxa_frizzell_frizzell_22, number: 2488</span></span></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">maps</span><span class="fu">::</span><span class="fu">map</span><span class="op">(</span>add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="README_files/figure-gfm/sf-1.png"><!-- --></p>
@@ -148,22 +148,22 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">usites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">site_name</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">site_name</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">usites</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## [1] "Vaganovo"        "Millerville, AL"</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## [1] "Hegyhatsal" "Demyanskoe"</span></span></code></pre></div>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dft</span><span class="op">[</span><span class="va">site_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">usites</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <colgroup>
+<col width="7%">
+<col width="9%">
 <col width="10%">
 <col width="9%">
+<col width="7%">
+<col width="7%">
+<col width="7%">
 <col width="9%">
-<col width="9%">
-<col width="6%">
 <col width="6%">
 <col width="7%">
-<col width="8%">
-<col width="6%">
-<col width="6%">
-<col width="4%">
+<col width="5%">
 <col width="13%">
 </colgroup>
 <thead><tr class="header">
@@ -182,172 +182,172 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Millerville, AL</td>
-<td align="right">33.1759</td>
-<td align="right">-85.8911</td>
-<td align="left">United States</td>
-<td align="left">GCI04</td>
-<td align="right">1.883e-06</td>
-<td align="right">1507854600</td>
-<td align="right">2018</td>
-<td align="right">33.18</td>
-<td align="right">-85.89</td>
+<td align="left">Demyanskoe</td>
+<td align="right">59.7914</td>
+<td align="right">70.8711</td>
+<td align="left">Russia</td>
+<td align="left">DEM</td>
+<td align="right">1.853e-06</td>
+<td align="right">1124461800</td>
+<td align="right">2006</td>
+<td align="right">59.79</td>
+<td align="right">70.87</td>
 <td align="left">min</td>
-<td align="left">2017-10-13 00:30:00</td>
+<td align="left">2005-08-19 14:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Millerville, AL</td>
-<td align="right">33.1759</td>
-<td align="right">-85.8911</td>
-<td align="left">United States</td>
-<td align="left">GCI04</td>
+<td align="left">Demyanskoe</td>
+<td align="right">59.7914</td>
+<td align="right">70.8711</td>
+<td align="left">Russia</td>
+<td align="left">DEM</td>
 <td align="right">1.949e-06</td>
-<td align="right">1512750600</td>
-<td align="right">2018</td>
-<td align="right">33.18</td>
-<td align="right">-85.89</td>
+<td align="right">1257992100</td>
+<td align="right">2010</td>
+<td align="right">59.79</td>
+<td align="right">70.87</td>
 <td align="left">q1</td>
-<td align="left">2017-12-08 16:30:00</td>
+<td align="left">2009-11-12 02:15:00</td>
 </tr>
 <tr class="odd">
-<td align="left">Millerville, AL</td>
-<td align="right">33.1759</td>
-<td align="right">-85.8911</td>
-<td align="left">United States</td>
-<td align="left">GCI04</td>
-<td align="right">1.967e-06</td>
-<td align="right">1517808600</td>
-<td align="right">2018</td>
-<td align="right">33.18</td>
-<td align="right">-85.89</td>
-<td align="left">median</td>
-<td align="left">2018-02-05 05:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Millerville, AL</td>
-<td align="right">33.1759</td>
-<td align="right">-85.8911</td>
-<td align="left">United States</td>
-<td align="left">GCI04</td>
-<td align="right">1.972e-06</td>
-<td align="right">1517782301</td>
-<td align="right">2018</td>
-<td align="right">33.18</td>
-<td align="right">-85.89</td>
-<td align="left">mean</td>
-<td align="left">2018-02-04 22:11:41</td>
-</tr>
-<tr class="odd">
-<td align="left">Millerville, AL</td>
-<td align="right">33.1759</td>
-<td align="right">-85.8911</td>
-<td align="left">United States</td>
-<td align="left">GCI04</td>
-<td align="right">1.992e-06</td>
-<td align="right">1522740600</td>
-<td align="right">2018</td>
-<td align="right">33.18</td>
-<td align="right">-85.89</td>
-<td align="left">q3</td>
-<td align="left">2018-04-03 07:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Millerville, AL</td>
-<td align="right">33.1759</td>
-<td align="right">-85.8911</td>
-<td align="left">United States</td>
-<td align="left">GCI04</td>
-<td align="right">2.831e-06</td>
-<td align="right">1527636600</td>
-<td align="right">2018</td>
-<td align="right">33.18</td>
-<td align="right">-85.89</td>
-<td align="left">max</td>
-<td align="left">2018-05-29 23:30:00</td>
-</tr>
-<tr class="odd">
-<td align="left">Vaganovo</td>
-<td align="right">54.4972</td>
-<td align="right">62.3247</td>
+<td align="left">Demyanskoe</td>
+<td align="right">59.7914</td>
+<td align="right">70.8711</td>
 <td align="left">Russia</td>
-<td align="left">VGN</td>
-<td align="right">1.766e-06</td>
-<td align="right">1212859800</td>
-<td align="right">2008</td>
-<td align="right">54.50</td>
-<td align="right">62.32</td>
-<td align="left">min</td>
-<td align="left">2008-06-07 17:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Vaganovo</td>
-<td align="right">54.4972</td>
-<td align="right">62.3247</td>
-<td align="left">Russia</td>
-<td align="left">VGN</td>
-<td align="right">1.935e-06</td>
-<td align="right">1289241000</td>
-<td align="right">2011</td>
-<td align="right">54.50</td>
-<td align="right">62.32</td>
-<td align="left">q1</td>
-<td align="left">2010-11-08 18:30:00</td>
-</tr>
-<tr class="odd">
-<td align="left">Vaganovo</td>
-<td align="right">54.4972</td>
-<td align="right">62.3247</td>
-<td align="left">Russia</td>
-<td align="left">VGN</td>
-<td align="right">1.972e-06</td>
-<td align="right">1393095600</td>
+<td align="left">DEM</td>
+<td align="right">1.989e-06</td>
+<td align="right">1384389000</td>
 <td align="right">2014</td>
-<td align="right">54.50</td>
-<td align="right">62.32</td>
+<td align="right">59.79</td>
+<td align="right">70.87</td>
 <td align="left">median</td>
-<td align="left">2014-02-22 19:00:00</td>
+<td align="left">2013-11-14 00:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Vaganovo</td>
-<td align="right">54.4972</td>
-<td align="right">62.3247</td>
+<td align="left">Demyanskoe</td>
+<td align="right">59.7914</td>
+<td align="right">70.8711</td>
 <td align="left">Russia</td>
-<td align="left">VGN</td>
-<td align="right">1.979e-06</td>
-<td align="right">1401778677</td>
-<td align="right">2014</td>
-<td align="right">54.50</td>
-<td align="right">62.32</td>
+<td align="left">DEM</td>
+<td align="right">2.005e-06</td>
+<td align="right">1371167046</td>
+<td align="right">2013</td>
+<td align="right">59.79</td>
+<td align="right">70.87</td>
 <td align="left">mean</td>
-<td align="left">2014-06-03 06:57:57</td>
+<td align="left">2013-06-13 23:44:06</td>
 </tr>
 <tr class="odd">
-<td align="left">Vaganovo</td>
-<td align="right">54.4972</td>
-<td align="right">62.3247</td>
+<td align="left">Demyanskoe</td>
+<td align="right">59.7914</td>
+<td align="right">70.8711</td>
 <td align="left">Russia</td>
-<td align="left">VGN</td>
-<td align="right">2.010e-06</td>
-<td align="right">1531341000</td>
-<td align="right">2019</td>
-<td align="right">54.50</td>
-<td align="right">62.32</td>
+<td align="left">DEM</td>
+<td align="right">2.038e-06</td>
+<td align="right">1471498200</td>
+<td align="right">2017</td>
+<td align="right">59.79</td>
+<td align="right">70.87</td>
 <td align="left">q3</td>
-<td align="left">2018-07-11 20:30:00</td>
+<td align="left">2016-08-18 05:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Vaganovo</td>
-<td align="right">54.4972</td>
-<td align="right">62.3247</td>
+<td align="left">Demyanskoe</td>
+<td align="right">59.7914</td>
+<td align="right">70.8711</td>
 <td align="left">Russia</td>
-<td align="left">VGN</td>
-<td align="right">2.686e-06</td>
+<td align="left">DEM</td>
+<td align="right">3.822e-06</td>
 <td align="right">1577835000</td>
 <td align="right">2020</td>
-<td align="right">54.50</td>
-<td align="right">62.32</td>
+<td align="right">59.79</td>
+<td align="right">70.87</td>
 <td align="left">max</td>
 <td align="left">2019-12-31 23:30:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Hegyhatsal</td>
+<td align="right">46.9500</td>
+<td align="right">16.6500</td>
+<td align="left">Hungary</td>
+<td align="left">HUN</td>
+<td align="right">1.882e-06</td>
+<td align="right">1458639000</td>
+<td align="right">2016</td>
+<td align="right">46.96</td>
+<td align="right">16.65</td>
+<td align="left">min</td>
+<td align="left">2016-03-22 09:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Hegyhatsal</td>
+<td align="right">46.9500</td>
+<td align="right">16.6500</td>
+<td align="left">Hungary</td>
+<td align="left">HUN</td>
+<td align="right">1.980e-06</td>
+<td align="right">1546632900</td>
+<td align="right">2019</td>
+<td align="right">46.96</td>
+<td align="right">16.65</td>
+<td align="left">q1</td>
+<td align="left">2019-01-04 20:15:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Hegyhatsal</td>
+<td align="right">46.9500</td>
+<td align="right">16.6500</td>
+<td align="left">Hungary</td>
+<td align="left">HUN</td>
+<td align="right">2.006e-06</td>
+<td align="right">1597834800</td>
+<td align="right">2021</td>
+<td align="right">46.96</td>
+<td align="right">16.65</td>
+<td align="left">median</td>
+<td align="left">2020-08-19 11:00:00</td>
+</tr>
+<tr class="even">
+<td align="left">Hegyhatsal</td>
+<td align="right">46.9500</td>
+<td align="right">16.6500</td>
+<td align="left">Hungary</td>
+<td align="left">HUN</td>
+<td align="right">2.016e-06</td>
+<td align="right">1581042658</td>
+<td align="right">2020</td>
+<td align="right">46.96</td>
+<td align="right">16.65</td>
+<td align="left">mean</td>
+<td align="left">2020-02-07 02:30:58</td>
+</tr>
+<tr class="odd">
+<td align="left">Hegyhatsal</td>
+<td align="right">46.9500</td>
+<td align="right">16.6500</td>
+<td align="left">Hungary</td>
+<td align="left">HUN</td>
+<td align="right">2.044e-06</td>
+<td align="right">1619116200</td>
+<td align="right">2021</td>
+<td align="right">46.96</td>
+<td align="right">16.65</td>
+<td align="left">q3</td>
+<td align="left">2021-04-22 18:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Hegyhatsal</td>
+<td align="right">46.9500</td>
+<td align="right">16.6500</td>
+<td align="left">Hungary</td>
+<td align="left">HUN</td>
+<td align="right">2.621e-06</td>
+<td align="right">1640989800</td>
+<td align="right">2022</td>
+<td align="right">46.96</td>
+<td align="right">16.65</td>
+<td align="left">max</td>
+<td align="left">2021-12-31 22:30:00</td>
 </tr>
 </tbody>
 </table>

@@ -51,6 +51,7 @@ be filtered</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">obs_read_nc</span><span class="op">(</span></span>
 <span>  <span class="va">index</span>,</span>
 <span>  categories <span class="op">=</span> <span class="st">"flask"</span>,</span>
+<span>  expr <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  solar_time <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  as_list <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -71,6 +72,10 @@ be filtered</p>
 : of c("aircraft-pfp", "aircraft-insitu",
 "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
 "flask").</p></dd>
+
+
+<dt id="arg-expr">expr<a class="anchor" aria-label="anchor" href="#arg-expr"></a></dt>
+<dd><p>String expressions to filter data.table internally</p></dd>
 
 
 <dt id="arg-solar-time">solar_time<a class="anchor" aria-label="anchor" href="#arg-solar-time"></a></dt>
