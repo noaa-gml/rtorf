@@ -7,6 +7,7 @@
 obs_read(
   index,
   categories = "flask",
+  expr = NULL,
   verbose = TRUE,
   n_site_code = 15,
   n_site_latitude = 18,
@@ -30,6 +31,8 @@ obs_read(
 : of c("aircraft-pfp", "aircraft-insitu",
 "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
 "flask").}
+
+\item{expr}{String expressions to filter data.table internally}
 
 \item{verbose}{Logical to show more information}
 
@@ -95,5 +98,6 @@ Then, the relationship with hysplit is:
 obs <- system.file("data-raw", package = "rtorf")
 index <- obs_summary(obs)
 dt <- obs_read(index)
+obs_read(index, expr = "altitude_final == '5800'")
 }
 }

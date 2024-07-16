@@ -11,6 +11,7 @@
 #' : of c("aircraft-pfp", "aircraft-insitu",
 #' "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
 #' "flask").
+#' @param expr String expressions to filter data.table internally
 #' @param verbose Logical to show more information
 #' @param n_site_code number of characters extratced from metadata after search
 #' @param n_site_latitude number of characters extracted from metadata after search
@@ -53,9 +54,11 @@
 #' obs <- system.file("data-raw", package = "rtorf")
 #' index <- obs_summary(obs)
 #' dt <- obs_read(index)
+#' obs_read(index, expr = "altitude_final == '5800'")
 #' }
 obs_read <- function(index,
                      categories = "flask",
+                     expr = NULL,
                      verbose = TRUE,
                      n_site_code = 15,
                      n_site_latitude = 18,
@@ -288,6 +291,7 @@ obs_read <- function(index,
                                dt$type_altitude)
     dt$id <- i
 
+    if(!is.null(expr)) dt <- dt[eval(parse(text = expr))]
     dt
 
   }) -> lx
@@ -336,6 +340,7 @@ obs_read <- function(index,
 #' : of c("aircraft-pfp", "aircraft-insitu",
 #' "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
 #' "flask").
+#' @param expr String expressions to filter data.table internally
 #' @param solar_time Logical, add solar time?
 #' @param as_list Logical to return as list
 #' @param verbose Logical to show more information
@@ -354,6 +359,7 @@ obs_read <- function(index,
 #' }
 obs_read_nc <- function(index,
                         categories = "flask",
+                        expr = NULL,
                         solar_time = TRUE,
                         as_list = FALSE,
                         verbose = FALSE,
@@ -475,7 +481,8 @@ obs_read_nc <- function(index,
     # if(!is.null(cols)) {
       # dt <- dt[, cols, with = FALSE]
     # } else {
-      dt
+    if(!is.null(expr)) dt <- dt[eval(parse(text = expr))]
+    dt
     # }
   }) -> lx
 

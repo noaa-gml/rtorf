@@ -138,7 +138,7 @@ plot(sdft["value"],
      main = NULL)
 ```
 
-    ## Colour gradient: es_landscape_es_landscape_62, number: 1464
+    ## Colour gradient: gacruxa_frizzell_frizzell_22, number: 2488
 
 ``` r
 maps::map(add = T)
@@ -153,26 +153,26 @@ usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
-    ## [1] "Vaganovo"        "Millerville, AL"
+    ## [1] "Hegyhatsal" "Demyanskoe"
 
 ``` r
 knitr::kable(dft[site_name %in% usites])
 ```
 
-| site_name       | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
-|:----------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
-| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 1.883e-06 | 1507854600 |         2018 |    33.18 |    -85.89 | min    | 2017-10-13 00:30:00 |
-| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 1.949e-06 | 1512750600 |         2018 |    33.18 |    -85.89 | q1     | 2017-12-08 16:30:00 |
-| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 1.967e-06 | 1517808600 |         2018 |    33.18 |    -85.89 | median | 2018-02-05 05:30:00 |
-| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 1.972e-06 | 1517782301 |         2018 |    33.18 |    -85.89 | mean   | 2018-02-04 22:11:41 |
-| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 1.992e-06 | 1522740600 |         2018 |    33.18 |    -85.89 | q3     | 2018-04-03 07:30:00 |
-| Millerville, AL |       33.1759 |       -85.8911 | United States | GCI04     | 2.831e-06 | 1527636600 |         2018 |    33.18 |    -85.89 | max    | 2018-05-29 23:30:00 |
-| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 1.766e-06 | 1212859800 |         2008 |    54.50 |     62.32 | min    | 2008-06-07 17:30:00 |
-| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 1.935e-06 | 1289241000 |         2011 |    54.50 |     62.32 | q1     | 2010-11-08 18:30:00 |
-| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 1.972e-06 | 1393095600 |         2014 |    54.50 |     62.32 | median | 2014-02-22 19:00:00 |
-| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 1.979e-06 | 1401778677 |         2014 |    54.50 |     62.32 | mean   | 2014-06-03 06:57:57 |
-| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 2.010e-06 | 1531341000 |         2019 |    54.50 |     62.32 | q3     | 2018-07-11 20:30:00 |
-| Vaganovo        |       54.4972 |        62.3247 | Russia        | VGN       | 2.686e-06 | 1577835000 |         2020 |    54.50 |     62.32 | max    | 2019-12-31 23:30:00 |
+| site_name  | site_latitude | site_longitude | site_country | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
+|:-----------|--------------:|---------------:|:-------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
+| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 1.853e-06 | 1124461800 |         2006 |    59.79 |     70.87 | min    | 2005-08-19 14:30:00 |
+| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 1.949e-06 | 1257992100 |         2010 |    59.79 |     70.87 | q1     | 2009-11-12 02:15:00 |
+| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 1.989e-06 | 1384389000 |         2014 |    59.79 |     70.87 | median | 2013-11-14 00:30:00 |
+| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 2.005e-06 | 1371167046 |         2013 |    59.79 |     70.87 | mean   | 2013-06-13 23:44:06 |
+| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 2.038e-06 | 1471498200 |         2017 |    59.79 |     70.87 | q3     | 2016-08-18 05:30:00 |
+| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 3.822e-06 | 1577835000 |         2020 |    59.79 |     70.87 | max    | 2019-12-31 23:30:00 |
+| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 1.882e-06 | 1458639000 |         2016 |    46.96 |     16.65 | min    | 2016-03-22 09:30:00 |
+| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 1.980e-06 | 1546632900 |         2019 |    46.96 |     16.65 | q1     | 2019-01-04 20:15:00 |
+| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 2.006e-06 | 1597834800 |         2021 |    46.96 |     16.65 | median | 2020-08-19 11:00:00 |
+| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 2.016e-06 | 1581042658 |         2020 |    46.96 |     16.65 | mean   | 2020-02-07 02:30:58 |
+| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 2.044e-06 | 1619116200 |         2021 |    46.96 |     16.65 | q3     | 2021-04-22 18:30:00 |
+| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 2.621e-06 | 1640989800 |         2022 |    46.96 |     16.65 | max    | 2021-12-31 22:30:00 |
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
