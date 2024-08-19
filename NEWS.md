@@ -2,6 +2,12 @@ NEWS
 ===========
 
 
+### rtorf 0.9.4 (Release date: 2024-08-19)
+
+- remove `cols` argument to obs_read_nc to avoid reading all columns by default
+- add `att` logical argument to add global attributes from NetCDF or not to data.table. Default is `F`
+- Started adding vignettes/articles by dataid
+
 ### rtorf 0.9.3 (Release date: 2024-07-09)
 
 - Add cols argument to obs_read_nc to avoid reading all columns by default

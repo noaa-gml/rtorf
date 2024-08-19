@@ -7,6 +7,7 @@
 obs_read_nc(
   index,
   categories = "flask",
+  att = FALSE,
   expr = NULL,
   solar_time = TRUE,
   as_list = FALSE,
@@ -21,6 +22,8 @@ obs_read_nc(
 : of c("aircraft-pfp", "aircraft-insitu",
 "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
 "flask").}
+
+\item{att}{Logical, if global attributes should be added to data.table}
 
 \item{expr}{String expressions to filter data.table internally}
 

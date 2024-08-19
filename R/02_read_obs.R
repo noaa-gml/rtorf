@@ -340,6 +340,7 @@ obs_read <- function(index,
 #' : of c("aircraft-pfp", "aircraft-insitu",
 #' "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
 #' "flask").
+#' @param att Logical, if global attributes should be added to data.table
 #' @param expr String expressions to filter data.table internally
 #' @param solar_time Logical, add solar time?
 #' @param as_list Logical to return as list
@@ -359,13 +360,14 @@ obs_read <- function(index,
 #' }
 obs_read_nc <- function(index,
                         categories = "flask",
+                        att = FALSE,
                         expr = NULL,
                         solar_time = TRUE,
                         as_list = FALSE,
                         verbose = FALSE,
                         warnings = FALSE){
 
-  if(nrow(index) == 0) stop("empty index")
+    if(nrow(index) == 0) stop("empty index")
 
   if(verbose) cat(paste0("Searching ", categories, "...\n"))
   sector <- NULL
@@ -444,24 +446,26 @@ obs_read_nc <- function(index,
 
     dt$scale <- la$value[["scale_comment"]]
 
+    if(att) {
 
-    log <- utils::capture.output(
-      global <- ncdf4::ncatt_get(nc = nc,
-                                 varid = 0, verbose = F)
-    )
-    if(warnings) print(log)
+      log <- utils::capture.output(
+        global <- ncdf4::ncatt_get(nc = nc,
+                                   varid = 0, verbose = F)
+      )
+      if(warnings) print(log)
 
-    x <- do.call("cbind", global)
-    x <- as.data.frame(x)
-    for(i in 1:ncol(x)) {
-      dt[[names(x)[i]]] <- global[[names(x)[i]]]
+      x <- do.call("cbind", global)
+      x <- as.data.frame(x)
+      for(i in 1:ncol(x)) {
+        dt[[names(x)[i]]] <- global[[names(x)[i]]]
+      }
+
+      # for(i in seq_along(global)) {
+      #   # print(length(global[[i]]))
+      #   print(global[[names(global)[i]]])
+      # }
+
     }
-
-    # for(i in seq_along(global)) {
-    #   # print(length(global[[i]]))
-    #   print(global[[names(global)[i]]])
-    # }
-
 
     # dt$obspack_citation <- NULL
     ncdf4::nc_close(nc)
@@ -479,7 +483,7 @@ obs_read_nc <- function(index,
     }
 
     # if(!is.null(cols)) {
-      # dt <- dt[, cols, with = FALSE]
+    # dt <- dt[, cols, with = FALSE]
     # } else {
     if(!is.null(expr)) dt <- dt[eval(parse(text = expr))]
     dt
