@@ -367,7 +367,7 @@ obs_read_nc <- function(index,
                         verbose = FALSE,
                         warnings = FALSE){
 
-    if(nrow(index) == 0) stop("empty index")
+  if(nrow(index) == 0) stop("empty index")
 
   if(verbose) cat(paste0("Searching ", categories, "...\n"))
   sector <- NULL
@@ -446,14 +446,19 @@ obs_read_nc <- function(index,
 
     dt$scale <- la$value[["scale_comment"]]
 
+
+    log <- utils::capture.output(
+      global <- ncdf4::ncatt_get(nc = nc,
+                                 varid = 0, verbose = F)
+    )
+    if(warnings) print(log)
+
+    #here we manually add intake and site unit
+    suppressWarnings(dt$dataset_intake_ht_unit <- global[["dataset_intake_ht_unit"]])
+    suppressWarnings(dt$site_elevation_unit <- global[["site_elevation_unit"]])
+    suppressWarnings(dt$dataset_project <- global[["dataset_project"]])
+
     if(att) {
-
-      log <- utils::capture.output(
-        global <- ncdf4::ncatt_get(nc = nc,
-                                   varid = 0, verbose = F)
-      )
-      if(warnings) print(log)
-
       x <- do.call("cbind", global)
       x <- as.data.frame(x)
       for(i in 1:ncol(x)) {

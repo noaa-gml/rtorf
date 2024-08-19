@@ -40,7 +40,7 @@ index <- obs_summary(obs = obs,
 ```
 
 Now we read the aircraft-pfp using the function `obs_read_nc`. To this date,
-solar_time is not included for aircrafts, so `FALSE` that argument.
+`solar_time` is not included for aircraft, so we `FALSE` that argument.
 
 ```{r}
 df <- obs_read_nc(index = index,
@@ -50,4 +50,66 @@ df <- obs_read_nc(index = index,
 
 format(object.size(df), unit = "Gb")
 ```
+
+Now we check the data
+
+```{r checkdf}
+df
+```
+
+
+Now we can process the data. We first filter for observations
+within our spatial domain:
+
+## Checks and definitions
+
+```{r spatial}
+north <- 80
+south <- 10
+west <- -170
+east <- -50
+max_altitude <- 8000
+yy <- 2020
+
+```
+
+We check altitude, intake_height, altitude_final and elevation.
+altitude_final is a column from intake_height, added to match
+column from obs_read text files.
+
+```{r}
+df[, c("altitude", "altitude_final", "intake_height", "elevation")]
+```
+
+The spatial range of data is
+```{r range_year}
+range(df$year)
+```
+
+We also check for dimensions of data
+
+```{r dim_df}
+dim(df)
+```
+
+## Filters
+
+```{r, spatial_temporal_filter}
+df <- df[year == yy]
+
+df <- df[altitude_final < max_altitude &
+           latitude < north &
+           latitude > south &
+           longitude < east &
+           longitude > west]
+dim(df)
+```
+
+## Adding time as POSIXct class
+
+```{r add_time1}
+df <- obs_addtime(df)
+df[, "timeUTC"]
+```
+
 
