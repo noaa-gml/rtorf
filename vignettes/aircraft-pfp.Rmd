@@ -43,8 +43,9 @@ Now we read the aircraft-pfp using the function `obs_read_nc`. To this date,
 `solar_time` is not included for aircraft, so we `FALSE` that argument.
 
 ```{r}
+cate <- "aircraft-pfp"
 df <- obs_read_nc(index = index,
-                  categories = "aircraft-pfp",
+                  categories = cate,
                   solar_time = FALSE,
                   verbose = T)
 
@@ -81,7 +82,7 @@ column from obs_read text files.
 df[, c("altitude", "altitude_final", "intake_height", "elevation")]
 ```
 
-The spatial range of data is
+The temporal range of data is
 ```{r range_year}
 range(df$year)
 ```
@@ -112,4 +113,214 @@ df <- obs_addtime(df)
 df[, "timeUTC"]
 ```
 
+## Cut time
+
+now we can cut time every 20 seconds. We can chosse other frequency as well.
+
+```{r cut_sec}
+df$sec2 <- obs_freq(x = df$second,
+                     freq = seq(0, 59, 20))
+df[, c("second", "sec2")]
+```
+## Aggregate data
+
+now we need to add the column key_time, that it will be used
+to aggregate other variables
+
+```{r key_time}
+df$key_time <- ISOdatetime(year = df$year,
+                           month = df$month,
+                           day = df$day,
+                           hour = df$hour,
+                           min = df$minute,
+                           sec = df$sec2,
+                           tz = "UTC")
+df[, c("timeUTC", "key_time")]
+
+
+```
+
+         
+```{r aggregatingdata}
+df2 <- obs_agg(df, cols =  c("year",
+                             "month",
+                             "day",
+                             "hour",
+                             "minute",
+                             "second",
+                             "time",
+                             "time_decimal",
+                             "value",
+                             "latitude",
+                             "longitude",
+                             "altitude_final",
+                             "elevation",
+                             "intake_height",
+                             "gps_altitude",
+                             "pressure",
+                             "pressure_altitude",
+                             "u", "v", "temperature",
+                             "type_altitude"))
+```
+## Add local time
+
+Now we add local time
+
+```{r}
+df3 <- obs_addltime(df2)
+setorderv(df3, cols = c("site_code", "timeUTC"),
+          order = c(-1, 1))
+df3
+
+
+```
+
+
+## Master
+
+Before generating the receptors list, we have the databe with all the required information
+
+```{r rename}
+master <- df3
+
+```
+We may replace missing values with a nine nines. Here is commented
+
+#master[is.na(master)] <- 999999999
+
+We transform the time variables to character and round coordinates with 4 digits
+
+```{r round}
+master$timeUTC <- as.character(master$timeUTC)
+master$local_time <- as.character(master$local_time)
+master$latitude <- round(master$latitude, 4)
+master$longitude <- round(master$longitude, 4)
+
+```
+
+## Save master
+Finally we save the master file
+
+```{r outfile}
+out <- tempfile()
+
+```
+
+### txt
+
+```{r outtxt}
+message(paste0(out, ".txt\n"))
+fwrite(master,
+       paste0(out, ".txt"),
+       sep = " ")
+
+```
+
+### csv
+
+```{r outcsv}
+message(paste0(out, ".csv\n"))
+fwrite(master,
+       paste0(out, ".csv"),
+       sep = ",")
+
+```
+
+
+### csvy
+
+CSVY are csv files with a YAML header to include metadata in tabulated
+text files
+
+```{r}
+cat("\nAdding notes in csvy:\n")
+notes <- c("sector: Aircraft",
+           paste0("timespan: ", yy),
+           paste0("spatial_limits: north = ", north, ", south = ", south, ", east = ", east, ", west = ", west),
+           "data: Data averaged every 20 seconds",
+           paste0("altitude: < ", max_altitude),
+           "hours: All",
+           "local_time: if var `site_utc2lst` is not available, calculated as",
+           "longitude/15*60*60 (John Miller)")
+
+cat(notes, sep = "\n")
+
+message(paste0(out, ".csvy\n"))
+obs_write_csvy(dt = master,
+               notes = notes,
+               out = paste0(out, ".csvy"))
+```
+
+## Receptors
+
+Now we can do the last step which is generating the receptor list files.
+Now we filter selected columns
+
+```{r receptors}
+receptor <- master[, c("site_code",
+                       "year",
+                       "month",
+                       "day",
+                       "hour",
+                       "minute",
+                       "second",
+                       "latitude",
+                       "longitude",
+                       "altitude_final",
+                       "type_altitude")]
+
+```
+
+We can round altitude also
+
+```{r round_alt}
+receptor$altitude_final <- round(receptor$altitude_final)
+```
+
+Now we can format time variables with two digits
+
+```{r }
+receptor <- obs_format(receptor,
+                        spf =  c("month", "day",
+                                 "hour", "minute", "second"))
+```
+
+We have a column that indicate AGL or ASL
+
+```{r aslagl}
+receptor_agl <- receptor[type_altitude == 0]
+receptor_asl <- receptor[type_altitude == 1]
+```
+
+Finally, we save the receptors
+
+```{r save_receptors}
+if(nrow(receptor_agl) > 0) {
+  message(paste0(out, "_", cate, "receptor_AGL.txt"), "\n")
+
+  fwrite(x = receptor_agl,
+         file = paste0(out, "_", cate, "receptor_AGL.txt"),
+         sep = " ")
+}
+
+if(nrow(receptor_asl) > 0) {
+  message(paste0(out, "_", cate, "receptor_ASL.txt"), "\n")
+
+  fwrite(x = receptor_asl,
+         file = paste0(out, "_", cate, "receptor_ASL.txt"),
+         sep = " ")
+
+}
+
+
+
+```
+
+## Plot
+
+Finally, we just plot some data
+
+```{r obs_plot, fig.width=7, fig.height=5}
+obs_plot(df3, time = "timeUTC", yfactor = 1e9)
+```
 

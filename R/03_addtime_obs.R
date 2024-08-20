@@ -119,15 +119,16 @@ obs_addltime <- function(dt,
   # Priority site_utc2lst and if it is not available,
   if(any(utc2lt == names(dt))) {
 
-    cat("Found site_utc2lst\n")
+    cat(paste("Found ", utc2lt, "\n"))
     dt$local_time <- dt[[timeUTC]] + as.numeric(dt[[utc2lt]])*60*60
+    dt$local_time <- ifelse(
+      is.na(dt$local_time),
+      dt[[timeUTC]] + dt[[longitude]]/15*60*60, #john miller approach
+      dt$local_time)
+  } else {
+    dt$local_time <- dt[[timeUTC]] + dt[[longitude]]/15*60*60 #john miller approach
   }
 
-
-  dt$local_time <- ifelse(
-    is.na(dt$local_time),
-    dt[[timeUTC]] + dt[[longitude]]/15*60*60, #john miller approach
-    dt$local_time)
 
   if(inherits(dt$local_time, "numeric")) {
     dt$local_time <- as.POSIXct(dt$local_time,
