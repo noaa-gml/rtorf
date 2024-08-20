@@ -457,6 +457,22 @@ obs_read_nc <- function(index,
     suppressWarnings(dt$dataset_intake_ht_unit <- global[["dataset_intake_ht_unit"]])
     suppressWarnings(dt$site_elevation_unit <- global[["site_elevation_unit"]])
     suppressWarnings(dt$dataset_project <- global[["dataset_project"]])
+    suppressWarnings(dt$dataset_selection_tag <- global[["dataset_selection_tag"]])
+
+    # obs_table
+    suppressWarnings(dt$site_name <- global[["site_name"]])
+    suppressWarnings(dt$site_elevation <- global[["site_elevation"]])
+    suppressWarnings(dt$site_latitude <- global[["site_latitude"]])
+    suppressWarnings(dt$site_longitude <- global[["site_longitude"]])
+    suppressWarnings(dt$site_country <- global[["site_country"]])
+    suppressWarnings(dt$site_code <- global[["site_code"]])
+    suppressWarnings(dt$site_utc2lst <- global[["site_utc2lst"]])
+
+    # obs_agg
+    suppressWarnings(dt$lab_1_abbr <- global[["lab_1_abbr"]])
+    suppressWarnings(dt$dataset_calibration_scale <- global[["dataset_calibration_scale"]])
+
+
 
     if(att) {
       x <- do.call("cbind", global)

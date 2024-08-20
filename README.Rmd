@@ -219,7 +219,9 @@ df <- df[altitude_final < max_altitude &
            longitude < east &
            longitude > west]
 
-unique(df[, c("altitude_final", "site_elevation", "elevation",
+unique(df[, c("altitude_final", 
+              "site_elevation",
+              "elevation",
               "dataset_selection_tag",
               "site_name")])
 
@@ -364,8 +366,7 @@ df3$key_time <- df3$solar_time_cut
 df4 <- obs_agg(dt = df3,
                cols = c("value",
                         "latitude",
-                        "longitude",
-                        "site_utc2lst"),
+                        "longitude"),
                verbose = T,
                byalt = TRUE)
 ```

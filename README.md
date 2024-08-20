@@ -138,7 +138,7 @@ plot(sdft["value"],
      main = NULL)
 ```
 
-    ## Colour gradient: gacruxa_frizzell_frizzell_22, number: 2488
+    ## Colour gradient: fractint_stripmap_lkmtch07, number: 2208
 
 ``` r
 maps::map(add = T)
@@ -153,26 +153,27 @@ usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
-    ## [1] "Hegyhatsal" "Demyanskoe"
+    ## [1] "Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)"
+    ## [2] "Azovo"
 
 ``` r
 knitr::kable(dft[site_name %in% usites])
 ```
 
-| site_name  | site_latitude | site_longitude | site_country | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
-|:-----------|--------------:|---------------:|:-------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
-| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 1.853e-06 | 1124461800 |         2006 |    59.79 |     70.87 | min    | 2005-08-19 14:30:00 |
-| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 1.949e-06 | 1257992100 |         2010 |    59.79 |     70.87 | q1     | 2009-11-12 02:15:00 |
-| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 1.989e-06 | 1384389000 |         2014 |    59.79 |     70.87 | median | 2013-11-14 00:30:00 |
-| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 2.005e-06 | 1371167046 |         2013 |    59.79 |     70.87 | mean   | 2013-06-13 23:44:06 |
-| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 2.038e-06 | 1471498200 |         2017 |    59.79 |     70.87 | q3     | 2016-08-18 05:30:00 |
-| Demyanskoe |       59.7914 |        70.8711 | Russia       | DEM       | 3.822e-06 | 1577835000 |         2020 |    59.79 |     70.87 | max    | 2019-12-31 23:30:00 |
-| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 1.882e-06 | 1458639000 |         2016 |    46.96 |     16.65 | min    | 2016-03-22 09:30:00 |
-| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 1.980e-06 | 1546632900 |         2019 |    46.96 |     16.65 | q1     | 2019-01-04 20:15:00 |
-| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 2.006e-06 | 1597834800 |         2021 |    46.96 |     16.65 | median | 2020-08-19 11:00:00 |
-| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 2.016e-06 | 1581042658 |         2020 |    46.96 |     16.65 | mean   | 2020-02-07 02:30:58 |
-| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 2.044e-06 | 1619116200 |         2021 |    46.96 |     16.65 | q3     | 2021-04-22 18:30:00 |
-| Hegyhatsal |       46.9500 |        16.6500 | Hungary      | HUN       | 2.621e-06 | 1640989800 |         2022 |    46.96 |     16.65 | max    | 2021-12-31 22:30:00 |
+| site_name                                                    | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
+|:-------------------------------------------------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 1.776e-06 | 1254893400 |         2010 |    54.70 |     73.03 | min    | 2009-10-07 05:30:00 |
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 1.956e-06 | 1323138600 |         2012 |    54.70 |     73.03 | q1     | 2011-12-06 02:30:00 |
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.011e-06 | 1481661000 |         2017 |    54.70 |     73.03 | median | 2016-12-13 20:30:00 |
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.019e-06 | 1440860069 |         2016 |    54.70 |     73.03 | mean   | 2015-08-29 14:54:29 |
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.059e-06 | 1519223400 |         2018 |    54.70 |     73.03 | q3     | 2018-02-21 14:30:00 |
+| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 3.173e-06 | 1577835000 |         2020 |    54.70 |     73.03 | max    | 2019-12-31 23:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.830e-06 | 1319340600 |         2012 |    64.99 |   -147.60 | min    | 2011-10-23 03:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.904e-06 | 1401946200 |         2014 |    64.99 |   -147.60 | q1     | 2014-06-05 05:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.926e-06 | 1477751400 |         2017 |    64.99 |   -147.60 | median | 2016-10-29 14:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.929e-06 | 1479259585 |         2017 |    64.99 |   -147.60 | mean   | 2016-11-16 01:26:25 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.951e-06 | 1556659800 |         2019 |    64.99 |   -147.60 | q3     | 2019-04-30 21:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 2.224e-06 | 1640968200 |         2022 |    64.99 |   -147.60 | max    | 2021-12-31 16:30:00 |
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
@@ -221,7 +222,9 @@ df <- df[altitude_final < max_altitude &
            longitude < east &
            longitude > west]
 
-unique(df[, c("altitude_final", "site_elevation", "elevation",
+unique(df[, c("altitude_final", 
+              "site_elevation",
+              "elevation",
               "dataset_selection_tag",
               "site_name")])
 ```
@@ -390,8 +393,7 @@ df3$key_time <- df3$solar_time_cut
 df4 <- obs_agg(dt = df3,
                cols = c("value",
                         "latitude",
-                        "longitude",
-                        "site_utc2lst"),
+                        "longitude"),
                verbose = T,
                byalt = TRUE)
 ```
