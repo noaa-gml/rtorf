@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,6 +16,12 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/aircraft-insitu.html">aircraft-insitu</a></li>
+    <li><a class="dropdown-item" href="../articles/aircraft-pfp.html">aircraft-pfp</a></li>
+    <li><a class="dropdown-item" href="../articles/summary.html">summary</a></li>
+  </ul></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
@@ -84,34 +90,34 @@
 <span class="r-in"><span>       <span class="fu"><a href="obs_freq.html">obs_freq</a></span><span class="op">(</span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/IDateTime.html" class="external-link">second</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">55</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "2024-07-16 17:51:12.689119  10  10" "2024-07-16 17:51:13.689119  10  10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "2024-07-16 17:51:14.689119  10  10" "2024-07-16 17:51:15.689119  10  10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "2024-07-16 17:51:16.689119  10  10" "2024-07-16 17:51:17.689119  10  10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "2024-07-16 17:51:18.689119  20  10" "2024-07-16 17:51:19.689119  20  10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "2024-07-16 17:51:20.689119  20  10" "2024-07-16 17:51:21.689119  20  20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "2024-07-16 17:51:22.689119  20  20" "2024-07-16 17:51:23.689119  20  20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "2024-07-16 17:51:24.689119  20  20" "2024-07-16 17:51:25.689119  20  20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "2024-07-16 17:51:26.689119  20  20" "2024-07-16 17:51:27.689119  20  20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "2024-07-16 17:51:28.689119  30  20" "2024-07-16 17:51:29.689119  30  20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "2024-07-16 17:51:30.689119  30  20" "2024-07-16 17:51:31.689119  30  30"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "2024-07-16 17:51:32.689119  30  30" "2024-07-16 17:51:33.689119  30  30"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "2024-07-16 17:51:34.689119  30  30" "2024-07-16 17:51:35.689119  30  30"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "2024-07-16 17:51:36.689119  30  30" "2024-07-16 17:51:37.689119  30  30"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "2024-07-16 17:51:38.689119  40  30" "2024-07-16 17:51:39.689119  40  30"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "2024-07-16 17:51:40.689119  40  30" "2024-07-16 17:51:41.689119  40  40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "2024-07-16 17:51:42.689119  40  40" "2024-07-16 17:51:43.689119  40  40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "2024-07-16 17:51:44.689119  40  40" "2024-07-16 17:51:45.689119  40  40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "2024-07-16 17:51:46.689119  40  40" "2024-07-16 17:51:47.689119  40  40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "2024-07-16 17:51:48.689119  50  40" "2024-07-16 17:51:49.689119  50  40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "2024-07-16 17:51:50.689119  50  40" "2024-07-16 17:51:51.689119  50  50"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "2024-07-16 17:51:52.689119  50  50" "2024-07-16 17:51:53.689119  50  50"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "2024-07-16 17:51:54.689119  50  50" "2024-07-16 17:51:55.689119  50  50"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [45] "2024-07-16 17:51:56.689119  50  50" "2024-07-16 17:51:57.689119  50  50"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [47] "2024-07-16 17:51:58.689119  0  50"  "2024-07-16 17:51:59.689119  0  50" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "2024-07-16 17:52:00.689119  0  0"   "2024-07-16 17:52:01.689119  0  0"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "2024-07-16 17:52:02.689119  0  0"   "2024-07-16 17:52:03.689119  0  0"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [53] "2024-07-16 17:52:04.689119  0  0"   "2024-07-16 17:52:05.689119  0  0"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "2024-07-16 17:52:06.689119  0  0"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "2024-08-20 20:30:17.728442  10  10" "2024-08-20 20:30:18.728442  20  10"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "2024-08-20 20:30:19.728442  20  10" "2024-08-20 20:30:20.728442  20  10"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "2024-08-20 20:30:21.728442  20  20" "2024-08-20 20:30:22.728442  20  20"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "2024-08-20 20:30:23.728442  20  20" "2024-08-20 20:30:24.728442  20  20"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "2024-08-20 20:30:25.728442  20  20" "2024-08-20 20:30:26.728442  20  20"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "2024-08-20 20:30:27.728442  20  20" "2024-08-20 20:30:28.728442  30  20"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "2024-08-20 20:30:29.728442  30  20" "2024-08-20 20:30:30.728442  30  20"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "2024-08-20 20:30:31.728442  30  30" "2024-08-20 20:30:32.728442  30  30"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "2024-08-20 20:30:33.728442  30  30" "2024-08-20 20:30:34.728442  30  30"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "2024-08-20 20:30:35.728442  30  30" "2024-08-20 20:30:36.728442  30  30"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "2024-08-20 20:30:37.728442  30  30" "2024-08-20 20:30:38.728442  40  30"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "2024-08-20 20:30:39.728442  40  30" "2024-08-20 20:30:40.728442  40  30"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "2024-08-20 20:30:41.728442  40  40" "2024-08-20 20:30:42.728442  40  40"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "2024-08-20 20:30:43.728442  40  40" "2024-08-20 20:30:44.728442  40  40"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "2024-08-20 20:30:45.728442  40  40" "2024-08-20 20:30:46.728442  40  40"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "2024-08-20 20:30:47.728442  40  40" "2024-08-20 20:30:48.728442  50  40"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "2024-08-20 20:30:49.728442  50  40" "2024-08-20 20:30:50.728442  50  40"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "2024-08-20 20:30:51.728442  50  50" "2024-08-20 20:30:52.728442  50  50"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "2024-08-20 20:30:53.728442  50  50" "2024-08-20 20:30:54.728442  50  50"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "2024-08-20 20:30:55.728442  50  50" "2024-08-20 20:30:56.728442  50  50"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "2024-08-20 20:30:57.728442  50  50" "2024-08-20 20:30:58.728442  0  50" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "2024-08-20 20:30:59.728442  0  50"  "2024-08-20 20:31:00.728442  0  0"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [45] "2024-08-20 20:31:01.728442  0  0"   "2024-08-20 20:31:02.728442  0  0"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [47] "2024-08-20 20:31:03.728442  0  0"   "2024-08-20 20:31:04.728442  0  0"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "2024-08-20 20:31:05.728442  0  0"   "2024-08-20 20:31:06.728442  0  0"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "2024-08-20 20:31:07.728442  0  0"   "2024-08-20 20:31:08.728442  10  0" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [53] "2024-08-20 20:31:09.728442  10  0"  "2024-08-20 20:31:10.728442  10  0" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "2024-08-20 20:31:11.728442  10  10"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

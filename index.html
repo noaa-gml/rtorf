@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,14 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><a class="dropdown-item" href="articles/aircraft-insitu.html">aircraft-insitu</a></li>
+    <li><a class="dropdown-item" href="articles/aircraft-pfp.html">aircraft-pfp</a></li>
+    <li><a class="dropdown-item" href="articles/summary.html">summary</a></li>
+  </ul>
+</li>
 <li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
@@ -47,7 +55,7 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9"><div class="section level1">
-<div class="page-header"><h1 id="r-tools-for-obspack-footprints-and-receptors-rtorf">R Tools for Obspack, Footprints and Receptors (rtorf)<a class="anchor" aria-label="anchor" href="#r-tools-for-obspack-footprints-and-receptors-rtorf"></a>
+<div class="page-header"><h1 id="r-tools-for-obspack-receptors-and-footprints-rtorf">R Tools for Obspack, Receptors and Footprints (rtorf)<a class="anchor" aria-label="anchor" href="#r-tools-for-obspack-receptors-and-footprints-rtorf"></a>
 </h1></div>
 <p><img src="https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf" alt="GitHub commit activity"><a href="https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <img src="https://img.shields.io/github/stars/noaa-gml/rtorf" alt="GitHub Repo stars"></p>
 <p><a href="https://gml.noaa.gov/ccgg/obspack/" class="external-link">NOAA Obspack</a> is a collection of green house gases observations</p>
@@ -126,6 +134,7 @@
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dft</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_table.html">obs_table</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can visualize the average of observations by site.</p>
+<p>(run it locally)</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
 <span><span class="va">sdft</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">dft</span><span class="op">[</span><span class="va">stat</span> <span class="op">==</span> <span class="st">"mean"</span><span class="op">]</span>, </span>
@@ -139,32 +148,30 @@
 <span>     pch <span class="op">=</span> <span class="fl">16</span>, </span>
 <span>     cex <span class="op">=</span> <span class="fl">1.5</span>, </span>
 <span>     pal <span class="op">=</span> <span class="fu">cptcity</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/cptcity/man/lucky.html" class="external-link">lucky</a></span><span class="op">(</span>colorRampPalette <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>, <span class="co">#random</span></span>
-<span>     main <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="do">## Colour gradient: gacruxa_frizzell_frizzell_22, number: 2488</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">maps</span><span class="fu">::</span><span class="fu">map</span><span class="op">(</span>add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="README_files/figure-gfm/sf-1.png"><!-- --></p>
+<span>     main <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="fu">maps</span><span class="fu">::</span><span class="fu">map</span><span class="op">(</span>add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p>Let us randomly select a couples of sites from the database.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">usites</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">site_name</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq_along</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">site_name</span><span class="op">)</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">usites</span></span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="do">## [1] "Hegyhatsal" "Demyanskoe"</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="do">## [1] "Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)"</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="do">## [2] "Noyabrsk"</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dft</span><span class="op">[</span><span class="va">site_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">usites</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
-<col width="7%">
-<col width="9%">
-<col width="10%">
-<col width="9%">
+<col width="30%">
 <col width="7%">
 <col width="7%">
-<col width="7%">
-<col width="9%">
-<col width="6%">
 <col width="7%">
 <col width="5%">
-<col width="13%">
+<col width="5%">
+<col width="5%">
+<col width="6%">
+<col width="4%">
+<col width="5%">
+<col width="3%">
+<col width="10%">
 </colgroup>
 <thead><tr class="header">
 <th align="left">site_name</th>
@@ -182,188 +189,187 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">1.853e-06</td>
-<td align="right">1124461800</td>
-<td align="right">2006</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
+<td align="left">Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</td>
+<td align="right">64.9863</td>
+<td align="right">-147.598</td>
+<td align="left">United States</td>
+<td align="left">CRV</td>
+<td align="right">1.830e-06</td>
+<td align="right">1319340600</td>
+<td align="right">2012</td>
+<td align="right">64.99</td>
+<td align="right">-147.60</td>
 <td align="left">min</td>
-<td align="left">2005-08-19 14:30:00</td>
+<td align="left">2011-10-23 03:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">1.949e-06</td>
-<td align="right">1257992100</td>
-<td align="right">2010</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">q1</td>
-<td align="left">2009-11-12 02:15:00</td>
-</tr>
-<tr class="odd">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">1.989e-06</td>
-<td align="right">1384389000</td>
+<td align="left">Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</td>
+<td align="right">64.9863</td>
+<td align="right">-147.598</td>
+<td align="left">United States</td>
+<td align="left">CRV</td>
+<td align="right">1.904e-06</td>
+<td align="right">1401946200</td>
 <td align="right">2014</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">median</td>
-<td align="left">2013-11-14 00:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">2.005e-06</td>
-<td align="right">1371167046</td>
-<td align="right">2013</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">mean</td>
-<td align="left">2013-06-13 23:44:06</td>
-</tr>
-<tr class="odd">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">2.038e-06</td>
-<td align="right">1471498200</td>
-<td align="right">2017</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">q3</td>
-<td align="left">2016-08-18 05:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Demyanskoe</td>
-<td align="right">59.7914</td>
-<td align="right">70.8711</td>
-<td align="left">Russia</td>
-<td align="left">DEM</td>
-<td align="right">3.822e-06</td>
-<td align="right">1577835000</td>
-<td align="right">2020</td>
-<td align="right">59.79</td>
-<td align="right">70.87</td>
-<td align="left">max</td>
-<td align="left">2019-12-31 23:30:00</td>
-</tr>
-<tr class="odd">
-<td align="left">Hegyhatsal</td>
-<td align="right">46.9500</td>
-<td align="right">16.6500</td>
-<td align="left">Hungary</td>
-<td align="left">HUN</td>
-<td align="right">1.882e-06</td>
-<td align="right">1458639000</td>
-<td align="right">2016</td>
-<td align="right">46.96</td>
-<td align="right">16.65</td>
-<td align="left">min</td>
-<td align="left">2016-03-22 09:30:00</td>
-</tr>
-<tr class="even">
-<td align="left">Hegyhatsal</td>
-<td align="right">46.9500</td>
-<td align="right">16.6500</td>
-<td align="left">Hungary</td>
-<td align="left">HUN</td>
-<td align="right">1.980e-06</td>
-<td align="right">1546632900</td>
-<td align="right">2019</td>
-<td align="right">46.96</td>
-<td align="right">16.65</td>
+<td align="right">64.99</td>
+<td align="right">-147.60</td>
 <td align="left">q1</td>
-<td align="left">2019-01-04 20:15:00</td>
+<td align="left">2014-06-05 05:30:00</td>
 </tr>
 <tr class="odd">
-<td align="left">Hegyhatsal</td>
-<td align="right">46.9500</td>
-<td align="right">16.6500</td>
-<td align="left">Hungary</td>
-<td align="left">HUN</td>
-<td align="right">2.006e-06</td>
-<td align="right">1597834800</td>
-<td align="right">2021</td>
-<td align="right">46.96</td>
-<td align="right">16.65</td>
+<td align="left">Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</td>
+<td align="right">64.9863</td>
+<td align="right">-147.598</td>
+<td align="left">United States</td>
+<td align="left">CRV</td>
+<td align="right">1.926e-06</td>
+<td align="right">1477751400</td>
+<td align="right">2017</td>
+<td align="right">64.99</td>
+<td align="right">-147.60</td>
 <td align="left">median</td>
-<td align="left">2020-08-19 11:00:00</td>
+<td align="left">2016-10-29 14:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Hegyhatsal</td>
-<td align="right">46.9500</td>
-<td align="right">16.6500</td>
-<td align="left">Hungary</td>
-<td align="left">HUN</td>
-<td align="right">2.016e-06</td>
-<td align="right">1581042658</td>
-<td align="right">2020</td>
-<td align="right">46.96</td>
-<td align="right">16.65</td>
+<td align="left">Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</td>
+<td align="right">64.9863</td>
+<td align="right">-147.598</td>
+<td align="left">United States</td>
+<td align="left">CRV</td>
+<td align="right">1.929e-06</td>
+<td align="right">1479259585</td>
+<td align="right">2017</td>
+<td align="right">64.99</td>
+<td align="right">-147.60</td>
 <td align="left">mean</td>
-<td align="left">2020-02-07 02:30:58</td>
+<td align="left">2016-11-16 01:26:25</td>
 </tr>
 <tr class="odd">
-<td align="left">Hegyhatsal</td>
-<td align="right">46.9500</td>
-<td align="right">16.6500</td>
-<td align="left">Hungary</td>
-<td align="left">HUN</td>
-<td align="right">2.044e-06</td>
-<td align="right">1619116200</td>
-<td align="right">2021</td>
-<td align="right">46.96</td>
-<td align="right">16.65</td>
+<td align="left">Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</td>
+<td align="right">64.9863</td>
+<td align="right">-147.598</td>
+<td align="left">United States</td>
+<td align="left">CRV</td>
+<td align="right">1.951e-06</td>
+<td align="right">1556659800</td>
+<td align="right">2019</td>
+<td align="right">64.99</td>
+<td align="right">-147.60</td>
 <td align="left">q3</td>
-<td align="left">2021-04-22 18:30:00</td>
+<td align="left">2019-04-30 21:30:00</td>
 </tr>
 <tr class="even">
-<td align="left">Hegyhatsal</td>
-<td align="right">46.9500</td>
-<td align="right">16.6500</td>
-<td align="left">Hungary</td>
-<td align="left">HUN</td>
-<td align="right">2.621e-06</td>
-<td align="right">1640989800</td>
+<td align="left">Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</td>
+<td align="right">64.9863</td>
+<td align="right">-147.598</td>
+<td align="left">United States</td>
+<td align="left">CRV</td>
+<td align="right">2.224e-06</td>
+<td align="right">1640968200</td>
 <td align="right">2022</td>
-<td align="right">46.96</td>
-<td align="right">16.65</td>
+<td align="right">64.99</td>
+<td align="right">-147.60</td>
 <td align="left">max</td>
-<td align="left">2021-12-31 22:30:00</td>
+<td align="left">2021-12-31 16:30:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.780</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">1.848e-06</td>
+<td align="right">1130434200</td>
+<td align="right">2006</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">min</td>
+<td align="left">2005-10-27 17:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.780</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">1.985e-06</td>
+<td align="right">1326479400</td>
+<td align="right">2012</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">q1</td>
+<td align="left">2012-01-13 18:30:00</td>
+</tr>
+<tr class="odd">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.780</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">2.038e-06</td>
+<td align="right">1418131800</td>
+<td align="right">2015</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">median</td>
+<td align="left">2014-12-09 13:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.780</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">2.064e-06</td>
+<td align="right">1405484932</td>
+<td align="right">2015</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">mean</td>
+<td align="left">2014-07-16 04:28:52</td>
+</tr>
+<tr class="odd">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.780</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">2.108e-06</td>
+<td align="right">1500283800</td>
+<td align="right">2018</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">q3</td>
+<td align="left">2017-07-17 09:30:00</td>
+</tr>
+<tr class="even">
+<td align="left">Noyabrsk</td>
+<td align="right">63.4292</td>
+<td align="right">75.780</td>
+<td align="left">Russia</td>
+<td align="left">NOY</td>
+<td align="right">3.755e-06</td>
+<td align="right">1572496200</td>
+<td align="right">2020</td>
+<td align="right">63.43</td>
+<td align="right">75.78</td>
+<td align="left">max</td>
+<td align="left">2019-10-31 04:30:00</td>
 </tr>
 </tbody>
 </table>
 <p>We added a function to plot the data read from ObsPack. The y-axis is the field <code>value</code> and the x-axis is by default <code>time</code>. The data illustrated sorted by color is the field <code>site_code</code>, with the default number of 3 sites. The argument <code>pal</code> is to define the color palette, used by the internally imported function <code><a href="https://rdrr.io/pkg/cptcity/man/cpt.html" class="external-link">cptcity::cpt</a></code>.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p>(run it locally)</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/obs_plot.html">obs_plot</a></span><span class="op">(</span>dt <span class="op">=</span> <span class="va">df</span><span class="op">[</span><span class="va">site_name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">usites</span><span class="op">]</span>, time <span class="op">=</span> <span class="st">"time"</span>, yfactor <span class="op">=</span> <span class="fl">1e+09</span>, cex <span class="op">=</span> <span class="fl">0.5</span>,</span>
 <span>    verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-<figure><img src="README_files/figure-gfm/plot1-1.png" alt="First two sites in ObsPack"><figcaption aria-hidden="true">
-First two sites in ObsPack
-</figcaption></figure><p>Here we can see 2.61 million observations for <code>tower-insitu</code>. These observations are made between 2004 and 2021.</p>
+<p>Here we can see 2.61 million observations for <code>tower-insitu</code>. These observations are made between 2004 and 2021.</p>
 </div>
 <div class="section level3">
 <h3 id="filtering">Filtering<a class="anchor" aria-label="anchor" href="#filtering"></a>
 </h3>
 <p>ObsPack includes global observations and sometimes we need to extract data for a specific region and periods of time. In this part we include spatial and temporal parameters to filter data. The year of interest is 2020, but we also included December of 2019 and January of 2021. At this stage, we can apply the spatial filter by using the coordinates.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">north</span> <span class="op">&lt;-</span> <span class="fl">80</span></span>
 <span><span class="va">south</span> <span class="op">&lt;-</span> <span class="fl">10</span></span>
 <span><span class="va">west</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">170</span></span>
@@ -382,62 +388,64 @@ First two sites in ObsPack
 <span>           <span class="va">longitude</span> <span class="op">&lt;</span> <span class="va">east</span> <span class="op">&amp;</span></span>
 <span>           <span class="va">longitude</span> <span class="op">&gt;</span> <span class="va">west</span><span class="op">]</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"altitude_final"</span>, <span class="st">"site_elevation"</span>, <span class="st">"elevation"</span>,</span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"altitude_final"</span>, </span>
+<span>              <span class="st">"site_elevation"</span>,</span>
+<span>              <span class="st">"elevation"</span>,</span>
 <span>              <span class="st">"dataset_selection_tag"</span>,</span>
 <span>              <span class="st">"site_name"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="do">##     altitude_final site_elevation elevation dataset_selection_tag</span></span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="do">##              &lt;num&gt;          &lt;num&gt;     &lt;num&gt;                &lt;char&gt;</span></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="do">##  1:           17.1         611.43    611.43       allvalid-17magl</span></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="do">##  2:           31.7         611.43    611.43       allvalid-32magl</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="do">##  3:            4.9         611.43    611.43        allvalid-5magl</span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="do">##  4:          122.0         472.00    472.00      allvalid-122magl</span></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="do">##  5:           30.0         472.00    472.00       allvalid-30magl</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="do">##  6:          396.0         472.00    472.00      allvalid-396magl</span></span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="do">##  7:          304.8         115.20    115.20      allvalid-305magl</span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="do">##  8:           31.0         115.20    115.20       allvalid-31magl</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="do">##  9:           61.0         115.20    115.20       allvalid-61magl</span></span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="do">## 10:           30.0           2.00      2.00       allvalid-30magl</span></span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a><span class="do">## 11:          484.0           2.00      2.00      allvalid-483magl</span></span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a><span class="do">## 12:           89.1           2.00      2.00       allvalid-91magl</span></span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a><span class="do">##                                                        site_name</span></span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a><span class="do">##                                                           &lt;char&gt;</span></span>
-<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a><span class="do">##  1: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</span></span>
-<span id="cb15-18"><a href="#cb15-18" tabindex="-1"></a><span class="do">##  2: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</span></span>
-<span id="cb15-19"><a href="#cb15-19" tabindex="-1"></a><span class="do">##  3: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</span></span>
-<span id="cb15-20"><a href="#cb15-20" tabindex="-1"></a><span class="do">##  4:                                        Park Falls, Wisconsin</span></span>
-<span id="cb15-21"><a href="#cb15-21" tabindex="-1"></a><span class="do">##  5:                                        Park Falls, Wisconsin</span></span>
-<span id="cb15-22"><a href="#cb15-22" tabindex="-1"></a><span class="do">##  6:                                        Park Falls, Wisconsin</span></span>
-<span id="cb15-23"><a href="#cb15-23" tabindex="-1"></a><span class="do">##  7:                                 Beech Island, South Carolina</span></span>
-<span id="cb15-24"><a href="#cb15-24" tabindex="-1"></a><span class="do">##  8:                                 Beech Island, South Carolina</span></span>
-<span id="cb15-25"><a href="#cb15-25" tabindex="-1"></a><span class="do">##  9:                                 Beech Island, South Carolina</span></span>
-<span id="cb15-26"><a href="#cb15-26" tabindex="-1"></a><span class="do">## 10:                                     Walnut Grove, California</span></span>
-<span id="cb15-27"><a href="#cb15-27" tabindex="-1"></a><span class="do">## 11:                                     Walnut Grove, California</span></span>
-<span id="cb15-28"><a href="#cb15-28" tabindex="-1"></a><span class="do">## 12:                                     Walnut Grove, California</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="do">##     altitude_final site_elevation elevation dataset_selection_tag</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="do">##              &lt;num&gt;          &lt;num&gt;     &lt;num&gt;                &lt;char&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="do">##  1:           17.1         611.43    611.43       allvalid-17magl</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="do">##  2:           31.7         611.43    611.43       allvalid-32magl</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="do">##  3:            4.9         611.43    611.43        allvalid-5magl</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="do">##  4:          122.0         472.00    472.00      allvalid-122magl</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="do">##  5:           30.0         472.00    472.00       allvalid-30magl</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="do">##  6:          396.0         472.00    472.00      allvalid-396magl</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="do">##  7:          304.8         115.20    115.20      allvalid-305magl</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="do">##  8:           31.0         115.20    115.20       allvalid-31magl</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="do">##  9:           61.0         115.20    115.20       allvalid-61magl</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a><span class="do">## 10:           30.0           2.00      2.00       allvalid-30magl</span></span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="do">## 11:          484.0           2.00      2.00      allvalid-483magl</span></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="do">## 12:           89.1           2.00      2.00       allvalid-91magl</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="do">##                                                        site_name</span></span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="do">##                                                           &lt;char&gt;</span></span>
+<span id="cb13-17"><a href="#cb13-17" tabindex="-1"></a><span class="do">##  1: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</span></span>
+<span id="cb13-18"><a href="#cb13-18" tabindex="-1"></a><span class="do">##  2: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</span></span>
+<span id="cb13-19"><a href="#cb13-19" tabindex="-1"></a><span class="do">##  3: Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)</span></span>
+<span id="cb13-20"><a href="#cb13-20" tabindex="-1"></a><span class="do">##  4:                                        Park Falls, Wisconsin</span></span>
+<span id="cb13-21"><a href="#cb13-21" tabindex="-1"></a><span class="do">##  5:                                        Park Falls, Wisconsin</span></span>
+<span id="cb13-22"><a href="#cb13-22" tabindex="-1"></a><span class="do">##  6:                                        Park Falls, Wisconsin</span></span>
+<span id="cb13-23"><a href="#cb13-23" tabindex="-1"></a><span class="do">##  7:                                 Beech Island, South Carolina</span></span>
+<span id="cb13-24"><a href="#cb13-24" tabindex="-1"></a><span class="do">##  8:                                 Beech Island, South Carolina</span></span>
+<span id="cb13-25"><a href="#cb13-25" tabindex="-1"></a><span class="do">##  9:                                 Beech Island, South Carolina</span></span>
+<span id="cb13-26"><a href="#cb13-26" tabindex="-1"></a><span class="do">## 10:                                     Walnut Grove, California</span></span>
+<span id="cb13-27"><a href="#cb13-27" tabindex="-1"></a><span class="do">## 11:                                     Walnut Grove, California</span></span>
+<span id="cb13-28"><a href="#cb13-28" tabindex="-1"></a><span class="do">## 12:                                     Walnut Grove, California</span></span></code></pre></div>
 <p>After filtering by space and time, we have 1.12883^{5} million observations. Towers can have observations at different heights. Here we need to select one site with the observations registered at the highest height. The column with the height is named <code>altitude_final</code> and the max altitude was named <code>max_altitude</code>.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dfa</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">[</span>,</span>
 <span>          <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">altitude_final</span><span class="op">)</span>,</span>
 <span>          by <span class="op">=</span> <span class="va">site_code</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">dfa</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="st">"max_altitude"</span></span>
 <span><span class="va">dfa</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">##    site_code max_altitude</span></span>
-<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">##       &lt;char&gt;        &lt;num&gt;</span></span>
-<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="do">## 1:       CRV         31.7</span></span>
-<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="do">## 2:       LEF        396.0</span></span>
-<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a><span class="do">## 3:       SCT        304.8</span></span>
-<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="do">## 4:       WGC        484.0</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="do">##    site_code max_altitude</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="do">##       &lt;char&gt;        &lt;num&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="do">## 1:       CRV         31.7</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="do">## 2:       LEF        396.0</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="do">## 3:       SCT        304.8</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a><span class="do">## 4:       WGC        484.0</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="key-time">Key Time<a class="anchor" aria-label="anchor" href="#key-time"></a>
 </h3>
 <p>Here we need to start time columns. The function <code>obs_addtime</code> adds time columns <code>timeUTC</code>, <code>timeUTC_start</code> which shows the start time of each observation and <code>timeUTC_end</code> which shows the end time for each observation.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_addtime.html">obs_addtime</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="do">## Adding timeUTC</span></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="do">## Adding timeUTC_start</span></span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a><span class="do">## Adding timeUTC_end</span></span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="do">## Found time_interval</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="do">## Adding timeUTC</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="do">## Adding timeUTC_start</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="do">## Adding timeUTC_end</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a><span class="do">## Found time_interval</span></span></code></pre></div>
 <p>Then we need a <em>key_time</em> to aggregate data. This can be done using UTC, solar, or local time. The normal approach is using afternoon solar or local time.</p>
 <div class="section level4">
 <h4 id="hierarchy-of-solar-or-local-time">Hierarchy of solar or local time<a class="anchor" aria-label="anchor" href="#hierarchy-of-solar-or-local-time"></a>
@@ -452,7 +460,7 @@ First two sites in ObsPack
 <p>solar time (default)</p>
 </blockquote>
 <p>Here we select the hours of interest and then aggregate data by year, month and day of solar time. In this way, we will have one information per day. however this approach is not appropriate for aircraft which are aggregated every 10 or 20 seconds. Hence we need to aggregate data by one time column. Also, this helps to generate the receptor info files including hour, minute and second. Hence, <em>we need to add solar or local time column</em>.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span><span class="op">$</span><span class="va">solar_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_addstime.html">obs_addstime</a></span><span class="op">(</span><span class="va">df2</span><span class="op">)</span></span></code></pre></div>
 <blockquote>
 <p>local time with column <code>site_utc2lst</code></p>
@@ -470,44 +478,43 @@ lt = UTC + longitude/15 * 60 * 60
 <h4 id="cut-time">Cut time<a class="anchor" aria-label="anchor" href="#cut-time"></a>
 </h4>
 <p>Now we have they key column time, we can cut it accordingly.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df2</span><span class="op">$</span><span class="va">solar_time_cut</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">df2</span><span class="op">$</span><span class="va">solar_time</span>,</span>
 <span>                          breaks <span class="op">=</span> <span class="st">"1 hour"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>How we can check the solar time and the cut solar time. Please note that solar_time_cut, the column that it will be used to aggregate data</p>
 <p>How we filter for the required solar time, in this case 14.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df3</span> <span class="op">&lt;-</span> <span class="va">df2</span><span class="op">[</span><span class="va">hour_st</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">evening</span><span class="op">]</span></span>
 <span><span class="va">df3</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"solar_time"</span>, <span class="st">"solar_time_cut"</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="do">##                solar_time      solar_time_cut</span></span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="do">##                    &lt;POSc&gt;              &lt;char&gt;</span></span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a><span class="do">##    1: 2019-12-02 14:49:12 2019-12-02 14:00:00</span></span>
-<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="do">##    2: 2019-12-03 14:48:48 2019-12-03 14:00:00</span></span>
-<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="do">##    3: 2019-12-04 14:48:24 2019-12-04 14:00:00</span></span>
-<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="do">##    4: 2019-12-05 14:48:00 2019-12-05 14:00:00</span></span>
-<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="do">##    5: 2019-12-06 14:47:35 2019-12-06 14:00:00</span></span>
-<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="do">##   ---                                        </span></span>
-<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a><span class="do">## 4312: 2021-01-27 14:11:38 2021-01-27 14:00:00</span></span>
-<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a><span class="do">## 4313: 2021-01-28 14:11:26 2021-01-28 14:00:00</span></span>
-<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a><span class="do">## 4314: 2021-01-29 14:11:14 2021-01-29 14:00:00</span></span>
-<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a><span class="do">## 4315: 2021-01-30 14:11:03 2021-01-30 14:00:00</span></span>
-<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a><span class="do">## 4316: 2021-01-31 14:10:52 2021-01-31 14:00:00</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="do">##                solar_time      solar_time_cut</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="do">##                    &lt;POSc&gt;              &lt;char&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="do">##    1: 2019-12-02 14:49:12 2019-12-02 14:00:00</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="do">##    2: 2019-12-03 14:48:48 2019-12-03 14:00:00</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="do">##    3: 2019-12-04 14:48:24 2019-12-04 14:00:00</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="do">##    4: 2019-12-05 14:48:00 2019-12-05 14:00:00</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="do">##    5: 2019-12-06 14:47:35 2019-12-06 14:00:00</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="do">##   ---                                        </span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="do">## 4312: 2021-01-27 14:11:38 2021-01-27 14:00:00</span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="do">## 4313: 2021-01-28 14:11:26 2021-01-28 14:00:00</span></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="do">## 4314: 2021-01-29 14:11:14 2021-01-29 14:00:00</span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="do">## 4315: 2021-01-30 14:11:03 2021-01-30 14:00:00</span></span>
+<span id="cb21-13"><a href="#cb21-13" tabindex="-1"></a><span class="do">## 4316: 2021-01-31 14:10:52 2021-01-31 14:00:00</span></span></code></pre></div>
 <p>Now there are 4316 observations and before filtering 112883. At this point we can calculate the averages of several columns by the cut time. The function <code>obs_agg</code> does this aggregation as shown in the following lines of code. The argument <code>gby</code> establish the function used to aggregate <code>cols</code>. I need to aggregate the data by date (year, month, date), because it is already filtered by the hours of interest. Then, I would have 1 observation per day.</p>
 <p>As standard, let us define <code>key_time</code> as <code>solar_time</code>. The <code>obs_agg</code> function will aggregate the desired data by that column.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df3</span><span class="op">$</span><span class="va">key_time</span> <span class="op">&lt;-</span> <span class="va">df3</span><span class="op">$</span><span class="va">solar_time_cut</span></span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df4</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_agg.html">obs_agg</a></span><span class="op">(</span>dt <span class="op">=</span> <span class="va">df3</span>,</span>
 <span>               cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"value"</span>,</span>
 <span>                        <span class="st">"latitude"</span>,</span>
-<span>                        <span class="st">"longitude"</span>,</span>
-<span>                        <span class="st">"site_utc2lst"</span><span class="op">)</span>,</span>
+<span>                        <span class="st">"longitude"</span><span class="op">)</span>,</span>
 <span>               verbose <span class="op">=</span> <span class="cn">T</span>,</span>
 <span>               byalt <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="do">## Selecting by alt</span></span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="do">## Adding time</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="do">## Selecting by alt</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="do">## Adding time</span></span></code></pre></div>
 <p>Now there are 4316 observations, 108567 less observations. Here we add the column <code>max_altitude</code> to identify the max altitude by site.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df4</span><span class="op">[</span>,</span>
 <span>    <span class="va">max_altitude</span> <span class="op">:=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">altitude_final</span><span class="op">)</span>,</span>
 <span>    by <span class="op">=</span> <span class="va">site_code</span><span class="op">]</span></span>
@@ -515,48 +522,48 @@ lt = UTC + longitude/15 * 60 * 60
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site_code"</span>,</span>
 <span>      <span class="st">"altitude_final"</span>,</span>
 <span>      <span class="st">"max_altitude"</span><span class="op">)</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb28"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a><span class="do">##     site_code altitude_final max_altitude</span></span>
-<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a><span class="do">##        &lt;char&gt;          &lt;num&gt;        &lt;num&gt;</span></span>
-<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="do">##  1:       CRV           17.1         31.7</span></span>
-<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a><span class="do">##  2:       CRV           31.7         31.7</span></span>
-<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="do">##  3:       CRV            4.9         31.7</span></span>
-<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a><span class="do">##  4:       LEF          122.0        396.0</span></span>
-<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a><span class="do">##  5:       LEF          396.0        396.0</span></span>
-<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a><span class="do">##  6:       LEF           30.0        396.0</span></span>
-<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a><span class="do">##  7:       SCT          304.8        304.8</span></span>
-<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a><span class="do">##  8:       SCT           31.0        304.8</span></span>
-<span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a><span class="do">##  9:       SCT           61.0        304.8</span></span>
-<span id="cb28-12"><a href="#cb28-12" tabindex="-1"></a><span class="do">## 10:       WGC           30.0        484.0</span></span>
-<span id="cb28-13"><a href="#cb28-13" tabindex="-1"></a><span class="do">## 11:       WGC          484.0        484.0</span></span>
-<span id="cb28-14"><a href="#cb28-14" tabindex="-1"></a><span class="do">## 12:       WGC           89.1        484.0</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="do">##     site_code altitude_final max_altitude</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="do">##        &lt;char&gt;          &lt;num&gt;        &lt;num&gt;</span></span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a><span class="do">##  1:       CRV           17.1         31.7</span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="do">##  2:       CRV           31.7         31.7</span></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="do">##  3:       CRV            4.9         31.7</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="do">##  4:       LEF          122.0        396.0</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="do">##  5:       LEF          396.0        396.0</span></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="do">##  6:       LEF           30.0        396.0</span></span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="do">##  7:       SCT          304.8        304.8</span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="do">##  8:       SCT           31.0        304.8</span></span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a><span class="do">##  9:       SCT           61.0        304.8</span></span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="do">## 10:       WGC           30.0        484.0</span></span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a><span class="do">## 11:       WGC          484.0        484.0</span></span>
+<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a><span class="do">## 12:       WGC           89.1        484.0</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
 <h3 id="saving-master-as-text-and-csvy">Saving master as text and csvy<a class="anchor" aria-label="anchor" href="#saving-master-as-text-and-csvy"></a>
 </h3>
 <p>Now that we have all the required information, we can save the files. Here, we name the data.frame as master, because it contains all the information. This is important because some fields can be used in the future, and for traceability. For convenience, time variables are transformed into character before writing into the disk. The separation is space ” “.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">master</span> <span class="op">&lt;-</span> <span class="va">df4</span></span>
 <span><span class="va">master</span><span class="op">$</span><span class="va">timeUTC</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">master</span><span class="op">$</span><span class="va">timeUTC</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fwrite.html" class="external-link">fwrite</a></span><span class="op">(</span><span class="va">master</span>, </span>
 <span>       file <span class="op">=</span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/tower_insitu_2020.txt"</span><span class="op">)</span>,</span>
 <span>       sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span></code></pre></div>
 <p>The format Comma Separated Value with YAML (CSVY)[^3] consists in a typical CSV with a YAML header. The function<code>obs_write_csvy</code> includes the argument <code>notes</code> which allows adding custom notes at the header of the file. Below the notes, <code>obs_write_csvy</code> adds the output of the R function <code>str</code>, which provides a vertical summary of the data, known as structure.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">csvy</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"/tower_insitu_2020.csvy"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/obs_write_csvy.html">obs_write_csvy</a></span><span class="op">(</span>dt <span class="op">=</span> <span class="va">master</span>,</span>
 <span>               notes <span class="op">=</span> <span class="st">"tower 2020"</span>,</span>
 <span>               out <span class="op">=</span> <span class="va">csvy</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>To check the YAML header we read the first 38 lines of the files that were generated. Here we can see the column names, type of data and first observations. The YAML header is delimited by the characters “—”.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">csvy</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">34</span><span class="op">]</span> <span class="co"># and more</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="saving-receptors">Saving receptors<a class="anchor" aria-label="anchor" href="#saving-receptors"></a>
 </h3>
 <p>We need to filter some columns from the master files in a new object called receptors. This is needed because internally we run HYSPLIT [@hy] using the information from the receptors. In the case of a tower, we need to select observations with the highest altitude. The specific columns are selected as shown on the following code. We are selecting the ending times, because later HYSPLIT is run backwards based on the time of measurement, between ending and starting times. The columns about time are formatted to have two characters. For instance, the month 1, is formatted as “01”. We also need to filter for <code>type_altitude</code> equal 0, representing <code>agl</code>observations , or equal to 1, <code>asl</code>.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">receptor</span> <span class="op">&lt;-</span> <span class="va">master</span><span class="op">[</span><span class="va">altitude_final</span> <span class="op">==</span> <span class="va">max_altitude</span>,</span>
 <span>                   <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"site_code"</span>,</span>
 <span>                     <span class="st">"year"</span>,</span>
