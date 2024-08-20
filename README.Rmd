@@ -134,27 +134,7 @@ dft <- obs_table(df = df)
 Now we can visualize the average of observations by site.
 
 
-
-```{r sfsave, echo = FALSE, message=FALSE}
-library(sf)
-sdft <- st_as_sf(dft[stat == "mean"], 
-                 coords = c("longitude", "latitude"), 
-                 crs = 4326)
-sdft$value <- sdft$value*1e09
-png("man/figures/plotsf.png", width = 2000, height = 1500, res = 200)
-plot(sdft["value"], 
-     reset = FALSE, 
-     axes = TRUE, 
-     graticule = TRUE,
-     pch = 16, 
-     cex = 1.5, 
-     pal = cptcity::lucky(colorRampPalette = T), #random
-     main = NULL)
-maps::map(add = T)
-dev.off()
-```
-
-
+(run it locally)
 
 ```{r sf, echo = TRUE, message=FALSE, eval = FALSE}
 library(sf)
@@ -173,7 +153,6 @@ plot(sdft["value"],
 maps::map(add = T)
 ```
 
-![](man/figures/plotsf.png)
 
 
 Let us randomly select a couples of sites from the database. 
@@ -197,7 +176,9 @@ number of 3 sites. The argument `pal` is to define the
 color palette, used by the internally imported function
 `cptcity::cpt`.
 
-```{r plot1, tidy = TRUE, dpi=300, fig.cap="First two sites in ObsPack"}
+(run it locally)
+
+```{r plot1, tidy = TRUE, dpi=300, fig.cap="First two sites in ObsPack", eval = F}
 obs_plot(dt = df[site_name %in% usites], 
          time = "time", 
          yfactor = 1e9, 

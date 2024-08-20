@@ -122,10 +122,7 @@ dft <- obs_table(df = df)
 
 Now we can visualize the average of observations by site.
 
-    ## Colour gradient: nd_basic_Magenta_White, number: 5283
-
-    ## png 
-    ##   2
+(run it locally)
 
 ``` r
 library(sf)
@@ -144,8 +141,6 @@ plot(sdft["value"],
 maps::map(add = T)
 ```
 
-![](man/figures/plotsf.png)
-
 Let us randomly select a couples of sites from the database.
 
 ``` r
@@ -153,8 +148,8 @@ usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
-    ## [1] "Igrim"                                                       
-    ## [2] "Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)"
+    ## [1] "Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)"
+    ## [2] "Noyabrsk"
 
 ``` r
 knitr::kable(dft[site_name %in% usites])
@@ -162,18 +157,18 @@ knitr::kable(dft[site_name %in% usites])
 
 | site_name                                                    | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
 |:-------------------------------------------------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.830e-06 | 1319340600 |         2012 |    64.99 |   -147.60 | min    | 2011-10-23 03:30:00 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.904e-06 | 1401946200 |         2014 |    64.99 |   -147.60 | q1     | 2014-06-05 05:30:00 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.926e-06 | 1477751400 |         2017 |    64.99 |   -147.60 | median | 2016-10-29 14:30:00 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.929e-06 | 1479259585 |         2017 |    64.99 |   -147.60 | mean   | 2016-11-16 01:26:25 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.951e-06 | 1556659800 |         2019 |    64.99 |   -147.60 | q3     | 2019-04-30 21:30:00 |
-| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 2.224e-06 | 1640968200 |         2022 |    64.99 |   -147.60 | max    | 2021-12-31 16:30:00 |
-| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 1.858e-06 | 1112437800 |         2005 |    63.19 |     64.42 | min    | 2005-04-02 10:30:00 |
-| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 1.940e-06 | 1182166200 |         2007 |    63.19 |     64.42 | q1     | 2007-06-18 11:30:00 |
-| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 1.991e-06 | 1238239800 |         2009 |    63.19 |     64.42 | median | 2009-03-28 11:30:00 |
-| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 2.031e-06 | 1238496443 |         2009 |    63.19 |     64.42 | mean   | 2009-03-31 10:47:23 |
-| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 2.071e-06 | 1294997400 |         2011 |    63.19 |     64.42 | q3     | 2011-01-14 09:30:00 |
-| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 4.223e-06 | 1375065000 |         2014 |    63.19 |     64.42 | max    | 2013-07-29 02:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |       -147.598 | United States | CRV       | 1.830e-06 | 1319340600 |         2012 |    64.99 |   -147.60 | min    | 2011-10-23 03:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |       -147.598 | United States | CRV       | 1.904e-06 | 1401946200 |         2014 |    64.99 |   -147.60 | q1     | 2014-06-05 05:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |       -147.598 | United States | CRV       | 1.926e-06 | 1477751400 |         2017 |    64.99 |   -147.60 | median | 2016-10-29 14:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |       -147.598 | United States | CRV       | 1.929e-06 | 1479259585 |         2017 |    64.99 |   -147.60 | mean   | 2016-11-16 01:26:25 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |       -147.598 | United States | CRV       | 1.951e-06 | 1556659800 |         2019 |    64.99 |   -147.60 | q3     | 2019-04-30 21:30:00 |
+| Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |       -147.598 | United States | CRV       | 2.224e-06 | 1640968200 |         2022 |    64.99 |   -147.60 | max    | 2021-12-31 16:30:00 |
+| Noyabrsk                                                     |       63.4292 |         75.780 | Russia        | NOY       | 1.848e-06 | 1130434200 |         2006 |    63.43 |     75.78 | min    | 2005-10-27 17:30:00 |
+| Noyabrsk                                                     |       63.4292 |         75.780 | Russia        | NOY       | 1.985e-06 | 1326479400 |         2012 |    63.43 |     75.78 | q1     | 2012-01-13 18:30:00 |
+| Noyabrsk                                                     |       63.4292 |         75.780 | Russia        | NOY       | 2.038e-06 | 1418131800 |         2015 |    63.43 |     75.78 | median | 2014-12-09 13:30:00 |
+| Noyabrsk                                                     |       63.4292 |         75.780 | Russia        | NOY       | 2.064e-06 | 1405484932 |         2015 |    63.43 |     75.78 | mean   | 2014-07-16 04:28:52 |
+| Noyabrsk                                                     |       63.4292 |         75.780 | Russia        | NOY       | 2.108e-06 | 1500283800 |         2018 |    63.43 |     75.78 | q3     | 2017-07-17 09:30:00 |
+| Noyabrsk                                                     |       63.4292 |         75.780 | Russia        | NOY       | 3.755e-06 | 1572496200 |         2020 |    63.43 |     75.78 | max    | 2019-10-31 04:30:00 |
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
@@ -181,16 +176,12 @@ illustrated sorted by color is the field `site_code`, with the default
 number of 3 sites. The argument `pal` is to define the color palette,
 used by the internally imported function `cptcity::cpt`.
 
+(run it locally)
+
 ``` r
 obs_plot(dt = df[site_name %in% usites], time = "time", yfactor = 1e+09, cex = 0.5,
     verbose = FALSE)
 ```
-
-<figure>
-<img src="README_files/figure-gfm/plot1-1.png"
-alt="First two sites in ObsPack" />
-<figcaption aria-hidden="true">First two sites in ObsPack</figcaption>
-</figure>
 
 Here we can see 2.61 million observations for `tower-insitu`. These
 observations are made between 2004 and 2021.

@@ -325,15 +325,6 @@ if(nrow(receptor_asl) > 0) {
 
 Finally, we just plot some data, run it locally
 
-```{r obs_plotsave, fig.width=7, fig.height=5, eval = T, echo = F}
-png("../man/figures/obsplot_aircrafpfp.png", width = 800, height = 500, res = 100)
-obs_plot(df3, time = "timeUTC", yfactor = 1e9)
-dev.off()
-```
-
 ```{r obs_plot, fig.width=7, fig.height=5, eval = F}
 obs_plot(df3, time = "timeUTC", yfactor = 1e9)
 ```
-
-![](../man/figures/obsplot_aircrafpfp.png)
-
