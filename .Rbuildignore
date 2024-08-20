@@ -15,3 +15,5 @@
 ^\.github$
 ^examples$
 
+^doc$
+^Meta$
