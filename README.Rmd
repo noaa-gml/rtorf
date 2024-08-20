@@ -1,5 +1,5 @@
 ---
-title: "R Tools for Obspack, Footprints and Receptors (rtorf)"
+title: "R Tools for Obspack, Receptors and Footprints (rtorf)"
 output: github_document
 ---
 
@@ -135,7 +135,28 @@ Now we can visualize the average of observations by site.
 
 
 
-```{r sf, echo = TRUE, message=FALSE}
+```{r sfsave, echo = FALSE, message=FALSE}
+library(sf)
+sdft <- st_as_sf(dft[stat == "mean"], 
+                 coords = c("longitude", "latitude"), 
+                 crs = 4326)
+sdft$value <- sdft$value*1e09
+png("man/figures/plotsf.png", width = 2000, height = 1500, res = 200)
+plot(sdft["value"], 
+     reset = FALSE, 
+     axes = TRUE, 
+     graticule = TRUE,
+     pch = 16, 
+     cex = 1.5, 
+     pal = cptcity::lucky(colorRampPalette = T), #random
+     main = NULL)
+maps::map(add = T)
+dev.off()
+```
+
+
+
+```{r sf, echo = TRUE, message=FALSE, eval = FALSE}
 library(sf)
 sdft <- st_as_sf(dft[stat == "mean"], 
                  coords = c("longitude", "latitude"), 
@@ -151,6 +172,8 @@ plot(sdft["value"],
      main = NULL)
 maps::map(add = T)
 ```
+
+![](man/figures/plotsf.png)
 
 
 Let us randomly select a couples of sites from the database. 

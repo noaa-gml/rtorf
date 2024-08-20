@@ -1,4 +1,4 @@
-R Tools for Obspack, Footprints and Receptors (rtorf)
+R Tools for Obspack, Receptors and Footprints (rtorf)
 ================
 
 ![GitHub commit
@@ -122,6 +122,11 @@ dft <- obs_table(df = df)
 
 Now we can visualize the average of observations by site.
 
+    ## Colour gradient: nd_basic_Magenta_White, number: 5283
+
+    ## png 
+    ##   2
+
 ``` r
 library(sf)
 sdft <- st_as_sf(dft[stat == "mean"], 
@@ -136,15 +141,10 @@ plot(sdft["value"],
      cex = 1.5, 
      pal = cptcity::lucky(colorRampPalette = T), #random
      main = NULL)
-```
-
-    ## Colour gradient: fractint_stripmap_lkmtch07, number: 2208
-
-``` r
 maps::map(add = T)
 ```
 
-![](README_files/figure-gfm/sf-1.png)<!-- -->
+![](man/figures/plotsf.png)
 
 Let us randomly select a couples of sites from the database.
 
@@ -153,8 +153,8 @@ usites <- unique(df$site_name)[sample(seq_along(unique(df$site_name)), 2)]
 usites
 ```
 
-    ## [1] "Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)"
-    ## [2] "Azovo"
+    ## [1] "Igrim"                                                       
+    ## [2] "Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE)"
 
 ``` r
 knitr::kable(dft[site_name %in% usites])
@@ -162,18 +162,18 @@ knitr::kable(dft[site_name %in% usites])
 
 | site_name                                                    | site_latitude | site_longitude | site_country  | site_code |     value |       time | time_decimal | latitude | longitude | stat   | timeUTC             |
 |:-------------------------------------------------------------|--------------:|---------------:|:--------------|:----------|----------:|-----------:|-------------:|---------:|----------:|:-------|:--------------------|
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 1.776e-06 | 1254893400 |         2010 |    54.70 |     73.03 | min    | 2009-10-07 05:30:00 |
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 1.956e-06 | 1323138600 |         2012 |    54.70 |     73.03 | q1     | 2011-12-06 02:30:00 |
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.011e-06 | 1481661000 |         2017 |    54.70 |     73.03 | median | 2016-12-13 20:30:00 |
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.019e-06 | 1440860069 |         2016 |    54.70 |     73.03 | mean   | 2015-08-29 14:54:29 |
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 2.059e-06 | 1519223400 |         2018 |    54.70 |     73.03 | q3     | 2018-02-21 14:30:00 |
-| Azovo                                                        |       54.7050 |        73.0292 | Russia        | AZV       | 3.173e-06 | 1577835000 |         2020 |    54.70 |     73.03 | max    | 2019-12-31 23:30:00 |
 | Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.830e-06 | 1319340600 |         2012 |    64.99 |   -147.60 | min    | 2011-10-23 03:30:00 |
 | Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.904e-06 | 1401946200 |         2014 |    64.99 |   -147.60 | q1     | 2014-06-05 05:30:00 |
 | Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.926e-06 | 1477751400 |         2017 |    64.99 |   -147.60 | median | 2016-10-29 14:30:00 |
 | Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.929e-06 | 1479259585 |         2017 |    64.99 |   -147.60 | mean   | 2016-11-16 01:26:25 |
 | Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 1.951e-06 | 1556659800 |         2019 |    64.99 |   -147.60 | q3     | 2019-04-30 21:30:00 |
 | Carbon in Arctic Reservoirs Vulnerability Experiment (CARVE) |       64.9863 |      -147.5980 | United States | CRV       | 2.224e-06 | 1640968200 |         2022 |    64.99 |   -147.60 | max    | 2021-12-31 16:30:00 |
+| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 1.858e-06 | 1112437800 |         2005 |    63.19 |     64.42 | min    | 2005-04-02 10:30:00 |
+| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 1.940e-06 | 1182166200 |         2007 |    63.19 |     64.42 | q1     | 2007-06-18 11:30:00 |
+| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 1.991e-06 | 1238239800 |         2009 |    63.19 |     64.42 | median | 2009-03-28 11:30:00 |
+| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 2.031e-06 | 1238496443 |         2009 |    63.19 |     64.42 | mean   | 2009-03-31 10:47:23 |
+| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 2.071e-06 | 1294997400 |         2011 |    63.19 |     64.42 | q3     | 2011-01-14 09:30:00 |
+| Igrim                                                        |       63.1903 |        64.4156 | Russia        | IGR       | 4.223e-06 | 1375065000 |         2014 |    63.19 |     64.42 | max    | 2013-07-29 02:30:00 |
 
 We added a function to plot the data read from ObsPack. The y-axis is
 the field `value` and the x-axis is by default `time`. The data
