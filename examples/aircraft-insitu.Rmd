@@ -331,21 +331,40 @@ if(nrow(receptor_asl) > 0) {
 ```
 
 
+
 ## Plot
 
 Finally, we just plot some data, run it locally
 
 
-```{r obs_plotsave, fig.width=7, fig.height=5, eval = T, echo = F, message=F, warning=F}
+```{r obs_plotsave, fig.width=5, fig.height=3, eval = T, echo = F, message=F, warning=F}
 png("../man/figures/obsplot_aircraftinsitu.png", width = 1500, height = 1000, res = 200)
 obs_plot(df3, time = "timeUTC", yfactor = 1e9)
 dev.off()
 ```
 
-```{r obs_plot, fig.width=7, fig.height=5, eval = F}
+```{r obs_plot, fig.width=5, fig.height=3, eval = F}
 obs_plot(df3, time = "timeUTC", yfactor = 1e9)
 ```
 
+![](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftinsitu.png?raw=true)
 
 
-![](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircrafinsitu.png?raw=true)
+```{r savesf, fig.width=5, fig.height=3, eval = T, echo = F}
+library(sf)
+x <- st_as_sf(df3, coords = c("longitude", "latitude"), crs = 4326)
+png("../man/figures/obsplot_aircraftinsitu_map.png", width = 1500, height = 1000, res = 200)
+plot(x["value"], axes = T, reset = F)
+maps::map(add = T)
+dev.off()
+```
+
+
+```{r sf, fig.width=5, fig.height=3, eval = F}
+library(sf)
+x <- st_as_sf(df3, coords = c("longitude", "latitude"), crs = 4326)
+plot(x["value"], axes = T, reset = F)
+maps::map(add = T)
+```
+
+![](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftinsitu_map.png?raw=true)
