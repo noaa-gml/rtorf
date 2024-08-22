@@ -1,0 +1,368 @@
+---
+title: "aircraft-pfp"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{aircraft-pfp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(rtorf)
+library(data.table)
+```
+
+
+```{r read1, eval = T}
+
+cate = c("aircraft-pfp",
+         "aircraft-insitu",
+         "aircraft-flask",
+         "surface-insitu",
+         "surface-flask", 
+         "surface-pfp",   
+         "tower-insitu",  
+         "aircore",       
+         "shipboard-insitu",
+         "shipboard-flask") 
+
+obs <- "/media/sergio/ext5/obspack/obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01/data/nc/"
+index <- obs_summary(obs = obs, 
+                     categories = cate)
+```
+
+
+Now we read the aircraft-pfp using the function `obs_read_nc`. To this date,
+`solar_time` is not included for aircraft, so we `FALSE` that argument.
+
+```{r readnc, eval = T}
+datasetid <- "aircraft-pfp"
+df <- obs_read_nc(index = index,
+                  categories = datasetid,
+                  solar_time = FALSE,
+                  verbose = T)
+
+```
+
+Now we check the data
+
+```{r checkdf, eval = T}
+df
+```
+
+
+
+Now we can process the data. We first filter for observations
+within our spatial domain:
+
+## Checks and definitions
+
+```{r spatial, eval = T}
+north <- 80
+south <- 10
+west <- -170
+east <- -50
+max_altitude <- 8000
+yy <- 2020
+
+```
+
+We check altitude, intake_height, altitude_final and elevation.
+altitude_final is a column from intake_height, added to match
+column from obs_read text files.
+
+```{r checkcols, eval = T}
+df[, c("altitude", "altitude_final", "intake_height", "elevation")]
+```
+
+The temporal range of data is
+```{r range_year, eval = T}
+range(df$year)
+```
+
+
+We also check for dimensions of data
+
+```{r dim_df, eval = T}
+dim(df)
+```
+
+## Filters
+
+```{r spatial_temporal_filter, eval = T}
+df <- df[year == yy]
+
+df <- df[altitude_final < max_altitude &
+           latitude < north &
+           latitude > south &
+           longitude < east &
+           longitude > west]
+dim(df)
+```
+
+
+## Adding time as POSIXct class
+
+```{r add_time1, eval = T}
+df <- obs_addtime(df)
+df[, "timeUTC"]
+```
+
+
+## Cut time
+
+now we can cut time every 20 seconds. We can chosse other frequency as well.
+
+```{r cut_sec, eval = T}
+df$sec2 <- obs_freq(x = df$second,
+                     freq = seq(0, 59, 20))
+df[, c("second", "sec2")]
+```
+
+
+## Aggregate data
+
+now we need to add the column key_time, that it will be used
+to aggregate other variables
+
+```{r key_time, eval = T}
+df$key_time <- ISOdatetime(year = df$year,
+                           month = df$month,
+                           day = df$day,
+                           hour = df$hour,
+                           min = df$minute,
+                           sec = df$sec2,
+                           tz = "UTC")
+df[, c("timeUTC", "key_time")]
+
+```
+
+         
+```{r aggregatingdata, eval = T}
+df2 <- obs_agg(df, cols =  c("year",
+                             "month",
+                             "day",
+                             "hour",
+                             "minute",
+                             "second",
+                             "time",
+                             "time_decimal",
+                             "value",
+                             "latitude",
+                             "longitude",
+                             "altitude_final",
+                             "elevation",
+                             "intake_height",
+                             "gps_altitude",
+                             "pressure",
+                             "pressure_altitude",
+                             "u", "v", "temperature",
+                             "type_altitude"))
+```
+## Add local time
+
+Now we add local time
+
+```{r addlt, eval = T}
+df3 <- obs_addltime(df2)
+setorderv(df3, cols = c("site_code", "timeUTC"),
+          order = c(-1, 1))
+df3
+
+
+```
+
+
+## Master
+
+Before generating the receptors list, we have the databe with all the required information
+
+```{r rename, eval = T}
+master <- df3
+
+```
+We may replace missing values with a nine nines. Here is commented
+
+#master[is.na(master)] <- 999999999
+
+We transform the time variables to character and round coordinates with 4 digits
+
+```{r round, eval = T}
+master$timeUTC <- as.character(master$timeUTC)
+master$local_time <- as.character(master$local_time)
+master$latitude <- round(master$latitude, 4)
+master$longitude <- round(master$longitude, 4)
+
+```
+
+## Save master
+Finally we save the master file
+
+```{r outfile, eval = T}
+out <- tempfile()
+
+```
+
+### txt
+
+```{r outtxt, eval = T}
+message(paste0(out,"_", datasetid, ".txt\n"))
+fwrite(master,
+       paste0(out,"_", datasetid, ".txt"),
+       sep = " ")
+
+```
+
+### csv
+
+```{r outcsv, eval = T}
+message(paste0(out,"_", datasetid, ".csv\n"))
+fwrite(master,
+       paste0(out,"_", datasetid, ".csv"),
+       sep = ",")
+
+```
+
+
+### csvy
+
+CSVY are csv files with a YAML header to include metadata in tabulated
+text files
+
+```{r csvy, eval = T}
+cat("\nAdding notes in csvy:\n")
+notes <- c(paste0("sector: ", datasetid),
+           paste0("timespan: ", yy),
+           paste0("spatial_limits: north = ", north, ", south = ", south, ", east = ", east, ", west = ", west),
+           "data: Data averaged every 20 seconds",
+           paste0("altitude: < ", max_altitude),
+           "hours: All",
+           "local_time: if var `site_utc2lst` is not available, calculated as",
+           "longitude/15*60*60 (John Miller)")
+
+cat(notes, sep = "\n")
+
+message(paste0(out,"_", datasetid, ".csvy\n"))
+obs_write_csvy(dt = master,
+               notes = notes,
+               out = paste0(out,"_", datasetid, ".csvy"))
+```
+
+
+
+```{r readcsvy, eval = T}
+obs_read_csvy(paste0(out,"_", datasetid, ".csvy"))
+```
+
+
+
+## Receptors
+
+Now we can do the last step which is generating the receptor list files.
+Now we filter selected columns
+
+```{r receptors, eval = T}
+receptor <- master[, c("site_code",
+                       "year",
+                       "month",
+                       "day",
+                       "hour",
+                       "minute",
+                       "second",
+                       "latitude",
+                       "longitude",
+                       "altitude_final",
+                       "type_altitude")]
+
+```
+
+We can round altitude also
+
+```{r round_alt, eval = T}
+receptor$altitude_final <- round(receptor$altitude_final)
+```
+
+Now we can format time variables with two digits
+
+```{r formatrec, eval = T}
+receptor <- obs_format(receptor,
+                        spf =  c("month", "day",
+                                 "hour", "minute", "second"))
+```
+
+We have a column that indicate AGL or ASL
+
+```{r aslagl, eval = T}
+receptor_agl <- receptor[type_altitude == 0]
+receptor_asl <- receptor[type_altitude == 1]
+```
+
+Finally, we save the receptors
+
+```{r save_receptors, eval = T}
+if(nrow(receptor_agl) > 0) {
+  message(paste0(out, "_", datasetid, "_receptor_AGL.txt"), "\n")
+
+  fwrite(x = receptor_agl,
+         file = paste0(out, "_", datasetid, "_receptor_AGL.txt"),
+         sep = " ")
+}
+
+if(nrow(receptor_asl) > 0) {
+  message(paste0(out, "_", datasetid, "_receptor_ASL.txt"), "\n")
+
+  fwrite(x = receptor_asl,
+         file = paste0(out, "_", datasetid, "receptor_ASL.txt"),
+         sep = " ")
+
+}
+
+
+
+```
+
+
+## Plot
+
+Finally, we just plot some data, run it locally
+
+
+```{r obs_plotsave, fig.width=7, fig.height=5, eval = T, echo = F, message=F, warning=F}
+png("../man/figures/obsplot_aircraftpfp.png", width = 1500, height = 1000, res = 200)
+obs_plot(df3, time = "timeUTC", yfactor = 1e9)
+dev.off()
+```
+
+```{r obs_plot, fig.width=7, fig.height=5, eval = F}
+obs_plot(df3, time = "timeUTC", yfactor = 1e9)
+```
+
+![](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftpfp.png?raw=true)
+
+
+```{r savesf, fig.width=7, fig.height=5, eval = T, echo = F}
+library(sf)
+x <- st_as_sf(df3, coords = c("longitude", "latitude"), crs = 4326)
+png("../man/figures/obsplot_aircraftpfp_map.png", width = 1500, height = 1000, res = 200)
+plot(x["value"], axes = T, reset = F)
+maps::map(add = T)
+dev.off()
+```
+
+
+```{r sf, fig.width=7, fig.height=5, eval = F}
+library(sf)
+x <- st_as_sf(df3, coords = c("longitude", "latitude"), crs = 4326)
+plot(x["value"], axes = T, reset = F)
+maps::map(add = T)
+```
+
+![](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftpfp_map.png?raw=true)
