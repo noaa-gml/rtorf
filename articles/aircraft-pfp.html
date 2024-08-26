@@ -817,6 +817,17 @@ files. Now we filter selected columns</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="st">"value"</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">T</span>, reset <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="fu">maps</span><span class="fu">::</span><span class="fu">map</span><span class="op">(</span>add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftpfp_map.png?raw=true"></p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">df3</span></span>
+<span><span class="va">x</span><span class="op">$</span><span class="va">ch4</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">value</span><span class="op">*</span><span class="fl">1e+9</span></span>
+<span><span class="fu"><a href="../reference/obs_plot.html">obs_plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">site_code</span> <span class="op">==</span> <span class="st">"IAGOS"</span><span class="op">]</span>, </span>
+<span>         time <span class="op">=</span> <span class="st">"ch4"</span>, </span>
+<span>         y <span class="op">=</span> <span class="st">"altitude_final"</span>, </span>
+<span>         colu <span class="op">=</span> <span class="st">"month"</span>, <span class="co">#n = c(1L, 3L, 6L, 8L, 9L, 11L, 12L), </span></span>
+<span>         type <span class="op">=</span> <span class="st">"b"</span>, </span>
+<span>         xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">CH</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">~</span><span class="va">ppb</span><span class="op">)</span>, </span>
+<span>         ylab <span class="op">=</span> <span class="st">"altitude (m)"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftpfp_vert.png?raw=true"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
