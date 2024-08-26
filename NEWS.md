@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### rtorf 0.9.5 (Release date: 2024-08-26)
+
+- Add articles for each dataid, running examples in `examples/`, articles in `vignettes`
+
 ### rtorf 0.9.4 (Release date: 2024-08-19)
 
 - remove `cols` argument to obs_read_nc to avoid reading all columns by default

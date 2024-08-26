@@ -2,7 +2,7 @@
 title: "shipboard-insitu"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{tower-insitu}
+  %\VignetteIndexEntry{shipboard-insitu}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
