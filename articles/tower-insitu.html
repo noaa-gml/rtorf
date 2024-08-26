@@ -110,7 +110,7 @@
 <span><span class="co">#&gt; 11:    Total sectors   429</span></span>
 <span><span class="co">#&gt; Detected 190 files with agl</span></span>
 <span><span class="co">#&gt; Detected 239 files without agl</span></span></code></pre>
-<p>Now we read the surface-insitu using the function
+<p>Now we read the <code>tower-insitu</code> using the function
 <code>obs_read_nc</code>. <code>solar_time</code> is included for
 surface, so we <code>TRUE</code> that argument.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -611,7 +611,6 @@ tabulated text files</p>
 <span><span class="va">notes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"sector: "</span>, <span class="va">datasetid</span><span class="op">)</span>,</span>
 <span>           <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"timespan: "</span>, <span class="va">yy</span><span class="op">)</span>,</span>
 <span>           <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"spatial_limits: north = "</span>, <span class="va">north</span>, <span class="st">", south = "</span>, <span class="va">south</span>, <span class="st">", east = "</span>, <span class="va">east</span>, <span class="st">", west = "</span>, <span class="va">west</span><span class="op">)</span>,</span>
-<span>           <span class="st">"data: Data averaged every 20 seconds"</span>,</span>
 <span>           <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"altitude: &lt; "</span>, <span class="va">max_altitude</span><span class="op">)</span>,</span>
 <span>           <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"hours: "</span>, <span class="va">evening</span><span class="op">)</span>,</span>
 <span>           <span class="st">"local_time: used solar_time"</span><span class="op">)</span></span>
