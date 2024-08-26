@@ -6,12 +6,13 @@ articles:
   aircraft-flask: aircraft-flask.html
   aircraft-insitu: aircraft-insitu.html
   aircraft-pfp: aircraft-pfp.html
+  shipoboard-insitu: shipoboard-insitu.html
   summary: summary.html
   surface-flask: surface-flask.html
   surface-insitu: surface-insitu.html
   surface-pfp: surface-pfp.html
   tower-insitu: tower-insitu.html
-last_built: 2024-08-26T16:41Z
+last_built: 2024-08-26T16:53Z
 urls:
   reference: https://noaa-gml.github.io/rtorf/reference
   article: https://noaa-gml.github.io/rtorf/articles
