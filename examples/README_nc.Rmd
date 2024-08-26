@@ -258,6 +258,7 @@ which shows the end time for each observation.
 ```{r}
 df2 <- obs_addtime(df)
 ```
+
 Then we need a *key_time* to aggregate data.
 This can be done using UTC, solar, or local time.
 The normal approach is using afternoon solar or local time.
@@ -373,6 +374,7 @@ df4 <- obs_agg(dt = df3,
                verbose = T,
                byalt = TRUE)
 ```
+
 
 Now there are `r nrow(df4)` observations,
 `r nrow(df) - nrow(df4)` less observations.
