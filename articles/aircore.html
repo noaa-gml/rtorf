@@ -657,6 +657,15 @@ files. Now we filter selected columns</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="st">"value"</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">T</span>, reset <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="fu">maps</span><span class="fu">::</span><span class="fu">map</span><span class="op">(</span>add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
 <p><img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore_map.png?raw=true"></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> df3</span>
+<span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>x<span class="sc">$</span>ch4 <span class="ot">&lt;-</span> x<span class="sc">$</span>value<span class="sc">*</span><span class="fl">1e+9</span><span class="fu">obs_plot</span>(x, </span>
+<span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a>         <span class="at">time =</span> <span class="st">"ch4"</span>, </span>
+<span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"altitude_final"</span>, </span>
+<span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a>         <span class="at">colu =</span> <span class="st">"month"</span>, <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>, <span class="dv">3</span><span class="dt">L</span>, <span class="dv">6</span><span class="dt">L</span>, <span class="dv">8</span><span class="dt">L</span>, <span class="dv">9</span><span class="dt">L</span>, <span class="dv">11</span><span class="dt">L</span>, <span class="dv">12</span><span class="dt">L</span>), </span>
+<span id="cb46-6"><a href="#cb46-6" tabindex="-1"></a>         <span class="at">type =</span> <span class="st">"b"</span>, </span>
+<span id="cb46-7"><a href="#cb46-7" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="fu">expression</span>(CH[<span class="dv">4</span>]<span class="sc">~</span>ppb), </span>
+<span id="cb46-8"><a href="#cb46-8" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"altitude (m)"</span>)</span></code></pre></div>
+<p><img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore_vert.png?raw=true"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
