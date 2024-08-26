@@ -41,7 +41,7 @@ index <- obs_summary(obs = obs,
 ```
 
 
-Now we read the surface-insitu using the function `obs_read_nc`. 
+Now we read the `surface-insitu` using the function `obs_read_nc`. 
 `solar_time` is  included for surface, so we `TRUE` that argument.
 
 ```{r readnc, eval = T}

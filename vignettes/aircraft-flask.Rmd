@@ -3,7 +3,7 @@ title: "aircraft-flask"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{aircraft-pfp}
+  %\VignetteIndexEntry{aircraft-flask}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -34,7 +34,7 @@ cate = c("aircraft-pfp",
          "shipboard-insitu",
          "shipboard-flask") 
 
-obs <- "/media/sergio/ext5/obspack/obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01/data/nc/"
+obs <- "Z:/torf/obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08/data/nc/"
 index <- obs_summary(obs = obs, 
                      categories = cate)
 ```
@@ -58,7 +58,7 @@ index <- obs_summary(obs = obs,
 #> Detected 276 files without agl
 ```
 
-Now we read the aircraft-pfp using the function `obs_read_nc`. To this date,
+Now we read the `aircraft-flask` using the function `obs_read_nc`. To this date,
 `solar_time` is not included for aircraft, so we `FALSE` that argument.
 
 ```{r readnc, eval = F}
@@ -299,7 +299,7 @@ dim(df)
 ```
 
 ```
-#> [1] 18466    46
+#> [1] 16355    45
 ```
 
 ## Filters
@@ -808,7 +808,7 @@ dev.off()
 ```{r obs_plot_vertt, fig.width=7, fig.height=5, eval = F}
 x <- df3
 x$ch4 <- x$value*1e+9
-obs_plot(x[site_code == "IAGOS"], 
+obs_plot(x, 
          time = "ch4", 
          y = "altitude_final", 
          colu = "month", #n = c(1L, 3L, 6L, 8L, 9L, 11L, 12L), 

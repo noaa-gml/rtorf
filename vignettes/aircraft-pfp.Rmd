@@ -35,7 +35,7 @@ cate = c("aircraft-pfp",
          "shipboard-insitu",
          "shipboard-flask") 
 
-obs <- "/media/sergio/ext5/obspack/obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01/data/nc/"
+obs <- "Z:/torf/obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08/data/nc/"
 index <- obs_summary(obs = obs, 
                      categories = cate)
 ```
@@ -58,7 +58,7 @@ index <- obs_summary(obs = obs,
 #> Detected 276 files without agl
 ```
 
-Now we read the aircraft-pfp using the function `obs_read_nc`. To this date,
+Now we read the `aircraft-pfp` using the function `obs_read_nc`. To this date,
 `solar_time` is not included for aircraft, so we `FALSE` that argument.
 
 ```{r readnc, eval = F}
@@ -129,11 +129,11 @@ df
 #>     4:  2006     6     7    22     55     31 1149720931 1149720931
 #>     5:  2006     6     7    23     22     23 1149722543 1149722543
 #>    ---                                                            
-#> 95319:  2022    12    21    19     12     27 1671649947 1671649947
-#> 95320:  2022    12    21    19     15      1 1671650101 1671650101
-#> 95321:  2022    12    21    19     17     32 1671650252 1671650252
-#> 95322:  2022    12    21    19     19     55 1671650395 1671650395
-#> 95323:  2022    12    21    19     23      3 1671650583 1671650583
+#> 86429:  2021    12    27    18     31     21 1640629881 1640629881
+#> 86430:  2021    12    27    18     33     36 1640630016 1640630016
+#> 86431:  2021    12    27    18     35     47 1640630147 1640630147
+#> 86432:  2021    12    27    18     37     54 1640630274 1640630274
+#> 86433:  2021    12    27    18     39     56 1640630396 1640630396
 #>        midpoint_time             datetime time_decimal time_interval
 #>                <int>               <char>        <num>         <int>
 #>     1:    1149718307 2006-06-07T22:11:47Z     2006.433          3600
@@ -142,11 +142,11 @@ df
 #>     4:    1149720931 2006-06-07T22:55:31Z     2006.433          3600
 #>     5:    1149722543 2006-06-07T23:22:23Z     2006.433          3600
 #>    ---                                                              
-#> 95319:    1671649947 2022-12-21T19:12:27Z     2022.972          3600
-#> 95320:    1671650101 2022-12-21T19:15:01Z     2022.972          3600
-#> 95321:    1671650252 2022-12-21T19:17:32Z     2022.972          3600
-#> 95322:    1671650395 2022-12-21T19:19:55Z     2022.972          3600
-#> 95323:    1671650583 2022-12-21T19:23:03Z     2022.972          3600
+#> 86429:    1640629881 2021-12-27T18:31:21Z     2021.988          3600
+#> 86430:    1640630016 2021-12-27T18:33:36Z     2021.988          3600
+#> 86431:    1640630147 2021-12-27T18:35:47Z     2021.988          3600
+#> 86432:    1640630274 2021-12-27T18:37:54Z     2021.988          3600
+#> 86433:    1640630396 2021-12-27T18:39:56Z     2021.988          3600
 #>              value value_unc nvalue value_std_dev latitude longitude altitude
 #>              <num>     <num>  <int>         <num>    <num>     <num>    <num>
 #>     1: 1.81998e-06  1.70e-09      1            NA  40.1000  -88.5500  4758.10
@@ -155,11 +155,11 @@ df
 #>     4: 1.83283e-06  1.70e-09      1            NA  40.1000  -88.5500  2539.71
 #>     5: 1.84134e-06  1.70e-09      1            NA  40.1000  -88.5500  1905.77
 #>    ---                                                                       
-#> 95319: 1.99054e-06  5.75e-10      1            NA  41.7190  -91.5463  3008.99
-#> 95320: 1.98943e-06  5.75e-10      1            NA  41.6885  -91.5333  2387.80
-#> 95321: 1.98553e-06  5.75e-10      1            NA  41.6865  -91.3657  1763.88
-#> 95322: 2.05912e-06  5.75e-10      1            NA  41.6935  -91.2090  1124.71
-#> 95323: 2.06217e-06  5.75e-10      1            NA  41.7063  -91.0566   950.98
+#> 86429: 1.97486e-06  5.75e-10      1            NA  41.7268  -91.2929  3698.75
+#> 86430: 1.97552e-06  5.75e-10      1            NA  41.7193  -91.3886  3068.42
+#> 86431: 1.97551e-06  5.75e-10      1            NA  41.7149  -91.4808  2417.67
+#> 86432: 1.97882e-06  5.75e-10      1            NA  41.7103  -91.5746  1793.14
+#> 86433: 1.99104e-06  5.75e-10      1            NA  41.6643  -91.5096  1173.48
 #>        elevation intake_height qcflag instrument   analysis_datetime method
 #>            <num>         <num> <char>     <char>              <char> <char>
 #>     1:       210       4548.10    ...         H4 2006-06-16T17:06:00      A
@@ -168,37 +168,37 @@ df
 #>     4:       210       2329.71    ...         H4 2006-06-16T17:51:00      A
 #>     5:       210       1695.77    ...         H4 2006-06-16T18:20:00      A
 #>    ---                                                                     
-#> 95319:       227       2781.99    ...        PC2 2023-01-03T22:20:27      R
-#> 95320:       240       2147.80    ...        PC2 2023-01-03T22:35:42      R
-#> 95321:       230       1533.88    ...        PC2 2023-01-03T22:50:56      R
-#> 95322:       247        877.71    ...        PC2 2023-01-03T23:06:10      R
-#> 95323:       219        731.98    ...        PC2 2023-01-03T23:21:24      R
+#> 86429:       241       3457.75    ...        PC2 2022-01-07T09:58:36      R
+#> 86430:       237       2831.42    ...        PC2 2022-01-07T10:13:53      R
+#> 86431:       234       2183.67    ...        PC2 2022-01-07T10:29:10      R
+#> 86432:       213       1580.14    ...        PC2 2022-01-07T10:44:27      R
+#> 86433:       223        950.48    ...        PC2 2022-01-07T10:59:43      R
 #>        event_number air_sample_container_id obs_flag obspack_num
 #>              <char>                  <char>    <int>       <int>
-#>     1:       218410                 3141-01        1     1028305
-#>     2:       218411                 3141-02        1     1028306
-#>     3:       218412                 3141-03        1     1028307
-#>     4:       218413                 3141-04        1     1028308
-#>     5:       218415                 3141-06        1     1028309
+#>     1:       218410                 3141-01        1      959079
+#>     2:       218411                 3141-02        1      959080
+#>     3:       218412                 3141-03        1      959081
+#>     4:       218413                 3141-04        1      959082
+#>     5:       218415                 3141-06        1      959083
 #>    ---                                                          
-#> 95319:       512757                 3036-08        1     1106263
-#> 95320:       512758                 3036-09        1     1106264
-#> 95321:       512759                 3036-10        1     1106265
-#> 95322:       512760                 3036-11        1     1106266
-#> 95323:       512761                 3036-12        1     1106267
+#> 86429:       498170                 3096-07        1     1033163
+#> 86430:       498171                 3096-08        1     1033164
+#> 86431:       498172                 3096-09        1     1033165
+#> 86432:       498173                 3096-10        1     1033166
+#> 86433:       498174                 3096-11        1     1033167
 #>                                                                                  obspack_id
 #>                                                                                      <char>
-#>     1: obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01~ch4_aao_aircraft-pfp_1_allvalid~1028305
-#>     2: obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01~ch4_aao_aircraft-pfp_1_allvalid~1028306
-#>     3: obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01~ch4_aao_aircraft-pfp_1_allvalid~1028307
-#>     4: obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01~ch4_aao_aircraft-pfp_1_allvalid~1028308
-#>     5: obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01~ch4_aao_aircraft-pfp_1_allvalid~1028309
+#>     1:  obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_aao_aircraft-pfp_1_allvalid~959079
+#>     2:  obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_aao_aircraft-pfp_1_allvalid~959080
+#>     3:  obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_aao_aircraft-pfp_1_allvalid~959081
+#>     4:  obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_aao_aircraft-pfp_1_allvalid~959082
+#>     5:  obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_aao_aircraft-pfp_1_allvalid~959083
 #>    ---                                                                                     
-#> 95319: obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01~ch4_wbi_aircraft-pfp_1_allvalid~1106263
-#> 95320: obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01~ch4_wbi_aircraft-pfp_1_allvalid~1106264
-#> 95321: obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01~ch4_wbi_aircraft-pfp_1_allvalid~1106265
-#> 95322: obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01~ch4_wbi_aircraft-pfp_1_allvalid~1106266
-#> 95323: obspack_ch4_1_GLOBALVIEWplus_v6.0_2023-12-01~ch4_wbi_aircraft-pfp_1_allvalid~1106267
+#> 86429: obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_wbi_aircraft-pfp_1_allvalid~1033163
+#> 86430: obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_wbi_aircraft-pfp_1_allvalid~1033164
+#> 86431: obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_wbi_aircraft-pfp_1_allvalid~1033165
+#> 86432: obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_wbi_aircraft-pfp_1_allvalid~1033166
+#> 86433: obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08~ch4_wbi_aircraft-pfp_1_allvalid~1033167
 #>        unique_sample_location_num          scale site_elevation_unit
 #>                             <int>         <char>              <char>
 #>     1:                    2718218 WMO CH4 X2004A                masl
@@ -207,11 +207,11 @@ df
 #>     4:                    2718138 WMO CH4 X2004A                masl
 #>     5:                    2718094 WMO CH4 X2004A                masl
 #>    ---                                                              
-#> 95319:                   55771244 WMO CH4 X2004A                masl
-#> 95320:                   55771219 WMO CH4 X2004A                masl
-#> 95321:                   55771217 WMO CH4 X2004A                masl
-#> 95322:                   55771222 WMO CH4 X2004A                masl
-#> 95323:                   55771235 WMO CH4 X2004A                masl
+#> 86429:                   49849587 WMO CH4 X2004A                masl
+#> 86430:                   49849579 WMO CH4 X2004A                masl
+#> 86431:                   49849573 WMO CH4 X2004A                masl
+#> 86432:                   49849564 WMO CH4 X2004A                masl
+#> 86433:                   49849546 WMO CH4 X2004A                masl
 #>        dataset_project dataset_selection_tag
 #>                 <char>                <char>
 #>     1:    aircraft-pfp              allvalid
@@ -220,11 +220,11 @@ df
 #>     4:    aircraft-pfp              allvalid
 #>     5:    aircraft-pfp              allvalid
 #>    ---                                      
-#> 95319:    aircraft-pfp              allvalid
-#> 95320:    aircraft-pfp              allvalid
-#> 95321:    aircraft-pfp              allvalid
-#> 95322:    aircraft-pfp              allvalid
-#> 95323:    aircraft-pfp              allvalid
+#> 86429:    aircraft-pfp              allvalid
+#> 86430:    aircraft-pfp              allvalid
+#> 86431:    aircraft-pfp              allvalid
+#> 86432:    aircraft-pfp              allvalid
+#> 86433:    aircraft-pfp              allvalid
 #>                                                site_name site_elevation
 #>                                                   <char>          <num>
 #>     1: Airborne Aerosol Observatory, Bondville, Illinois          230.0
@@ -233,11 +233,11 @@ df
 #>     4: Airborne Aerosol Observatory, Bondville, Illinois          230.0
 #>     5: Airborne Aerosol Observatory, Bondville, Illinois          230.0
 #>    ---                                                                 
-#> 95319:                                 West Branch, Iowa          241.7
-#> 95320:                                 West Branch, Iowa          241.7
-#> 95321:                                 West Branch, Iowa          241.7
-#> 95322:                                 West Branch, Iowa          241.7
-#> 95323:                                 West Branch, Iowa          241.7
+#> 86429:                                 West Branch, Iowa          241.7
+#> 86430:                                 West Branch, Iowa          241.7
+#> 86431:                                 West Branch, Iowa          241.7
+#> 86432:                                 West Branch, Iowa          241.7
+#> 86433:                                 West Branch, Iowa          241.7
 #>        site_latitude site_longitude  site_country site_code site_utc2lst
 #>                <num>          <num>        <char>    <char>        <num>
 #>     1:       40.0500       -88.3700 United States       AAO           -6
@@ -246,11 +246,11 @@ df
 #>     4:       40.0500       -88.3700 United States       AAO           -6
 #>     5:       40.0500       -88.3700 United States       AAO           -6
 #>    ---                                                                  
-#> 95319:       41.7248       -91.3529 United States       WBI           -6
-#> 95320:       41.7248       -91.3529 United States       WBI           -6
-#> 95321:       41.7248       -91.3529 United States       WBI           -6
-#> 95322:       41.7248       -91.3529 United States       WBI           -6
-#> 95323:       41.7248       -91.3529 United States       WBI           -6
+#> 86429:       41.7248       -91.3529 United States       WBI           -6
+#> 86430:       41.7248       -91.3529 United States       WBI           -6
+#> 86431:       41.7248       -91.3529 United States       WBI           -6
+#> 86432:       41.7248       -91.3529 United States       WBI           -6
+#> 86433:       41.7248       -91.3529 United States       WBI           -6
 #>        lab_1_abbr dataset_calibration_scale altitude_final type_altitude
 #>            <char>                    <char>          <num>         <num>
 #>     1:       NOAA            WMO CH4 X2004A        4758.10             1
@@ -259,11 +259,11 @@ df
 #>     4:       NOAA            WMO CH4 X2004A        2539.71             1
 #>     5:       NOAA            WMO CH4 X2004A        1905.77             1
 #>    ---                                                                  
-#> 95319:       NOAA            WMO CH4 X2004A        3008.99             1
-#> 95320:       NOAA            WMO CH4 X2004A        2387.80             1
-#> 95321:       NOAA            WMO CH4 X2004A        1763.88             1
-#> 95322:       NOAA            WMO CH4 X2004A        1124.71             1
-#> 95323:       NOAA            WMO CH4 X2004A         950.98             1
+#> 86429:       NOAA            WMO CH4 X2004A        3698.75             1
+#> 86430:       NOAA            WMO CH4 X2004A        3068.42             1
+#> 86431:       NOAA            WMO CH4 X2004A        2417.67             1
+#> 86432:       NOAA            WMO CH4 X2004A        1793.14             1
+#> 86433:       NOAA            WMO CH4 X2004A        1173.48             1
 #>        air_flag bl_bt_flag flight_flag flight_id gps_altitude   h2o
 #>           <int>      <int>       <int>    <char>        <num> <num>
 #>     1:       NA         NA          NA      <NA>           NA    NA
@@ -272,11 +272,11 @@ df
 #>     4:       NA         NA          NA      <NA>           NA    NA
 #>     5:       NA         NA          NA      <NA>           NA    NA
 #>    ---                                                             
-#> 95319:       NA         NA          NA      <NA>           NA    NA
-#> 95320:       NA         NA          NA      <NA>           NA    NA
-#> 95321:       NA         NA          NA      <NA>           NA    NA
-#> 95322:       NA         NA          NA      <NA>           NA    NA
-#> 95323:       NA         NA          NA      <NA>           NA    NA
+#> 86429:       NA         NA          NA      <NA>           NA    NA
+#> 86430:       NA         NA          NA      <NA>           NA    NA
+#> 86431:       NA         NA          NA      <NA>           NA    NA
+#> 86432:       NA         NA          NA      <NA>           NA    NA
+#> 86433:       NA         NA          NA      <NA>           NA    NA
 #>        maneuver_flag maneuver_flagqc pressure pressure_altitude profile_id
 #>                <int>           <int>    <num>             <num>     <char>
 #>     1:            NA              NA       NA                NA       <NA>
@@ -285,24 +285,24 @@ df
 #>     4:            NA              NA       NA                NA       <NA>
 #>     5:            NA              NA       NA                NA       <NA>
 #>    ---                                                                    
-#> 95319:            NA              NA       NA                NA       <NA>
-#> 95320:            NA              NA       NA                NA       <NA>
-#> 95321:            NA              NA       NA                NA       <NA>
-#> 95322:            NA              NA       NA                NA       <NA>
-#> 95323:            NA              NA       NA                NA       <NA>
-#>        source_id temperature     u     v value_original_scale
-#>           <char>       <num> <num> <num>                <num>
-#>     1:      <NA>          NA    NA    NA                   NA
-#>     2:      <NA>          NA    NA    NA                   NA
-#>     3:      <NA>          NA    NA    NA                   NA
-#>     4:      <NA>          NA    NA    NA                   NA
-#>     5:      <NA>          NA    NA    NA                   NA
-#>    ---                                                       
-#> 95319:      <NA>          NA    NA    NA                   NA
-#> 95320:      <NA>          NA    NA    NA                   NA
-#> 95321:      <NA>          NA    NA    NA                   NA
-#> 95322:      <NA>          NA    NA    NA                   NA
-#> 95323:      <NA>          NA    NA    NA                   NA
+#> 86429:            NA              NA       NA                NA       <NA>
+#> 86430:            NA              NA       NA                NA       <NA>
+#> 86431:            NA              NA       NA                NA       <NA>
+#> 86432:            NA              NA       NA                NA       <NA>
+#> 86433:            NA              NA       NA                NA       <NA>
+#>        source_id temperature     u     v
+#>           <char>       <num> <num> <num>
+#>     1:      <NA>          NA    NA    NA
+#>     2:      <NA>          NA    NA    NA
+#>     3:      <NA>          NA    NA    NA
+#>     4:      <NA>          NA    NA    NA
+#>     5:      <NA>          NA    NA    NA
+#>    ---                                  
+#> 86429:      <NA>          NA    NA    NA
+#> 86430:      <NA>          NA    NA    NA
+#> 86431:      <NA>          NA    NA    NA
+#> 86432:      <NA>          NA    NA    NA
+#> 86433:      <NA>          NA    NA    NA
 ```
 
 Now we can process the data. We first filter for observations
@@ -327,6 +327,7 @@ column from obs_read text files.
 ```{r checkcols, eval = F}
 df[, c("altitude", "altitude_final", "intake_height", "elevation")]
 ```
+
 ```
 #>        altitude altitude_final intake_height elevation
 #>           <num>          <num>         <num>     <num>
@@ -336,11 +337,11 @@ df[, c("altitude", "altitude_final", "intake_height", "elevation")]
 #>     4:  2539.71        2539.71       2329.71       210
 #>     5:  1905.77        1905.77       1695.77       210
 #>    ---                                                
-#> 95319:  3008.99        3008.99       2781.99       227
-#> 95320:  2387.80        2387.80       2147.80       240
-#> 95321:  1763.88        1763.88       1533.88       230
-#> 95322:  1124.71        1124.71        877.71       247
-#> 95323:   950.98         950.98        731.98       219
+#> 86429:  3698.75        3698.75       3457.75       241
+#> 86430:  3068.42        3068.42       2831.42       237
+#> 86431:  2417.67        2417.67       2183.67       234
+#> 86432:  1793.14        1793.14       1580.14       213
+#> 86433:  1173.48        1173.48        950.48       223
 ```
 
 The temporal range of data is
@@ -348,7 +349,7 @@ The temporal range of data is
 range(df$year)
 ```
 ```
-#> [1] 1992 2022
+#> [1] 1992 2021
 ```
 
 We also check for dimensions of data
@@ -593,7 +594,7 @@ fwrite(master,
        sep = " ")
 ```
 ```
-#> /tmp/RtmpKO5et6/file596567fd1742_aircraft-pfp.txt
+#> C:\Users\sibarrae\AppData\Local\Temp\Rtmp8sNX0E\filea6ec44f76552_aircraft-pfp.txt
 ```
 
 ### csv
@@ -605,7 +606,7 @@ fwrite(master,
        sep = ",")
 ```
 ```
-#> /tmp/RtmpKO5et6/file596567fd1742_aircraft-pfp.csv
+#> C:\Users\sibarrae\AppData\Local\Temp\Rtmp8sNX0E\filea6ec44f76552_aircraft-pfp.csv
 ```
 
 ### csvy
@@ -633,7 +634,6 @@ obs_write_csvy(dt = master,
 ```
 ```
 #> 
-#> Adding notes in csvy:
 #> sector: aircraft-pfp
 #> timespan: 2020
 #> spatial_limits: north = 80, south = 10, east = -50, west = -170
@@ -642,8 +642,7 @@ obs_write_csvy(dt = master,
 #> hours: All
 #> local_time: if var `site_utc2lst` is not available, calculated as
 #> longitude/15*60*60 (John Miller)
-#> /tmp/RtmpKO5et6/file596567fd1742_aircraft-pfp.csvy
-
+#> C:\Users\sibarrae\AppData\Local\Temp\Rtmp8sNX0E\filea6ec44f76552_aircraft-pfp.csvy
 ```
 
 
@@ -827,7 +826,7 @@ if(nrow(receptor_asl) > 0) {
 ```
 
 ```
-#> /tmp/RtmpKO5et6/file596567fd1742_aircraft-pfp_receptor_ASL.txt
+#> C:\Users\sibarrae\AppData\Local\Temp\Rtmp8sNX0E\filea6ec44f76552_aircraft-pfp_receptor_ASL.txt
 ```
 
 ## Plot

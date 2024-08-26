@@ -59,7 +59,7 @@ index <- obs_summary(obs = obs,
 #> Detected 239 files without agl
 ```
 
-Now we read the surface-insitu using the function `obs_read_nc`. 
+Now we read the `surface-flask` using the function `obs_read_nc`. 
 `solar_time` is  included for surface, so we `TRUE` that argument.
 
 ```{r readnc, eval = F}
@@ -753,7 +753,6 @@ cat("\nAdding notes in csvy:\n")
 notes <- c(paste0("sector: ", datasetid),
            paste0("timespan: ", yy),
            paste0("spatial_limits: north = ", north, ", south = ", south, ", east = ", east, ", west = ", west),
-           "data: Data averaged every 20 seconds",
            paste0("altitude: < ", max_altitude),
            paste0("hours: ", evening),
            "local_time: used solar_time")

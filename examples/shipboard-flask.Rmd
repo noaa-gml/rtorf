@@ -41,7 +41,7 @@ index <- obs_summary(obs = obs,
 ```
 
 
-Now we read the surface-flask using the function `obs_read_nc`. 
+Now we read the `shipboard-flask` using the function `obs_read_nc`. 
 `solar_time` is  included for surface, so we `TRUE` that argument.
 
 ```{r readnc, eval = T}
@@ -57,11 +57,6 @@ Now we check the data
 
 ```{r checkdf, eval = T}
 df
-```
-
-The temporal range of data is
-```{r range_year, eval = T}
-range(df$year)
 ```
 
 Now we can process the data. We first filter for observations
