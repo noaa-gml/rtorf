@@ -213,7 +213,7 @@ south <- 10
 west <- -170
 east <- -50
 max_altitude <- 8000
-yy <- 2022
+yy <- 2020
 
 ```
 

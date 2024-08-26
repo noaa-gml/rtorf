@@ -386,7 +386,8 @@ dev.off()
 
 ```{r obs_plot_vertt, fig.width=7, fig.height=5, eval = F}
 x <- df3
-x$ch4 <- x$value*1e+9obs_plot(x, 
+x$ch4 <- x$value*1e+9
+obs_plot(x, 
          time = "ch4", 
          y = "altitude_final", 
          colu = "month", n = c(1L, 3L, 6L, 8L, 9L, 11L, 12L), 
