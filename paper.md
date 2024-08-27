@@ -1,6 +1,6 @@
 ---
 # Example from https://joss.readthedocs.io/en/latest/submitting.html
-title: "R Tools for ObsPack, Receptors and Footprints (rtorf) for processing atmospheric observations in NOAA' ObsPack"
+title: "R Tools for ObsPack, Receptors and Footprints (rtorf) for processing atmospheric observations in NOAA-GML' ObsPack"
 tags:
   - R
   - GHG
@@ -20,7 +20,7 @@ affiliations:
    index: 2
 citation_author: Ibarra-Espinosa and Hu
 date: 26 August 2024
-year: 2017
+year: 2024
 bibliography: mybibfile.bib
 output: rticles::joss_article
 csl: apa.csl

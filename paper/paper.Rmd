@@ -1,6 +1,7 @@
 ---
 # Example from https://joss.readthedocs.io/en/latest/submitting.html
-title: "R Tools for ObsPack, Receptors and Footprints (rtorf) for processing atmospheric observations in NOAA' ObsPack"
+title: "R Tools for ObsPack, Receptors and Footprints (rtorf) for processing atmospheric observations in NOAA-GML
+' ObsPack"
 tags:
   - R
   - GHG
@@ -20,7 +21,7 @@ affiliations:
    index: 2
 citation_author: Ibarra-Espinosa and Hu
 date: 26 August 2024
-year: 2017
+year: 2024
 bibliography: mybibfile.bib
 output: rticles::joss_article
 csl: apa.csl
@@ -132,8 +133,7 @@ which allows the implementation of checking the package installation in a
 variety OS.
 
 
-
-``` r
+```{r install, eval = F}
 remotes::install_github("noaa-gml/rtorf")
 library(rtorf)
 ```
@@ -159,8 +159,7 @@ identified in the name of the files inside the directory with data.
 This process print a summary of the data and if the logical argument verbose
 is `TRUE`, print the file being read in each iteration, default is `FALSE`.
 
-
-``` r
+```{r}
 library(rtorf)
 library(data.table)
 cate = c("aircraft-pfp",
@@ -179,25 +178,6 @@ index <- obs_summary(obs = obs,
                      categories = cate)
 ```
 
-```
-## Number of files of index: 429
-##               sector     N
-##               <char> <int>
-##  1:     aircraft-pfp    40
-##  2:  aircraft-insitu    15
-##  3:    surface-flask   106
-##  4:   surface-insitu   174
-##  5:   aircraft-flask     4
-##  6:          aircore     1
-##  7:      surface-pfp    33
-##  8:     tower-insitu    51
-##  9:  shipboard-flask     4
-## 10: shipboard-insitu     1
-## 11:    Total sectors   429
-## Detected 190 files with agl
-## Detected 239 files without agl
-```
-
 Once the index of file is built, we can read each file. As we are directing to the
 nc directory in ObsPack, with NetCDF files inside, we use the function 
 `obs_read_nc`. This function dumps the NetCDF information into a data.table 
@@ -210,8 +190,7 @@ the site documentation. At the moment, this array is not available for aircraft
 observations, hence we select `FALSE`. In this case, we select `verbose` equal
 to `TRUE`, to see the name of the files being read.
 
-
-``` r
+```{r}
 datasetid <- "aircraft-insitu"
 df <- obs_read_nc(index = index,
                   categories = datasetid,
@@ -220,36 +199,16 @@ df <- obs_read_nc(index = index,
                   verbose = TRUE)
 ```
 
-```
-## Searching aircraft-insitu...
-## 1: ch4_above_aircraft-insitu_1_allvalid.nc
-## 2: ch4_act_aircraft-insitu_428_allvalid-b200.nc
-## 3: ch4_act_aircraft-insitu_428_allvalid-c130.nc
-## 4: ch4_cob2003b_aircraft-insitu_59_allvalid.nc
-## 5: ch4_eco_aircraft-insitu_1_allvalid.nc
-## 6: ch4_hip_aircraft-insitu_59_allvalid.nc
-## 7: ch4_iagos-caribic_aircraft-insitu_457_allvalid.nc
-## 8: ch4_korus-aq_aircraft-insitu_428_allvalid-dc8.nc
-## 9: ch4_man_aircraft-insitu_1_allvalid.nc
-## 10: ch4_orc_aircraft-insitu_3_allvalid-merge10.nc
-## 11: ch4_seac4rs_aircraft-insitu_428_allvalid-ER2.nc
-## 12: ch4_seac4rs_aircraft-insitu_428_allvalid-dc8.nc
-## 13: ch4_start08_aircraft-insitu_59_allvalid.nc
-## 14: ch4_tom_aircraft-insitu_1_allvalid.nc
-## 15: ch4_ugd_aircraft-insitu_1_allvalid.nc
-```
 
-
-The resulting `data.table` contains 59 columns and 
-2041758 observations. 
-Furthermore, the size of `data.table` is 1.4 Gb.
-The data includes observations between 2003 and 
-2021. Now we can define some parameters to filter our data,
+The resulting `data.table` contains `r ncol(df)` columns and 
+`r nrow(df)` observations. 
+Furthermore, the size of `data.table` is `r format(object.size(df), unit = "Gb")`.
+The data includes observations between `r range(df$year)[1]` and 
+`r range(df$year)[2]`. Now we can define some parameters to filter our data,
 like the year 2020 and spatially data below 8000 meters above sea level (masl) and
 focused over north America.
 
-
-``` r
+```{r}
 df <- df[year == 2020 &
            altitude_final < 8000 &
            latitude < 80 &
@@ -259,9 +218,9 @@ df <- df[year == 2020 &
 ```
 
 
-Now we have a `data.table` that contains 59 columns and 
-236 observations. The size of `data.table` is 
-0 Gb. We can add a column
+Now we have a `data.table` that contains `r ncol(df)` columns and 
+`r nrow(df)` observations. The size of `data.table` is 
+`r format(object.size(df), unit = "Gb")`. We can add a column
 of time in format "POSIXct" and cut the seconds every 20 seconds.
 Usually, aircraft observations every 1 second. Then,
 We can simplify the data by calculating averages every 20 seconds.
@@ -269,19 +228,8 @@ We perform this task by cutting time very 20 seconds. Then,
 we add a new column with the mandatory name `key_time`, which 
 will be used to aggregate data with "POSIXct" class, but every 20 seconds.
 
-
-``` r
+```{r}
 df <- obs_addtime(df)
-```
-
-```
-## Adding timeUTC
-## Adding timeUTC_start
-## Adding timeUTC_end
-## Found time_interval
-```
-
-``` r
 df$sec2 <- obs_freq(x = df$second,
                     freq = seq(0, 59, 20))
 df$key_time <- ISOdatetime(year = df$year,
@@ -294,30 +242,16 @@ df$key_time <- ISOdatetime(year = df$year,
 df[1, c("timeUTC", "key_time")]
 ```
 
-```
-##                timeUTC            key_time
-##                 <POSc>              <POSc>
-## 1: 2020-01-08 22:59:55 2020-01-08 22:59:40
-```
-
 now we can aggregate the data using the function `obs_agg`. The argument cols
 indicate which columns will be averaged. Then, we add local time with the 
 function `obs_addltime` and we re order the data.table.
 
-
-``` r
+```{r}
 df2 <- obs_agg(df, 
                cols =  c("year", "month", "day", "hour", "minute", "second",
                          "time", "time_decimal",  "value",
                          "latitude", "longitude", "altitude_final",
                          "pressure", "u", "v", "temperature", "type_altitude"))
-```
-
-```
-## Adding time
-```
-
-``` r
 df3 <- obs_addltime(df2)
 setorderv(df3, cols = c("site_code", "timeUTC"),
           order = c(-1, 1))
@@ -354,28 +288,19 @@ a function named `obs_plot` which plots data in long format using R base functio
 Here we see data for the month of March 2020. This usefull function allows to plot several
 sites and prints the x-axis range.
 
-
-``` r
+```{r, fig.width=5, fig.height=3}
 obs_plot(df3[month == 3], time = "timeUTC", yfactor = 1e9, type = "b",
          xlab = "UTC time", ylab = expression(CH[4]~ppb))
-```
+
 
 ```
-## Found the following sites: 
-## [1] IAGOS
-## Plotting the following sites: 
-## [1] IAGOS
-```
-
-![](paper_files/figure-latex/unnamed-chunk-6-1.pdf)<!-- --> 
 Finally, we show some vertical profiles for the months of January and March of 2020.
 We can see how during March of 2020 methane concentrations are lower than
 January. This may be due the implementation of Lockdowns [@espinosa2023covid].
 A manuscript focused on the impact of COVID-19 on methane emissions
 will be submitted soon.
 
-
-``` r
+```{r}
 x <- df3
 x$ch4 <- x$value*1e+9
 obs_plot(x, 
@@ -386,15 +311,6 @@ obs_plot(x,
          xlab = expression(CH[4]~ppb), 
          ylab = "altitude (m)")
 ```
-
-```
-## Found the following sites: 
-## [1] 1 3
-## Plotting the following sites: 
-## [1] 1 3
-```
-
-![](paper_files/figure-latex/unnamed-chunk-7-1.pdf)<!-- --> 
 
 ## Future work
 
@@ -407,6 +323,7 @@ WebAsembly with Web-R[^2] in R and Python to run `rtorf` on the browser [@webr].
 
 # Acknowledgements
 
-This project is funded by the NOAA Climate Program Office AC4 and COM programs (NA21OAR4310233 / NA21OAR4310234). This research was supported by NOAA cooperative agreement NA22OAR4320151. Also, thanks to John Miller NOAA GML, Kenneth Schuldt NOAA GML, Kirk Thoning  NOAA GML.
+This project is funded by the NOAA Climate Program Office AC4 and COM programs (NA21OAR4310233 / NA21OAR4310234). This research was supported by NOAA cooperative agreement NA22OAR4320151. Also, thanks to Arlyn Andrews, 
+John Miller, Kenneth Schuldt, Kirk Thoning and Andy Jacobson from NOAA GML.
 
 # References
