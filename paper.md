@@ -1,6 +1,7 @@
 ---
 # Example from https://joss.readthedocs.io/en/latest/submitting.html
-title: "R Tools for ObsPack, Receptors and Footprints (rtorf) for processing atmospheric observations in NOAA-GML' ObsPack"
+title: "R Tools for ObsPack, Receptors and Footprints (rtorf) for processing atmospheric observations in NOAA-GML
+' ObsPack"
 tags:
   - R
   - GHG
@@ -407,6 +408,7 @@ WebAsembly with Web-R[^2] in R and Python to run `rtorf` on the browser [@webr].
 
 # Acknowledgements
 
-This project is funded by the NOAA Climate Program Office AC4 and COM programs (NA21OAR4310233 / NA21OAR4310234). This research was supported by NOAA cooperative agreement NA22OAR4320151. Also, thanks to John Miller NOAA GML, Kenneth Schuldt NOAA GML, Kirk Thoning  NOAA GML.
+This project is funded by the NOAA Climate Program Office AC4 and COM programs (NA21OAR4310233 / NA21OAR4310234). This research was supported by NOAA cooperative agreement NA22OAR4320151. Also, thanks to Arlyn Andrews, 
+John Miller, Kenneth Schuldt, Kirk Thoning and Andy Jacobson from NOAA GML.
 
 # References
