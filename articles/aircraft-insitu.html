@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -796,13 +796,17 @@ files. Now we filter selected columns</p>
 <p>Finally, we just plot some data, run it locally</p>
 <div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/obs_plot.html">obs_plot</a></span><span class="op">(</span><span class="va">df3</span>, time <span class="op">=</span> <span class="st">"timeUTC"</span>, yfactor <span class="op">=</span> <span class="fl">1e9</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftinsitu.png?raw=true"></p>
+<div class="float">
+<img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftinsitu.png?raw=true" alt="Time Series"><div class="figcaption">Time Series</div>
+</div>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">df3</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"longitude"</span>, <span class="st">"latitude"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="st">"value"</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">T</span>, reset <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="fu">maps</span><span class="fu">::</span><span class="fu">map</span><span class="op">(</span>add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftinsitu_map.png?raw=true"></p>
+<div class="float">
+<img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftinsitu_map.png?raw=true" alt="Map"><div class="figcaption">Map</div>
+</div>
 <div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">df3</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="va">ch4</span> <span class="op">&lt;-</span> <span class="va">x</span><span class="op">$</span><span class="va">value</span><span class="op">*</span><span class="fl">1e+9</span></span>
@@ -813,7 +817,9 @@ files. Now we filter selected columns</p>
 <span>         type <span class="op">=</span> <span class="st">"b"</span>, </span>
 <span>         xlab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html" class="external-link">expression</a></span><span class="op">(</span><span class="va">CH</span><span class="op">[</span><span class="fl">4</span><span class="op">]</span><span class="op">~</span><span class="va">ppb</span><span class="op">)</span>, </span>
 <span>         ylab <span class="op">=</span> <span class="st">"altitude (m)"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftinsitu_vert.png?raw=true"></p>
+<div class="float">
+<img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircraftinsitu_vert.png?raw=true" alt="Vertical profiles"><div class="figcaption">Vertical profiles</div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -826,7 +832,7 @@ files. Now we filter selected columns</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>

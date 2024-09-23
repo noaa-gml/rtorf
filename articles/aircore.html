@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,7 @@
 
       <h1>aircore</h1>
             
-            <h4 data-toc-skip class="date">2024-08-27</h4>
+            <h4 data-toc-skip class="date">2024-09-23</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/noaa-gml/rtorf/blob/main/vignettes/aircore.Rmd" class="external-link"><code>vignettes/aircore.Rmd</code></a></small>
       <div class="d-none name"><code>aircore.Rmd</code></div>
@@ -650,13 +650,17 @@ files. Now we filter selected columns</p>
 <span><span class="co">#&gt; [1] AirCoreNOAA</span></span>
 <span><span class="co">#&gt; png </span></span>
 <span><span class="co">#&gt;   2</span></span></code></pre>
-<p><img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore.png?raw=true"></p>
+<div class="float">
+<img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore.png?raw=true" alt="Time series"><div class="figcaption">Time series</div>
+</div>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">st_as_sf</span><span class="op">(</span><span class="va">df3</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"longitude"</span>, <span class="st">"latitude"</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="st">"value"</span><span class="op">]</span>, axes <span class="op">=</span> <span class="cn">T</span>, reset <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
 <span><span class="fu">maps</span><span class="fu">::</span><span class="fu">map</span><span class="op">(</span>add <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore_map.png?raw=true"></p>
+<div class="float">
+<img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore_map.png?raw=true" alt="Map"><div class="figcaption">Map</div>
+</div>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> df3</span>
 <span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>x<span class="sc">$</span>ch4 <span class="ot">&lt;-</span> x<span class="sc">$</span>value<span class="sc">*</span><span class="fl">1e+9</span><span class="fu">obs_plot</span>(x, </span>
 <span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a>         <span class="at">time =</span> <span class="st">"ch4"</span>, </span>
@@ -665,7 +669,9 @@ files. Now we filter selected columns</p>
 <span id="cb46-6"><a href="#cb46-6" tabindex="-1"></a>         <span class="at">type =</span> <span class="st">"b"</span>, </span>
 <span id="cb46-7"><a href="#cb46-7" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="fu">expression</span>(CH[<span class="dv">4</span>]<span class="sc">~</span>ppb), </span>
 <span id="cb46-8"><a href="#cb46-8" tabindex="-1"></a>         <span class="at">ylab =</span> <span class="st">"altitude (m)"</span>)</span></code></pre></div>
-<p><img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore_vert.png?raw=true"></p>
+<div class="float">
+<img src="https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore_vert.png?raw=true" alt="Vertical profiles"><div class="figcaption">Vertical profiles</div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
@@ -678,7 +684,7 @@ files. Now we filter selected columns</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
