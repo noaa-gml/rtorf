@@ -760,7 +760,7 @@ obs_plot(df4, time = "timeUTC", yfactor = 1e9)
 #> png 
 #>   2
 ```
-![](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_shipboardflask.png?raw=true)
+![Time series](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_shipboardflask.png?raw=true)
 
 
 ```{r savesf, fig.width=5, fig.height=3, eval = F, echo = F}
@@ -788,4 +788,4 @@ plot(x["value"], axes = T, reset = F)
 maps::map(add = T)
 ```
 
-![](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_shipboardflask_map.png?raw=true)
+!Map[](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_shipboardflask_map.png?raw=true)

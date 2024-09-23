@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### rtorf 1.0.0 (Release date: 2024-09-23)
+
+- Started adding some legacy code. This means that rtorf can be upgraded to 1.0.0 and adding newer legacy code will be 1.0.x.
+
 ### rtorf 0.9.5 (Release date: 2024-08-26)
 
 - Add articles for each dataid, running examples in `examples/`, articles in `vignettes`

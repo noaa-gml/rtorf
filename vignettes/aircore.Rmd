@@ -702,7 +702,7 @@ obs_plot(df3, time = "timeUTC", yfactor = 1e9)
 #>   2
 ```
 
-![](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore.png?raw=true)
+![Time series](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore.png?raw=true)
 
 
 ```{r savesf, fig.width=5, fig.height=3, eval = F, echo = F}
@@ -722,7 +722,7 @@ plot(x["value"], axes = T, reset = F)
 maps::map(add = T)
 ```
 
-![](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore_map.png?raw=true)
+![Map](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore_map.png?raw=true)
 
 
 
@@ -752,5 +752,5 @@ x$ch4 <- x$value*1e+9obs_plot(x,
 ```
 
 
-![](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore_vert.png?raw=true)
+![Vertical profiles](https://github.com/noaa-gml/rtorf/blob/main/man/figures/obsplot_aircore_vert.png?raw=true)
 

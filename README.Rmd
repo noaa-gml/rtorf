@@ -21,6 +21,14 @@ so it can be installed in any machine.
 
 ## Installation
 
+Using git bash/powershell
+```{bash installb, eval = F}
+git clone https://github.com/noaa-gml/rtorf
+R CMD INSTALL rtorf
+```
+
+
+Using remotes R package
 ```{r install, eval = F}
 remotes::install_github("noaa-gml/rtorf")
 ```

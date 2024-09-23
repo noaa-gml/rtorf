@@ -119,8 +119,6 @@ summary of the ObsPack files, reading them in an iteration process,
 filtering, and generating another output and plots.
 
 
-
-
 # Installation
 
 To install `rtorf`, the user must have installed the R package 
