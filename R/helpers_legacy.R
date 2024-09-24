@@ -88,7 +88,7 @@ obs_id2pos <- function(id, sep = "x", asdf = FALSE) {
 
 
   xx <- pos[1:dim(pos)[1],
-                ,
+            ,
             drop = TRUE]
 
   if(asdf) {
@@ -98,7 +98,7 @@ obs_id2pos <- function(id, sep = "x", asdf = FALSE) {
     names(df) <- nx
     return(df)
 
-   } else {
+  } else {
     return(xx)
   }
 }
@@ -167,4 +167,85 @@ obs_julian<-function(m, d, y, origin.){
   }
   names(out) <- nms
   out
+}
+
+
+#' @title obs_info2id
+#' @family helpers legacy
+#' @name obs_info2id
+#' @description return footprint/receptor id
+#' @param yr  year
+#' @param mo  month
+#' @param dy day
+#' @param hr hour
+#' @param mn minute
+#' @param lat latitude
+#' @param lon longitude
+#' @param alt altitude above ground level
+#' @param sep character, default"x"
+#' @param long Logical, to add minute, and rounded with 2 decimals, instead of 4. default TRUE
+#' @return a string with the receptor id
+#' @export
+#' @examples {
+#' \dontrun{
+#' # Do not run
+#' obs_info2id(2002,8,3,10,45,-90,0.03) [1]
+#' }
+#' }
+obs_info2id <- function(yr,
+                        mo,
+                        dy,
+                        hr,
+                        mn = 0,
+                        lat,
+                        lon,
+                        alt,
+                        sep = "x",
+                        long = T) {
+  # function to create identifying label for single receptor
+  # (location&time) expects alt as altitude above ground in meters
+  # example: info2id(2002,8,3,10,45,-90,0.03) [1]
+  # '2002x08x03x10x+45.00x+090.00x00030' Caution: No rounding to
+  # nearest hour when long=F Cation: Arguments must be specified
+  # when long=F (cannot rely on order when mn is absent).
+  #---------------------------------------------------------------------------------------------------
+
+
+  # need leading zeros
+  hr <- substring(100 + hr, 2)  #2 digit hr
+  yr4 <- substring(10000 + yr, 2)  #4 digit year
+  mon <- substring(100 + mo, 2)  #2 digit mon
+  day <- substring(100 + dy, 2)  #2 digit day
+  mn <- substring(100 + mn, 2)  #2 digit day
+
+
+  # location
+  if (!long) {
+    lat <- round(lat, 2)  #1 km roundoff
+    lon <- round(lon, 2)  #1 km roundoff
+  } else {
+    lat <- round(lat, 4)
+    lon <- round(lon, 4)
+  }
+
+  alt <- round(alt)  #1 m roundoff
+  # no below ground...
+  alt[alt < 0] <- 0
+  # need leading zeros and sign
+  lats <- rep("S", length(lat))
+  lons <- rep("W", length(lat))
+  lats[lat >= 0] <- "N"
+  lons[lon >= 0] <- "E"
+  if (!long) {
+    lat <- paste(substring(100.001 + abs(lat), 2, 6), lats, sep = "")  #2 dig. before decimal + sign
+    lon <- paste(substring(1000.001 + abs(lon), 2, 7), lons, sep = "")  #3 dig. before decimal + sign
+  } else {
+    lat <- paste(substring(100.00001 + abs(lat), 2, 8), lats, sep = "")  #2 dig. before decimal + sign
+    lon <- paste(substring(1000.00001 + abs(lon), 2, 9), lons, sep = "")  #3 dig. before decimal + sign
+  }
+  alt <- substring(1e+05 + alt, 2)
+  out <- paste(yr4, mon, day,   hr,     lat, lon, alt, sep = sep)  #put everything together
+  if (long)
+    out <- paste(yr4, mon, day, hr, mn, lat, lon, alt, sep = sep)
+  return(out)
 }

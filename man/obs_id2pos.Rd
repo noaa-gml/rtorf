@@ -39,6 +39,7 @@ id <- c('2002x08x03x10x00x45.000Nx090.000Ex00030',
 }
 \seealso{
 Other helpers legacy: 
+\code{\link{obs_info2id}()},
 \code{\link{obs_julian}()}
 }
 \concept{helpers legacy}

@@ -34,6 +34,7 @@ obs_julian(1, 2020, 1)
 }
 \seealso{
 Other helpers legacy: 
-\code{\link{obs_id2pos}()}
+\code{\link{obs_id2pos}()},
+\code{\link{obs_info2id}()}
 }
 \concept{helpers legacy}
