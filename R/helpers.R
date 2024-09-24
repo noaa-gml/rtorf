@@ -186,11 +186,11 @@ obs_rbind <- function(dt1,
 #' data.table::fread(f, h = TRUE)
 #' }
 obs_write_csvy <- function(dt,
-                      notes,
-                      out = paste0(tempfile(), ".csvy"),
-                      sep = ",",
-                      nchar.max = 80,
-                      ...) {
+                           notes,
+                           out = paste0(tempfile(), ".csvy"),
+                           sep = ",",
+                           nchar.max = 80,
+                           ...) {
   sink(file = out)
   cat("---\n")
   cat("name: Metadata \n")
@@ -298,6 +298,7 @@ obs_trunc <- function(n, dec){
 #' @family helpers
 #' @name obs_footname
 #' @description return the expected name for the NetCDF footprint
+#' @param time POSIXct time to extract time variblaes
 #' @param year numeric number
 #' @param month numeric number
 #' @param day numeric number
@@ -306,6 +307,7 @@ obs_trunc <- function(n, dec){
 #' @param lat numeric number
 #' @param lon numeric number
 #' @param alt numeric number
+#' @param fullpath Logical, to add or not YYYY/MO/hysplit to id
 #' @param out outfile path.
 #' @param ... data.table::fwrite arguments.
 #' @note source https://stackoverflow.com/a/47015304/2418532
@@ -322,10 +324,14 @@ obs_trunc <- function(n, dec){
 #' generates the expected name.
 #'
 #' @export
-#' @examples \dontrun{
-#' # do not run
+#' @examples {
+#' obs_footname(time = Sys.time(),
+#'              lat = 1,
+#'              lon = 1,
+#'              alt = 0)
 #' }
-obs_footname <- function(year,
+obs_footname <- function(time = NULL,
+                         year,
                          month,
                          day,
                          hour,
@@ -333,6 +339,7 @@ obs_footname <- function(year,
                          lat,
                          lon,
                          alt,
+                         fullpath = FALSE,
                          out,
                          ...){
 
@@ -345,40 +352,92 @@ obs_footname <- function(year,
 
   agl <- alt
 
-  dt <- paste0(sprintf(year, fmt = '%02d'),
-               "/",
-               sprintf(month, fmt = '%02d'),
-               "/hysplit",
-               sprintf(year, fmt = '%02d'),
-               "x",
-               sprintf(month, fmt = '%02d'),
-               "x",
-               sprintf(day, fmt = '%02d'),
-               "x",
-               sprintf(hour, fmt = '%02d'),
-               "x",
-               sprintf(minute, fmt = '%02d'),
-               "x",
-               sprintf(round(lat, 4), fmt = '%7.4f'),
-               lats,
-               "x",
-               # sprintf(round(lon, 4), fmt = '0%7.4f'),
-               formatC(lon, # this approach works whendata is round(x, 4)
-                       digits = 4,
-                       width = 8,
-                       format = "f",
-                       flag = "0"),
-               lons,
-               "x",
-               sprintf(round(agl), fmt = '%05d'),
-               ".nc")
 
+
+  if(!is.null(time)) {
+    dt1 <- paste0(sprintf(data.table::year(time), fmt = '%02d'),
+                  "/",
+                  sprintf(data.table::month(time), fmt = '%02d'),
+                  "/hysplit")
+
+    dt <- paste0(sprintf(data.table::year(time), fmt = '%02d'),
+                 "x",
+                 sprintf(data.table::month(time), fmt = '%02d'),
+                 "x",
+                 sprintf(as.numeric(strftime(time, "%d", tz = "UTC")), fmt = '%02d'),
+                 "x",
+                 sprintf(data.table::hour(time), fmt = '%02d'),
+                 "x",
+                 sprintf(data.table::minute(time), fmt = '%02d'),
+                 "x",
+                 formatC(lat, # this approach works whendata is round(x, 4)
+                         digits = 4,
+                         width = 7,
+                         format = "f",
+                         flag = "0"),
+                 lats,
+                 "x",
+                 # sprintf(round(lon, 4), fmt = '0%7.4f'),
+                 formatC(lon, # this approach works whendata is round(x, 4)
+                         digits = 4,
+                         width = 8,
+                         format = "f",
+                         flag = "0"),
+                 lons,
+                 "x",
+                 sprintf(round(agl), fmt = '%05d'))
+
+  } else {
+    dt1 <- paste0(sprintf(year, fmt = '%02d'),
+                  "/",
+                  sprintf(month, fmt = '%02d'),
+                  "/hysplit")
+
+    dt <- paste0(sprintf(year, fmt = '%02d'),
+                 "/",
+                 sprintf(month, fmt = '%02d'),
+                 "/hysplit",
+                 sprintf(year, fmt = '%02d'),
+                 "x",
+                 sprintf(month, fmt = '%02d'),
+                 "x",
+                 sprintf(day, fmt = '%02d'),
+                 "x",
+                 sprintf(hour, fmt = '%02d'),
+                 "x",
+                 sprintf(minute, fmt = '%02d'),
+                 "x",
+                 formatC(lat, # this approach works whendata is round(x, 4)
+                         digits = 4,
+                         width = 7,
+                         format = "f",
+                         flag = "0"),
+                 lats,
+                 "x",
+                 # sprintf(round(lon, 4), fmt = '0%7.4f'),
+                 formatC(lon, # this approach works whendata is round(x, 4)
+                         digits = 4,
+                         width = 8,
+                         format = "f",
+                         flag = "0"),
+                 lons,
+                 "x",
+                 sprintf(round(agl), fmt = '%05d'),
+                 ".nc")
+
+  }
+
+  if(fullpath) {
+    x <- paste0(dt1, dt, ".nc")
+  } else {
+    x <- dt
+  }
   if(!missing(out)) {
-    data.table::fwrite(x = dt,
+    data.table::fwrite(x = data.table::as.data.table(x),
                        x = out,
                        ...)
   }
-  return(dt)
+  return(x)
 
 }
 

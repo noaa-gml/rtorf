@@ -4,9 +4,24 @@
 \alias{obs_footname}
 \title{Expected footprint name}
 \usage{
-obs_footname(year, month, day, hour, minute, lat, lon, alt, out, ...)
+obs_footname(
+  time = NULL,
+  year,
+  month,
+  day,
+  hour,
+  minute,
+  lat,
+  lon,
+  alt,
+  fullpath = FALSE,
+  out,
+  ...
+)
 }
 \arguments{
+\item{time}{POSIXct time to extract time variblaes}
+
 \item{year}{numeric number}
 
 \item{month}{numeric number}
@@ -22,6 +37,8 @@ obs_footname(year, month, day, hour, minute, lat, lon, alt, out, ...)
 \item{lon}{numeric number}
 
 \item{alt}{numeric number}
+
+\item{fullpath}{Logical, to add or not YYYY/MO/hysplit to id}
 
 \item{out}{outfile path.}
 
@@ -45,8 +62,11 @@ source https://stackoverflow.com/a/47015304/2418532
 generates the expected name.
 }
 \examples{
-\dontrun{
-# do not run
+{
+obs_footname(time = Sys.time(),
+             lat = 1,
+             lon = 1,
+             alt = 0)
 }
 }
 \seealso{
