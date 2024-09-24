@@ -53,14 +53,31 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">obs_footname</span><span class="op">(</span><span class="va">year</span>, <span class="va">month</span>, <span class="va">day</span>, <span class="va">hour</span>, <span class="va">minute</span>, <span class="va">lat</span>, <span class="va">lon</span>, <span class="va">alt</span>, <span class="va">out</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">obs_footname</span><span class="op">(</span></span>
+<span>  time <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">year</span>,</span>
+<span>  <span class="va">month</span>,</span>
+<span>  <span class="va">day</span>,</span>
+<span>  <span class="va">hour</span>,</span>
+<span>  <span class="va">minute</span>,</span>
+<span>  <span class="va">lat</span>,</span>
+<span>  <span class="va">lon</span>,</span>
+<span>  <span class="va">alt</span>,</span>
+<span>  fullpath <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  <span class="va">out</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-year">year<a class="anchor" aria-label="anchor" href="#arg-year"></a></dt>
+<dl><dt id="arg-time">time<a class="anchor" aria-label="anchor" href="#arg-time"></a></dt>
+<dd><p>POSIXct time to extract time variblaes</p></dd>
+
+
+<dt id="arg-year">year<a class="anchor" aria-label="anchor" href="#arg-year"></a></dt>
 <dd><p>numeric number</p></dd>
 
 
@@ -90,6 +107,10 @@
 
 <dt id="arg-alt">alt<a class="anchor" aria-label="anchor" href="#arg-alt"></a></dt>
 <dd><p>numeric number</p></dd>
+
+
+<dt id="arg-fullpath">fullpath<a class="anchor" aria-label="anchor" href="#arg-fullpath"></a></dt>
+<dd><p>Logical, to add or not YYYY/MO/hysplit to id</p></dd>
 
 
 <dt id="arg-out">out<a class="anchor" aria-label="anchor" href="#arg-out"></a></dt>
@@ -132,9 +153,13 @@ generates the expected name.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># do not run</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">obs_footname</span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             lat <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>             lon <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>             alt <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2024x09x24x20x02x01.0000Nx001.0000Ex00000"</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
