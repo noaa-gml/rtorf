@@ -423,8 +423,8 @@ obs_footname <- function(time = NULL,
                          flag = "0"),
                  lons,
                  "x",
-                 sprintf(round(agl), fmt = '%05d'),
-                 ".nc")
+                 sprintf(round(agl), fmt = '%05d')
+                 )
 
   }
 
