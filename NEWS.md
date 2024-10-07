@@ -2,6 +2,11 @@ NEWS
 ===========
 
 
+### rtorf 1.0.1 (Release date: 2024-10-07)
+
+- Fix obs_footname when inout time components instead of POSICxt.
+
+
 ### rtorf 1.0.0 (Release date: 2024-09-23)
 
 - Started adding some legacy code. This means that rtorf can be upgraded to 1.0.0 and adding newer legacy code will be 1.0.x.

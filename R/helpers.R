@@ -325,10 +325,15 @@ obs_trunc <- function(n, dec){
 #'
 #' @export
 #' @examples {
-#' obs_footname(time = Sys.time(),
-#'              lat = 1,
-#'              lon = 1,
-#'              alt = 0)
+#' obs_footname(year = 2020,
+#'              month = 12,
+#'              day = 30,
+#'              hour = 9,
+#'              minute = 54,
+#'              lat = 3.2133,
+#'              lon = 30.9131,
+#'              alt = 497,
+#'              fullpath = TRUE)
 #' }
 obs_footname <- function(time = NULL,
                          year,
@@ -394,10 +399,6 @@ obs_footname <- function(time = NULL,
                   "/hysplit")
 
     dt <- paste0(sprintf(year, fmt = '%02d'),
-                 "/",
-                 sprintf(month, fmt = '%02d'),
-                 "/hysplit",
-                 sprintf(year, fmt = '%02d'),
                  "x",
                  sprintf(month, fmt = '%02d'),
                  "x",
