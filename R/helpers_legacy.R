@@ -122,7 +122,7 @@ obs_id2pos <- function(id, sep = "x", asdf = FALSE) {
 #' obs_julian(1, 2020, 1)
 #' }
 #' }
-obs_julian<-function(m, d, y, origin.){
+obs_julian <- function(m, d, y, origin.){
   # returns day since 1/1/1960
   #
   #  $Id: julian.r,v 1.2 2007/06/27 11:54:03 skoerner Exp $
@@ -189,7 +189,14 @@ obs_julian<-function(m, d, y, origin.){
 #' @examples {
 #' \dontrun{
 #' # Do not run
-#' obs_info2id(2002,8,3,10,45,-90,0.03) [1]
+#' obs_info2id(yr = 2002,
+#'             mo = 8,
+#'             dy = 3,
+#'             hr = 10,
+#'             mn = 0,
+#'             lat = 42,
+#'             lon = -90,
+#'             alt = 1) [1]
 #' }
 #' }
 obs_info2id <- function(yr,

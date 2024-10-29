@@ -37,7 +37,14 @@ return footprint/receptor id
 {
 \dontrun{
 # Do not run
-obs_info2id(2002,8,3,10,45,-90,0.03) [1]
+obs_info2id(yr = 2002,
+            mo = 8,
+            dy = 3,
+            hr = 10,
+            mn = 0,
+            lat = 42,
+            lon = -90,
+            alt = 1) [1]
 }
 }
 }
