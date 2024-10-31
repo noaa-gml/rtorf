@@ -217,6 +217,17 @@ obs_info2id <- function(yr,
   # when long=F (cannot rely on order when mn is absent).
   #---------------------------------------------------------------------------------------------------
 
+  # 10/21/2024, Sergio
+  # just to check missing arguments
+  if(missing(yr)) stop("Add year")
+  if(missing(mo)) stop("Add month")
+  if(missing(dy)) stop("Add day")
+  if(missing(hr)) stop("Add hour")
+  if(missing(lat)) stop("Add lat")
+  if(missing(lon)) stop("Add lon")
+  if(missing(alt)) stop("Add alt")
+
+
 
   # need leading zeros
   hr <- substring(100 + hr, 2)  #2 digit hr

@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### rtorf 1.0.2 (Release date: 2024-10-31)
+
+- Add stop when missing arguments in obs_info2id
+
 ### rtorf 1.0.1 (Release date: 2024-10-07)
 
 - Fix obs_footname when inout time components instead of POSICxt.
