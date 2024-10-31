@@ -334,6 +334,15 @@ obs_trunc <- function(n, dec){
 #'              lon = 30.9131,
 #'              alt = 497,
 #'              fullpath = TRUE)
+#' obs_footname(year = 2020,
+#'              month = 12,
+#'              day = 30,
+#'              hour = 9,
+#'              minute = 54,
+#'              lat = 1,
+#'              lon = -130.9131,
+#'              alt = 497,
+#'              fullpath = TRUE)
 #' }
 obs_footname <- function(time = NULL,
                          year,
