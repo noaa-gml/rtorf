@@ -2,6 +2,11 @@ NEWS
 ===========
 
 
+### rtorf 1.0.3 (Release date: 2024-11-13)
+
+
+- Add obs_read_nc_att to read global attributes
+
 ### rtorf 1.0.2 (Release date: 2024-10-31)
 
 - Add stop when missing arguments in obs_info2id

@@ -539,3 +539,112 @@ obs_read_nc <- function(index,
     return(dt)
   }
 }
+
+
+
+#' @title Read obspack attributes (.nc)
+#'
+#' @description
+#' Each obspack file has a header with metadata and this
+#' function reads selected fields from the metadata and add
+#' them as columns. This new columns are used later to
+#' be filtered
+#'
+#' @param index data.table
+#' @param categories character; ONE category
+#' : of c("aircraft-pfp", "aircraft-insitu",
+#' "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
+#' "flask").
+#' @param as_list Logical to return as list
+#' @param verbose Logical to show more information
+#' @param warnings Logical to show warnings when reading NetCDF, especially
+#' global attributes
+#' @return A data.frame with with an index obspack.
+#' @importFrom data.table fwrite ".N" ":=" rbindlist "%chin%"
+#' @importFrom utils capture.output
+#' @export
+#'
+#' @examples {
+#' # Do not run
+#' obs <- system.file("data-raw", package = "rtorf")
+#' index <- obs_summary(obs)
+#' dt <- obs_read(index)
+#' }
+obs_read_nc_att <- function(index,
+                        categories = "flask",
+                        as_list =FALSE,
+                        verbose = FALSE,
+                        warnings = FALSE){
+
+  if(nrow(index) == 0) stop("empty index")
+
+  if(verbose) cat(paste0("Searching ", categories, "...\n"))
+
+
+  if(missing(categories)) {
+    sector <- NULL
+
+    df <- index[sector %chin% categories]
+
+  } else {
+    df <- index
+  }
+
+    if(nrow(df) == 0) {
+    stop("Empty index")
+  }
+
+  x1 <- df$id
+
+  lapply(seq_along(x1), function(j) {
+
+    n <- df$n
+
+    if(verbose) cat(paste0(j, ": ", df$name[j], "\n"))
+
+    nc <- ncdf4::nc_open(x1[j])
+    names(nc$var)
+
+
+    log <- utils::capture.output(
+      global <- ncdf4::ncatt_get(nc = nc,
+                                 varid = 0, verbose = F)
+    )
+    if(warnings) print(log)
+    global <- as.data.frame(global)
+
+    # dt$obspack_citation <- NULL
+    ncdf4::nc_close(nc)
+
+    global
+    # }
+  }) -> lx
+
+
+  unames <- unique(unlist(sapply(lx, names)))
+
+  #add names
+  for(i in 1:length(lx)) {
+    ly <- obs_out(names(lx[[i]]), unames)
+    if(length(ly) > 0) {
+      for(j in seq_along(ly)) {
+        lx[[i]][[ly[j]]] <- NA
+      }
+    }
+  }
+
+  type_altitude <- NULL
+  .N <- NULL
+  if(as_list) {
+    # for(i in seq_along(lx)) {
+    #   print(lx[[i]][, .N, by = type_altitude])
+    # }
+    return(lx)
+  } else {
+    dt <- data.table::rbindlist(lx, use.names = T)
+    # if(verbose) cat("Adding id\n")
+    # dt$id <- 1:nrow(dt)
+    # print(dt[, .N, by = type_altitude])
+    return(dt)
+  }
+}
