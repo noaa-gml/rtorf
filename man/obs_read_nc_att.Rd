@@ -4,21 +4,10 @@
 \alias{obs_read_nc_att}
 \title{Read obspack attributes (.nc)}
 \usage{
-obs_read_nc_att(
-  index,
-  categories,
-  as_list = FALSE,
-  verbose = FALSE,
-  warnings = FALSE
-)
+obs_read_nc_att(index, as_list = FALSE, verbose = FALSE, warnings = FALSE)
 }
 \arguments{
 \item{index}{data.table}
-
-\item{categories}{character; ONE category
-: of c("aircraft-pfp", "aircraft-insitu",
-"surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
-"flask").}
 
 \item{as_list}{Logical to return as list}
 

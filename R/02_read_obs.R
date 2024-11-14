@@ -551,10 +551,6 @@ obs_read_nc <- function(index,
 #' be filtered
 #'
 #' @param index data.table
-#' @param categories character; ONE category
-#' : of c("aircraft-pfp", "aircraft-insitu",
-#' "surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
-#' "flask").
 #' @param as_list Logical to return as list
 #' @param verbose Logical to show more information
 #' @param warnings Logical to show warnings when reading NetCDF, especially
@@ -571,26 +567,15 @@ obs_read_nc <- function(index,
 #' dt <- obs_read(index)
 #' }
 obs_read_nc_att <- function(index,
-                        categories,
-                        as_list =FALSE,
-                        verbose = FALSE,
-                        warnings = FALSE){
+                            as_list =FALSE,
+                            verbose = FALSE,
+                            warnings = FALSE){
 
   if(nrow(index) == 0) stop("empty index")
 
-  if(verbose) cat(paste0("Searching ", categories, "...\n"))
+  df <- index
 
-
-  if(missing(categories)) {
-    sector <- NULL
-
-    df <- index[sector %chin% categories]
-
-  } else {
-    df <- index
-  }
-
-    if(nrow(df) == 0) {
+  if(nrow(df) == 0) {
     stop("Empty index")
   }
 
