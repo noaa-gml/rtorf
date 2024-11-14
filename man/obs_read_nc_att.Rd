@@ -6,7 +6,7 @@
 \usage{
 obs_read_nc_att(
   index,
-  categories = "flask",
+  categories,
   as_list = FALSE,
   verbose = FALSE,
   warnings = FALSE

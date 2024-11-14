@@ -571,7 +571,7 @@ obs_read_nc <- function(index,
 #' dt <- obs_read(index)
 #' }
 obs_read_nc_att <- function(index,
-                        categories = "flask",
+                        categories,
                         as_list =FALSE,
                         verbose = FALSE,
                         warnings = FALSE){
