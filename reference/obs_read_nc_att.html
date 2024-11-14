@@ -62,13 +62,7 @@ be filtered</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">obs_read_nc_att</span><span class="op">(</span></span>
-<span>  <span class="va">index</span>,</span>
-<span>  <span class="va">categories</span>,</span>
-<span>  as_list <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  warnings <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">obs_read_nc_att</span><span class="op">(</span><span class="va">index</span>, as_list <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span>, warnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -77,13 +71,6 @@ be filtered</p>
 
 <dl><dt id="arg-index">index<a class="anchor" aria-label="anchor" href="#arg-index"></a></dt>
 <dd><p>data.table</p></dd>
-
-
-<dt id="arg-categories">categories<a class="anchor" aria-label="anchor" href="#arg-categories"></a></dt>
-<dd><p>character; ONE category
-: of c("aircraft-pfp", "aircraft-insitu",
-"surface-insitu", "tower-insitu", "aircore", "surface-pfp", "shipboard-insitu",
-"flask").</p></dd>
 
 
 <dt id="arg-as-list">as_list<a class="anchor" aria-label="anchor" href="#arg-as-list"></a></dt>
