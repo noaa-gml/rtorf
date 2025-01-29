@@ -14,6 +14,7 @@
 #' number of days in duration plus two days
 #' @param metpath paths for each meteorological model output.
 #' @param ngases Default 1.
+#' @param gas default "Foot".
 #' @param emissions_rate Default 0
 #' @param hour_emissions hour release, depend of type of release, instantaneous 0.01,
 #' continuous 1.
@@ -23,19 +24,30 @@
 #' @param grid_spacing grid spacing, default is 0.1 degree.
 #' @param grid_span model extension in degrees by dimension.
 #' @param nconc name of the concentration file, default is "cdump"
+#' @param nvert_levels number of vertical levels
+#' @param height_vert_levels hright vertical levels (50)
+#' @param sampling_start_time 2 digits year, month, day, hour, minute
+#' @param sampling_end_time  2 digits year, month, day, hour, minute
+#' @param sampling_interval_type  type, hour, minure
+#' @param npol_depositing number of pollutant depositing
+#' @param particle_params Particle diameter, density, and shape
+#' @param dmwsrdre DepVel, MW, SurfReRa, DifRa, EHenry
+#' @param wrhcicbc Wet removal: HC, incloud, belowcloud
+#' @param radiactive_decay days
+#' @param pol_res Pollutant Resuspension (1/m)
+#' @param control name of the file, default "CONTROL"
 #' @return A data.frame with with an index obspack.
 #' @importFrom data.table fwrite ".N" ":=" rbindlist "%chin%"
 #' @export
-
 #' @examples {
 #' # Do not run
 #' obs <- system.file("data-raw", package = "rtorf")
 #' index <- obs_summary(obs)
 #' dt <- obs_read(index)
 #' df <- dt[1]
-#'
-#' # if hysplit20          20x01x08x22x59 x34.4790Nx116.4090Wx07983.nc
-#' # release start time is 20 01 08 22 59
+#' control_file <- tempfile()
+#' obs_hysplit_control(df, control = control_file)
+#' cat(readLines(control_file),sep =  "\n")
 #' }
 #
 obs_hysplit_control <- function(df,
@@ -59,8 +71,8 @@ obs_hysplit_control <- function(df,
                                 nconc = "cdump",
                                 nvert_levels = 1,
                                 height_vert_levels = 50,
-                                sampling_start_time  = c(0,0,0,0),
-                                sampling_end_time  = c(0,0,0,0),
+                                sampling_start_time  = c(0,0,0,0,0),
+                                sampling_end_time  = c(0,0,0,0,0),
                                 sampling_interval_type = c(0, abs(duration), 0),
                                 npol_depositing = 1,
                                 particle_params = c(0,0,0),
