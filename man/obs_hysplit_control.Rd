@@ -102,7 +102,7 @@ continuous 1.}
 \item{control}{name of the file, default "CONTROL"}
 }
 \value{
-A data.frame with with an index obspack.
+A CONTROL file
 }
 \description{
 This function creates a CONTROL file for HYSPLIT model.

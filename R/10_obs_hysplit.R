@@ -36,8 +36,7 @@
 #' @param radiactive_decay days
 #' @param pol_res Pollutant Resuspension (1/m)
 #' @param control name of the file, default "CONTROL"
-#' @return A data.frame with with an index obspack.
-#' @importFrom data.table fwrite ".N" ":=" rbindlist "%chin%"
+#' @return A CONTROL file
 #' @export
 #' @examples {
 #' # Do not run
@@ -209,6 +208,134 @@ obs_hysplit_control <- function(df,
   cat(radiactive_decay, "\n")
 
   cat(pol_res, "\n")
+
+  sink()
+
+}
+
+
+
+#' obs_hysplit_setup
+#'
+#' This function creates a SETUP.CFG file for HYSPLIT model.
+#'
+#' @param idsp particle dispersion scheme 1:HYSPLIT 2:STILT
+#' @param capemin -1 no convection; -2 Grell convection scheme;
+#' -3 extreme convection; >0 enhanced vertical mixing when CAPE exceeds this value (J/kg)
+#' @param vscales vertical Lagrangian time scale (sec) for stable PBL
+#' @param kbls boundary layer stability derived from 1:fluxes 2:wind_temperature
+#' @param kblt  boundary layer turbulence parameterizations 1:Beljaars 2:Kanthar
+#'  3:TKE 4:Measured 5:Hanna
+#' @param kmixd mixed layer obtained from 0:input 1:temperature 2:TKE 3:modified Richardson
+#' @param initd initial distribution, particle, puff, or combination
+#' @param veght Height below which particle's time is spent is tallied to
+#' calculate footprint for PARTICLE_STILT.DAT less than or equal to 1.
+#' 0: fraction of PBL height; greater than 1.0: heightAGL (m)
+#' @param kmix0 minimum mixing depth
+#' @param numpar number of puffs or particles to released per cycle
+#' @param maxpar maximum number of particles carried in simulation
+#' @param ichem chemistry conversion modules 0:none 1:matrix 2:convert 3:dust
+#' 4: conc grid equal to met grid, 5: divide output mass by air density (kg/m3)
+#' to sum as mixing ration, 7: transport deposited particles on the ocean surface,
+#' 8: stilt mode mixing ratio and varying layer,
+#' 9: set concentration layer one to a fraction of the boundary layer,
+#' 10: restructure concentration grid into time-varying transfer matrix,
+#' 11: enable daughter produyct calculation.
+#' @param krand 0 method to calculate random number
+#' 0=precompute if NUMPAR greater than 5000 or dynamic if NUMPAR less than or equal to 5000;
+#' 1=precalculated; 2=calculated in pardsp;
+#' 3=none; 4=random initial seed number and calculated in pardsp;
+#' 10=same as 0 with random initial seed for non-dispersion applications;
+#' 11=same as 1 with random initial seed for non-dispersion applications;
+#' 12=same as 2 with random initial seed for non-dispersion applications;
+#' 13=same as 3 with random initial seed for non-dispersion applications
+#' @param ivmax 0 number of variables written to PARTICLE_STILT.DAT. Must
+#' equal the number of variables listed for variable VARSIWANT
+#' @param varsiwant ='TIME','INDX','LONG','LATI','ZAGL','SIGW','TLGR','ZSFC', TEMP',
+#' 'SAMT','FOOT','SHTF','DMAS','DENS','RHFR','SPHU','DSWF','WOUT','MLHT','PRES'
+#' variables written to PARTICLE_STILT.DAT.
+#'
+#' However, the default in this case is:
+#' c('time','indx', 'lati','long','zagl', 'zsfc','foot','samt', 'temp',
+#' 'dswf','mlht','dens','dmas','sigw','tlgr'
+#' @param outdt  Default 15. defines the output frequency in minutes of the endpoint positions
+#' in the PARTICLE.DAT file when the STILT emulation mode is configured.
+#' The default value of 0 results in output each time step while the positive
+#' value gives the output frequency in minutes. A negative value disables output. The
+#' output frequency should be an even multiple of the time step and be evenly
+#' divisible into 60. In STILT emulation mode, the time step is forced to one minute.
+#' @param extra_params more parameters
+#' @param setup Default SETUP.CFG
+#' @return A SETUP.CFG file
+#' @note The var description comes from hysplit 5.3 manual page 214
+#' @export
+#' @examples {
+#' # Do not run
+#' setup_file <- tempfile()
+#' obs_hysplit_setup(setup = setup_file)
+#' cat(readLines(setup_file),sep =  "\n")
+#' }
+#
+obs_hysplit_setup <- function(idsp = 2,
+                              capemin = 500,
+                              vscales = -1.0,
+                              kbls = 1,
+                              kblt = 5,
+                              kmixd = 0,
+                              initd = 0,
+                              veght = 0.5,
+                              kmix0 = 150,
+                              numpar = 500,
+                              maxpar = 500,
+                              ichem = 8,
+                              krand = 4,
+                              varsiwant = c('time','indx',
+                                            'lati','long','zagl',
+                                            'zsfc','foot','samt',
+                                            'temp','dswf','mlht','dens',
+                                            'dmas','sigw','tlgr'),
+                              ivmax = length(varsiwant),
+                              outdt = 15,
+                              extra_params,
+                              setup = "SETUP.CFG"){
+
+  sink(setup)
+
+  cat("&SETUP\n")
+
+  cat(idsp, ",\n")
+
+  cat(capemin, ",\n")
+
+  cat(vscales, ",\n")
+
+  cat(kbls, ",\n")
+
+  cat(kblt, ",\n")
+
+  cat(kmixd, ",\n")
+
+  cat(numpar, ",\n")
+
+  cat(maxpar, ",\n")
+
+  cat(ichem, ",\n")
+
+  cat(krand, ",\n")
+
+  cat(ivmax, ",\n")
+
+  cat(sQuote(letters, q = ""), "\n", sep = ",")
+
+  cat(outdt, ",\n")
+
+  if(!missing(extra_params)) {
+
+    for(i in seq_along(extra_params)) {
+      cat(extra_params[i], ",\n")
+    }
+  }
+  cat("/\n")
 
   sink()
 
