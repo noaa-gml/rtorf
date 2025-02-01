@@ -303,46 +303,46 @@ obs_hysplit_setup <- function(idsp = 2,
 
   cat("&SETUP\n")
 
-  cat(" idsp = ", idsp, ",\n")
+  cat(paste0(" idsp = ", idsp, ",\n"))
 
-  cat(" capemin = ", capemin, ",\n")
+  cat(paste0(" capemin = ", capemin, ",\n"))
 
-  cat(" vscales = ", sprintf("%#.1f", vscales), ",\n")
+  cat(paste0(" vscales = ", sprintf("%#.1f", vscales), ",\n"))
 
-  cat(" kbls = ", kbls, ",\n")
+  cat(paste0(" kbls = ", kbls, ",\n"))
 
-  cat(" kblt = ", kblt, ",\n")
+  cat(paste0(" kblt = ", kblt, ",\n"))
 
-  cat(" kmixd = ", kmixd, ",\n")
+  cat(paste0(" kmixd = ", kmixd, ",\n"))
 
-  cat(" initd = ", initd, ",\n")
+  cat(paste0(" initd = ", initd, ",\n"))
 
-  cat(" veght = ", veght, ",\n")
+  cat(paste0(" veght = ", veght, ",\n"))
 
-  cat(" kmix0 = ", kmix0, ",\n")
+  cat(paste0(" kmix0 = ", kmix0, ",\n"))
 
-  cat(" numpar = ", numpar, ",\n")
+  cat(paste0(" numpar = ", numpar, ",\n"))
 
-  cat(" maxpar = ", maxpar, ",\n")
+  cat(paste0(" maxpar = ", maxpar, ",\n"))
 
-  cat(" ichem = ", ichem, ",\n")
+  cat(paste0(" ichem = ", ichem, ",\n"))
 
-  cat(" krand = ", krand, ",\n")
+  cat(paste0(" krand = ", krand, ",\n"))
 
-  cat(" ivmax = ", ivmax, ",\n")
+  cat(paste0(" ivmax = ", ivmax, ",\n"))
 
   cat(" varsiwants = ", sQuote(varsiwant, q = ""), "\n", sep = ",")
 
-  cat(" outdt = ", outdt, ",\n")
+  cat(paste0(" outdt = ", outdt, ",\n"))
 
   if(!missing(extra_params)) {
 
     for(i in seq_along(extra_params)) {
-      cat(" ",
+      cat(paste0(" ",
           eval(parse(text = extra_params[i])),
           " = ",
           extra_params[i],
-          ",\n")
+          ",\n"))
     }
   }
   cat("/\n")
