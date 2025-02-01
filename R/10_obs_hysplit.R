@@ -303,36 +303,40 @@ obs_hysplit_setup <- function(idsp = 2,
 
   cat("&SETUP\n")
 
-  cat(idsp, ",\n")
+  cat(" idsp = ", idsp, ",\n")
 
-  cat(capemin, ",\n")
+  cat(" capemin = ", capemin, ",\n")
 
-  cat(vscales, ",\n")
+  cat(" vscales = ", vscales, ",\n")
 
-  cat(kbls, ",\n")
+  cat(" kbls = ", kbls, ",\n")
 
-  cat(kblt, ",\n")
+  cat(" kblt = ", kblt, ",\n")
 
-  cat(kmixd, ",\n")
+  cat(" kmixd = ", kmixd, ",\n")
 
-  cat(numpar, ",\n")
+  cat(" numpar = ", numpar, ",\n")
 
-  cat(maxpar, ",\n")
+  cat(" maxpar = ", maxpar, ",\n")
 
-  cat(ichem, ",\n")
+  cat(" ichem = ", ichem, ",\n")
 
-  cat(krand, ",\n")
+  cat(" krand = ", krand, ",\n")
 
-  cat(ivmax, ",\n")
+  cat(" ivmax = ", ivmax, ",\n")
 
-  cat(sQuote(varsiwant, q = ""), "\n", sep = ",")
+  cat(" varsiwants = ", sQuote(varsiwant, q = ""), "\n", sep = ",")
 
-  cat(outdt, ",\n")
+  cat(" outdt = ", outdt, ",\n")
 
   if(!missing(extra_params)) {
 
     for(i in seq_along(extra_params)) {
-      cat(extra_params[i], ",\n")
+      cat(" ",
+          eval(parse(text = extra_params[i])),
+          " = ",
+          extra_params[i],
+          ",\n")
     }
   }
   cat("/\n")
