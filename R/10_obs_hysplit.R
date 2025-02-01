@@ -325,7 +325,7 @@ obs_hysplit_setup <- function(idsp = 2,
 
   cat(ivmax, ",\n")
 
-  cat(sQuote(letters, q = ""), "\n", sep = ",")
+  cat(sQuote(varsiwant, q = ""), "\n", sep = ",")
 
   cat(outdt, ",\n")
 
