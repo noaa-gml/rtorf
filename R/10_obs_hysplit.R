@@ -377,7 +377,11 @@ obs_hysplit_ascdata <- function(llc =  c(-90.0, -180.0),
 
   cat(sprintf("%#.1f", spacing), "\n", sep = " ")
 
+  cat(n, "\n", sep = "\n")
+
   cat(landusecat, "\n")
+
+  cat(rough, "\n")
 
   cat(sQuote(bdyfiles, q = ""), "\n")
 
