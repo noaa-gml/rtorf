@@ -387,17 +387,32 @@ obs_hysplit_ascdata <- function(llc =  c(-90.0, -180.0),
 
   sink(ascdata)
 
-  cat(sprintf("%#.1f", llc), "\n", sep = " ")
+  cat(sprintf("%#.1f", llc), " lat/lon of lower left corner (last record in file)\n", sep = " ")
 
-  cat(sprintf("%#.1f", spacing), "\n", sep = " ")
+  cat(sprintf("%#.1f", spacing[1]))
 
-  cat(n, "\n", sep = "\n")
+  cat("     ")
 
-  cat(landusecat, "\n")
+  cat(sprintf("%#.1f", spacing[2]))
 
-  cat(rough, "\n")
+  cat("    lat/lon spacing in degrees between data points\n")
 
-  cat(sQuote(bdyfiles, q = ""), "\n")
+
+  cat(n, sep = "     ")
+
+  cat("    lat/lon number of data points\n")
+
+  cat(landusecat)
+
+  cat("              default land use category\n")
+
+  cat(rough)
+
+  cat("            default roughness length (meters)\n")
+
+  cat(sQuote(bdyfiles, q = ""))
+
+  cat(" directory location of data files\n")
 
   sink()
 }
