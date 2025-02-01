@@ -8,6 +8,7 @@ Add functions to configure hysplit
 
 - obs_hysplit_control
 - obs_hysplit_setup
+- obs_hysplit_ascdata
 
 ### rtorf 1.0.3 (Release date: 2024-11-13)
 

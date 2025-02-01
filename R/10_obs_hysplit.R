@@ -340,3 +340,46 @@ obs_hysplit_setup <- function(idsp = 2,
   sink()
 
 }
+
+
+#' obs_hysplit_ascdata
+#'
+#' This function creates a ASCDATA.CFG file for HYSPLIT model.
+#'
+#' @param llc Lower left corner, default c(-90.0, -180.0)
+#' @param spacing spacing in degress, default c(1.0, 1.0)
+#' @param n number of data points, default c(180, 360)
+#' @param landusecat land use category, default 2
+#' @param rough default roughness length (meters), default 0.2
+#' @param bdyfiles  directory location of the data files,
+#' default '../bdyfiles/'
+#' @param ascdata file, default ASCDATA.CFG
+#' @return A ASCDATA.CFG file
+#' @export
+#' @examples {
+#' # Do not run
+#' ascdata_file <- tempfile()
+#' obs_hysplit_ascdata(ascdata = ascdata_file)
+#' cat(readLines(ascdata_file), sep =  "\n")
+#' }
+#
+obs_hysplit_ascdata <- function(llc =  c(-90.0, -180.0),
+                                spacing = c(1.0, 1.0),
+                                n = c(180, 360),
+                                landusecat = 2,
+                                rough = 0.2,
+                                bdyfiles = '../bdyfiles/',
+                                ascdata = "ASCDATA.CFG"){
+
+  sink(ascdata)
+
+  cat(sprintf("%#.1f", llc), "\n", sep = " ")
+
+  cat(sprintf("%#.1f", spacing), "\n", sep = " ")
+
+  cat(landusecat, "\n")
+
+  cat(sQuote(bdyfiles, q = ""), "\n")
+
+  sink()
+}
