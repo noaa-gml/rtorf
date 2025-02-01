@@ -387,7 +387,14 @@ obs_hysplit_ascdata <- function(llc =  c(-90.0, -180.0),
 
   sink(ascdata)
 
-  cat(sprintf("%#.1f", llc), " lat/lon of lower left corner (last record in file)\n", sep = " ")
+  cat(sprintf("%#.1f", llc[1]))
+
+  cat("  ")
+
+  cat(sprintf("%#.1f", llc[2]))
+
+  cat(" lat/lon of lower left corner (last record in file)\n")
+
 
   cat(sprintf("%#.1f", spacing[1]))
 
