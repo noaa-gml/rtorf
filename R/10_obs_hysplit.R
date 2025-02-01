@@ -331,7 +331,11 @@ obs_hysplit_setup <- function(idsp = 2,
 
   cat(paste0(" ivmax = ", ivmax, ",\n"))
 
-  cat(" varsiwants = ", sQuote(varsiwant, q = ""), "\n", sep = ",")
+  cat(" varsiwant=")
+
+  cat(sQuote(varsiwant, q = ""), sep = ",")
+
+  cat(",\n")
 
   cat(paste0(" outdt = ", outdt, ",\n"))
 
@@ -345,7 +349,7 @@ obs_hysplit_setup <- function(idsp = 2,
           ",\n"))
     }
   }
-  cat("/\n")
+  cat(" /\n")
 
   sink()
 
