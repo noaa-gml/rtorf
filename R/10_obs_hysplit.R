@@ -307,13 +307,19 @@ obs_hysplit_setup <- function(idsp = 2,
 
   cat(" capemin = ", capemin, ",\n")
 
-  cat(" vscales = ", vscales, ",\n")
+  cat(" vscales = ", sprintf("%#.1f", vscales), ",\n")
 
   cat(" kbls = ", kbls, ",\n")
 
   cat(" kblt = ", kblt, ",\n")
 
   cat(" kmixd = ", kmixd, ",\n")
+
+  cat(" initd = ", initd, ",\n")
+
+  cat(" veght = ", veght, ",\n")
+
+  cat(" kmix0 = ", kmix0, ",\n")
 
   cat(" numpar = ", numpar, ",\n")
 
