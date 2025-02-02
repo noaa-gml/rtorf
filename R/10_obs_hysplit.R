@@ -73,7 +73,7 @@ obs_hysplit_control <- function(df,
                                 vertical_motion = 0,
                                 top_model_domain = 20000,
                                 met = c("nams", "gfs0p25"),
-                                nmet =  abs(duration/24) + 2, # 10 days plus 2, defaultdays
+                                nmet =  abs(duration/24) + 1, # 10 days plus 1, defaultdays
                                 metpath = c("/work/noaa/lpdm/metfiles/nams/",
                                             "/work/noaa/lpdm/metfiles/gfs0p25"),
                                 ngases = 1,
@@ -193,7 +193,7 @@ if(!missing(df)) {
   if(length(met) > 1) {
     cat(paste(length(met), nmet),"\n")
   } else {
-    cat(length(met),"\n")
+    cat(length(nmet),"\n")
   }
 
 

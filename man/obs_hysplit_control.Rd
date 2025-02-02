@@ -19,7 +19,7 @@ obs_hysplit_control(
   vertical_motion = 0,
   top_model_domain = 20000,
   met = c("nams", "gfs0p25"),
-  nmet = abs(duration/24) + 2,
+  nmet = abs(duration/24) + 1,
   metpath = c("/work/noaa/lpdm/metfiles/nams/", "/work/noaa/lpdm/metfiles/gfs0p25"),
   ngases = 1,
   gas = "Foot",
