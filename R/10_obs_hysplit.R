@@ -3,8 +3,16 @@
 #' This function creates a CONTROL file for HYSPLIT model.
 #' It uses inputs from a data.frame with the receptor information.
 #'
-#' @param df data.frame of receptor information.must include time and
-#' spacial parameters
+#' @param df data.frame of receptor information. Must include, "year",
+#' "month", "day", "hour" (0:23), "minute", "latitude", "longitude", "altitude"
+#' @param year year, if missing df.
+#' @param month month, if missing df.
+#' @param day day, if missing df.
+#' @param hour hour, if missing df.
+#' @param minute minute, if missing df.
+#' @param lat latitude, if missing df.
+#' @param lon longitude, if missing df.
+#' @param alt altitude, if missing df.
 #' @param nlocations number of locations.
 #' @param duration number of hours of release. (Negative is backwards in time).
 #' @param vertical_motion Vertical motion option.
@@ -50,6 +58,14 @@
 #' }
 #
 obs_hysplit_control <- function(df,
+                                year,
+                                month,
+                                day,
+                                hour,
+                                minute,
+                                lat,
+                                lon,
+                                alt,
                                 nlocations = 1,
                                 duration = -240,
                                 vertical_motion = 0,
@@ -80,10 +96,11 @@ obs_hysplit_control <- function(df,
                                 radiactive_decay = 0,
                                 pol_res = 0,
                                 control = "CONTROL"){
+if(!missing(df)) {
   # lat lon height
   lat <- df$latitude
   lon <- df$longitude
-  agl <- df$altitude_final
+  agl <- df$altitude
 
   lat <- sprintf(lat, fmt = '%#.4f')
 
@@ -91,7 +108,6 @@ obs_hysplit_control <- function(df,
 
   agl <- sprintf(agl, fmt = '%#.4f')
 
-  start_loc <- paste(lat, lon, agl)
 
 
   yr <- df$year
@@ -99,6 +115,25 @@ obs_hysplit_control <- function(df,
   dy <- df$day
   ho <- df$hour
   mi <- df$minute
+
+} else {
+  # lat lon height
+  lat <- sprintf(lat, fmt = '%#.4f')
+
+  lon <- sprintf(lon, fmt = '%#.4f')
+
+  agl <- sprintf(agl, fmt = '%#.4f')
+
+  yr <- year
+  mo <- month
+  dy <- day
+  ho <- hour
+  mi <- minute
+
+}
+
+  start_loc <- paste(lat, lon, agl)
+
 
   rel_start <- paste(substr(yr, 3, 4), #I need to confirm
                      sprintf(mo, fmt = '%02d'),
@@ -109,9 +144,17 @@ obs_hysplit_control <- function(df,
   nmodels <- length(met)
 
 
-  hydate <- as.Date(ISOdate(yr, mo, dy + 1, ho, mi, 0, tz = "UTC"))
+  hydate <- as.Date(ISOdate(year = yr,
+                            month = mo,
+                            day = dy + 1,
+                            hour = ho,
+                            min = mi,
+                            sec = 0,
+                            tz = "UTC"))
 
   # magick ####
+
+
   sink(control)
 
   cat(nlocations, "\n")
@@ -208,6 +251,7 @@ obs_hysplit_control <- function(df,
   cat(radiactive_decay, "\n")
 
   cat(pol_res, "\n")
+
 
   sink()
 

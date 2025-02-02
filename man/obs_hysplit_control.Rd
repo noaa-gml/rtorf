@@ -6,6 +6,14 @@
 \usage{
 obs_hysplit_control(
   df,
+  year,
+  month,
+  day,
+  hour,
+  minute,
+  lat,
+  lon,
+  alt,
   nlocations = 1,
   duration = -240,
   vertical_motion = 0,
@@ -38,8 +46,24 @@ obs_hysplit_control(
 )
 }
 \arguments{
-\item{df}{data.frame of receptor information.must include time and
-spacial parameters}
+\item{df}{data.frame of receptor information. Must include, "year",
+"month", "day", "hour" (0:23), "minute", "latitude", "longitude", "altitude"}
+
+\item{year}{year, if missing df.}
+
+\item{month}{month, if missing df.}
+
+\item{day}{day, if missing df.}
+
+\item{hour}{hour, if missing df.}
+
+\item{minute}{minute, if missing df.}
+
+\item{lat}{latitude, if missing df.}
+
+\item{lon}{longitude, if missing df.}
+
+\item{alt}{altitude, if missing df.}
 
 \item{nlocations}{number of locations.}
 
