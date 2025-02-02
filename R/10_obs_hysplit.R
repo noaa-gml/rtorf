@@ -93,7 +93,7 @@ obs_hysplit_control <- function(df,
                                 sampling_interval_type = c(0, abs(duration), 0),
                                 npol_depositing = 1,
                                 particle_params = c(0,0,0),
-                                dmwsrdre = c(0,0,0),
+                                dmwsrdre = c(0,0,0,0,0),
                                 wrhcicbc = c(0,0,0),
                                 radiactive_decay = 0,
                                 pol_res = 0,
@@ -315,7 +315,7 @@ cat("\n")
   cat(sprintf(fmt = "%#.1f", dmwsrdre))
   cat("\n")
 
-  cat(sprintf(fmt = "%#.1f", dmwsrdre))
+  cat(sprintf(fmt = "%#.1f", wrhcicbc))
   cat("\n")
 
   cat(sprintf(fmt = "%#.1f", radiactive_decay))
