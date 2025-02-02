@@ -135,7 +135,8 @@ if(!missing(df)) {
   rel_start <- paste(substr(yr, 3, 4), #I need to confirm
                      sprintf(mo, fmt = '%02d'),
                      sprintf(dy, fmt = '%02d'),
-                     sprintf(ho + 1, fmt = '%02d'))
+                     sprintf(ho, fmt = '%02d'),
+                     sprintf(mi, fmt = '%02d'))
 
   nmodels <- length(met)
 
@@ -257,14 +258,33 @@ cat("\n")
   cat(nsim_grids)
   cat("\n")
 
-  cat(center_conc_grids)
+
+  cat(sprintf("%#.1f", center_conc_grids[1]))
+
+  cat(" ")
+
+  cat(sprintf("%#.1f", center_conc_grids[2]))
+
   cat("\n")
 
-  cat(grid_spacing)
+
+  cat(sprintf("%#.2f", grid_spacing[1]))
+
+  cat(" ")
+
+  cat(sprintf("%#.2f", grid_spacing[2]))
+
   cat("\n")
 
-  cat(grid_span)
+
+  cat(sprintf("%#.1f", grid_span[1]))
+
+  cat(" ")
+
+  cat(sprintf("%#.1f", grid_span[2]))
+
   cat("\n")
+
 
   cat("./\n")
 
@@ -277,31 +297,31 @@ cat("\n")
   cat(height_vert_levels)
   cat("\n")
 
-  cat(sampling_start_time)
+  cat(sprintf(fmt = "%02d", sampling_start_time))
   cat("\n")
 
-  cat(sampling_end_time)
+  cat(sprintf(fmt = "%02d", sampling_end_time))
   cat("\n")
 
-  cat(sampling_interval_type)
+  cat(sprintf(fmt = "%02d", sampling_interval_type))
   cat("\n")
 
   cat(npol_depositing)
   cat("\n")
 
-  cat(particle_params)
+  cat(sprintf(fmt = "%#.1f", particle_params))
   cat("\n")
 
-  cat(dmwsrdre)
+  cat(sprintf(fmt = "%#.1f", dmwsrdre))
   cat("\n")
 
-  cat(wrhcicbc)
+  cat(sprintf(fmt = "%#.1f", dmwsrdre))
   cat("\n")
 
-  cat(radiactive_decay)
+  cat(sprintf(fmt = "%#.1f", radiactive_decay))
   cat("\n")
 
-  cat(pol_res)
+  cat(sprintf(fmt = "%#.1f", pol_res))
   cat("\n")
 
 
