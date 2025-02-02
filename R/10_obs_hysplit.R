@@ -106,9 +106,6 @@ if(!missing(df)) {
 
   lon <- sprintf(lon, fmt = '%#.4f')
 
-  agl <- sprintf(agl, fmt = '%#.4f')
-
-
 
   yr <- df$year
   mo <- df$month
@@ -122,8 +119,6 @@ if(!missing(df)) {
 
   lon <- sprintf(lon, fmt = '%#.4f')
 
-  agl <- sprintf(agl, fmt = '%#.4f')
-
   yr <- year
   mo <- month
   dy <- day
@@ -132,14 +127,13 @@ if(!missing(df)) {
 
 }
 
-  start_loc <- paste(lat, lon, agl)
+  start_loc <- paste(lat, lon, sprintf("%#.1f", agl))
 
 
   rel_start <- paste(substr(yr, 3, 4), #I need to confirm
                      sprintf(mo, fmt = '%02d'),
                      sprintf(dy, fmt = '%02d'),
-                     sprintf(ho, fmt = '%02d'),
-                     sprintf(mi, fmt = '%02d'))
+                     sprintf(ho + 1, fmt = '%02d'))
 
   nmodels <- length(met)
 
@@ -156,6 +150,9 @@ if(!missing(df)) {
 
 
   sink(control)
+
+
+  cat(rel_start, "\n")
 
   cat(nlocations, "\n")
 
