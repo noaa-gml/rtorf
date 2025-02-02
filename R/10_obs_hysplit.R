@@ -187,10 +187,14 @@ if(!missing(df)) {
   cat(vertical_motion)
   cat("\n")
 
-  cat(top_model_domain)
+  cat(sprintf("%#.1f", top_model_domain))
   cat("\n")
 
-  cat(paste(length(met), nmet),"\n")
+  if(length(met) > 1) {
+    cat(paste(length(met), nmet),"\n")
+  } else {
+    cat(length(met),"\n")
+  }
 
 
   for(j in seq_along(met)) {
