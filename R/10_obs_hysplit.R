@@ -193,7 +193,7 @@ if(!missing(df)) {
   if(length(met) > 1) {
     cat(paste(length(met), nmet),"\n")
   } else {
-    cat(length(nmet),"\n")
+    cat(nmet,"\n")
   }
 
 
