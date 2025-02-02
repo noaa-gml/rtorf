@@ -170,17 +170,24 @@ if(!missing(df)) {
 
   start_loc <- paste(lat, lon, sprintf("%#.1f", agl))
 
-  cat(lat, sep = "\n")
+  cat(lat)
+  cat(" ")
 
-  cat(lon, sep ="\n")
+  cat(lon)
+  cat(" ")
 
-  cat(sprintf("%#.1f", agl), sep = "\n")
+  cat(sprintf("%#.1f", agl))
+  cat("\n")
 
-  cat(duration, sep = "\n")
+  cat(duration)
+  cat("\n")
 
-  cat(vertical_motion, sep = "\n")
+  cat(vertical_motion)
+  cat("\n")
 
-  cat(sprintf("%#.1f", top_model_domain), sep ="\n")
+  cat(sprintf("%#.1f", top_model_domain))
+  cat("\n")
+
 
   if(length(met) > 1) {
     cat(paste(length(met), nmet))
@@ -200,13 +207,15 @@ cat("\n")
         cat(
           paste0(metpath[j],
                  data.table::year(hyd),
-                 "/"),
-          sep = "\n")
+                 "/"))
+        cat("\n")
+
 
         cat(
           paste0(strftime(hyd, format = "%Y%m%d"),
-                 "_hysplit.t00z.namsa"),
-          sep = "\n")
+                 "_hysplit.t00z.namsa"))
+        cat("\n")
+
       }
     }
 
@@ -217,60 +226,83 @@ cat("\n")
         cat(
           paste0(metpath[j],
                  data.table::year(hyd),
-                 "/"),
-          sep = "\n")
+                 "/"))
+        cat("\n")
+
 
         cat(
           paste0(strftime(hyd, format = "%Y%m%d"),
-                 "_gfs0p25"),
-          sep = "\n")
+                 "_gfs0p25"))
+        cat("\n")
+
       }
     }
   }
 
-  cat(ngases, sep = "\n")
+  cat(ngases)
+  cat("\n")
 
-  cat(gas, sep = "\n")
+  cat(gas)
+  cat("\n")
 
-  cat(emissions_rate, sep = "\n")
+  cat(emissions_rate)
+  cat("\n")
 
-  cat(hour_emissions, sep = "\n")
+  cat(hour_emissions)
+  cat("\n")
 
-  cat(rel_start, sep = "\n")
+  cat(rel_start)
+  cat("\n")
 
-  cat(nsim_grids, "\n")
+  cat(nsim_grids)
+  cat("\n")
 
-  cat(center_conc_grids, sep = "\n")
+  cat(center_conc_grids)
+  cat("\n")
 
-  cat(grid_spacing, sep = "\n")
+  cat(grid_spacing)
+  cat("\n")
 
-  cat(grid_span, sep = "\n")
+  cat(grid_span)
+  cat("\n")
 
   cat("./\n")
 
-  cat(nconc, sep = "\n")
+  cat(nconc)
+  cat("\n")
 
-  cat(nvert_levels, sep = "\n")
+  cat(nvert_levels)
+  cat("\n")
 
-  cat(height_vert_levels, sep = "\n")
+  cat(height_vert_levels)
+  cat("\n")
 
-  cat(sampling_start_time, sep = "\n")
+  cat(sampling_start_time)
+  cat("\n")
 
-  cat(sampling_end_time, sep = "\n")
+  cat(sampling_end_time)
+  cat("\n")
 
-  cat(sampling_interval_type, sep = "\n")
+  cat(sampling_interval_type)
+  cat("\n")
 
-  cat(npol_depositing, sep = "\n")
+  cat(npol_depositing)
+  cat("\n")
 
-  cat(particle_params, sep = "\n")
+  cat(particle_params)
+  cat("\n")
 
-  cat(dmwsrdre, sep = "\n")
+  cat(dmwsrdre)
+  cat("\n")
 
-  cat(wrhcicbc, sep = "\n")
+  cat(wrhcicbc)
+  cat("\n")
 
-  cat(radiactive_decay, sep = "\n")
+  cat(radiactive_decay)
+  cat("\n")
 
-  cat(pol_res, sep = "\n")
+  cat(pol_res)
+  cat("\n")
 
 
   sink()
