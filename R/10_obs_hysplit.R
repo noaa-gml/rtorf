@@ -54,7 +54,9 @@
 #' df <- dt[1]
 #' control_file <- tempfile()
 #' obs_hysplit_control(df, control = control_file)
-#' cat(readLines(control_file),sep =  "\n")
+#' ff <- readLines(control_file)
+#'
+#' cat(ff, sep =  "\n")
 #' }
 #
 obs_hysplit_control <- function(df,
@@ -151,8 +153,24 @@ if(!missing(df)) {
 
   sink(control)
 
+  cat()
 
-  cat(rel_start, "\n")
+  cat(substr(yr, 3, 4)) #I need to confirm
+
+  cat(" ")
+
+  cat(sprintf(mo, fmt = '%02d'))
+
+  cat(" ")
+
+  cat(sprintf(dy, fmt = '%02d'))
+
+  cat(" ")
+
+  cat(sprintf(ho + 1, fmt = '%02d'))
+
+  cat("\n")
+  # cat(rel_start, "\n")
 
   cat(nlocations, "\n")
 

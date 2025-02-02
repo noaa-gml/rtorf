@@ -141,6 +141,8 @@ dt <- obs_read(index)
 df <- dt[1]
 control_file <- tempfile()
 obs_hysplit_control(df, control = control_file)
-cat(readLines(control_file),sep =  "\n")
+ff <- readLines(control_file)
+
+cat(ff, sep =  "\n")
 }
 }
