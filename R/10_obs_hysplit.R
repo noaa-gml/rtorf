@@ -153,34 +153,42 @@ if(!missing(df)) {
 
   sink(control)
 
-  cat()
-
   cat(substr(yr, 3, 4)) #I need to confirm
-
   cat(" ")
 
   cat(sprintf(mo, fmt = '%02d'))
-
   cat(" ")
 
   cat(sprintf(dy, fmt = '%02d'))
-
   cat(" ")
 
   cat(sprintf(ho + 1, fmt = '%02d'))
-
   cat("\n")
-  # cat(rel_start, "\n")
 
-  cat(nlocations, "\n")
 
-  cat(start_loc, "\n")
+  cat(nlocations)
+  cat("\n")
 
-  cat(duration, "\n")
 
-  cat(vertical_motion, "\n")
+  start_loc <- paste(lat, lon, sprintf("%#.1f", agl))
 
-  cat(top_model_domain, "\n")
+  cat(lat)
+  cat(" ")
+
+  cat(lon)
+  cat(" ")
+
+  cat(sprintf("%#.1f", agl))
+  cat(" ")
+
+  cat(duration)
+  cat("\n")
+
+  cat(vertical_motion)
+  cat("\n")
+
+  cat(top_model_domain)
+  cat("\n")
 
   cat(paste(length(met), nmet),"\n")
 
@@ -223,7 +231,7 @@ if(!missing(df)) {
     }
   }
 
-  cat(ngases, "\n")
+  cat(ngases, sep = "\n")
 
   cat(gas, "\n")
 
