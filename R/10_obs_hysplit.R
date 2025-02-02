@@ -179,7 +179,7 @@ if(!missing(df)) {
   cat(" ")
 
   cat(sprintf("%#.1f", agl))
-  cat(" ")
+  cat("\n")
 
   cat(duration)
   cat("\n")
