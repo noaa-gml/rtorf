@@ -79,7 +79,8 @@ documentation
 
 ## Implementation in python:
 
-I’m currently implementing a version in python:
+I’m currently implementing a version in python
+[pytorf](https://github.com/noaa-gml/pytorf):
 
 | R                  | description                                     | Python |
 |:-------------------|:------------------------------------------------|:-------|
@@ -112,3 +113,7 @@ I’m currently implementing a version in python:
 | print.invfile      | Methods for objects with class ‘invfile’        |        |
 | sr                 | Extacts n last characters                       |        |
 | summary.invfile    | Methods for objects with class ’invfile         |        |
+
+## Special thanks to all the contributors
+
+[![Contributors](https://contrib.rocks/image?repo=noaa-gml/rtorf)](https://github.com/noaa-gml/rtorf/graphs/contributors)

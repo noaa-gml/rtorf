@@ -84,7 +84,7 @@ https://noaa-gml.github.io/rtorf/
 
 ## Implementation in python:
 
-I'm currently implementing a version in python:
+I'm currently implementing a version in python [pytorf](https://github.com/noaa-gml/pytorf):
 
 
 ```{r, include=F}
@@ -127,4 +127,6 @@ data.frame(
 knitr::kable(df)
 
 ```
+## Special thanks to all the contributors
 
+[![Contributors](https://contrib.rocks/image?repo=noaa-gml/rtorf)](https://github.com/noaa-gml/rtorf/graphs/contributors)
