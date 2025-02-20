@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 [![R-CMD-check](https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml)
 ![GitHub Repo stars](https://img.shields.io/github/stars/noaa-gml/rtorf)
 
-[NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of green house gases observations
+[NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of greenhouse gases observations
 
 `rtorf` only depends on `data.table` and `ncdf4`, which is basically parallel C, 
 so it can be installed in any machine.

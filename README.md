@@ -7,7 +7,7 @@ activity](https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf)
 ![GitHub Repo stars](https://img.shields.io/github/stars/noaa-gml/rtorf)
 
 [NOAA Obspack](https://gml.noaa.gov/ccgg/obspack/) is a collection of
-green house gases observations
+greenhouse gases observations
 
 `rtorf` only depends on `data.table` and `ncdf4`, which is basically
 parallel C, so it can be installed in any machine.
