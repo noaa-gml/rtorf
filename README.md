@@ -1,6 +1,8 @@
 R Tools for Obspack, Receptors and Footprints (rtorf)
 ================
 
+<img src="man/figures/logo.png" align="right" alt="" width="220" />
+
 ![GitHub commit
 activity](https://img.shields.io/github/commit-activity/y/noaa-gml/rtorf)
 [![R-CMD-check](https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/noaa-gml/rtorf/actions/workflows/R-CMD-check.yaml)
