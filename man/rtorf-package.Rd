@@ -4,9 +4,11 @@
 \name{rtorf-package}
 \alias{rtorf}
 \alias{rtorf-package}
-\title{rtorf: 'rtorf' Obspack GLOBALView+}
+\title{rtorf: 'rtorf' Tools for Observations, Receptors and Footprints}
 \description{
-Reads, process, and plots the CH4 ObsPack GLOBALView+ data from NOAA and perform different filters and analyses.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Reads, process, and plots Observations such as the CH4 ObsPack GLOBALView+ data from NOAA and perform different filters and analyses.
 }
 \seealso{
 Useful links:

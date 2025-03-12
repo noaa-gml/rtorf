@@ -9,7 +9,7 @@ obs_read_nc(
   categories = "flask",
   att = FALSE,
   expr = NULL,
-  solar_time = TRUE,
+  solar_time = if (grepl("aircraft", categories)) FALSE else TRUE,
   as_list = FALSE,
   verbose = FALSE,
   warnings = FALSE
@@ -27,7 +27,8 @@ obs_read_nc(
 
 \item{expr}{String expressions to filter data.table internally}
 
-\item{solar_time}{Logical, add solar time?}
+\item{solar_time}{Logical, add solar time? Default:
+if categories include aircraft, FALSE, otherwise, TRUE}
 
 \item{as_list}{Logical to return as list}
 

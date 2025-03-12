@@ -2,6 +2,13 @@ NEWS
 ===========
 
 
+### rtorf 1.2.0 (Release date: 2025-03-12)
+
+- Add argument solar_time solar_time = if(grepl("aircraft", categories)) FALSE else TRUE
+- Update vignettes and add one aobut parallel hysplit
+- Change name Obspoack to Observations
+
+
 ### rtorf 1.1.0 (Release date: 2025-01-31)
 
 Add functions to configure hysplit

@@ -342,7 +342,8 @@ obs_read <- function(index,
 #' "flask").
 #' @param att Logical, if global attributes should be added to data.table
 #' @param expr String expressions to filter data.table internally
-#' @param solar_time Logical, add solar time?
+#' @param solar_time Logical, add solar time? Default:
+#' if categories include aircraft, FALSE, otherwise, TRUE
 #' @param as_list Logical to return as list
 #' @param verbose Logical to show more information
 #' @param warnings Logical to show warnings when reading NetCDF, especially
@@ -362,7 +363,7 @@ obs_read_nc <- function(index,
                         categories = "flask",
                         att = FALSE,
                         expr = NULL,
-                        solar_time = TRUE,
+                        solar_time = if(grepl("aircraft", categories)) FALSE else TRUE,
                         as_list = FALSE,
                         verbose = FALSE,
                         warnings = FALSE){
