@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@
     <li><a class="dropdown-item" href="../articles/aircraft-flask.html">aircraft-flask</a></li>
     <li><a class="dropdown-item" href="../articles/aircraft-insitu.html">aircraft-insitu</a></li>
     <li><a class="dropdown-item" href="../articles/aircraft-pfp.html">aircraft-pfp</a></li>
+    <li><a class="dropdown-item" href="../articles/hysplit.html">hysplit</a></li>
     <li><a class="dropdown-item" href="../articles/shipboard-flask.html">shipboard-flask</a></li>
     <li><a class="dropdown-item" href="../articles/shipoboard-insitu.html">shipboard-insitu</a></li>
     <li><a class="dropdown-item" href="../articles/summary.html">summary</a></li>
@@ -102,7 +103,7 @@
 <span class="r-in"><span><span class="va">s</span></span></span>
 <span class="r-in"><span><span class="co"># or</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fread.html" class="external-link">fread</a></span><span class="op">(</span><span class="va">f</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "---"                                                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "name: Metadata "                                      </span>
@@ -111,21 +112,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "structure: "                                          </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "'data.frame':\t10 obs. of  2 variables:"              </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] " $ a   : num  -1.4 0.255 ..."                         </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] " $ time: POSIXct, format: \"2025-02-25 23:34:33\" ..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] " $ time: POSIXct, format: \"2025-03-12 22:58:56\" ..."</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "NULL"                                                 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [10] "---"                                                  </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                a                time</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            &lt;num&gt;              &lt;POSc&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1: -1.400043517 2025-02-25 23:34:33</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  2:  0.255317055 2025-02-25 23:34:34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  3: -2.437263611 2025-02-25 23:34:35</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  4: -0.005571287 2025-02-25 23:34:36</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  5:  0.621552721 2025-02-25 23:34:37</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  6:  1.148411606 2025-02-25 23:34:38</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  7: -1.821817661 2025-02-25 23:34:39</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  8: -0.247325302 2025-02-25 23:34:40</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  9: -0.244199607 2025-02-25 23:34:41</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10: -0.282705449 2025-02-25 23:34:42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1: -1.400043517 2025-03-12 22:58:56</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  2:  0.255317055 2025-03-12 22:58:57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  3: -2.437263611 2025-03-12 22:58:58</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4: -0.005571287 2025-03-12 22:58:59</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5:  0.621552721 2025-03-12 22:59:00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  6:  1.148411606 2025-03-12 22:59:01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  7: -1.821817661 2025-03-12 22:59:02</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  8: -0.247325302 2025-03-12 22:59:03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  9: -0.244199607 2025-03-12 22:59:04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10: -0.282705449 2025-03-12 22:59:05</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

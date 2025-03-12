@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,6 +43,7 @@
     <li><a class="dropdown-item" href="../articles/aircraft-flask.html">aircraft-flask</a></li>
     <li><a class="dropdown-item" href="../articles/aircraft-insitu.html">aircraft-insitu</a></li>
     <li><a class="dropdown-item" href="../articles/aircraft-pfp.html">aircraft-pfp</a></li>
+    <li><a class="dropdown-item" href="../articles/hysplit.html">hysplit</a></li>
     <li><a class="dropdown-item" href="../articles/shipboard-flask.html">shipboard-flask</a></li>
     <li><a class="dropdown-item" href="../articles/shipoboard-insitu.html">shipboard-insitu</a></li>
     <li><a class="dropdown-item" href="../articles/summary.html">summary</a></li>
@@ -96,7 +97,7 @@
 <span>         <span class="st">"shipboard-insitu"</span>,</span>
 <span>         <span class="st">"shipboard-flask"</span><span class="op">)</span> </span>
 <span></span>
-<span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="st">"Z:/torf/obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08/data/nc/"</span></span>
+<span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="st">"Z:/obspack/obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08/data/nc/"</span></span>
 <span><span class="va">index</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/obs_summary.html">obs_summary</a></span><span class="op">(</span>obs <span class="op">=</span> <span class="va">obs</span>, </span>
 <span>                     categories <span class="op">=</span> <span class="va">cate</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; Number of files of index: 429</span></span>
@@ -503,7 +504,7 @@ with 4 digits</p>
 </h3>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">out</span>,<span class="st">"_"</span>, <span class="va">datasetid</span>, <span class="st">".txt\n"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/fwrite.html" class="external-link">fwrite</a></span><span class="op">(</span><span class="va">master</span>,</span>
+<span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fwrite.html" class="external-link">fwrite</a></span><span class="op">(</span><span class="va">master</span>,</span>
 <span>       <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">out</span>,<span class="st">"_"</span>, <span class="va">datasetid</span>, <span class="st">".txt"</span><span class="op">)</span>,</span>
 <span>       sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; C:\Users\sibarrae\AppData\Local\Temp\RtmpMzbU8P\file5e287aa53d25_shipboard-flask.txt</span></span></code></pre>
@@ -513,7 +514,7 @@ with 4 digits</p>
 </h3>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">out</span>,<span class="st">"_"</span>, <span class="va">datasetid</span>, <span class="st">".csv\n"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/data.table/man/fwrite.html" class="external-link">fwrite</a></span><span class="op">(</span><span class="va">master</span>,</span>
+<span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fwrite.html" class="external-link">fwrite</a></span><span class="op">(</span><span class="va">master</span>,</span>
 <span>       <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">out</span>,<span class="st">"_"</span>, <span class="va">datasetid</span>, <span class="st">".csv"</span><span class="op">)</span>,</span>
 <span>       sep <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">#&gt; C:\Users\sibarrae\AppData\Local\Temp\RtmpMzbU8P\file5e287aa53d25_shipboard-flask.csv</span></span></code></pre>
@@ -655,7 +656,7 @@ files. Now we filter selected columns</p>
 <code class="sourceCode R"><span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">receptor_agl</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"_"</span>, <span class="va">datasetid</span>, <span class="st">"_receptor_AGL.txt"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/fwrite.html" class="external-link">fwrite</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">receptor_agl</span>,</span>
+<span>  <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fwrite.html" class="external-link">fwrite</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">receptor_agl</span>,</span>
 <span>         file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"_"</span>, <span class="va">datasetid</span>, <span class="st">"_receptor_AGL.txt"</span><span class="op">)</span>,</span>
 <span>         sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -663,7 +664,7 @@ files. Now we filter selected columns</p>
 <span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">receptor_asl</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"_"</span>, <span class="va">datasetid</span>, <span class="st">"_receptor_ASL.txt"</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span>
 <span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/fwrite.html" class="external-link">fwrite</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">receptor_asl</span>,</span>
+<span>  <span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/fwrite.html" class="external-link">fwrite</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">receptor_asl</span>,</span>
 <span>         file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">out</span>, <span class="st">"_"</span>, <span class="va">datasetid</span>, <span class="st">"receptor_ASL.txt"</span><span class="op">)</span>,</span>
 <span>         sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span></span>
 <span></span>

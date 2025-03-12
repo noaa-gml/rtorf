@@ -13,7 +13,7 @@ be filtered"><meta property="og:image" content="https://noaa-gml.github.io/rtorf
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +28,7 @@ be filtered"><meta property="og:image" content="https://noaa-gml.github.io/rtorf
     <li><a class="dropdown-item" href="../articles/aircraft-flask.html">aircraft-flask</a></li>
     <li><a class="dropdown-item" href="../articles/aircraft-insitu.html">aircraft-insitu</a></li>
     <li><a class="dropdown-item" href="../articles/aircraft-pfp.html">aircraft-pfp</a></li>
+    <li><a class="dropdown-item" href="../articles/hysplit.html">hysplit</a></li>
     <li><a class="dropdown-item" href="../articles/shipboard-flask.html">shipboard-flask</a></li>
     <li><a class="dropdown-item" href="../articles/shipoboard-insitu.html">shipboard-insitu</a></li>
     <li><a class="dropdown-item" href="../articles/summary.html">summary</a></li>
@@ -66,7 +67,7 @@ be filtered</p>
 <span>  categories <span class="op">=</span> <span class="st">"flask"</span>,</span>
 <span>  att <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  expr <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  solar_time <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  solar_time <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"aircraft"</span>, <span class="va">categories</span><span class="op">)</span><span class="op">)</span> <span class="cn">FALSE</span> <span class="kw">else</span> <span class="cn">TRUE</span>,</span>
 <span>  as_list <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  warnings <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -97,7 +98,8 @@ be filtered</p>
 
 
 <dt id="arg-solar-time">solar_time<a class="anchor" aria-label="anchor" href="#arg-solar-time"></a></dt>
-<dd><p>Logical, add solar time?</p></dd>
+<dd><p>Logical, add solar time? Default:
+if categories include aircraft, FALSE, otherwise, TRUE</p></dd>
 
 
 <dt id="arg-as-list">as_list<a class="anchor" aria-label="anchor" href="#arg-as-list"></a></dt>
