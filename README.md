@@ -94,6 +94,18 @@ documentation
 I’m currently implementing a version in python
 [pytorf](https://github.com/noaa-gml/pytorf):
 
-## Special thanks to all the contributors
+## Special thanks to all the
+
+**contributors**
 
 [![Contributors](https://contrib.rocks/image?repo=noaa-gml/rtorf)](https://github.com/noaa-gml/rtorf/graphs/contributors)
+
+and
+
+**Stargazers**
+
+<p>
+
+<a href="https://github.com/noaa-gml/rtorf/stargazers">
+<img src="http://reporoster.com/stars/dark/noaa-gml/rtorf"/> </a>
+</p>
