@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### rtorf 1.2.1 (Release date: 2025-03-21)
+
+- Update email
+
 ### rtorf 1.2.0 (Release date: 2025-03-12)
 
 - Add argument solar_time solar_time = if(grepl("aircraft", categories)) FALSE else TRUE
