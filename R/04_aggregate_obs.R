@@ -3,14 +3,13 @@
 #' This function add timeUTC as POSIX class,
 #' local time and ending sampling time
 #'
-#'
-#'
 #' @param dt obspack data.table
 #' @param cols Character which defines columns to be aggregated
-#' @param byalt Logical, to aggregate by altitude or not (used in tower)
+#' @param by String with columns to be aggregated
+#' @param fn Function to be applied to the columns, default mean
 #' @param verbose logical to show more information
 #' @return A data.frame with with an index obspack.
-#' @importFrom data.table  second minute hour month year setDT setorderv mday
+#' @importFrom data.table  second minute hour month year setDT setorderv mday .SD
 #' @importFrom lubridate decimal_date
 #' @note By default add column timeUTC based on the input column `key_time`
 #' @export
@@ -36,7 +35,13 @@ obs_agg <- function(dt,
                              "v",
                              "temperature",
                              "type_altitude"),
-                    byalt = FALSE,
+                    by = c("key_time",
+                           "site_code",
+                           "altitude_final", # useful for towers. Name may change
+                           "type_altitude",
+                           "lab_1_abbr",
+                           "dataset_calibration_scale"),
+                    fn = "mean",
                     verbose = TRUE){
 
   if(!inherits(dt, "data.table")){
@@ -52,24 +57,6 @@ obs_agg <- function(dt,
   # Remember aircraft
   # Only aircraft need to be aggregated every 20 seconds
   # For hysplit, the ending times are not needed
-  .SD <- NULL
-  timecol <- NULL
-  site_code <- NULL
-  altitude_final <- NULL
-  type_altitude <- NULL
-  timeUTC <- NULL
-  key_time <- NULL
-  lab_1_abbr <- NULL
-  dataset_calibration_scale <- NULL
-  year_st <- NULL
-  month_st  <- NULL
-  day_st  <- NULL
-  intake_height  <- NULL
-  local_time  <- NULL
-  day <- NULL
-  gby <- NULL
-  # mean <- NULL
-
 
   # Here we need daily information
   # as this function assumes that the input is already preselected data
@@ -79,41 +66,20 @@ obs_agg <- function(dt,
   # or by local time
   # solar time names ending in _st
   # while local time, the POSIXct time vector `local_time`
-  # Then we have four options
 
-  if(byalt) {
-    if(verbose) cat("Selecting by alt\n")
-    # Remember tower
-    # A site can have different altitudes, then
-    # each group must be processed differently
-    dt <- dt[,
+  .SD <- NULL
+
+  dt <- dt[,
              lapply(.SD,
-                    FUN = mean,
+                    FUN = eval(parse(text = fn)),
                     na.rm = T),
              .SDcols = cols,
-             by = list(timeUTC = key_time,
-                       site_code,
-                       altitude_final,
-                       type_altitude,
-                       lab_1_abbr,
-                       dataset_calibration_scale)]
-  } else {
-    dt <- dt[,
-             lapply(.SD,
-                    FUN = mean,
-                    na.rm = T),
-             .SDcols = cols,
-             by = list(timeUTC = key_time,
-                       site_code,
-                       lab_1_abbr,
-                       dataset_calibration_scale)]
-
-  }
+             by = by]
 
 
   if(verbose) cat("Adding time\n")
 
-  dt$timeUTC <- as.POSIXct(dt$timeUTC, tz = "UTC")
+  dt$timeUTC <- as.POSIXct(dt$key_time, tz = "UTC")
 
   dt$year <- data.table::year(dt$timeUTC)
   dt$month <- data.table::month(dt$timeUTC)
@@ -140,7 +106,8 @@ obs_agg <- function(dt,
   #     }
 
   data.table::setorderv(x = dt,
-                        cols =  c("site_code", "timeUTC"),
+                        cols =  c("site_code",
+                                  "timeUTC"),
                         order =  1)
 
   # dt$timeUTC <- as.character(dt$timeUTC)

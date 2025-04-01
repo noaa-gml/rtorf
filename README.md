@@ -36,18 +36,18 @@ library(data.table)
 
 ## ObsPack summary
 
-The first step consists in constructing a summary for the ObsPack. This
-is required to read the data, but also, identify `agl`, which is present
-in some of the file names. This function returns a `data.frame`.
-Optionally, the user can indicate a path to store the `data.frame`.
-`obs_summary` also prints a summary of the data. The second argument is
-the categories, and by default includes the categories shown below, to
-account for all the files. Then the summary `data.frame` contains the
-columns `id` as the full path to each file, `name` which is the name or
-relative path of the file, `n` just an id, `sector` such as tower, and
-the column `agl` which indicates the `agl` indicated in the name of the
-file if available. To read the documentation of this function, the user
-must run `?obs_summary`.
+The first step consists in constructing a summary for ObsPack (CH4, CO2
+or other). This is required to read the data, but also, identify `agl`,
+which is present in some of the file names. This function returns a
+`data.frame`. Optionally, the user can indicate a path to store the
+`data.frame`. `obs_summary` also prints a summary of the data. The
+second argument is the categories, and by default includes the
+categories shown below, to account for all the files. Then the summary
+`data.frame` contains the columns `id` as the full path to each file,
+`name` which is the name or relative path of the file, `n` just an id,
+`sector` such as tower, and the column `agl` which indicates the `agl`
+indicated in the name of the file if available. To read the
+documentation of this function, the user must run `?obs_summary`.
 
 > We first define the categories
 
@@ -88,6 +88,9 @@ For each one of these dataset ids, check the articles in the
 documentation
 
 <https://noaa-gml.github.io/rtorf/>
+
+e.g. for the `aircraft-pfp` we can read $CO_2$ and $CH_4$
+[here](https://noaa-gml.github.io/rtorf/articles/aircraft-pfp.html)
 
 ## Implementation in python:
 

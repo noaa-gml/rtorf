@@ -100,6 +100,22 @@ This function creates a SETUP.CFG file for HYSPLIT model.
 }
 \note{
 The var description comes from hysplit 5.3 manual page 214
+ From the hysplit user guide:
+STILT mode
+The STILT model incorporates the variation of HYSPLIT developed by Lin et al.
+(2003 - JGR, VOL. 108, NO. D16, 4493, doi:10.1029/2002JD003161) that can be used to
+estimate upwind surface fluxes from atmospheric measurements.
+Two changes are introduced; the mass summation is divided by air density
+resulting in a mixing ratio output field (ICHEM=6) and the lowest
+concentration summation layer (concentration layer top depth) is permitted
+to vary with the mixed layer depth (ICHEM=9). The ICHEM=8 switch turns on
+both density and varying layer depth. Two text files of particle position
+ information (PARTICLE.DAT and PARTICLE_STILT.DAT) at each time step will
+ also be created unless the namelist parameter OUTDT defining the output
+ interval (min) is changed. PARTICLE_STILT.DAT follows the same format as STILT.
+ The footprint output in PARTICLE.DAT represents particles that were below
+ 50% of the mixed layer height. The footprint in PARTICLE_STILT.DAT represent
+  particles that were below a user defined height (VEGHT).
 }
 \examples{
 {

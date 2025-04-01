@@ -435,7 +435,10 @@ obs_read_nc <- function(index,
     xx <- d[dim == 1]
 
     for(i in 1:nrow(xx)) {
-      dt[[xx$names[i]]] <- lv[[xx$names[i]]]
+      # add if to add variables with same length as ntow(dt)
+      if(length(lv[[xx$names[i]]]) == nrow(dt)) {
+        dt[[xx$names[i]]] <- lv[[xx$names[i]]]
+      }
     }
 
     if(solar_time) {

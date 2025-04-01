@@ -2,6 +2,11 @@ NEWS
 ===========
 
 
+### rtorf 1.3.0 (Release date: 2025-04-01)
+
+- Adding capacity to read co2
+- Fix obs_read_nc now add variables with same length of dt
+
 ### rtorf 1.2.1 (Release date: 2025-03-21)
 
 - Update email

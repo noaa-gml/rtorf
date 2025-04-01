@@ -42,7 +42,7 @@ library(data.table)
 
 ## ObsPack summary
 
-The first step consists in constructing a summary for the ObsPack.
+The first step consists in constructing a summary for ObsPack (CH4, CO2 or other).
 This is required to read the data, but also, identify `agl`, 
 which is present in some of the file names.
 This function returns a `data.frame`.
@@ -83,6 +83,7 @@ For each one of these dataset ids, check the articles in the documentation
 
 https://noaa-gml.github.io/rtorf/
 
+e.g. for the `aircraft-pfp` we can read $CO_2$ and $CH_4$ [here](https://noaa-gml.github.io/rtorf/articles/aircraft-pfp.html)
 
 ## Implementation in python:
 

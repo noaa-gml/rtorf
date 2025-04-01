@@ -9,7 +9,9 @@ obs_agg(
   cols = c("year", "month", "day", "hour", "minute", "second", "time", "time_decimal",
     "value", "latitude", "longitude", "altitude", "pressure", "u", "v", "temperature",
     "type_altitude"),
-  byalt = FALSE,
+  by = c("key_time", "site_code", "altitude_final", "type_altitude", "lab_1_abbr",
+    "dataset_calibration_scale"),
+  fn = "mean",
   verbose = TRUE
 )
 }
@@ -18,7 +20,9 @@ obs_agg(
 
 \item{cols}{Character which defines columns to be aggregated}
 
-\item{byalt}{Logical, to aggregate by altitude or not (used in tower)}
+\item{by}{String with columns to be aggregated}
+
+\item{fn}{Function to be applied to the columns, default mean}
 
 \item{verbose}{logical to show more information}
 }
