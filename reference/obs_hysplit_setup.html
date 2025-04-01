@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -186,7 +186,23 @@ divisible into 60. In STILT emulation mode, the time step is forced to one minut
     </div>
     <div class="section level2">
     <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
-    <p>The var description comes from hysplit 5.3 manual page 214</p>
+    <p>The var description comes from hysplit 5.3 manual page 214
+ From the hysplit user guide:
+STILT mode
+The STILT model incorporates the variation of HYSPLIT developed by Lin et al.
+(2003 - JGR, VOL. 108, NO. D16, 4493, doi:10.1029/2002JD003161) that can be used to
+estimate upwind surface fluxes from atmospheric measurements.
+Two changes are introduced; the mass summation is divided by air density
+resulting in a mixing ratio output field (ICHEM=6) and the lowest
+concentration summation layer (concentration layer top depth) is permitted
+to vary with the mixed layer depth (ICHEM=9). The ICHEM=8 switch turns on
+both density and varying layer depth. Two text files of particle position
+ information (PARTICLE.DAT and PARTICLE_STILT.DAT) at each time step will
+ also be created unless the namelist parameter OUTDT defining the output
+ interval (min) is changed. PARTICLE_STILT.DAT follows the same format as STILT.
+ The footprint output in PARTICLE.DAT represents particles that were below
+ 50<!-- % of the mixed layer height. The footprint in PARTICLE_STILT.DAT represent -->
+  particles that were below a user defined height (VEGHT).</p>
     </div>
 
     <div class="section level2">
