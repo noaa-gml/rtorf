@@ -16,7 +16,7 @@ obs_hysplit_control(
   alt,
   nlocations = 1,
   duration = -240,
-  vertical_motion = 0,
+  vertical_motion = 5,
   top_model_domain = 20000,
   met = c("nams", "gfs0p25"),
   nmet = abs(duration/24) + 1,
@@ -69,7 +69,18 @@ obs_hysplit_control(
 
 \item{duration}{number of hours of release. (Negative is backwards in time).}
 
-\item{vertical_motion}{Vertical motion option.}
+\item{vertical_motion}{Vertical motion option.  (0:data 1:isob 2:isen 3:dens
+4:sigma 5:diverg 6:msl2agl 7:average 8:damped).
+. The default "data" selection will use the meteorological model's
+vertical velocity fields; other options include isobaric, isentropic,
+constant density, constant internal sigma coordinate, computed from the
+velocity divergence, a special transformation to correct the vertical
+velocities when mapped from quasi-horizontal surfaces (such as relative
+ to MSL) to HYSPLIT's internal terrain following sigma coordinate, and a
+ special option (7) to spatially average the vertical velocity.
+ The averaging distance is automatically computed from the ratio of
+ the temporal frequency of the data to the horizontal grid resolution.
+ Default 5}
 
 \item{top_model_domain}{altitude above ground level (m).}
 

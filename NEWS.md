@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### rtorf 1.3.1 (Release date: 2025-04-09)
+
+- Adding documentaiton for vertical_motion in obs_hysplit_control default 5
+
 ### rtorf 1.3.0 (Release date: 2025-04-01)
 
 - Adding capacity to read co2
