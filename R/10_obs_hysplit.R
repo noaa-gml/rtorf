@@ -86,7 +86,7 @@ obs_hysplit_control <- function(df,
                                 met = c("nams", "gfs0p25"),
                                 nmet =  abs(duration/24) + 1, # 10 days plus 1, defaultdays
                                 metpath = c("/work/noaa/lpdm/metfiles/nams/",
-                                            "/work/noaa/lpdm/metfiles/gfs0p25"),
+                                            "/work/noaa/lpdm/metfiles/gfs0p25/"),
                                 ngases = 1,
                                 gas = "Foot",
                                 emissions_rate = 0,
@@ -249,6 +249,26 @@ cat("\n")
 
       }
     }
+
+    if(metx == "era5") {
+      for(i in  1:nmet){
+        hyd <- as.Date(hydate - i)
+
+        cat(
+          paste0(metpath[j],
+                 data.table::year(hyd),
+                 "/"))
+        cat("\n")
+
+
+        cat(
+          paste0(strftime(hyd, format = "%Y%m%d"),
+                 ".grib"))
+        cat("\n")
+
+      }
+    }
+
   }
 
   cat(ngases)
