@@ -83,10 +83,11 @@ obs_hysplit_control <- function(df,
                                 duration = -240,
                                 vertical_motion = 5,
                                 top_model_domain = 20000,
-                                met = c("nams", "gfs0p25"),
+                                met = c("nams", "gfs0p25", "era5"),
                                 nmet =  abs(duration/24) + 1, # 10 days plus 1, defaultdays
                                 metpath = c("/work/noaa/lpdm/metfiles/nams/",
-                                            "/work/noaa/lpdm/metfiles/gfs0p25/"),
+                                            "/work/noaa/lpdm/metfiles/gfs0p25/",
+                                            "/work/noaa/lpdm/metfiles/era5/arl/"),
                                 ngases = 1,
                                 gas = "Foot",
                                 emissions_rate = 0,
@@ -263,7 +264,7 @@ cat("\n")
 
         cat(
           paste0(strftime(hyd, format = "%Y%m%d"),
-                 ".grib"))
+                 ".ARL"))
         cat("\n")
 
       }
