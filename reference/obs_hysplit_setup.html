@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.4.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.5.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>obs_hysplit_setup</h1>
-      <small class="dont-index">Source: <a href="https://github.com/noaa-gml/rtorf/blob/v1.4.0/R/10_obs_hysplit.R" class="external-link"><code>R/10_obs_hysplit.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/noaa-gml/rtorf/blob/main/R/10_obs_hysplit.R" class="external-link"><code>R/10_obs_hysplit.R</code></a></small>
       <div class="d-none name"><code>obs_hysplit_setup.Rd</code></div>
     </div>
 
@@ -72,6 +72,7 @@
 <span>  ivmax <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">varsiwant</span><span class="op">)</span>,</span>
 <span>  outdt <span class="op">=</span> <span class="fl">15</span>,</span>
 <span>  <span class="va">extra_params</span>,</span>
+<span>  <span class="va">bypass_params</span>,</span>
 <span>  setup <span class="op">=</span> <span class="st">"SETUP.CFG"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -176,6 +177,12 @@ divisible into 60. In STILT emulation mode, the time step is forced to one minut
 <dd><p>more parameters</p></dd>
 
 
+<dt id="arg-bypass-params">bypass_params<a class="anchor" aria-label="anchor" href="#arg-bypass-params"></a></dt>
+<dd><p>named vector of characters to bypass all other arguments. If this
+list is available, only the content of this list will be used to
+write SETUP.CFG file and not other arguments.</p></dd>
+
+
 <dt id="arg-setup">setup<a class="anchor" aria-label="anchor" href="#arg-setup"></a></dt>
 <dd><p>Default SETUP.CFG</p></dd>
 
@@ -230,7 +237,7 @@ both density and varying layer depth. Two text files of particle position
 <span class="r-out co"><span class="r-pr">#&gt;</span>  ivmax = 15,</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  varsiwant='time','indx','lati','long','zagl','zsfc','foot','samt','temp','dswf','mlht','dens','dmas','sigw','tlgr',</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  outdt = 15,</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  /</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> /</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
