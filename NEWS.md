@@ -2,6 +2,11 @@ NEWS
 ===========
 
 
+### rtorf 1.5.0 (Release date: 2025-05-20)
+
+- Change way obs_hysplit_setup writes. NOw instead of cat,
+uses write. obs_hysplit_ascdata and obs_hysplit_control still use cat.
+
 ### rtorf 1.4.0 (Release date: 2025-04-28)
 
 - Adding era5 to obs_hysplit_control

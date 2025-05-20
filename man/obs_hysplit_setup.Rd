@@ -23,6 +23,7 @@ obs_hysplit_setup(
   ivmax = length(varsiwant),
   outdt = 15,
   extra_params,
+  bypass_params,
   setup = "SETUP.CFG"
 )
 }
@@ -89,6 +90,10 @@ output frequency should be an even multiple of the time step and be evenly
 divisible into 60. In STILT emulation mode, the time step is forced to one minute.}
 
 \item{extra_params}{more parameters}
+
+\item{bypass_params}{named vector of characters to bypass all other arguments. If this
+list is available, only the content of this list will be used to
+write SETUP.CFG file and not other arguments.}
 
 \item{setup}{Default SETUP.CFG}
 }

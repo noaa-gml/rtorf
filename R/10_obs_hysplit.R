@@ -110,36 +110,36 @@ obs_hysplit_control <- function(df,
                                 radiactive_decay = 0,
                                 pol_res = 0,
                                 control = "CONTROL"){
-if(!missing(df)) {
-  # lat lon height
-  lat <- df$latitude
-  lon <- df$longitude
-  agl <- df$altitude
+  if(!missing(df)) {
+    # lat lon height
+    lat <- df$latitude
+    lon <- df$longitude
+    agl <- df$altitude
 
-  lat <- sprintf(lat, fmt = '%#.4f')
+    lat <- sprintf(lat, fmt = '%#.4f')
 
-  lon <- sprintf(lon, fmt = '%#.4f')
+    lon <- sprintf(lon, fmt = '%#.4f')
 
 
-  yr <- df$year
-  mo <- df$month
-  dy <- df$day
-  ho <- df$hour
-  mi <- df$minute
+    yr <- df$year
+    mo <- df$month
+    dy <- df$day
+    ho <- df$hour
+    mi <- df$minute
 
-} else {
-  # lat lon height
-  lat <- sprintf(lat, fmt = '%#.4f')
+  } else {
+    # lat lon height
+    lat <- sprintf(lat, fmt = '%#.4f')
 
-  lon <- sprintf(lon, fmt = '%#.4f')
+    lon <- sprintf(lon, fmt = '%#.4f')
 
-  yr <- year
-  mo <- month
-  dy <- day
-  ho <- hour
-  mi <- minute
+    yr <- year
+    mo <- month
+    dy <- day
+    ho <- hour
+    mi <- minute
 
-}
+  }
 
   start_loc <- paste(lat, lon, sprintf("%#.1f", agl))
 
@@ -208,7 +208,7 @@ if(!missing(df)) {
     cat(nmet)
   }
 
-cat("\n")
+  cat("\n")
 
   for(j in seq_along(met)) {
     metx <- met[j]
@@ -413,6 +413,9 @@ cat("\n")
 #' output frequency should be an even multiple of the time step and be evenly
 #' divisible into 60. In STILT emulation mode, the time step is forced to one minute.
 #' @param extra_params more parameters
+#' @param bypass_params named vector of characters to bypass all other arguments. If this
+#' list is available, only the content of this list will be used to
+#' write SETUP.CFG file and not other arguments.
 #' @param setup Default SETUP.CFG
 #' @return A SETUP.CFG file
 #' @note The var description comes from hysplit 5.3 manual page 214
@@ -461,61 +464,178 @@ obs_hysplit_setup <- function(idsp = 2,
                               ivmax = length(varsiwant),
                               outdt = 15,
                               extra_params,
+                              bypass_params,
                               setup = "SETUP.CFG"){
+  # start
+  write("&SETUP",
+        file=setup)
 
-  sink(setup)
+  if(!missing(bypass_params)){
 
-  cat("&SETUP\n")
+    for(i in seq_along(bypass_params)) {
 
-  cat(paste0(" idsp = ", idsp, ",\n"))
+      bp <- paste0(" ",
+                   eval(parse(text = bypass_params[i])),
+                   " = ",
+                   bypass_params[i],
+                   ",")
 
-  cat(paste0(" capemin = ", capemin, ",\n"))
+      write(bp,
+            file = setup,
+            append=TRUE)
 
-  cat(paste0(" vscales = ", sprintf("%#.1f", vscales), ",\n"))
+    }
 
-  cat(paste0(" kbls = ", kbls, ",\n"))
+  } else {
 
-  cat(paste0(" kblt = ", kblt, ",\n"))
 
-  cat(paste0(" kmixd = ", kmixd, ",\n"))
+    write(paste0(" idsp = ", idsp, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(paste0(" initd = ", initd, ",\n"))
+    write(paste0(" capemin = ", capemin, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(paste0(" veght = ", veght, ",\n"))
+    write(paste0(" vscales = ", sprintf("%#.1f", vscales), ","),
+          file = setup,
+          append=TRUE)
 
-  cat(paste0(" kmix0 = ", kmix0, ",\n"))
+    write(paste0(" kbls = ", kbls, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(paste0(" numpar = ", numpar, ",\n"))
+    write(paste0(" kblt = ", kblt, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(paste0(" maxpar = ", maxpar, ",\n"))
+    write(paste0(" kmixd = ", kmixd, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(paste0(" ichem = ", ichem, ",\n"))
+    write(paste0(" initd = ", initd, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(paste0(" krand = ", krand, ",\n"))
+    write(paste0(" veght = ", veght, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(paste0(" ivmax = ", ivmax, ",\n"))
+    write(paste0(" kmix0 = ", kmix0, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(" varsiwant=")
+    write(paste0(" numpar = ", numpar, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(sQuote(varsiwant, q = ""), sep = ",")
+    write(paste0(" maxpar = ", maxpar, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(",\n")
+    write(paste0(" ichem = ", ichem, ","),
+          file = setup,
+          append=TRUE)
 
-  cat(paste0(" outdt = ", outdt, ",\n"))
+    write(paste0(" krand = ", krand, ","),
+          file = setup,
+          append=TRUE)
 
-  if(!missing(extra_params)) {
 
-    for(i in seq_along(extra_params)) {
-      cat(paste0(" ",
-          eval(parse(text = extra_params[i])),
-          " = ",
-          extra_params[i],
-          ",\n"))
+    write(paste0(" ivmax = ", ivmax, ","),
+          file = setup,
+          append=TRUE)
+
+    write(paste0(" varsiwant=",
+                 paste(sQuote(varsiwant, q = ""),
+                       collapse = ","),
+                 sep = ","),
+          file = setup,
+          append=TRUE)
+
+
+    write(paste0(" outdt = ", outdt, ","),
+          file = setup,
+          append=TRUE)
+
+
+    if(!missing(extra_params)) {
+
+      for(i in seq_along(extra_params)) {
+        ep <- paste0(" ",
+                     eval(parse(text = extra_params[i])),
+                     " = ",
+                     extra_params[i],
+                     ",")
+
+        write(ep,
+              file = setup,
+              append=TRUE)
+
+      }
     }
   }
-  cat(" /\n")
 
-  sink()
+  # end
+  write("/",
+        file = setup,
+        append=TRUE)
+
+
+  # sink(setup)
+  #
+  # cat("&SETUP\n")
+  #
+  # cat(paste0(" idsp = ", idsp, ",\n"))
+  #
+  # cat(paste0(" capemin = ", capemin, ",\n"))
+  #
+  # cat(paste0(" vscales = ", sprintf("%#.1f", vscales), ",\n"))
+  #
+  # cat(paste0(" kbls = ", kbls, ",\n"))
+  #
+  # cat(paste0(" kblt = ", kblt, ",\n"))
+  #
+  # cat(paste0(" kmixd = ", kmixd, ",\n"))
+  #
+  # cat(paste0(" initd = ", initd, ",\n"))
+  #
+  # cat(paste0(" veght = ", veght, ",\n"))
+  #
+  # cat(paste0(" kmix0 = ", kmix0, ",\n"))
+  #
+  # cat(paste0(" numpar = ", numpar, ",\n"))
+  #
+  # cat(paste0(" maxpar = ", maxpar, ",\n"))
+  #
+  # cat(paste0(" ichem = ", ichem, ",\n"))
+  #
+  # cat(paste0(" krand = ", krand, ",\n"))
+  #
+  # cat(paste0(" ivmax = ", ivmax, ",\n"))
+  #
+  # cat(" varsiwant=")
+  #
+  # cat(sQuote(varsiwant, q = ""), sep = ",")
+  #
+  # cat(",\n")
+  #
+  # cat(paste0(" outdt = ", outdt, ",\n"))
+  #
+  # if(!missing(extra_params)) {
+  #
+  #   for(i in seq_along(extra_params)) {
+  #     cat(paste0(" ",
+  #         eval(parse(text = extra_params[i])),
+  #         " = ",
+  #         extra_params[i],
+  #         ",\n"))
+  #   }
+  # }
+  # cat(" /\n")
+  #
+  # sink()
+  # }
 
 }
 
