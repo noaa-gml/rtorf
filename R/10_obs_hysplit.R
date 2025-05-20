@@ -438,8 +438,13 @@ obs_hysplit_control <- function(df,
 #' @export
 #' @examples {
 #' # Do not run
+#' # default
 #' setup_file <- tempfile()
 #' obs_hysplit_setup(setup = setup_file)
+#' cat(readLines(setup_file),sep =  "\n")
+#' # bypass
+#' setup_file <- tempfile()
+#' obs_hysplit_setup(bypass_params = c(lala = 1), setup = setup_file)
 #' cat(readLines(setup_file),sep =  "\n")
 #' }
 #
@@ -475,7 +480,7 @@ obs_hysplit_setup <- function(idsp = 2,
     for(i in seq_along(bypass_params)) {
 
       bp <- paste0(" ",
-                   eval(parse(text = bypass_params[i])),
+                   names(bypass_params)[i],
                    " = ",
                    bypass_params[i],
                    ",")

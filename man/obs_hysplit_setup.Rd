@@ -125,8 +125,13 @@ both density and varying layer depth. Two text files of particle position
 \examples{
 {
 # Do not run
+# default
 setup_file <- tempfile()
 obs_hysplit_setup(setup = setup_file)
+cat(readLines(setup_file),sep =  "\n")
+# bypass
+setup_file <- tempfile()
+obs_hysplit_setup(bypass_params = c(lala = 1), setup = setup_file)
 cat(readLines(setup_file),sep =  "\n")
 }
 }
