@@ -1,7 +1,6 @@
 ---
 # Example from https://joss.readthedocs.io/en/latest/submitting.html
-title: "R Tools for ObsPack, Receptors and Footprints (rtorf) for processing atmospheric observations in NOAA-GML
-' ObsPack"
+title: "R Tools for Observations, Receptors and Footprints (rtorf) for processing atmospheric observations in NOAA-GML"
 tags:
   - R
   - GHG
@@ -20,8 +19,8 @@ affiliations:
  - name: NOAA Global Monitoring Laboratory
    index: 2
 citation_author: Ibarra-Espinosa and Hu
-date: 26 August 2024
-year: 2024
+date: 21 May 2025
+year: 2025
 bibliography: mybibfile.bib
 output: rticles::joss_article
 csl: apa.csl
@@ -39,7 +38,7 @@ creating a catalog of  all ObsPack files in each product. It then
 reads all files and creates one database. While reading each ObsPack 
 file, it extracts site elevation and time zone information from the 
 file header and calculates sampling altitude in meters above ground 
-level and local time for individual samping events. Finally, it 
+level and local time for individual events. Finally, it 
 processes and selects observations for inverse modeling purposes. 
 This package imports functions from data.table R package, which 
 contains C bindings with parallel implementation via Open-MP 
@@ -66,7 +65,7 @@ Hence, in the 26 version of COP conference
 [@hunter2021glasgow], it was 
 signed the Global Methane Pledge aiming reduce at least 
 methane emissions 30\% from 2020 levels by 2030, with
-U.S. as one of the parties [@wh]. Therefore, monitoring $CH_4$ observations,
+U.S. as one of the initial parties [@wh]. Therefore, monitoring $CH_4$ observations,
 emissions and sinks has become critical. NOAA 
 ObsPack data has been used to 
 support many studies. For instance, 
@@ -77,7 +76,7 @@ in agreement with other studies
 between 2014 and 2017, including a comparison with Greenhouse gases 
 Observing SATellite (GOSAT) data. 
 @saunois2016global.
-At regional scale, @lu2022methane performed another studied focused
+At regional scale, @lu2022methane and @lei performed another studied focused
 on north america using as priors local emissions inventories. 
 
 <!-- 2. Importance of greenhouse gases observations -->
@@ -85,7 +84,7 @@ on north america using as priors local emissions inventories.
 
 The National Oceanic and Atmospheric Administration (NOAA) and its
 Global Monitoring Laboratory (GML) has the mission of acquire,
-evaluate and make available long-term records of atmospheric gases[^2].
+evaluate and make available long-term records of atmospheric gases[^1].
 To achieve that goal, GML gather own and other laboratories
 data, releasing observation in a compendium named ObsPack
 [@masarie2014obspack]. Specifically, the $CH_4$ ObsPack GLOBALVIEW+
@@ -119,8 +118,6 @@ summary of the ObsPack files, reading them in an iteration process,
 filtering, and generating another output and plots.
 
 
-
-
 # Installation
 
 To install `rtorf`, the user must have installed the R package 
@@ -130,13 +127,13 @@ package with more than 7000 color palettes, and `lubridate`, a package
 to manage time and dates [@lu;@cpt]. Then, we call the libraries
 to load the function into the environment. `rtorf` is hosted at GitHub,
 which allows the implementation of checking the package installation in a 
-variety OS.
+variety OS. To have a general view of rtorf, the reader can view the 
+online diagram of the package[^2].
 
 
 
 ``` r
 remotes::install_github("noaa-gml/rtorf")
-library(rtorf)
 ```
 
 
@@ -164,18 +161,11 @@ is `TRUE`, print the file being read in each iteration, default is `FALSE`.
 ``` r
 library(rtorf)
 library(data.table)
-cate = c("aircraft-pfp",
-         "aircraft-insitu",
-         "aircraft-flask",
-         "surface-insitu",
-         "surface-flask", 
-         "surface-pfp",   
-         "tower-insitu",  
-         "aircore",       
-         "shipboard-insitu",
-         "shipboard-flask") 
+cate = c("aircraft-pfp","aircraft-insitu", "aircraft-flask", 
+         "surface-insitu", "surface-flask", "surface-pfp", "tower-insitu", 
+         "aircore", "shipboard-insitu","shipboard-flask") 
 
-obs <- "Z:/torf/obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08/data/nc/"
+obs <- "Z:/obspack/obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08/data/nc/"
 index <- obs_summary(obs = obs, 
                      categories = cate)
 ```
@@ -214,11 +204,8 @@ to `TRUE`, to see the name of the files being read.
 
 ``` r
 datasetid <- "aircraft-insitu"
-df <- obs_read_nc(index = index,
-                  categories = datasetid,
-                  att = FALSE,
-                  solar_time = FALSE,
-                  verbose = TRUE)
+df <- obs_read_nc(index = index, categories = datasetid,
+                  att = FALSE, solar_time = FALSE, verbose = TRUE)
 ```
 
 ```
@@ -247,22 +234,21 @@ Furthermore, the size of `data.table` is 1.4 Gb.
 The data includes observations between 2003 and 
 2021. Now we can define some parameters to filter our data,
 like the year 2020 and spatially data below 8000 meters above sea level (masl) and
-focused over north America.
+focused over north America. Nevertheless, it can be modified to any region.
 
 
 ``` r
-df <- df[year == 2020 &
-           altitude_final < 8000 &
-           latitude < 80 &
-           latitude > 10 &
-           longitude < -50 &
-           longitude > -170]
+df <- df[year == 2020 & altitude_final < 8000 & latitude < 80 &
+           latitude > 10 & longitude < -50 & longitude > -170]
 ```
 
 
 Now we have a `data.table` that contains 59 columns and 
 236 observations. The size of `data.table` is 
-0 Gb. We can add a column
+0 Gb. Sometimes the data can be alaready
+filtered every 20 seconds or for a different period of time.
+However, raw data can be availalb ein a second-by-second basis. 
+Under this case we may need to aggregate datah. In this example, we can add a column
 of time in format "POSIXct" and cut the seconds every 20 seconds.
 Usually, aircraft observations every 1 second. Then,
 We can simplify the data by calculating averages every 20 seconds.
@@ -285,12 +271,8 @@ df <- obs_addtime(df)
 ``` r
 df$sec2 <- obs_freq(x = df$second,
                     freq = seq(0, 59, 20))
-df$key_time <- ISOdatetime(year = df$year,
-                           month = df$month,
-                           day = df$day,
-                           hour = df$hour,
-                           min = df$minute,
-                           sec = df$sec2,
+df$key_time <- ISOdatetime(year = df$year, month = df$month, day = df$day,
+                           hour = df$hour, min = df$minute, sec = df$sec2,
                            tz = "UTC")
 df[1, c("timeUTC", "key_time")]
 ```
@@ -308,10 +290,11 @@ function `obs_addltime` and we re order the data.table.
 
 ``` r
 df2 <- obs_agg(df, 
-               cols =  c("year", "month", "day", "hour", "minute", "second",
-                         "time", "time_decimal",  "value",
+               cols =  c("year", "month", "day", "hour", "minute",
+                         "second", "time", "time_decimal",  "value",
                          "latitude", "longitude", "altitude_final",
-                         "pressure", "u", "v", "temperature", "type_altitude"))
+                         "pressure", "u", "v", "temperature",
+                         "type_altitude"))
 ```
 
 ```
@@ -328,12 +311,13 @@ setorderv(df3, cols = c("site_code", "timeUTC"),
 
 Identifying the local time is important for atmospheric reasons. Sometimes
 we need observations when the Planetary Boundary Layer is high,
-so that the concentrations are well distributed, generaly 
-around 2:00pm. In `rtorf` we use an hierarchical approach
+so that the concentrations are well distributed, in genera 
+around 2:00pm, when planetary boundary layer is higher. 
+In `rtorf` we use an hierarchical approach
 based on the availability of critical information.
 Basically, if the solar time array is available, we use
-the functon `obs_addstime`. In the begative case
-`rtorf` searches for the metadata `site_utc2lst` ot convert
+the function `obs_addstime`. In the negative case
+`rtorf` searches for the metadata `site_utc2lst` to convert
 UTC time to local. Finally, in the absence of the mentioned data,
 we calculate an approximation of the local time
 using the geographical coordinates, as :
@@ -348,27 +332,19 @@ $longitude$ the coordinate.
 ## Plots
 
 Now we have the data processed and ready to be exported. `rtorf` includes 
-a number of functions to save the data as takbulated format in text, csv and 
-CSVY[^1] are csv files with a YAML header. This funcitons can be seen in the documentation.
+a number of functions to save the data as tabulated format in text, csv and 
+CSVY[^3] are csv files with a YAML header. This functions can be seen in the documentation.
 In this last part of the manuscript we will show some visualizations. We included
 a function named `obs_plot` which plots data in long format using R base functions.
-Here we see data for the month of March 2020. This usefull function allows to plot several
+Here we see data for the month of March 2020. This useful function allows to plot several
 sites and prints the x-axis range.
 
 
 ``` r
-obs_plot(df3[month == 3], time = "timeUTC", yfactor = 1e9, type = "b",
-         xlab = "UTC time", ylab = expression(CH[4]~ppb))
+obs_plot(df3[month == 3], time = "timeUTC", yfactor = 1e9, 
+         type = "b", xlab = "UTC time", ylab = expression(CH[4]~ppb))
 ```
 
-```
-## Found the following sites: 
-## [1] IAGOS
-## Plotting the following sites: 
-## [1] IAGOS
-```
-
-![](paper_files/figure-latex/unnamed-chunk-6-1.pdf)<!-- --> 
 Finally, we show some vertical profiles for the months of January and March of 2020.
 We can see how during March of 2020 methane concentrations are lower than
 January. This may be due the implementation of Lockdowns [@espinosa2023covid].
@@ -379,36 +355,43 @@ will be submitted soon.
 ``` r
 x <- df3
 x$ch4 <- x$value*1e+9
-obs_plot(x, 
-         time = "ch4", 
-         y = "altitude_final", 
-         colu = "month", 
-         type = "b", 
-         xlab = expression(CH[4]~ppb), 
-         ylab = "altitude (m)")
+obs_plot(x, time = "ch4",  y = "altitude_final",  colu = "month", 
+         type = "b",  xlab = expression(CH[4]~ppb),  ylab = "altitude (m)")
 ```
 
-```
-## Found the following sites: 
-## [1] 1 3
-## Plotting the following sites: 
-## [1] 1 3
-```
 
-![](paper_files/figure-latex/unnamed-chunk-7-1.pdf)<!-- --> 
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{paper_files/obsplot_ts} \includegraphics[width=0.9\linewidth]{paper_files/obsplot_alt} 
+
+}
+
+\caption{a) Time series, b) Monthly observations by altitude}\label{fig:unnamed-chunk-7}
+\end{figure}
+
+# HYSPLIT
+
+`rtorf` also provides functions to run HYSPLIT (Hybrid Single-Particle Lagrangian Integrated Trajectory) model [@stein2015noaa], through `obs_hysplit_control`, `obs_hysplit_ascdata`
+and `obs_hysplit_setup`. These function were designed to be used inside programs
+and run using `rslurm` for parallel processing[^4]. This capability is particularly valuable for in-depth analysis of atmospheric observations, helping to interpret measurement data in the context of air mass histories and contributing to more robust emission quantifications and atmospheric model evaluations.
 
 ## Future work
 
-We are currently porting `rtorf` to python into a package named `pytorf`
-with the same functionalities. Furthermore, we expect to implement
-WebAsembly with Web-R[^2] in R and Python to run `rtorf` on the browser [@webr].
+We are currently porting `rtorf` to python into a package named `pytorf`[^5].
 
-[^1]: https://csvy.org/
-[^2]: https://docs.r-wasm.org/webr/latest/
+[^1]: https://gml.noaa.gov/
+[^2]: https://gitdiagram.com/noaa-gml/rtorfml
+[^3]: https://csvy.org/
+[^4]: https://noaa-gml.github.io/rtorf/articles/hysplit.ht
+[^5]: https://github.com/noaa-gml/pytorf
 
 # Acknowledgements
 
-This project is funded by the NOAA Climate Program Office AC4 and COM programs (NA21OAR4310233 / NA21OAR4310234). This research was supported by NOAA cooperative agreement NA22OAR4320151. Also, thanks to Arlyn Andrews, 
-John Miller, Kenneth Schuldt, Kirk Thoning and Andy Jacobson from NOAA GML.
+This project is funded by the NOAA Climate Program Office AC4 and COM programs (NA21OAR4310233 / NA21OAR4310234). This research was supported by NOAA cooperative agreement NA22OAR4320151. Also, thanks to Arlyn Andrews, John Miller, Kenneth Schuldt, Kirk Thoning and Andy Jacobson from NOAA GML.
+
+
+
+
+
 
 # References

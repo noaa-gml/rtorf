@@ -138,6 +138,7 @@ obs_hysplit_control <- function(df,
     dy <- day
     ho <- hour
     mi <- minute
+    agl <- alt
 
   }
 

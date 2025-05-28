@@ -2,6 +2,11 @@ NEWS
 ===========
 
 
+### rtorf 1.5.1 (Release date: 2025-05-28)
+
+- fix obs_hysplit_control when use time params instead of df. I needed
+to declare agl
+
 ### rtorf 1.5.0 (Release date: 2025-05-20)
 
 - Change way obs_hysplit_setup writes. NOw instead of cat,
