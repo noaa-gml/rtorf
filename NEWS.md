@@ -2,6 +2,11 @@ NEWS
 ===========
 
 
+### rtorf 1.5.2 (Release date: 2025-06-02)
+
+- check for names in df for obs_hysplit_control
+- Add option to return time columns in obs_add_time and obs_add_ltime
+
 ### rtorf 1.5.1 (Release date: 2025-05-28)
 
 - fix obs_hysplit_control when use time params instead of df. I needed

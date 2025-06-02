@@ -111,6 +111,17 @@ obs_hysplit_control <- function(df,
                                 pol_res = 0,
                                 control = "CONTROL"){
   if(!missing(df)) {
+    if(!"latitude" %in% names(df) ||
+       !"longitude" %in% names(df) ||
+       !"altitude" %in% names(df) ||
+       !"year" %in% names(df) ||
+       !"month" %in% names(df) ||
+       !"day" %in% names(df) ||
+       !"hour" %in% names(df) ||
+       !"minute" %in% names(df)) {
+      stop("Data frame must contain 'latitude', 'longitude', 'altitude',
+           'year', 'month', 'day', 'hour', and 'minute' columns.")
+    }
     # lat lon height
     lat <- df$latitude
     lon <- df$longitude

@@ -9,7 +9,8 @@ obs_addltime(
   timeUTC = "timeUTC",
   utc2lt = "site_utc2lst",
   longitude = "longitude",
-  tz = "UTC"
+  tz = "UTC",
+  timeonly = FALSE
 )
 }
 \arguments{
@@ -23,6 +24,8 @@ if available}
 \item{longitude}{Character indicating the column with the lingitude}
 
 \item{tz}{Timezone, default "UTC"}
+
+\item{timeonly}{return only local_time column}
 }
 \value{
 data.table with local time columns

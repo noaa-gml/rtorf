@@ -6,8 +6,9 @@
 #'
 #' @family time
 #' @param dt obspack data.table
-#' @param verbose obspack data.table
+#' @param verbose Logical, to show more info
 #' @param tz Timezone, default "UTC"
+#' @param timeonly return only timeUTC column
 #' @return A data.frame with with an index obspack.
 #' @importFrom data.table year month hour minute second setDT fifelse uniqueN
 #' @note timeUTC is calculated based on the field column start_time,
@@ -26,7 +27,8 @@
 #' }
 obs_addtime <- function(dt,
                         verbose = TRUE,
-                        tz = "UTC"){
+                        tz = "UTC",
+                        timeonly = FALSE){
 
   if(!inherits(dt, "data.table")) data.table::setDT(dt)
 
@@ -85,8 +87,7 @@ obs_addtime <- function(dt,
   # dt$new_second <- ifelse(dt$new_second == 60,
   # 0,
   # dt$new_second)
-
-  return(dt)
+if(timeonly) return(dt$timeUTC) else  return(dt)
 }
 
 
@@ -101,6 +102,7 @@ obs_addtime <- function(dt,
 #' if available
 #' @param longitude Character indicating the column with the lingitude
 #' @param tz Timezone, default "UTC"
+#' @param timeonly return only local_time column
 #' @importFrom data.table hour
 #' @return data.table with local time columns
 #' @note time depending n longitude is by John Miller (GML/NOAA)
@@ -114,7 +116,8 @@ obs_addltime <- function(dt,
                          timeUTC = "timeUTC",
                          utc2lt = "site_utc2lst",
                          longitude = "longitude",
-                         tz = "UTC") {
+                         tz = "UTC",
+                         timeonly = FALSE) {
 
   # Priority site_utc2lst and if it is not available,
   if(any(utc2lt == names(dt))) {
@@ -137,7 +140,9 @@ obs_addltime <- function(dt,
   }
 
   dt$lh <- data.table::hour(dt$local_time)
-  return(dt)
+
+  if(timeonly) return(dt$local_time) else  return(dt)
+
 }
 
 #' @title Add solar time into obspack
