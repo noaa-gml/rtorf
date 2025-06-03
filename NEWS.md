@@ -6,6 +6,7 @@ NEWS
 
 - check for names in df for obs_hysplit_control
 - Add option to return time columns in obs_add_time and obs_add_ltime
+- check units
 
 ### rtorf 1.5.1 (Release date: 2025-05-28)
 
