@@ -18,10 +18,10 @@ obs_hysplit_control(
   duration = -240,
   vertical_motion = 5,
   top_model_domain = 20000,
-  met = c("nams", "gfs0p25", "era5"),
+  met = c("hrrr", "nams", "gfs0p25"),
   nmet = abs(duration/24) + 1,
-  metpath = c("/work/noaa/lpdm/metfiles/nams/", "/work/noaa/lpdm/metfiles/gfs0p25/",
-    "/work/noaa/lpdm/metfiles/era5/arl/"),
+  metpath = c("/work/noaa/lpdm/metfiles/hrrr/", "/work/noaa/lpdm/metfiles/nams/",
+    "/work/noaa/lpdm/metfiles/gfs0p25/"),
   ngases = 1,
   gas = "Foot",
   emissions_rate = 0,
@@ -88,7 +88,13 @@ velocities when mapped from quasi-horizontal surfaces (such as relative
 \item{met}{meteorological models to be used.}
 
 \item{nmet}{Number of days for the meteorological files. Default is
-number of days in duration plus two days}
+number of days in duration plus two days.
+nmet is the number of simultaneous input meteorological files. For instance,
+11 means that for each meteorological grid, 11 files are expected. Usually,
+the files are daily. Note that the same number of files are required for
+each grid in this approach. Hysplit expects something like 2 11,
+which means 2 meteorological grids with 11 files each. The number
+2 comes from the length of met files.}
 
 \item{metpath}{paths for each meteorological model output.}
 

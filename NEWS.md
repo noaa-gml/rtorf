@@ -2,11 +2,16 @@ NEWS
 ===========
 
 
+### rtorf 1.6.0 (Release date: 2025-06-04)
+
+- Add support for High-Resolution Rapid Refresh (HRRR)daily files.
+( all met files must be daily).
+changed expected ERA5 file: ERA5_%Y%m%d.ARL
+
 ### rtorf 1.5.2 (Release date: 2025-06-02)
 
 - check for names in df for obs_hysplit_control
 - Add option to return time columns in obs_add_time and obs_add_ltime
-- check units
 
 ### rtorf 1.5.1 (Release date: 2025-05-28)
 
@@ -15,7 +20,7 @@ to declare agl
 
 ### rtorf 1.5.0 (Release date: 2025-05-20)
 
-- Change way obs_hysplit_setup writes. NOw instead of cat,
+- Change way obs_hysplit_setup writes. Now instead of cat,
 uses write. obs_hysplit_ascdata and obs_hysplit_control still use cat.
 
 ### rtorf 1.4.0 (Release date: 2025-04-28)
