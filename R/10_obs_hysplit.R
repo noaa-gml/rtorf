@@ -38,6 +38,7 @@
 #' which means 2 meteorological grids with 11 files each. The number
 #' 2 comes from the length of met files.
 #' @param metpath paths for each meteorological model output.
+#' @param metformat format to applied to the meteorological daily file
 #' @param ngases Default 1.
 #' @param gas default "Foot".
 #' @param emissions_rate Default 0
@@ -88,12 +89,16 @@ obs_hysplit_control <- function(df,
                                 nlocations = 1,
                                 duration = -240,
                                 vertical_motion = 5,
-                                top_model_domain = 20000,
+                                top_model_domain = 10000,
                                 met = c("hrrr", "nams", "gfs0p25"),
                                 nmet =  abs(duration/24) + 1, # 10 days plus 1, defaultdays
                                 metpath = c("/work/noaa/lpdm/metfiles/hrrr/",
                                             "/work/noaa/lpdm/metfiles/nams/",
                                             "/work/noaa/lpdm/metfiles/gfs0p25/"),
+                                metformat = c(hrrr =  "%Y%m%d_hrrr",
+                                              nams = "%Y%m%d_hysplit.t00z.namsa",
+                                              gfs0p25 = "%Y%m%d_gfs0p25",
+                                              era5 = "ERA5_%Y%m%d.ARL"),
                                 ngases = 1,
                                 gas = "Foot",
                                 emissions_rate = 0,
@@ -228,10 +233,17 @@ obs_hysplit_control <- function(df,
 
   cat("\n")
 
+
+  if(is.null(names(metformat))) stop("metformat must be a named vector")
+
   for(j in seq_along(met)) {
     metx <- met[j]
 
-    if(metx == "nams") {
+    if(metx %in% c("nams",
+                   "gfs0p25",
+                   "hrrr",
+                   "era5")) {
+
       for(i in  1:nmet){
         hyd <- as.Date(hydate - i)
 
@@ -243,68 +255,14 @@ obs_hysplit_control <- function(df,
 
 
         cat(
-          paste0(strftime(hyd, format = "%Y%m%d"),
-                 "_hysplit.t00z.namsa"))
+          strftime(hyd,
+                   metformat[[metx]],
+                   tz = "UTC"))
         cat("\n")
 
       }
-    }
-
-    if(metx == "gfs0p25") {
-      for(i in  1:nmet){
-        hyd <- as.Date(hydate - i)
-
-        cat(
-          paste0(metpath[j],
-                 data.table::year(hyd),
-                 "/"))
-        cat("\n")
-
-
-        cat(
-          paste0(strftime(hyd, format = "%Y%m%d"),
-                 "_gfs0p25"))
-        cat("\n")
-
-      }
-    }
-
-    if(metx == "hrrr") {
-      for(i in  1:nmet){
-        hyd <- as.Date(hydate - i)
-
-        cat(
-          paste0(metpath[j],
-                 data.table::year(hyd),
-                 "/"))
-        cat("\n")
-
-
-        cat(
-          paste0(strftime(hyd, format = "%Y%m%d"),
-                 "_hrrr"))
-        cat("\n")
-
-      }
-    }
-
-    if(metx == "era5") {
-      for(i in  1:nmet){
-        hyd <- as.Date(hydate - i)
-
-        cat(
-          paste0(metpath[j],
-                 data.table::year(hyd),
-                 "/"))
-        cat("\n")
-
-
-        cat(
-          paste0(strftime(hyd, format = "ERA5_%Y%m%d"),
-                 ".ARL"))
-        cat("\n")
-
-      }
+    } else {
+      stop("met can be only nams, gfs0p25, hrrr, or era5")
     }
 
   }

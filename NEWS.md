@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### rtorf 1.6.1 (Release date: 2025-06-13)
+
+- metformat for obs_hysplit_control is argument.
+
 ### rtorf 1.6.0 (Release date: 2025-06-04)
 
 - Add support for High-Resolution Rapid Refresh (HRRR)daily files.

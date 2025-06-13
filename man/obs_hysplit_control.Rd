@@ -17,11 +17,13 @@ obs_hysplit_control(
   nlocations = 1,
   duration = -240,
   vertical_motion = 5,
-  top_model_domain = 20000,
+  top_model_domain = 10000,
   met = c("hrrr", "nams", "gfs0p25"),
   nmet = abs(duration/24) + 1,
   metpath = c("/work/noaa/lpdm/metfiles/hrrr/", "/work/noaa/lpdm/metfiles/nams/",
     "/work/noaa/lpdm/metfiles/gfs0p25/"),
+  metformat = c(hrrr = "\%Y\%m\%d_hrrr", nams = "\%Y\%m\%d_hysplit.t00z.namsa", gfs0p25 =
+    "\%Y\%m\%d_gfs0p25", era5 = "ERA5_\%Y\%m\%d.ARL"),
   ngases = 1,
   gas = "Foot",
   emissions_rate = 0,
@@ -97,6 +99,8 @@ which means 2 meteorological grids with 11 files each. The number
 2 comes from the length of met files.}
 
 \item{metpath}{paths for each meteorological model output.}
+
+\item{metformat}{format to applied to the meteorological daily file}
 
 \item{ngases}{Default 1.}
 
