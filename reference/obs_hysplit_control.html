@@ -9,7 +9,7 @@ It uses inputs from a data.frame with the receptor information."><meta property=
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.6.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,11 +69,13 @@ It uses inputs from a data.frame with the receptor information.</p>
 <span>  nlocations <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  duration <span class="op">=</span> <span class="op">-</span><span class="fl">240</span>,</span>
 <span>  vertical_motion <span class="op">=</span> <span class="fl">5</span>,</span>
-<span>  top_model_domain <span class="op">=</span> <span class="fl">20000</span>,</span>
+<span>  top_model_domain <span class="op">=</span> <span class="fl">10000</span>,</span>
 <span>  met <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"hrrr"</span>, <span class="st">"nams"</span>, <span class="st">"gfs0p25"</span><span class="op">)</span>,</span>
 <span>  nmet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">duration</span><span class="op">/</span><span class="fl">24</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span>,</span>
 <span>  metpath <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"/work/noaa/lpdm/metfiles/hrrr/"</span>, <span class="st">"/work/noaa/lpdm/metfiles/nams/"</span>,</span>
 <span>    <span class="st">"/work/noaa/lpdm/metfiles/gfs0p25/"</span><span class="op">)</span>,</span>
+<span>  metformat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>hrrr <span class="op">=</span> <span class="st">"%Y%m%d_hrrr"</span>, nams <span class="op">=</span> <span class="st">"%Y%m%d_hysplit.t00z.namsa"</span>, gfs0p25 <span class="op">=</span></span>
+<span>    <span class="st">"%Y%m%d_gfs0p25"</span>, era5 <span class="op">=</span> <span class="st">"ERA5_%Y%m%d.ARL"</span><span class="op">)</span>,</span>
 <span>  ngases <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  gas <span class="op">=</span> <span class="st">"Foot"</span>,</span>
 <span>  emissions_rate <span class="op">=</span> <span class="fl">0</span>,</span>
@@ -184,6 +186,10 @@ which means 2 meteorological grids with 11 files each. The number
 
 <dt id="arg-metpath">metpath<a class="anchor" aria-label="anchor" href="#arg-metpath"></a></dt>
 <dd><p>paths for each meteorological model output.</p></dd>
+
+
+<dt id="arg-metformat">metformat<a class="anchor" aria-label="anchor" href="#arg-metformat"></a></dt>
+<dd><p>format to applied to the meteorological daily file</p></dd>
 
 
 <dt id="arg-ngases">ngases<a class="anchor" aria-label="anchor" href="#arg-ngases"></a></dt>
@@ -308,7 +314,7 @@ continuous 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 34.4290 141.0370 5800.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -240</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20000.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10000.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> /work/noaa/lpdm/metfiles/hrrr/2011/</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20110216_hrrr</span>
