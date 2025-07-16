@@ -95,7 +95,8 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Do not run</span></span></span>
-<span class="r-in"><span><span class="va">nc_path</span> <span class="op">&lt;-</span> <span class="st">"Z:/footprints/aircraft/flask/2018/04/hysplit2018x04x08x15x15x38.7459Nx077.5584Wx00594.nc"</span></span></span>
+<span class="r-in"><span><span class="va">nc_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"Z:/footprints/aircraft/flask/2018/04"</span>,</span></span>
+<span class="r-in"><span><span class="st">"/hysplit2018x04x08x15x15x38.7459Nx077.5584Wx00594.nc"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="fu">obs_nc_get</span><span class="op">(</span>nc_path <span class="op">=</span> <span class="va">nc_path</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Error in R_nc4_open: No such file or directory</span>
