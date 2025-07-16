@@ -48,16 +48,16 @@ with custom dimensions, and attributes
 \examples{
 {
 # Do not run
-nc_path <- paste0("Z:/footprints/aircraft/flask/2018",
-"/04/hysplit2018x04x08x15x15x38.7459Nx077.5584Wx00594.nc")
-foot <- obs_nc_get(nc_path)
-nco <- paste0(tempfile(), "2.nc")
-file.remove(nco)
-obs_nc(nc_path = nc_path,
-       time_nc = ISOdatetime(2018, 4, 8, 15, 15, 38),
-       vars_out = c("a", "b"),
-       nc_out  = nco,
-       larrays = list(a = foot, b = foot),
-       verbose = TRUE)
+#nc_path <- paste0("Z:/footprints/aircraft/flask/2018",
+#"/04/hysplit2018x04x08x15x15x38.7459Nx077.5584Wx00594.nc")
+#foot <- obs_nc_get(nc_path)
+#nco <- paste0(tempfile(), "2.nc")
+#file.remove(nco)
+#obs_nc(nc_path = nc_path,
+#      time_nc = ISOdatetime(2018, 4, 8, 15, 15, 38),
+#      vars_out = c("a", "b"),
+#      nc_out  = nco,
+#      larrays = list(a = foot, b = foot),
+#      verbose = TRUE)
 }
 }
