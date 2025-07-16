@@ -38,6 +38,8 @@
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_julian.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_list.dt.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_meta.html</loc></url>
+<url><loc>https://noaa-gml.github.io/rtorf/reference/obs_nc.html</loc></url>
+<url><loc>https://noaa-gml.github.io/rtorf/reference/obs_nc_get.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_out.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_plot.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_rbind.html</loc></url>
