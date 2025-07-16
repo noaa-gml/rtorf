@@ -9,7 +9,7 @@ with custom dimensions, and attributes"><meta property="og:image" content="https
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,10 +57,8 @@ with custom dimensions, and attributes</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">obs_nc</span><span class="op">(</span></span>
-<span>  nc_path <span class="op">=</span> <span class="st">"AAA"</span>,</span>
-<span>  nc_name <span class="op">=</span> <span class="st">"foot1"</span>,</span>
-<span>  nc_lat <span class="op">=</span> <span class="st">"foot1lat"</span>,</span>
-<span>  nc_lon <span class="op">=</span> <span class="st">"foot1lon"</span>,</span>
+<span>  <span class="va">lat</span>,</span>
+<span>  <span class="va">lon</span>,</span>
 <span>  <span class="va">time_nc</span>,</span>
 <span>  vars_out <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"total"</span>, <span class="st">"bio"</span>, <span class="st">"ocn"</span>, <span class="st">"fossil"</span>, <span class="st">"fire"</span><span class="op">)</span>,</span>
 <span>  units_out <span class="op">=</span> <span class="st">"(ppb/nanomol m-2 s-1)*nanomol m-2 s-1"</span>,</span>
@@ -74,24 +72,16 @@ with custom dimensions, and attributes</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-nc-path">nc_path<a class="anchor" aria-label="anchor" href="#arg-nc-path"></a></dt>
-<dd><p>String pointing to the target NetCDF</p></dd>
+<dl><dt id="arg-lat">lat<a class="anchor" aria-label="anchor" href="#arg-lat"></a></dt>
+<dd><p>lats array</p></dd>
 
 
-<dt id="arg-nc-name">nc_name<a class="anchor" aria-label="anchor" href="#arg-nc-name"></a></dt>
-<dd><p>String indicating the spatial array</p></dd>
-
-
-<dt id="arg-nc-lat">nc_lat<a class="anchor" aria-label="anchor" href="#arg-nc-lat"></a></dt>
-<dd><p>String to extract latitude.</p></dd>
-
-
-<dt id="arg-nc-lon">nc_lon<a class="anchor" aria-label="anchor" href="#arg-nc-lon"></a></dt>
-<dd><p>String to extract longitude</p></dd>
+<dt id="arg-lon">lon<a class="anchor" aria-label="anchor" href="#arg-lon"></a></dt>
+<dd><p>longs arrau</p></dd>
 
 
 <dt id="arg-time-nc">time_nc<a class="anchor" aria-label="anchor" href="#arg-time-nc"></a></dt>
-<dd><p>Time of the NetCDF (length 1).</p></dd>
+<dd><p>Times.</p></dd>
 
 
 <dt id="arg-vars-out">vars_out<a class="anchor" aria-label="anchor" href="#arg-vars-out"></a></dt>
@@ -123,17 +113,18 @@ with custom dimensions, and attributes</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Do not run</span></span></span>
-<span class="r-in"><span><span class="co">#nc_path &lt;- paste0("Z:/footprints/aircraft/flask/2018",</span></span></span>
-<span class="r-in"><span><span class="co">#"/04/hysplit2018x04x08x15x15x38.7459Nx077.5584Wx00594.nc")</span></span></span>
-<span class="r-in"><span><span class="co">#foot &lt;- obs_nc_get(nc_path)</span></span></span>
-<span class="r-in"><span><span class="co">#nco &lt;- paste0(tempfile(), "2.nc")</span></span></span>
-<span class="r-in"><span><span class="co">#file.remove(nco)</span></span></span>
-<span class="r-in"><span><span class="co">#obs_nc(nc_path = nc_path,</span></span></span>
-<span class="r-in"><span><span class="co">#      time_nc = ISOdatetime(2018, 4, 8, 15, 15, 38),</span></span></span>
-<span class="r-in"><span><span class="co">#      vars_out = c("a", "b"),</span></span></span>
-<span class="r-in"><span><span class="co">#      nc_out  = nco,</span></span></span>
-<span class="r-in"><span><span class="co">#      larrays = list(a = foot, b = foot),</span></span></span>
-<span class="r-in"><span><span class="co">#      verbose = TRUE)</span></span></span>
+<span class="r-in"><span><span class="co"># nc_path &lt;- paste0("Z:/footprints/aircraft/flask/2018",</span></span></span>
+<span class="r-in"><span><span class="co"># "/04/hysplit2018x04x08x15x15x38.7459Nx077.5584Wx00594.nc")</span></span></span>
+<span class="r-in"><span><span class="co"># foot &lt;- obs_nc_get(nc_path, all = TRUE)</span></span></span>
+<span class="r-in"><span><span class="co"># nco &lt;- paste0(tempfile(), "2.nc")</span></span></span>
+<span class="r-in"><span><span class="co"># file.remove(nco)</span></span></span>
+<span class="r-in"><span><span class="co"># obs_nc(lat = foot$lat,</span></span></span>
+<span class="r-in"><span><span class="co">#        lon = foot$lon,</span></span></span>
+<span class="r-in"><span><span class="co">#        time_nc = ISOdatetime(2018, 4, 8, 15, 15, 38),</span></span></span>
+<span class="r-in"><span><span class="co">#        vars_out = c("a", "b"),</span></span></span>
+<span class="r-in"><span><span class="co">#        nc_out  = nco,</span></span></span>
+<span class="r-in"><span><span class="co">#        larrays = list(a = foot, b = foot),</span></span></span>
+<span class="r-in"><span><span class="co">#        verbose = TRUE)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> NULL</span>
 </code></pre></div>
