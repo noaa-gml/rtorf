@@ -9,7 +9,8 @@ obs_nc_get(
   nc_name = "foot1",
   nc_lat = "foot1lat",
   nc_lon = "foot1lon",
-  verbose = FALSE
+  verbose = FALSE,
+  all = FALSE
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ obs_nc_get(
 \item{nc_lon}{String to extract longitude}
 
 \item{verbose}{Logical, to display more information.}
+
+\item{all}{Logical, if TRUE, return list of array, lon and lats}
 }
 \value{
 A NetCDF file with the custom attributes and units
