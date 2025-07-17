@@ -9,14 +9,14 @@
 #' @param flat name of lats
 #' @param time_foot Time of the footprints (in the name file) or third dimension
 #' @param flux String, default NOAA "CTCO2". Implies bio, ocn, fossil, fire.
-#' @param df_flux data.table with columns f (full path) and nf file name '%Y%m%d.nc'
-#' # main assumption is that fluxes have same spatial dimensions as footprints
-#' @param flux_format string with date format '%Y%m%d.nc'
+#' @param df_flux data.table with columns f (full path) and nf file name 'Ymd.nc'
+#' @param flux_format string with date format 'Ymd.nc'
 #' @param factor number to multiply fluxes.
 #' @param fn string with function to aggregate convolved fluxes, e.g. `mean`, `sum`, `max`, etc.
 #' @param nc_out String of the output NetCDF file name.
 #' @param units_out String for the units of the output NetCDF file.
 #' @param verbose Logical, to display more information
+#' @note main assumption is that fluxes have same spatial dimensions as footprints
 #' @export
 #' @import ncdf4 data.table
 #' @examples {
@@ -103,7 +103,7 @@ obs_convolve <- function(foot_path = "AAA",
                       dim(foot)[3]) # 240
   )
 
-
+  seq_time_start <- time_start <- nf <- hr <- NULL
   df_times_foot[, seq_time_start :=  seq.POSIXt(time_start[1],
                                                 length.out = dim(foot)[3],
                                                 by = "1 hour")]

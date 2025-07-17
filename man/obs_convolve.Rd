@@ -33,10 +33,9 @@ obs_convolve(
 
 \item{flux}{String, default NOAA "CTCO2". Implies bio, ocn, fossil, fire.}
 
-\item{df_flux}{data.table with columns f (full path) and nf file name '%Y%m%d.nc'
-# main assumption is that fluxes have same spatial dimensions as footprints}
+\item{df_flux}{data.table with columns f (full path) and nf file name 'Ymd.nc'}
 
-\item{flux_format}{string with date format '%Y%m%d.nc'}
+\item{flux_format}{string with date format 'Ymd.nc'}
 
 \item{factor}{number to multiply fluxes.}
 
@@ -51,6 +50,9 @@ obs_convolve(
 \description{
 This function creates a CONTROL file for HYSPLIT model.
 It uses inputs from a data.frame with the receptor information.
+}
+\note{
+main assumption is that fluxes have same spatial dimensions as footprints
 }
 \examples{
 {
