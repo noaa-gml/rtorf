@@ -89,7 +89,17 @@ obs_convolve <- function(foot_path = "AAA",
   seq_time_start <- time_start <- nf <- hr <- NULL
   df_times_foot[, seq_time_start :=  seq.POSIXt(time_start[1],
                                                 length.out = dim(foot)[3],
-                                                by = "1 hour")]
+                                                by = "-1 hour")]
+  # first time is the footprint time, ;last time, 240 hours in the past.
+
+  if(verbose){
+    cat("footprints, from ",
+        strftime(df_times_foot$seq_time_start[1],
+                 format = "%Y-%m-%d %H:%M:%S"),
+        " to ",
+        strftime(df_times_foot$seq_time_start[dim(foot)[3]],
+                 format = "%Y-%m-%d %H:%M:%S"), "\n")
+  }
 
   dim_names <- list(
     paste0("lon_", sprintf("%02d", 1:dim(foot)[1])),

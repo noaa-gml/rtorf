@@ -27,7 +27,7 @@ obs_nc_get(
 \item{all}{Logical, if TRUE, return list of array, lon and lats}
 }
 \value{
-A NetCDF file with the custom attributes and units
+Array of convolved footprints, or lis tof convolved fluxes and lat lon
 }
 \description{
 Reads NetCDF var and returns the spatial array

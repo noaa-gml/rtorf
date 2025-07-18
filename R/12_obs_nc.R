@@ -126,7 +126,7 @@ obs_nc <- function(lat,
 #' @param nc_lon String to extract longitude
 #' @param verbose Logical, to display more information.
 #' @param all Logical, if TRUE, return list of array, lon and lats
-#' @return A NetCDF file with the custom attributes and units
+#' @return Array of convolved footprints, or lis tof convolved fluxes and lat lon
 #' @export
 #' @examples {
 #' # Do not run
