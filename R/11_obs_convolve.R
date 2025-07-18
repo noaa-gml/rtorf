@@ -146,12 +146,11 @@ obs_convolve <- function(foot_path = "AAA",
       dx_f <- df_flux[nf == strftime(df_times_foot$seq_time_start,
                                      format = flux_format)[j]]
 
-      if(verbose) cat(paste0("Reading ",
-                             dx_f$f[j],
-                             "\n"))
 
       # flux
       f <- dx_f$f
+
+      if(verbose) cat(paste0("Reading ", f[j], "\n"))
 
       nc_f <- ncdf4::nc_open(f)
 
