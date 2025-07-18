@@ -150,7 +150,7 @@ obs_convolve <- function(foot_path = "AAA",
       # flux
       f <- dx_f$f
 
-      if(verbose) cat(paste0("Reading ", f[j], "\n"))
+      if(verbose) cat(paste0("Reading ", f, "\n"))
 
       nc_f <- ncdf4::nc_open(f)
 
