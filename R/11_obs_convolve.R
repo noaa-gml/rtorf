@@ -82,7 +82,7 @@ obs_convolve <- function(foot_path = "AAA",
   # footprint times
 
   df_times_foot <- data.table::data.table(
-    time_start  = rep(time_foot - (dim(foot)[3])*3600,
+    time_start  = rep(time_foot,
                       dim(foot)[3]) # 240
   )
 
