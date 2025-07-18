@@ -52,11 +52,11 @@ obs_nc <- function(lat,
 
   if(missing(time_nc)) stop("Missing time_nc")
 
-  lonnc <- ncdf4::ncdim_def( "longitude",
+  latnc <- ncdf4::ncdim_def( "longitude",
                            "degreesE",
                            as.double(lat))
 
-  latnc <- ncdf4::ncdim_def( "latitude",
+  lonnc <- ncdf4::ncdim_def( "latitude",
                            "degreesN",
                            as.double(lon))
 
