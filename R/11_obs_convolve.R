@@ -151,8 +151,6 @@ obs_convolve <- function(foot_path = "AAA",
                                       format = flux_format)[j],
                              "\n"))
 
-      if(verbose) cat(paste0("Reading ", dx_f$f, "\n"))
-
       # flux
       f <- dx_f$f
 

@@ -80,6 +80,8 @@ obs_nc <- function(lat,
 
   names(lv) <- vars_out
 
+  if(verbose) cat("Writting: ", nc_out, "\n")
+
   a <- ncdf4::nc_create(nc_out,
                         vars = lv,
                         force_v4 = TRUE,
