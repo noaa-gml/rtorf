@@ -204,6 +204,7 @@ obs_convolve <- function(foot_path = "AAA",
 
     }
 
+
     if(!as_list)  {
       simplify2array(list(
         conv_total = conv_total,
@@ -221,10 +222,11 @@ obs_convolve <- function(foot_path = "AAA",
         conv_fossil = conv_fossil,
         conv_fire = conv_fire,
         lat = foot1lat,
-        lon = foot1lon
+        lon = foot1lon,
+        time = if(!missing(fn)) time_foot else df_times_foot$seq_time_start
       ))
 
     }
 
-}
+  }
 }
