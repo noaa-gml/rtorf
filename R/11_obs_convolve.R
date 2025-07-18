@@ -1,7 +1,6 @@
 #' obs_convolve
 #'
-#' This function creates a CONTROL file for HYSPLIT model.
-#' It uses inputs from a data.frame with the receptor information.
+#' This function returns a arrays (or list of arrays) of convolved footpritns with flux
 #'
 #' @param foot_path path for footprint (length 1).
 #' @param name_foot name of the footprint variable in the NetCDF file.
@@ -13,8 +12,7 @@
 #' @param flux_format string with date format 'Ymd.nc'
 #' @param factor number to multiply fluxes.
 #' @param fn string with function to aggregate convolved fluxes, e.g. `mean`, `sum`, `max`, etc.
-#' @param nc_out String of the output NetCDF file name.
-#' @param units_out String for the units of the output NetCDF file.
+#' @param as_list Logical, to retunr list of arrays instead of writting to NetCDF
 #' @param verbose Logical, to display more information
 #' @note main assumption is that fluxes have same spatial dimensions as footprints
 #' @export
@@ -32,8 +30,7 @@ obs_convolve <- function(foot_path = "AAA",
                          flux_format = "%Y%m%d.nc",
                          factor = 1e9,
                          fn = NULL,
-                         nc_out,
-                         units_out =  "(ppb/nanomol m-2 s-1)*nanomol m-2 s-1",
+                         as_list = FALSE,
                          verbose = TRUE){
 
   # footprint information
@@ -77,8 +74,8 @@ obs_convolve <- function(foot_path = "AAA",
   }
 
 
-    foot1lat <- ncdf4::ncvar_get(nc, flat)
-    foot1lon <- ncdf4::ncvar_get(nc, flon)
+  foot1lat <- ncdf4::ncvar_get(nc, flat)
+  foot1lon <- ncdf4::ncvar_get(nc, flon)
 
   ncdf4::nc_close(nc)
 
@@ -154,25 +151,25 @@ obs_convolve <- function(foot_path = "AAA",
 
       # bio
       flux_bio <- ncdf4::ncvar_get(nc_f, paste0("bio_flux_opt_",
-                                                  df_times_foot$hr[j]))*factor
+                                                df_times_foot$hr[j]))*factor
 
       conv_bio[,, j] <- foot[,, j]*flux_bio
 
       # ocn
       flux_ocn <- ncdf4::ncvar_get(nc_f, paste0("ocn_flux_opt_",
-                                                  df_times_foot$hr[j]))*factor
+                                                df_times_foot$hr[j]))*factor
 
       conv_ocn[,, j] <- foot[,, j]*flux_ocn
 
       # fossil
       flux_fossil <- ncdf4::ncvar_get(nc_f, paste0("fossil_flux_imp_",
-                                                     df_times_foot$hr[j]))*factor
+                                                   df_times_foot$hr[j]))*factor
 
       conv_fossil[,, j] <- foot[,, j]*flux_fossil
 
       # bio
       flux_fire <- ncdf4::ncvar_get(nc_f, paste0("fire_flux_imp_",
-                                                   df_times_foot$hr[j]))*factor
+                                                 df_times_foot$hr[j]))*factor
 
       conv_fire[,, j] <- foot[,, j]*flux_fire
 
@@ -197,26 +194,27 @@ obs_convolve <- function(foot_path = "AAA",
 
     }
 
+    if(!as_list)  {
+      simplify2array(list(
+        conv_total = conv_total,
+        conv_bio = conv_bio,
+        conv_ocn = conv_ocn,
+        conv_fossil = conv_fossil,
+        conv_fire = conv_fire
+      )) -> out
+      return(out)
+    } else{
+      return(list(
+        conv_total = conv_total,
+        conv_bio = conv_bio,
+        conv_ocn = conv_ocn,
+        conv_fossil = conv_fossil,
+        conv_fire = conv_fire,
+        lat = foot1lat,
+        lon = foot1lon
+      ))
 
+    }
 
-    obs_nc(lat = foot1lat,
-           lon = foot1lon,
-           time_nc = if(length(dim(conv_total)) == 2) time_foot else df_times_foot$seq_time_start,
-           vars_out = c("total",
-                        "bio",
-                        "ocn",
-                        "fossil",
-                        "fire"),
-           units_out = units_out,
-           nc_out = nc_out,
-           larrays = list(
-             conv_total,
-             conv_bio,
-             conv_ocn,
-             conv_fossil,
-             conv_fire
-           ),
-           verbose = verbose
-    )
-  }
+}
 }

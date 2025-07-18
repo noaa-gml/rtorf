@@ -15,8 +15,7 @@ obs_convolve(
   flux_format = "\%Y\%m\%d.nc",
   factor = 1e+09,
   fn = NULL,
-  nc_out,
-  units_out = "(ppb/nanomol m-2 s-1)*nanomol m-2 s-1",
+  as_list = FALSE,
   verbose = TRUE
 )
 }
@@ -41,15 +40,12 @@ obs_convolve(
 
 \item{fn}{string with function to aggregate convolved fluxes, e.g. `mean`, `sum`, `max`, etc.}
 
-\item{nc_out}{String of the output NetCDF file name.}
-
-\item{units_out}{String for the units of the output NetCDF file.}
+\item{as_list}{Logical, to retunr list of arrays instead of writting to NetCDF}
 
 \item{verbose}{Logical, to display more information}
 }
 \description{
-This function creates a CONTROL file for HYSPLIT model.
-It uses inputs from a data.frame with the receptor information.
+This function returns a arrays (or list of arrays) of convolved footpritns with flux
 }
 \note{
 main assumption is that fluxes have same spatial dimensions as footprints
