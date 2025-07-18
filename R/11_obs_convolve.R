@@ -76,23 +76,9 @@ obs_convolve <- function(foot_path = "AAA",
     stop(paste0("Variable ", name_foot, " not found among: ", names(nc$var)))
   }
 
-  if(any(flat %in% names(nc$var))){
-    if(verbose) cat(paste0("Reading ",
-                           flat,
-                           "\n"))
-    foot1lat <- ncdf4::ncvar_get(nc, flat)
-  } else {
-    stop(paste0("Variable ", flat, " not found among: ", names(nc$var)))
-  }
 
-  if(any(flon %in% names(nc$var))){
-    if(verbose) cat(paste0("Reading ",
-                           flon,
-                           "\n"))
+    foot1lat <- ncdf4::ncvar_get(nc, flat)
     foot1lon <- ncdf4::ncvar_get(nc, flon)
-  } else {
-    stop(paste0("Variable ", flon, " not found among: ", names(nc$var)))
-  }
 
   ncdf4::nc_close(nc)
 
