@@ -147,8 +147,7 @@ obs_convolve <- function(foot_path = "AAA",
                                      format = flux_format)[j]]
 
       if(verbose) cat(paste0("Reading ",
-                             strftime(df_times_foot$seq_time_start,
-                                      format = flux_format)[j],
+                             dx_f$f[j],
                              "\n"))
 
       # flux
