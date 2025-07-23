@@ -362,7 +362,7 @@ obs_plot(x, time = "ch4",  y = "altitude_final",  colu = "month",
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.8\linewidth]{paper_files/obsplot_ts} \includegraphics[width=0.8\linewidth]{paper_files/obsplot_alt} 
+{\centering \includegraphics[width=0.9\linewidth]{paper_files/obsplot_ts} \includegraphics[width=0.9\linewidth]{paper_files/obsplot_alt} 
 
 }
 

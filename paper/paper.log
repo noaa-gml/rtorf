@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2025.5.21)  21 MAY 2025 16:22
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.4) (preloaded format=xelatex 2025.5.21)  23 JUL 2025 10:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1332,6 +1332,10 @@ File: paper_files/obsplot_ts.png Graphic file (type bmp)
 <paper_files/obsplot_ts.png>
 File: paper_files/obsplot_alt.png Graphic file (type bmp)
 <paper_files/obsplot_alt.png>
+Missing character: There is no ₄ in font [lmsans9-regular]:mapping=tex-text;!
+Missing character: There is no ₄ in font [lmsans9-regular]:mapping=tex-text;!
+Missing character: There is no ₄ in font [lmsans9-regular]:mapping=tex-text;!
+Missing character: There is no ₄ in font [lmsans9-regular]:mapping=tex-text;!
 
 
 File: C:/Users/sibarrae/AppData/Local/Programs/R/R-4.4.2/library/rticles/rmarkd
@@ -1359,13 +1363,13 @@ Package fancyhdr Warning: \headheight is too small (62.59596pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.95425pt}.
 
 [6]
-Underfull \hbox (badness 5008) in paragraph at lines 766--769
+Underfull \hbox (badness 5008) in paragraph at lines 765--768
 \TU/lmr/m/n/10 tal Protection Agency. Retrieved from [][]$[][][][][] [] [] [] [
 ][][] [] [][][] [] [][][] [] [][][][][][][][][][][][] []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 766--769
+Underfull \hbox (badness 10000) in paragraph at lines 765--768
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][] [] [] [] [][][][] [] [][][][][][][] [] [][][][][][] [] [][][][][] []
  []
@@ -1384,7 +1388,7 @@ Package fancyhdr Warning: \headheight is too small (62.59596pt):
 (fancyhdr)                \addtolength{\topmargin}{-0.95425pt}.
 
 [7]
-Underfull \hbox (badness 10000) in paragraph at lines 783--787
+Underfull \hbox (badness 10000) in paragraph at lines 782--786
 \TU/lmr/m/n/10 from [][]$[][][][][] [] [] [] [][][] [] [][][][][][][][][][] [] 
 [][][] [] [][][][][][][][][][][][][][] [] [][][][][][][][][][][][][][][][][][][
 ][] [] [][][][] [] [][] [] [][] []
@@ -1417,7 +1421,7 @@ Package logreq Info: Writing requests to 'paper.run.xml'.
 Here is how much of TeX's memory you used:
  36946 strings out of 405057
  744190 string characters out of 5498957
- 1633890 words of memory out of 5000000
+ 1634118 words of memory out of 5000000
  63095 multiletter control sequences out of 15000+600000
  633705 words of font info for 89 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
