@@ -40,7 +40,7 @@ obs_convolve(
 
 \item{fn}{string with function to aggregate convolved fluxes, e.g. `mean`, `sum`, `max`, etc.}
 
-\item{as_list}{Logical, to retunr list of arrays instead of writting to NetCDF}
+\item{as_list}{Logical, to return list of arrays}
 
 \item{verbose}{Logical, to display more information}
 }

@@ -12,7 +12,7 @@
 #' @param flux_format string with date format 'Ymd.nc'
 #' @param factor number to multiply fluxes.
 #' @param fn string with function to aggregate convolved fluxes, e.g. `mean`, `sum`, `max`, etc.
-#' @param as_list Logical, to retunr list of arrays instead of writting to NetCDF
+#' @param as_list Logical, to return list of arrays
 #' @param verbose Logical, to display more information
 #' @note main assumption is that fluxes have same spatial dimensions as footprints
 #' @export
@@ -197,12 +197,13 @@ obs_convolve <- function(foot_path = "AAA",
       conv_ocn <- apply(conv_ocn, c(1,2), fn)
       conv_fossil <- apply(conv_fossil, c(1,2), fn)
       conv_fire <- apply(conv_fire, c(1,2), fn)
-
+      foot <- apply(foot, c(1,2), fn)
     }
 
 
     if(!as_list)  {
       simplify2array(list(
+        foot = foot,
         conv_total = conv_total,
         conv_bio = conv_bio,
         conv_ocn = conv_ocn,
@@ -212,6 +213,7 @@ obs_convolve <- function(foot_path = "AAA",
       return(out)
     } else{
       return(list(
+        foot = foot,
         conv_total = conv_total,
         conv_bio = conv_bio,
         conv_ocn = conv_ocn,

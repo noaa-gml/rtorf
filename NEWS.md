@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### rtorf 2.0.1 (Release date: 2025-07-24)
+
+- obs_convolve also returns foot
+
 ### rtorf 2.0.0 (Release date: 2025-07-16)
 
 - Big release, add support to read, write NetCDF and convolve footprints with fluxes.
