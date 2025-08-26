@@ -4,22 +4,34 @@
 \alias{obs_julian}
 \title{obs_julian}
 \usage{
-obs_julian(m, d, y, origin.)
+obs_julian(y, m, d, origin., legacy = FALSE, verbose = TRUE)
+
+obs_julian(y, m, d, origin., legacy = FALSE, verbose = TRUE)
 }
 \arguments{
-\item{m}{numeric}
+\item{y}{year}
 
-\item{d}{numeric}
+\item{m}{month}
 
-\item{y}{numeric}
+\item{d}{day}
 
 \item{origin.}{string}
+
+\item{legacy}{logical, to use legacy code}
+
+\item{verbose}{logical, to show more messages}
+
+\item{hr}{hour}
 }
 \value{
 returns day since 1/1/1960
+
+a string with the receptor id
 }
 \description{
 return numeric
+
+return footprint/receptor id
 }
 \details{
 Helpers Legacy
@@ -31,8 +43,25 @@ Helpers Legacy
 obs_julian(1, 2020, 1)
 }
 }
+{
+\dontrun{
+# Do not run
+obs_julian(y = 2002,
+            m = 8,
+            d = 3,
+            legacy = TRUE)
+obs_julian(y = 2002,
+            m = 8,
+            d = 3,
+            legacy = FALSE)
+}
+}
 }
 \seealso{
+Other helpers legacy: 
+\code{\link{obs_id2pos}()},
+\code{\link{obs_info2id}()}
+
 Other helpers legacy: 
 \code{\link{obs_id2pos}()},
 \code{\link{obs_info2id}()}
