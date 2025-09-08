@@ -2,6 +2,15 @@ NEWS
 ===========
 
 
+### rtorf 2.2.0 (Release date: 2025-09-08)
+
+- Remove former classes. classes may be added in the futre for complex objects, 
+such as data.tables from read from obspack or receptor-ready files.
+
+### rtorf 2.1.0 (Release date: 2025-08-28)
+
+- Add legacy code obs_julian
+
 ### rtorf 2.0.1 (Release date: 2025-07-24)
 
 - obs_convolve also returns foot
