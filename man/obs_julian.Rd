@@ -20,8 +20,6 @@ obs_julian(y, m, d, origin., legacy = FALSE, verbose = TRUE)
 \item{legacy}{logical, to use legacy code}
 
 \item{verbose}{logical, to show more messages}
-
-\item{hr}{hour}
 }
 \value{
 returns day since 1/1/1960
