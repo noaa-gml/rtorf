@@ -2,6 +2,12 @@ NEWS
 ===========
 
 
+### rtorf 2.3.0 (Release date: 2025-09-09)
+
+- Add legacy time functions. Many of themm will be removed
+or replaced with lubridate. The idea is to preserve
+and improve only the functions to generate NetCDF from PARTICLE.DAT
+
 ### rtorf 2.2.0 (Release date: 2025-09-08)
 
 - Remove former classes. classes may be added in the futre for complex objects, 

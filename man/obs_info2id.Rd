@@ -50,7 +50,10 @@ obs_info2id(yr = 2002,
 }
 \seealso{
 Other helpers legacy: 
+\code{\link{obs_decimal_to_POSIX}()},
 \code{\link{obs_id2pos}()},
-\code{\link{obs_julian}()}
+\code{\link{obs_interpret_udunits_time}()},
+\code{\link{obs_julian}()},
+\code{\link{obs_load_ncdf}()}
 }
 \concept{helpers legacy}
