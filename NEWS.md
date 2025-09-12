@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### rtorf 2.3.1 (Release date: 2025-09-12)
+
+- Expand obs_convolve and fix tz, now it is explicit tz = "UTC"
+
 ### rtorf 2.3.0 (Release date: 2025-09-09)
 
 - Add legacy time functions. Many of themm will be removed

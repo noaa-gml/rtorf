@@ -91,7 +91,8 @@ obs_convolve <- function(foot_path = "AAA",
   seq_time_start <- time_start <- nf <- hr <- NULL
   df_times_foot[, seq_time_start :=  seq.POSIXt(time_start[1],
                                                 length.out = dim(foot)[3],
-                                                by = "-1 hour")]
+                                                by = "-1 hour",
+                                                tz = "UTC")]
   # first time is the footprint time, ;last time, 240 hours in the past.
   # df_times_foot has time_start seq_time_start
   # seq_time_start has the time to match emissions
@@ -99,17 +100,20 @@ obs_convolve <- function(foot_path = "AAA",
   if(verbose){
     cat("footprints, from ",
         strftime(df_times_foot$seq_time_start[1],
-                 format = "%Y-%m-%d %H:%M:%S"),
+                 format = "%Y-%m-%d %H:%M:%S",
+                 tz = "UTC"),
         " to ",
         strftime(df_times_foot$seq_time_start[dim(foot)[3]],
-                 format = "%Y-%m-%d %H:%M:%S"), "\n")
+                 format = "%Y-%m-%d %H:%M:%S",
+                 tz = "UTC"), "\n")
   }
 
   dim_names <- list(
     paste0("lon_", sprintf("%02d", 1:dim(foot)[1])),
     paste0("lat_", sprintf("%02d", 1:dim(foot)[2])),
     strftime(df_times_foot$seq_time_start,
-             format = "%Y-%m-%d %H:%M:%S") # this  can vary, what if I have hourly fluxes?, or m
+             format = "%Y-%m-%d %H:%M:%S",
+             tz = "UTC") # this  can vary, what if I have hourly fluxes?, or m
   )
 
   dimnames(foot) <- dim_names
@@ -153,7 +157,8 @@ obs_convolve <- function(foot_path = "AAA",
     for(j in 1:dim(foot)[3]) {
 
       dx_f <- df_flux[nf == strftime(df_times_foot$seq_time_start,
-                                     format = flux_format)[j]]
+                                     format = flux_format,
+                                     tz = "UTC")[j]]
 
 
       # flux
@@ -266,7 +271,8 @@ obs_convolve <- function(foot_path = "AAA",
   for(j in 1:dim(foot)[3]) {
 
     dx_f <- df_flux[nf == strftime(df_times_foot$seq_time_start,
-                                   format = flux_format)[j]]
+                                   format = flux_format,
+                                   tz = "UTC")[j]]
 
     # flux
     f <- dx_f$f
