@@ -114,6 +114,11 @@ obs_convolve <- function(foot_path = "AAA",
 
   dimnames(foot) <- dim_names
 
+  if(!flux %in% c('CTCO2', 'monthly', 'month', 'daily', 'day', 'yearly', 'year')) {
+    stop("flux must be 'CTCO2', 'monthly', 'month', 'daily', 'day', 'yearly', 'year'")
+  }
+
+
   # flux information
   if(flux == "CTCO2") {
 
@@ -309,9 +314,6 @@ obs_convolve <- function(foot_path = "AAA",
 
   }
 
- if(!flux %in% c('CTCO2', 'monthly', 'daily', 'yearly')) {
-  stop("flux must be 'CTCO2', 'monthly', 'daily'or 'yearly'")
-}
 
 
 }
