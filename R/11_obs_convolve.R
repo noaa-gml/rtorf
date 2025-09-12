@@ -15,6 +15,8 @@
 #' @param as_list Logical, to return list of arrays
 #' @param verbose Logical, to display more information
 #' @note main assumption is that fluxes have same spatial dimensions as footprints
+#' when flux is "monthly", "daily" or "yearly", it assumes flux variable has the same
+#' name as "%y-%m-01", "%Y-%m-%d" or "%Y-01-01" respectively.
 #' @export
 #' @import ncdf4 data.table
 #' @examples {
@@ -91,6 +93,8 @@ obs_convolve <- function(foot_path = "AAA",
                                                 length.out = dim(foot)[3],
                                                 by = "-1 hour")]
   # first time is the footprint time, ;last time, 240 hours in the past.
+  # df_times_foot has time_start seq_time_start
+  # seq_time_start has the time to match emissions
 
   if(verbose){
     cat("footprints, from ",
@@ -153,6 +157,11 @@ obs_convolve <- function(foot_path = "AAA",
       if(verbose) cat(paste0("Reading ", f, "\n"))
 
       nc_f <- ncdf4::nc_open(f)
+
+      if(verbose)  {
+        cat("vars: \n")
+        cat(names(nc_f$var), "\n")
+      }
 
 
       # bio
@@ -227,4 +236,82 @@ obs_convolve <- function(foot_path = "AAA",
     }
 
   }
+  yt <- NULL
+
+  #name in flux nc is "%Y-%m-01"
+  if(flux %in% c("monthly", "month")) {
+    #
+
+    df_times_foot[, yt := strftime(seq_time_start,
+                                   format = "%Y-%m-01",
+                                   tz = "UTC")]
+    #name in flux nc is "%Y-%m-%d"
+  } else if(flux %in% c("daily", "day")){
+    df_times_foot[, yt := strftime(seq_time_start,
+                                   format = "%Y-%m-%d",
+                                   tz = "UTC")]
+
+  } else if(flux %in% c("yearly", "year")){
+    df_times_foot[, yt := strftime(seq_time_start,
+                                   format = "%Y-01-01",
+                                   tz = "UTC")]
+  }
+    conv <- foot # to preserve same dimensions and iterate in last index
+
+  for(j in 1:dim(foot)[3]) {
+
+    dx_f <- df_flux[nf == strftime(df_times_foot$seq_time_start,
+                                   format = flux_format)[j]]
+
+    # flux
+    f <- dx_f$f
+
+    if(verbose) cat(paste0("Reading ", f, "\n"))
+
+    nc_f <- ncdf4::nc_open(f)
+
+    if(verbose)  {
+      cat("vars: \n")
+      cat(names(nc_f$var), "\n")
+    }
+
+    flux <- ncdf4::ncvar_get(nc_f, df_times_foot$yt[j])*factor
+
+    conv[,, j] <- foot[,, j]*flux
+
+    ncdf4::nc_close(nc_f)
+
+    # print(paste0(round(j/240*100, 2), " %"))
+
+  }
+
+  if(!is.null(fn)) {
+
+    conv <- apply(conv, c(1,2), fn)
+    foot <- apply(foot, c(1,2), fn)
+  }
+
+
+  if(!as_list)  {
+    simplify2array(list(
+      foot = foot,
+      conv = conv
+    )) -> out
+    return(out)
+  } else{
+    return(list(
+      foot = foot,
+      conv = conv,
+      lat = foot1lat,
+      lon = foot1lon,
+      time = if(!missing(fn)) time_foot else df_times_foot$seq_time_start
+    ))
+
+  }
+
+ if(!flux %in% c('CTCO2', 'monthly', 'daily', 'yearly')) {
+  stop("flux must be 'CTCO2', 'monthly', 'daily'or 'yearly'")
+}
+
+
 }

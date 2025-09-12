@@ -49,6 +49,8 @@ This function returns a arrays (or list of arrays) of convolved footpritns with 
 }
 \note{
 main assumption is that fluxes have same spatial dimensions as footprints
+when flux is "monthly", "daily" or "yearly", it assumes flux variable has the same
+name as "%y-%m-01", "%Y-%m-%d" or "%Y-01-01" respectively.
 }
 \examples{
 {
