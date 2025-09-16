@@ -298,8 +298,8 @@ obs_convolve <- function(foot_path = "AAA",
 
   if(!is.null(fn)) {
 
-    conv <- apply(conv, c(1,2), fn)
-    foot <- apply(foot, c(1,2), fn)
+    conv <- apply(conv, c(1,2), fn, na.rm = T)
+    foot <- apply(foot, c(1,2), fn, na.rm = T)
   }
 
 
