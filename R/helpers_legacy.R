@@ -1088,42 +1088,42 @@ obs_POSIX_to_decimal <- function(posix.dates,
   # internally this is kept as a standard numeric quantity, generally
   # R*8.)
 
-if(legacy) {
+  if(legacy) {
 
-  if(!any(class(posix.dates)=="POSIXt")) {
-    stop("obs_POSIX_to_decimal Expecting one of class(posix.dates) == 'POSIXt'")
+    if(!any(class(posix.dates)=="POSIXt")) {
+      stop("obs_POSIX_to_decimal Expecting one of class(posix.dates) == 'POSIXt'")
+    }
+
+    #  retval <- numeric(0)
+    #  ndates <- length(posix.dates)
+
+    #  for (idate in 1:ndates) {
+    #    year <- as.numeric(format(posix.dates[idate],format="%Y"))
+    #    y0 <- as.numeric(ISOdatetime(year,1,1,0,0,0,tz=tz))
+    #    y1 <- as.numeric(ISOdatetime(year+1,1,1,0,0,0,tz=tz))
+    #    retval <- c(retval,year+(as.numeric(posix.dates[idate])-y0)/(y1-y0))
+    #  }
+
+    # alternative code as of 3 Aug 2009:  much faster, as there is no looping.
+
+    #   There's a potential problem here in that I'm not sure how the R
+    #   date-time classes handle a vector of times with different time
+    #   zone attributes among the members.  It would appear that the
+    #   attribute belonging to the vector overrides any such attribute
+    #   assigned to a member.  This is probably because it is the vector
+    #   object which can have attributes, not the member.  This code
+    #   assumes that all members of the vector have the same time zone
+    #   attribute.
+
+
+    lt <- as.POSIXlt(posix.dates)
+    y0 <- as.numeric(ISOdatetime(lt$year+1900,1,1,0,0,0,tz=attributes(lt)$tzone))
+    y1 <- as.numeric(ISOdatetime(lt$year+1901,1,1,0,0,0,tz=attributes(lt)$tzone))
+    return(lt$year+1900+(as.numeric(posix.dates)-y0)/(y1-y0))
+  } else {
+    return(lubridate::decimal_date(posix.dates,
+                                   tz = tz))
   }
-
-  #  retval <- numeric(0)
-  #  ndates <- length(posix.dates)
-
-  #  for (idate in 1:ndates) {
-  #    year <- as.numeric(format(posix.dates[idate],format="%Y"))
-  #    y0 <- as.numeric(ISOdatetime(year,1,1,0,0,0,tz=tz))
-  #    y1 <- as.numeric(ISOdatetime(year+1,1,1,0,0,0,tz=tz))
-  #    retval <- c(retval,year+(as.numeric(posix.dates[idate])-y0)/(y1-y0))
-  #  }
-
-  # alternative code as of 3 Aug 2009:  much faster, as there is no looping.
-
-  #   There's a potential problem here in that I'm not sure how the R
-  #   date-time classes handle a vector of times with different time
-  #   zone attributes among the members.  It would appear that the
-  #   attribute belonging to the vector overrides any such attribute
-  #   assigned to a member.  This is probably because it is the vector
-  #   object which can have attributes, not the member.  This code
-  #   assumes that all members of the vector have the same time zone
-  #   attribute.
-
-
-  lt <- as.POSIXlt(posix.dates)
-  y0 <- as.numeric(ISOdatetime(lt$year+1900,1,1,0,0,0,tz=attributes(lt)$tzone))
-  y1 <- as.numeric(ISOdatetime(lt$year+1901,1,1,0,0,0,tz=attributes(lt)$tzone))
-  return(lt$year+1900+(as.numeric(posix.dates)-y0)/(y1-y0))
-} else {
- return(lubridate::decimal_date(posix.dates,
-                                tz = tz))
-}
 }
 
 
@@ -1319,3 +1319,791 @@ obs_POSIX_to_julian <- function(times,
                              epoch,
                              units="days") + 1.0))
 }
+
+
+#' @title obs_make_hysplit_nc4
+#' @family helpers legacy time
+#' @name obs_make_hysplit_nc4
+#' @description makes nc
+#' @param ident  identifier
+#' @param ncname  netcdf name file format hysplitid.nc
+#' @param origident logical, default FALSE, include most accurate receptor agl,lat,lon, utctime fields,  before rounding
+#' @param part logical, default FALSE, include particle array
+#' @param foot logical, default FALSE, include foot
+#' @param horizconv logical, default FALSE, include results from horizontally convolving footprints with
+#' fluxes for each particle and summing particle over time
+#' @param avghorizconv logical, default FALSE, include results from horizontally convolving footprints with
+#' fluxes for each particle and summing particle over time, avg particles
+#' @param dvmr logical, default FALSE, include delta volume mixing ratio results from convolve-fast.r
+#'  (replaces horizconv and avghorizconv functionality)
+#' @param dvmrmean logical, default FALSE, include climatological mean of delta volume mixing ratio results
+#' @param dvmrstd logical, default FALSE, include climatological standard dev of volume mixing ratio results
+#' @param runinfo logical, default FALSE, text summary of run parameters
+#' @param check logical, default FALSE, output from Trajeccheck
+#' @param emit logical, default FALSE, emission window description
+#' @param init logical, default FALSE, include init mixing ratio values
+#' @param avginit logical, default FALSE, include avginit mixing ratio value
+#' @param partdatname string, default 'part', name of particle table, with the following convention:
+#' part       => whole particle table  (default)
+#' partfoot   => particle table thinned to retain rows where foot > 0
+#' part3d     => particle table thinned to retain rows every nhrs
+#' endpts     => particle table thinned to retain rows with trajectory endpts
+#' @param footname default NULL, name of footprint to distinguish among multiple footprints -e.g. foot1, foot2, etc
+#' @return return dates
+#' @note Convention is that the Julian date of the epoch is 1.0 (not 0!)
+#' @examples {
+#' \dontrun{
+#' # Do not run
+#' }}
+obs_make_hysplit_nc4 <- function(ident,
+                                 ncname = paste("hysplit",
+                                                ident,
+                                                ".nc",
+                                                sep = ""),
+                                 origident = FALSE,
+                                 part = FALSE,
+                                 foot = FALSE,
+                                 horizconv = FALSE,
+                                 avghorizconv = FALSE,
+                                 dvmr = FALSE,
+                                 dvmrmean = FALSE,
+                                 dvmrstd = FALSE,
+                                 runinfo = FALSE,
+                                 check = FALSE,
+                                 emit = FALSE,
+                                 init = FALSE,
+                                 avginit = FALSE,
+                                 partdatname = 'part',
+                                 footname = NULL,
+                                 horizconvname=NULL,                                   # name of horizontal convolve mixing ratio values (should reflect species
+                                 # and source - e.g. co2horizconvCT, co2horizconvvul, etc)
+                                 avghorizconvname=NULL,                                # name of avg horizontal convolve mixing ratio (should reflect species
+                                 # and source - e.g. co2avghorizconvCT, co2avghorizconvvul, etc)
+                                 dvmrname=NULL,                                        # name of delta volume mixing ratio results (should reflect species
+                                 # and source - e.g. co2dvmrCT, co2dvmrvul, etc)
+                                 dvmrmeanname=NULL,                                    # name of climatological mean of delta volume mixing ratio results (should
+                                 # reflect species and source - e.g. co2dvmrmeanCT, co2dvmrmeanvul, etc)
+                                 dvmrstdname=NULL,                                     # name of climatological std of delta volume mixing ratio results (should
+                                 # reflect species and source - e.g. co2dvmrstdCT, co2dvmrstdvul, etc)
+                                 initname=NULL,                                        # name of init mixing ratio values (should reflect species and source)
+                                 # (e.g. co2initCT, co2initGV, coinitGV, etc)
+                                 avginitname=NULL,                                     # name of average init mixing ratio (should reflect species and source)
+                                 # (e.g. co2avginitCT, co2avginitGV, coavginitGV, etc)
+                                 horizconvdatunits=NULL,                               # string indicating assigned units to horizconvdat
+                                 avghorizconvdatunits=NULL,                            # string indicating assigned units to avghorizconvdat
+                                 dvmrdatunits=NULL,                                    # string indicating assigned units to dvmrdat
+                                 dvmrmeandatunits=NULL,                                # string indicating assigned units to dvmrmeandat
+                                 dvmrstddatunits=NULL,                                 # string indicating assigned units to dvmrstddat
+                                 initdatunits=NULL,                                    # string indicating assigned units to initdat
+                                 avginitdatunits=NULL,                                 # string indicating assigned units to avginitdat
+                                 origidentdat=NULL,                                    # list of original receptor agl, lat, lon, utctime fields
+                                 origutctime.format=NULL,                              # string format of origutctime from receptor list
+                                 # e.g. '%Y-%m-%dT%H:%M:%S'
+                                 partdat=NULL,                                         # passed in R object (use getr by default)
+                                 footdat=NULL,                                         # passed in R object (use getr by default)
+                                 horizconvdat=NULL,                                    # passed in R object (use getr by default)
+                                 avghorizconvdat=NULL,                                 # passed in R object (use getr by default)
+                                 dvmrdat=NULL,                                         # matrix of dvmr results
+                                 dvmrmeandat=NULL,                                     # matrix of dvmrmean results
+                                 dvmrstddat=NULL,                                      # matrix of dvmrstd results
+                                 runinfodat=NULL,                                      # passed in R object (use getr by default)
+                                 checkdat=NULL,                                        # passed in R object (use getr by default)
+                                 emitdat=NULL,                                         # data frame/2D array
+                                 initdat=NULL,                                         # passed in R object (use getr by default)
+                                 avginitdat=NULL,                                      # passed in R object (use getr by default)
+                                 partpath=NULL,                                        # location of particle file
+                                 checkpath=partpath,                                   # location of check file
+                                 footpath=paste(partpath, "footprints/", sep=""),      # location of footprint file
+                                 horizconvpath=paste(partpath, "convolve/", sep=""),   # location of horizontal convolve summarized results file
+                                 avghorizconvpath=paste(partpath, "convolve/", sep=""),# location of horizontal convolve summarized results file
+                                 initpath=paste(partpath, "boundary/", sep=""),        # location of init file
+                                 avginitpath=paste(partpath, "boundary/", sep=""),     # location of avginit file
+                                 runinfopath=NULL,                                     # location of runinfo file
+                                 targetdir,                                            # destination directory
+                                 errorlog=paste("ncerrors",ident,".txt",sep=""),       # name of errorlog file; use NA to suppress
+                                 appendnc=FALSE,                                       # TRUE=>append an existing netCDF file,
+                                 # FALSE=>create new netCDF file
+                                 plotfoot=F,
+                                 plotmeantrajec=F,
+                                 sourcepath=NULL,
+                                 charmissval=NULL,                            # missing value for character variables
+                                 # (ncvar_def requires NA or NULL depending on the version of ncdf4)
+                                 global.att.list=NULL, # list of global attributes (only used if !appendnc)
+                                 global.att.files=NULL, # list of filenames whose contents are turned into global attributes
+                                 #(only used if !appendnc and global.att.list is empty)
+                                 ident.start=NULL) { #time related to hysplit start time (may different from nearest hour to ident if partperhymodelc was turned on)
+  #source required functions
+  require("ncdf4")
+  # Sergio, I suspect that this is not needed anymore
+  if(!exists('getr',mode='function') || !exists('id2pos',mode='function')) {
+    if (is.null(sourcepath)) {
+      if (file.exists("stiltR"))
+        sourcepath <- paste(getwd(), "/stiltR/", sep="")
+      else if (file.exists("Rsc"))
+        sourcepath <- paste(getwd(), "/Rsc/", sep="")
+      else {
+        stop('sourceall.r needs to be sourced, no sourcepath was provided as an argument,',
+             ' and no stiltR or Rsc directory was found.')
+      }
+    }
+    source(paste(sourcepath,"sourceall.r",sep=""))
+  }
+
+  #Non Fatal Errors
+  warns<-list()
+
+  #Check whether files exist and warn if not.
+
+  # modified: M. Trudeau, 26 Mar 2010
+  if (part &&
+      partdatname == 'part' &&
+      is.null(partdat) &&
+      !existsr(ident,partpath)) {
+    print(paste(".RData",ident, " not found. Exiting...",sep=""))
+    return()
+  }
+
+  if (foot &&
+      is.null(footdat) &&
+      !existsr(paste("footr",
+                     ident,
+                     sep = ""),
+               footpath)) {
+    warns$footnofile<-"NO FOOTPRINT FILE FOUND"
+    foot <- F
+  }
+
+  if (runinfo &&
+      is.null(runinfodat) &&
+      !existsr(paste("run.info",
+                     ident,
+                     sep = ""),
+               runinfopath)) {
+    warns$runinfonofile<-"NO RUNINFO FILE FOUND"
+    runinfo <- F
+  }
+
+  if (check &&
+      is.null(checkdat) &&
+      !existsr(paste("check",
+                     ident,
+                     sep=""),
+               checkpath)) {
+    warns$checknofile<-"NO CHECK FILE FOUND"
+    check <- F
+  }
+
+  if (part &&
+      partdatname == 'endpts' &&
+      is.null(partdat) &&
+      !existsr(paste("end",
+                     ident,
+                     sep=""),
+               partpath))  {
+    warns$partnofile <- "NO ENDPOINTS FILE FOUND"
+    part <- F
+  }
+
+  if(!file.exists(targetdir)) {
+    cat(sprintf("  Creating output path \"%s\".\n", targetdir))
+    dir.create(targetdir,recursive=TRUE)
+  }
+
+  if (!is.null(ident.start)) {
+    #calculate STILT start time for this ident
+    #NOTES:
+    #1) STILT start time is the ident time rounded to top of the hour
+    #   e.g. for backward runs: ident start time = 17:01 relates to a
+    #                           STILT start time = 18:00
+    #2) STILT start time is the time at which particle table btime/time column = 0
+    #3) particles are released at ident time, which is relative to STILT start time
+    info<-id2pos(ident.start)
+    inittime<-ISOdatetime(info["yr"],info["mon"], info["day"],info["hr"],info["min"],0,tz="UTC")
+    stilt.start <- round(inittime,'hour')
+    if (stilt.start < inittime) {
+      stilt.start <- stilt.start + 3600
+    }
+    epoch <- ISOdatetime(2000,1,1,0,0,0,"UTC")
+  }
+
+  #DEFINE NCDF NCHAR DIMENTION FOR STRING VECTORS
+
+  dimnchar   <- ncdim_def("nchar",   "", 1:500 )
+
+  #CREATE EMPTY LIST TO HOLD NCDF VARS
+
+  vars<-list()
+  outs<-list()
+  atts<-list()
+
+
+  nident.dim <-ncdim_def("nident","",vals=1:1,create_dimvar=F)
+  vars$var.ident <- ncvar_def(name="ident",units="string",dim=list(dimnchar,nident.dim),
+                              missval=charmissval,longname="identifier string",prec="char",compression=9)
+
+  outs$ident<-ident
+
+  if (origident) {
+    if(!is.null(origidentdat)){
+      norigident.dim<-ncdim_def("norig","",vals=1:length(origidentdat[['agl']]),create_dimvar=F)
+
+      vars$var.origagl<-ncvar_def(name="origagl",units="m",dim=list(norigident.dim),
+                                  missval=-1e34,longname="original receptor height above ground",compression=9)
+      atts$varid <- c(atts$varid,'origagl','origagl')
+      atts$name  <- c(atts$name,'standard_name','description')
+      atts$val   <- c(atts$val,'height',"before rounding")
+
+      vars$var.origlat<-ncvar_def(name="origlat",units="degrees_north",dim=list(norigident.dim),
+                                  missval=-1e34,longname="original receptor latitude",compression=9)
+      atts$varid <- c(atts$varid,'origlat','origlat')
+      atts$name  <- c(atts$name,'standard_name','description')
+      atts$val   <- c(atts$val,'latitude',"before rounding")
+
+      vars$var.origlon<-ncvar_def(name="origlon",units="degrees_east",dim=list(norigident.dim),
+                                  missval=-1e34,longname="original receptor longitude",compression=9)
+      atts$varid <- c(atts$varid,'origlon','origlon')
+      atts$name  <- c(atts$name,'standard_name','description')
+      atts$val   <- c(atts$val,'longitude',"before rounding")
+
+      vars$var.origutctime<-ncvar_def(name="origutctime",units="UTC",dim=list(dimnchar,norigident.dim),
+                                      missval=charmissval,longname="original receptor time",
+                                      prec="char",compression=9)
+      atts$varid <- c(atts$varid,'origutctime')
+      atts$name  <- c(atts$name,'description')
+      atts$val   <- c(atts$val,"in UTC, before rounding")
+
+      vars$var.origutctimeformat<-ncvar_def(name="origutctimeformat",units="none",dim=list(dimnchar,norigident.dim),
+                                            missval=charmissval,longname="original receptor time (origutctime) format",
+                                            prec="char",compression=9)
+
+      outs$origagl <- as.numeric(origidentdat[['agl']])
+      outs$origlat <- as.numeric(origidentdat[['lat']])
+      outs$origlon <- as.numeric(origidentdat[['lon']])
+      outs$origutctime <- as.character(origidentdat[['utctime']])
+      outs$origutctimeformat <- as.character(origutctime.format)
+    }  else  warns$origidentnull<- "ORIGIDENTDAT IS EMPTY OR MISSING"
+  }#end if origident
+
+
+  if(part) {
+    #writes particle tables with partdatname:
+    #part       => stilt particle location array
+    #partfoot   => stilt particle location array thinned to retain rows where foot > 0
+    #part3d     => stilt particle location array thinned to retain rows approximately every so many hours
+    #endpts     => stilt particle location array thinned to retain rows containing trajectory endpts
+
+    if(partdatname == 'part') {
+      if(is.null(partdat) && existsr(ident, partpath)) partdat <-  getr(ident, partpath)
+      part.string <- 'particle location array'
+
+    } else if (partdatname == 'endpts') {
+      if(is.null(partdat)) partdat <- data.matrix(getr(paste("end",ident,sep=""), partpath))
+      part.string <- 'particle location array thinned to retain rows containing trajectory endpts'
+
+    } else if (partdatname == 'partfoot') {
+      part.string <- 'particle location array thinned to retain rows where foot > 0'
+
+    } else if (partdatname == 'part3d') {
+      part.string <- 'particle location array thinned to retain rows approximately every so many hours'
+    }
+
+    if(!is.null(partdat)){
+
+      partnames <-dimnames(partdat)[[2]]
+      parttime <- NULL
+      if ("time" %in% partnames) {
+        #particle time provided in negative minutes
+        parttime <- stilt.start + (partdat[,"time"]*60)
+      }
+      if ("btime" %in% partnames) {
+        #particle time provided in positive hours (negative implied)
+        parttime <- stilt.start - (partdat[,"btime"]*3600)
+      }
+      if (is.null(parttime)) {
+        parttime <- stilt.start + 1:dim(partdat)[1]
+        warns$parttimenull <-
+          "PARTICLE object does not have a (b)time column, assigning dummy values to parttime"
+      }
+
+      npartnames.dim <- ncdim_def(paste('n',partdatname,'names',sep=''),"",vals=1:ncol(partdat),create_dimvar=F)
+      vars[[paste('var.',partdatname,'names',sep='')]] <- ncvar_def(name=paste(partdatname,'names',sep=''),units="various",
+                                                                    dim=list(dimnchar,npartnames.dim),missval=charmissval,
+                                                                    longname="column names for particle array",prec="char",compression=9)
+      partdate.vals <- as.numeric(difftime(parttime,epoch,units="days")) # subtract the epoch to make days-since
+      partdate.dim <- ncdim_def(paste(partdatname,'date',sep=''),"days since 2000-01-01 00:00:00 UTC",vals=partdate.vals)
+
+      vars[[paste('var.',partdatname,sep='')]] <- ncvar_def(name=partdatname,units="various",dim=list(partdate.dim,npartnames.dim),
+                                                            missval=-1e34,longname=part.string,compression=9)
+
+      outs[[paste(partdatname,'names',sep='')]] <- partnames
+      outs[[partdatname]] <- partdat
+    } else warns$partdatnull<- "PARTICLE FILE IS EMPTY"
+  }#end if part
+
+  if(foot){
+    if(is.null(footdat)) footdat <-  getr(paste("footr",ident,sep=""), footpath)
+    if(!is.null(footdat)){
+      #for netCDF standard maintain order of dimensions as lon, lat, time; displayed in ncdump as time, lat, lon
+      footdat <- aperm(footdat,c(2,1,3))
+
+      footlon<-as.numeric(dimnames(footdat)[[1]])
+      footlat<-as.numeric(dimnames(footdat)[[2]])
+      foothr<-as.numeric(dimnames(footdat)[[3]])
+      foottime<-stilt.start-foothr*3600
+
+      footlon.dim <- ncdim_def(paste(footname,'lon',sep=''),units="degrees_east",vals=footlon)
+      atts$varid <- c(atts$varid,paste(footname,'lon',sep=''),paste(footname,'lon',sep=''))
+      atts$name  <- c(atts$name,'standard_name','description')
+      atts$val   <- c(atts$val,'longitude',"degrees longitude of center of grid boxes")
+
+      footlat.dim <- ncdim_def(paste(footname,'lat',sep=''),units="degrees_north",vals=footlat)
+      atts$varid <- c(atts$varid,paste(footname,'lat',sep=''),paste(footname,'lat',sep=''))
+      atts$name  <- c(atts$name,'standard_name','description')
+      atts$val   <- c(atts$val,'latitude',"degrees latitude of center of grid boxes")
+
+      footdate.vals <- as.numeric(difftime(foottime,epoch,units="days")) # subtract the epoch to make days-since
+      footdate.dim <- ncdim_def(paste(footname,'date',sep=''),units="days since 2000-01-01 00:00:00 UTC",vals=footdate.vals)
+
+      vars[[paste('var.',footname,sep='')]] <- ncvar_def(name=footname,units="ppm per (micromol m-2 s-1)",dim=list(footlon.dim,footlat.dim,footdate.dim),
+                                                         missval=-1e34,longname="gridded footprint",compression=9)
+      atts$varid <- c(atts$varid,footname)
+      atts$name  <- c(atts$name,'description')
+      atts$val   <- c(atts$val,paste("aggregates particle footprints on lon/lat/time grid ",
+                                     "starting at hysplit start time (see foothr description), (i.e. foot[,,1] is a lat/lon grid of footprints ",
+                                     "aggregated in grid boxes and in time prior to the hysplit start time up to and including footdate[1], which ",
+                                     "is foothr[1] hours prior to the hysplit start time; foot[,,2] is a lat/lon grid of footprints aggregated ",
+                                     "in grid boxes and in time prior to footdate[1] up to and including footdate[2], which is foothr[2] hours prior ",
+                                     "to the hysplit start time; etc)",sep=""))
+
+      vars[[paste('var.',footname,'hr',sep='')]] <- ncvar_def(name=paste(footname,'hr',sep=''),units="hours",dim=list(footdate.dim),
+                                                              missval=-1e34,longname="footprint hours back from hysplit start time",compression=9)
+      atts$varid <- c(atts$varid,paste(footname,'hr',sep=''))
+      atts$name  <- c(atts$name,'description')
+      atts$val   <- c(atts$val,paste('hysplit start time => can be found in the netCDF file global attribute: CONTROL. The first 4 numbers ',
+                                     'indicate the 2 digit year, month, day and hour',sep=''))
+
+      outs[[footname]] <- footdat
+      outs[[paste(footname,'hr',sep='')]] <- foothr
+      if(plotfoot){
+        library(fields)
+        library(maps)
+
+        print(paste("Saving... ", targetdir, "foot", ident, ".pdf", sep=""))
+
+        pdf(file=paste(targetdir,"foot",ident,".pdf",sep=""))
+        xfoot<-apply(footdat, MARGIN=c(1,2), FUN=sum)
+        temp<-log10(xfoot)
+        temp[!is.finite(temp)]<-NA
+        image.plot(x=footlon ,y=footlat,z=t(temp), col=c("#FFFFFF",tim.colors(64)),xlab="",ylab="",  zlim=c(-10,0), xlim=c(-180,-40),ylim=c(25,80))
+        box()
+        map("state", add=T)
+        map("world",add=T)
+        title(ident)
+        dev.off()
+      }
+    } else warns$footdatnull<- "FOOTPRINT FILE IS EMPTY"
+
+  }#foot
+  if(horizconv){
+    if (is.null(horizconvname)) {
+      horizconvname <- 'horizconv'
+      warns$horizconvnamenull <- paste("HORIZCONV object does not have an assigned name ",
+                                       "designating unique species and source, ",
+                                       "assigning dummy name to horizconvname",sep='')
+    }
+    if (is.null(horizconvdatunits)) {
+      horizconvdatunits <- 'unknown'
+      warns$horizconvdatunitsnull <- paste("HORIZCONV object does not have assigned units ",
+                                           "assigning dummy units to horizconvdatunits",sep='')
+    }
+    if(!is.null(horizconvdat)){
+      horizconvdatnames <-dimnames(horizconvdat)[[2]]
+
+      ncol.dim<-ncdim_def(paste("ncol",horizconvname,sep=""),"",vals=1:ncol(horizconvdat),create_dimvar=F)
+      nrow.dim<-ncdim_def(paste("nrow",horizconvname,sep=""),"",vals=1:nrow(horizconvdat),create_dimvar=F)
+
+      vars[[paste('var.',horizconvname,sep='')]] <- ncvar_def(name=horizconvname,units=horizconvdatunits,dim=list(nrow.dim,ncol.dim),
+                                                              missval=-1e34,longname="horizontally convolved mixing ratios per particle",compression=9)
+      atts$varid <- c(atts$varid,horizconvname)
+      atts$name  <- c(atts$name,'description')
+      atts$val   <- c(atts$val,"matrix includes associated particle index values")
+
+      vars[[paste('var.',horizconvname,'names',sep='')]] <- ncvar_def(name=paste(horizconvname,'names',sep=''),units="none",dim=list(dimnchar,ncol.dim),
+                                                                      missval=charmissval,longname=paste('column names for ',horizconvname,sep=''),prec="char",compression=9)
+
+      outs[[horizconvname]] <- horizconvdat
+      outs[[paste(horizconvname,'names',sep='')]] <- horizconvdatnames
+    } else warns$horizconvdatnull<- "HORIZONTAL CONVOLVE SUMMARY RESULTS NOT FOUND"
+  }#horizconv
+
+  if(avghorizconv){
+    if (is.null(avghorizconvname)) {
+      avghorizconvname <- 'avghorizconv'
+      warns$avghorizconvnamenull <- paste("AVGHORIZCONV object does not have an assigned name ",
+                                          "designating unique species and source, ",
+                                          "assigning dummy name to avghorizconvname",sep='')
+    }
+    if (is.null(avghorizconvdatunits)) {
+      avghorizconvdatunits <- 'unknown'
+      warns$avghorizconvdatunitsnull <- paste("AVGHORIZCONV object does not have assigned units ",
+                                              "assigning dummy units to avghorizconvdatunits",sep='')
+    }
+    if(!is.null(avghorizconvdat)){
+      n.dim<-ncdim_def(paste("n",avghorizconvname,sep=""),"",vals=1:length(avghorizconvdat),create_dimvar=F)
+
+      vars[[paste('var.',avghorizconvname,sep='')]] <- ncvar_def(name=avghorizconvname,units=avghorizconvdatunits,dim=list(n.dim),
+                                                                 missval=-1e34,longname="average horizontally convolved mixing ratio of all particles",compression=9)
+
+      outs[[avghorizconvname]] <- avghorizconvdat
+    } else warns$avghorizconvdatnull<- "AVGHORIZONTAL CONVOLVE SUMMARY RESULTS NOT FOUND"
+  }#avghorizconv
+
+  if (dvmr) {
+    if (is.null(dvmrname)) {
+      dvmrname <- 'dvmr'
+      warns$dvmrnamenull <- paste("DVMR object does not have an assigned name ",
+                                  "designating unique species and source, ",
+                                  "assigning dummy name to dvmrname",sep='')
+    }
+    if (is.null(dvmrdatunits)) {
+      dvmrdatunits <- 'unknown'
+      warns$dvmrdatunitsnull <- paste("DVMRDAT object does not have assigned units ",
+                                      "assigning dummy units to dvmrdatunits",sep='')
+    }
+    if(!is.null(dvmrdat)){
+      ndvmrnames.dim<-ncdim_def(paste('n',dvmrname,'names',sep=''),"",vals=1:ncol(dvmrdat),create_dimvar=F)
+      vars[[paste('var.',dvmrname,'names',sep='')]] <- ncvar_def(name=paste(dvmrname,'names',sep=''),units="none",
+                                                                 dim=list(dimnchar,ndvmrnames.dim),missval=charmissval,
+                                                                 longname=paste("column names for ",dvmrname,sep=""),prec="char",compression=9)
+
+      dvmryear <- as.numeric(dimnames(dvmrdat)[[1]])
+      dvmryear.dim <- ncdim_def(paste(dvmrname,'year',sep=''),"flux data year",vals=dvmryear)
+
+      vars[[paste('var.',dvmrname,sep='')]] <- ncvar_def(name=dvmrname,units=dvmrdatunits,dim=list(dvmryear.dim,ndvmrnames.dim),
+                                                         missval=-1e34,longname="delta volume mixing ratio and uncertainty estimates",compression=9)
+      atts$varid <- c(atts$varid,dvmrname)
+      atts$name  <- c(atts$name,'description')
+      atts$val   <- c(atts$val,"results from horizontally convolving footprints and fluxes")
+
+      outs[[paste(dvmrname,'names',sep='')]] <- dimnames(dvmrdat)[[2]]
+      outs[[dvmrname]] <- dvmrdat
+    } else warns$dvmrdatnull<- "DVMR RESULTS NOT FOUND"
+  }#dvmr
+
+  if (dvmrmean) {
+    ndvmrmean.dim<-ncdim_def("ndvmrmean","",vals=1:length(dvmrmeandat),create_dimvar=F)
+
+    vars[[paste('var.',dvmrmeanname,sep='')]] <- ncvar_def(name=dvmrmeanname,units=dvmrmeandatunits,dim=list(ndvmrmean.dim),
+                                                           missval=-1e34,longname="climatological mean delta volume mixing ratio components and uncertainties",compression=9)
+
+    vars[[paste('var.',dvmrmeanname,'names',sep='')]] <- ncvar_def(name=paste(dvmrmeanname,'names',sep=''),units="various",dim=list(dimnchar,ndvmrmean.dim),
+                                                                   missval=charmissval,longname=paste('names for ',dvmrmeanname,' 1D array',sep=''), prec="char",compression=9)
+    outs[[dvmrmeanname]] <- dvmrmeandat
+    outs[[paste(dvmrmeanname,'names',sep='')]] <- names(dvmrmeandat)
+  }#dvmrmean
+
+  if (dvmrstd) {
+    ndvmrstd.dim<-ncdim_def("ndvmrstd","",vals=1:length(dvmrstddat),create_dimvar=F)
+
+    vars[[paste('var.',dvmrstdname,sep='')]] <- ncvar_def(name=dvmrstdname,units=dvmrstddatunits,dim=list(ndvmrstd.dim),
+                                                          missval=-1e34,longname=paste("climatological standard deviation for delta volume mixing ratio components ",
+                                                                                       "and uncertainties",sep=""),compression=9)
+
+    vars[[paste('var.',dvmrstdname,'names',sep='')]] <- ncvar_def(name=paste(dvmrstdname,'names',sep=''),units="various",dim=list(dimnchar,ndvmrstd.dim),
+                                                                  missval=charmissval,longname=paste('names for ',dvmrstdname,' 1D array',sep=''), prec="char",compression=9)
+    outs[[dvmrstdname]] <- dvmrstddat
+    outs[[paste(dvmrstdname,'names',sep='')]] <- names(dvmrstddat)
+  }#dvmrstd
+
+  if(check) {
+    if(is.null(checkdat)) checkdat <-  getr(paste("check",ident,sep=""), checkpath)
+    if(!is.null(checkdat)){
+      checkbasic<-checkdat$basic
+      checkbasicnames<-names(checkdat$basic)
+
+      if(!is.null(checkbasic) & !is.null(checkbasicnames)){
+        ncheckbasic.dim<-ncdim_def("ncheckbasic","",vals=1:length(checkbasic),create_dimvar=F)
+
+        vars$var.checkbasic <- ncvar_def(name="checkbasic",units="various",dim=list(ncheckbasic.dim),
+                                         missval=-1e34,longname="basic output from Trajeccheck()",compression=9)
+
+        vars$var.checkbasicnames<-ncvar_def(name="checkbasicnames",units="various",dim=list(dimnchar,ncheckbasic.dim),
+                                            missval=charmissval,longname="names for checkbasic 1D array", prec="char",compression=9)
+        outs$checkbasic<-checkbasic
+        outs$checkbasicnames<-checkbasicnames
+      } else  warns$checkbasicnull<- "CHECKDAT$BASIC IS EMPTY OR NAMES ARE MISSING"
+
+      checksum<-checkdat$summary
+      checksumnames<-dimnames(checkdat$summary)[[2]]
+
+      if(!is.null(checksum) & !is.null(checksumnames)){
+
+        checksumtime<-stilt.start+checksum[,"time"]*60
+
+        checksumdate.vals <- as.numeric(difftime(checksumtime,epoch,units="days")) # subtract the epoch to make days-since
+        checksumdate.dim <- ncdim_def("checksumdate","days since 2000-01-01 00:00:00 UTC",vals=checksumdate.vals)
+        ncolchecksum.dim<-ncdim_def("ncolchecksum","",vals=1:ncol(checksum),create_dimvar=F)
+
+        vars$var.checksumnames<-ncvar_def(name="checksumnames",units="various",dim=list(dimnchar,ncolchecksum.dim),
+                                          missval=charmissval,longname="column names for checksum array",prec="char",compression=9)
+
+        vars$var.checksum <- ncvar_def(name="checksum",units="various",dim=list(checksumdate.dim,ncolchecksum.dim),
+                                       missval=-1e34,longname="checksum array",compression=9)
+        outs$checksum<-checksum
+        outs$checksumnames<-checksumnames
+        if(plotmeantrajec){
+          errorbar<-function(xx,yy,xunc=NULL,yunc=NULL,color=1,ltype=1,lwidth=1,xbar=NULL,ybar=NULL){
+
+            if (!is.null(xunc)) segments(xx+xunc,yy,xx-xunc,yy, col=color,lty=ltype,lwd=lwidth)
+            if (!is.null(yunc)) segments(xx,yy+yunc,xx,yy-yunc, col=color,lty=ltype,lwd=lwidth)
+            if(!is.null(xbar)&!is.null(xunc)){
+              segments(xx-xunc,yy-xbar,xx-xunc,yy+xbar, col=color,lty=ltype,lwd=lwidth)
+              segments(xx+xunc,yy-xbar,xx+xunc,yy+xbar, col=color,lty=ltype,lwd=lwidth)
+            }
+            if(!is.null(ybar)&!is.null(yunc)){
+              segments(xx-ybar,yy-yunc,xx+ybar,yy-yunc, col=color,lty=ltype,lwd=lwidth)
+              segments(xx-ybar,yy+yunc,xx+ybar,yy+yunc, col=color,lty=ltype,lwd=lwidth)
+            }
+          } #errorbar
+
+          print(paste("Saving... ", targetdir, "meantrajec", ident, ".pdf", sep=""))
+
+          pdf(file=paste(targetdir,"meantrajec",ident,".pdf",sep=""))
+          library(maps)
+          plot(checksum[,"mlon"],checksum[,"mlat"],xlim=c(-180,-50),ylim=c(10,70),xlab="",ylab="", type="n")
+          errorbar(checksum[,"mlon"],checksum[,"mlat"],xunc=checksum[,"slon"],yunc=checksum[,"slat"],col=8,xbar=0,ybar=0)
+          points(checksum[,"mlon"],checksum[,"mlat"], type="l",lwd=3)
+          map(add=T)
+          map("state", add=T)
+          title(ident)
+          dev.off()
+        } #if plotmeantrajec
+      } else  warns$checksumnull<- "CHECKDAT$SUM IS EMPTY OR NAMES ARE MISSING"
+
+
+      if ('speed' %in% names(checkdat)) {
+        #speed is no longer a required field in checkdat
+        checkspeed<-checkdat$speed
+        checkspeednames<-names(checkdat$speed)
+
+        if(!is.null(checkspeed) & !is.null(checkspeednames)){
+
+          ncheckspeed.dim<-ncdim_def("ncheckspeed","",vals=1:length(checkspeed),create_dimvar=F)
+
+          vars$var.checkspeed <- ncvar_def(name="checkspeed",units="various",dim=list(ncheckspeed.dim),
+                                           missval=-1e34,longname="speed output from Trajeccheck()",compression=9)
+
+          vars$var.checkspeednames<-ncvar_def(name="checkspeednames",units="various",dim=list(dimnchar,ncheckspeed.dim),
+                                              missval=charmissval,longname="names for checkspeed 1D array", prec="char",compression=9)
+
+          outs$checkspeed<-checkspeed
+          outs$checkspeednames<-checkspeednames
+
+        } else  warns$checkspeednull<- "CHECKDAT$SPEED IS EMPTY OR NAMES ARE MISSING"
+      }#end if speed in checkdat
+
+    } else warns$checkdatnull<- "CHECKDAT IS EMPTY"
+
+  }#check
+
+  if(runinfo){
+    if(is.null(runinfodat)) runinfodat <- getr(paste("run.info",ident,sep=""), runinfopath)
+    if(!is.null(runinfodat)){
+
+      runinfonames<-dimnames(runinfodat)[[2]]
+
+
+      nruninfo.dim<-ncdim_def("nruninfo","",vals=1:(dim(runinfodat)[2]),create_dimvar=T)
+      vars$var.runinfonames<-ncvar_def(name="runinfonames",units="various",dim=list(dimnchar,nruninfo.dim),
+                                       missval=charmissval,longname="names for runinfo array",prec="char",compression=9)
+      vars$var.runinfo<-ncvar_def(name="runinfo",units="various",dim=list(dimnchar,nruninfo.dim),
+                                  missval=charmissval,longname="runinfo array",prec="char",compression=9)
+
+      outs$runinfonames<-runinfonames
+      outs$runinfo<-runinfodat
+    }  else  warns$runinfonull<- "RUNINFO IS EMPTY OR NAMES ARE MISSING"
+  }#runinfo
+
+  if (init) {
+    if (is.null(initname)) {
+      initname <- 'init'
+      warns$initnamenull <- paste("INIT object does not have an assigned name ",
+                                  "designating unique species and source, ",
+                                  "assigning dummy name to initname",sep='')
+    }
+    if (is.null(initdatunits)) {
+      initdatunits <- 'unknown'
+      warns$initdatunitsnull <- paste("INIT object does not have assigned units ",
+                                      "assigning dummy units to initdatunits",sep='')
+    }
+    if (!is.null(initdat)) {
+      initdatnames <- dimnames(initdat)[[2]]
+      nrow.dim <- ncdim_def(paste("nrow",initname,sep=""),"",vals=1:nrow(initdat),create_dimvar=F)
+      ncol.dim <- ncdim_def(paste("ncol",initname,sep=""),"",vals=1:ncol(initdat),create_dimvar=F)
+
+      vars[[paste('var.',initname,sep='')]] <- ncvar_def(name=initname,units=initdatunits,dim=list(nrow.dim,ncol.dim),
+                                                         missval=-1e34,longname="matrix containing initial mixing ratio values of particles and associated particle index value",compression=9)
+
+      vars[[paste('var.',initname,'names',sep='')]] <- ncvar_def(name=paste(initname,'names',sep=''),units='none',dim=list(dimnchar,ncol.dim),
+                                                                 missval=charmissval,longname="column names of associated init data matrix",prec="char",compression=9)
+
+      outs[[initname]] <- initdat
+      outs[[paste(initname,'names',sep='')]] <- initdatnames
+
+    }else{warns$initdatnull<- "INITDAT IS EMPTY OR NAMES ARE MISSING"}
+  }#init
+
+  if (avginit) {
+    if (is.null(avginitname)) {
+      avginitname <- 'avginit'
+      warns$avginitnamenull <- paste("AVGINIT object does not have an assigned name ",
+                                     "designating unique species and source, ",
+                                     "assigning dummy name to avginitname",sep='')
+    }
+    if (is.null(avginitdatunits)) {
+      avginitdatunits <- 'unknown'
+      warns$avginitdatunitsnull <- paste("AVGINIT object does not have assigned units ",
+                                         "assigning dummy units to avginitdatunits",sep='')
+    }
+    if (!is.null(avginitdat)) {
+      n.dim <- ncdim_def(paste("n",avginitname,sep=""),"",vals=1:length(avginitdat),create_dimvar=F)
+
+      vars[[paste('var.',avginitname,sep='')]] <- ncvar_def(name=avginitname,units=avginitdatunits,dim=list(n.dim),
+                                                            missval=-1e34,longname="average initial mixing ratio value of all particles",compression=9)
+
+      outs[[avginitname]] <- avginitdat
+
+    }else{warns$avginitdatnull<- "AVGINITDAT IS EMPTY OR NAMES ARE MISSING"}
+  }#avginit
+
+  if (emit) {
+    if (!is.null(emitdat)) {
+      n.dim <- ncdim_def("nemitwindow","",vals=1:dim(emitdat)[[2]],create_dimvar=F)
+
+      vars$var.emitwindow <- ncvar_def(name='emitwindow',units='hours, x grid lengths, y grid lengths, z grid lengths',
+                                       dim=list(n.dim),missval=-1e34,
+                                       longname="emission time and space window of particle releases at receptor",compression=9)
+      atts$varid <- c(atts$varid,'emitwindow')
+      atts$name  <- c(atts$name,'description')
+      atts$val   <- c(atts$val,paste('emithrs: length (in hours) of emission time ',
+                                     'period for time-average receptors (default: 1/3600, for instantaneous ',
+                                     'releases);   emitdx/emitdy/emitdz: if > 0, specifies randomized horizontal ',
+                                     'and vertical release locations for this receptor (xreceptor +/- dx, yreceptor',
+                                     ' +/- dy, zreceptor +/- dz instead of xreceptor,yreceptor,zreceptor)',sep=''))
+
+      vars$var.emitwindownames <- ncvar_def(name="emitwindownames",units="various",
+                                            dim=list(dimnchar,n.dim),missval=charmissval,
+                                            longname="names for emitwindow 1D array", prec="char",compression=9)
+      outs$emitwindow <- array(emitdat)
+      outs$emitwindownames <- colnames(emitdat)
+    }else{warns$emitdatnull<- "EMITDAT IS EMPTY OR NAMES ARE MISSING"}
+  }#emit
+
+  ncnameout<-paste(targetdir,ncname,sep="")
+
+  varnames<-names(vars)
+  outnames<-matrix(unlist(strsplit(names(vars),"var.")),ncol=2, byrow=T)[,2]
+
+
+  if (appendnc && file.exists(ncnameout)) {
+    #Append existing NCDF output file and write variable to file.
+
+    #retrieve data from existing netCDF file before its overwritten
+    filenc <- nc_open(ncnameout, write=TRUE)
+    oldnames <- names(filenc$var)
+    cat('make.hysplit.nc4.r: netCDF variable names in existing file = ',oldnames,'\n')
+
+    #find variables that are missing in newest version of file
+    for (i in 1:length(outnames)) {
+      if (any(oldnames == outnames[i])) {
+        if (outnames[i] == 'ident') {
+          cat(' Skipping: variable = ', outnames[i],'is already in netCDF file\n')
+        }else{
+          stop('Do not overwrite: Variable = ', outnames[i],'is already in netCDF file\n')
+        }
+      }else{
+        #variable is not in file, append to file
+        cat('Attempt to append file with variable = ', outnames[i],'\n')
+
+        #modify file handle to contain new ncvar4 variable (data is junk)
+        filenc <- ncvar_add(filenc, vars[[varnames[i]]])
+
+        #close file handle to save ncvar4 changes and reopen to add data
+        #(ncvar_put won't work without closing and reopening)
+        nc_close(filenc)
+        filenc <- nc_open(ncnameout, write=TRUE)
+        ncvar_put(filenc, vars[[varnames[i]]],outs[[outnames[i]]])
+      }
+    }#end for i
+
+    #attributes
+    if (length(atts) > 0) {
+      for (nn in 1:length(atts$varid)) {
+        if (!any(oldnames == atts$varid[[nn]])) {
+          ncatt_put(filenc,atts$varid[[nn]],atts$name[[nn]],atts$val[[nn]])
+        }
+      }
+    }
+
+    #close file
+    nc_close(filenc)
+
+  }else{
+    #Create new NCDF output file and write variable to file.
+    ncf <- nc_create(ncnameout,vars=vars)
+
+    #global attributes
+    if (length(global.att.list) == 0) {
+      # None specified in arg list as global.att.list, use the default:
+      ncatt_put(ncf,varid=0,'Title','Output from HYSPLIT')
+      ncatt_put(ncf,varid=0,'Conventions','CF-1.6')
+      # plus file contents from specified global.att.files:
+      if (length(global.att.files) > 0) {
+        if (is.null(names(global.att.files))) names(global.att.files) <- global.att.files
+        for (igatt in 1:length(global.att.files)) {
+          gatt.name <- names(global.att.files)[igatt]
+          #          gatt.fname <- global.att.files[igatt]
+          gatt.fname <- global.att.files[[gatt.name]]   # made this change - kwt
+          gatt.str <- NULL
+          if (file.exists(gatt.fname)) gatt.str <- scan(gatt.fname,what="",sep="\n",
+                                                        quiet = TRUE, blank.lines.skip = FALSE)
+          if (length(gatt.str) > 0) {
+            gatt.str <- paste(paste(gatt.str,collapse="\n"),"\n",sep="")
+            ncatt_put(ncf,varid=0,gatt.name,gatt.str)
+          }
+        }
+      }
+    } else {
+      # Global attributes specified from arg.list
+      # (These could have been obtained via "gatt.list <- ncatt_get(filenc,varid=0)")
+      for (gatt.name in names(global.att.list))
+        ncatt_put(ncf,varid=0,gatt.name,global.att.list[[gatt.name]])
+    }
+    for (nn in 1:length(varnames)) {
+      cat('Attempting to write netCDF data for variable = ',varnames[nn],'\n')
+      ncvar_put(ncf, vars[[varnames[nn]]],outs[[outnames[nn]]])
+    }
+
+    #attributes
+    if (length(atts) > 0) {
+      for (nn in 1:length(atts$varid)) {
+        ncatt_put(ncf,atts$varid[[nn]],atts$name[[nn]],atts$val[[nn]])
+      }
+    }
+
+    nc_close(ncf)
+  }#end if appendnc
+
+  errorlogout<-paste(targetdir,errorlog,sep="")
+  if(!is.null(names(warns)) && !is.na(errorlog)) {
+    do.append=FALSE
+    for(ww in names(warns)) {
+      cat(paste(ww,': ',warns[[ww]],'\n',sep=''),file=errorlogout, append=do.append)
+      do.append=TRUE
+    }
+  } #if warnings
+
+  warns
+
+} #end function
+

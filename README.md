@@ -112,3 +112,12 @@ and
 <a href="https://github.com/noaa-gml/rtorf/stargazers">
 <img src="http://reporoster.com/stars/dark/noaa-gml/rtorf"/> </a>
 </p>
+
+### Note about legacy code.
+
+I received the task of reformat legacy code used to read PARTICLE.DAT
+and generate NetCDF. This code is really old and since STILT and other
+have permissive licenses, it is here, however, some code is not exported
+to NAMESPACE. A future version of rtorf, will have a new design for the
+legacy code, a modern and efficient approach, keeping the essential
+tasks.

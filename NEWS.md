@@ -2,6 +2,10 @@ NEWS
 ===========
 
 
+### rtorf 2.4.0 (Release date: 2025-09-12)
+
+Adding more legacy code. Add note about availability of files
+
 ### rtorf 2.3.1 (Release date: 2025-09-12)
 
 - Expand obs_convolve and fix tz, now it is explicit tz = "UTC"
