@@ -894,9 +894,9 @@ obs_hysplit_control_read <- function(
   dt_receptor[,
     id := obs_footname(
       time = time,
-      lat = lat,
-      lon = lon,
-      alt = alt
+      lat = as.numeric(lat),
+      lon = as.numeric(lon),
+      alt = as.numeric(alt)
     )
   ]
 
