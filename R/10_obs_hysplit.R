@@ -721,12 +721,12 @@ obs_hysplit_control_read <- function(
     track_hours = x[4]
   )
 
-  dt_time$recep1 <- as.numeric(c(
+  dt_time$recep1 <- list(as.numeric(c(
     dt_time$year,
     dt_time$month,
     dt_time$day,
     dt_time$hour
-  ))
+  )))
 
   # space
   sp <- unlist(strsplit(x[3], " "))
