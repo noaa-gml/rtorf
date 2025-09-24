@@ -864,11 +864,11 @@ obs_hysplit_control_read <- function(
 
   wet_removal <- unlist(strsplit(x[end_met + 20], " "))
 
-  actual_henry <- dep2[1]
+  actual_henry <- wet_removal[1]
 
-  in_cloud <- dep2[2]
+  in_cloud <- wet_removal[2]
 
-  below_cloud <- dep2[3]
+  below_cloud <- wet_removal[3]
 
   radioactive_decay_half_life <- x[end_met + 21]
 
