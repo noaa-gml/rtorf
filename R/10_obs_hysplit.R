@@ -721,6 +721,13 @@ obs_hysplit_control_read <- function(
     track_hours = x[4]
   )
 
+  dt_time$recep1 <- as.numeric(c(
+    dt_time$year,
+    dt_time$month,
+    dt_time$day,
+    dt_time$hour
+  ))
+
   # space
   sp <- unlist(strsplit(x[3], " "))
 
@@ -882,9 +889,19 @@ obs_hysplit_control_read <- function(
     pollutant_resuspension
   )
 
+  dt_receptor <- cbind(dt_time, dt_space)
+
+  dt_receptor[,
+    id := obs_footname(
+      time = time,
+      lat = lat,
+      lon = lon,
+      alt = alt
+    )
+  ]
+
   l_control <- list(
-    time = dt_time,
-    space = dt_space,
+    receptor = dt_receptor,
     met = metfiles,
     emi = dtemis,
     grid = dt_grid,
