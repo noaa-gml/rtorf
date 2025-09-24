@@ -907,6 +907,15 @@ obs_hysplit_control_read <- function(
     )
   ]
 
+  dtemis[,
+    ident := obs_footname(
+      time = time,
+      lat = as.numeric(dt_receptor$lat),
+      lon = as.numeric(dt_receptor$lon),
+      alt = as.numeric(dt_receptor$alt)
+    )
+  ]
+
   l_control <- list(
     receptor = dt_receptor,
     met = metfiles,
