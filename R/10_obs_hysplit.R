@@ -77,61 +77,71 @@
 #' cat(ff, sep =  "\n")
 #' }
 #
-obs_hysplit_control <- function(df,
-                                year,
-                                month,
-                                day,
-                                hour,
-                                minute,
-                                lat,
-                                lon,
-                                alt,
-                                nlocations = 1,
-                                duration = -240,
-                                vertical_motion = 5,
-                                top_model_domain = 10000,
-                                met = c("hrrr", "nams", "gfs0p25"),
-                                nmet =  abs(duration/24) + 1, # 10 days plus 1, defaultdays
-                                metpath = c("/work/noaa/lpdm/metfiles/hrrr/",
-                                            "/work/noaa/lpdm/metfiles/nams/",
-                                            "/work/noaa/lpdm/metfiles/gfs0p25/"),
-                                metformat = c(hrrr =  "%Y%m%d_hrrr",
-                                              nams = "%Y%m%d_hysplit.t00z.namsa",
-                                              gfs0p25 = "%Y%m%d_gfs0p25",
-                                              era5 = "ERA5_%Y%m%d.ARL"),
-                                ngases = 1,
-                                gas = "Foot",
-                                emissions_rate = 0,
-                                hour_emissions = 0.01,
-                                release_start = NULL,
-                                nsim_grids = 1,
-                                center_conc_grids = c(0,0),
-                                grid_spacing = c(0.1, 0.1),
-                                grid_span = c(30, 30),
-                                nconc = "cdump",
-                                nvert_levels = 1,
-                                height_vert_levels = 50,
-                                sampling_start_time  = c(0,0,0,0,0),
-                                sampling_end_time  = c(0,0,0,0,0),
-                                sampling_interval_type = c(0, abs(duration), 0),
-                                npol_depositing = 1,
-                                particle_params = c(0,0,0),
-                                dmwsrdre = c(0,0,0,0,0),
-                                wrhcicbc = c(0,0,0),
-                                radiactive_decay = 0,
-                                pol_res = 0,
-                                control = "CONTROL"){
-  if(!missing(df)) {
-    if(!"latitude" %in% names(df) ||
-       !"longitude" %in% names(df) ||
-       !"altitude" %in% names(df) ||
-       !"year" %in% names(df) ||
-       !"month" %in% names(df) ||
-       !"day" %in% names(df) ||
-       !"hour" %in% names(df) ||
-       !"minute" %in% names(df)) {
-      stop("Data frame must contain 'latitude', 'longitude', 'altitude',
-           'year', 'month', 'day', 'hour', and 'minute' columns.")
+obs_hysplit_control <- function(
+  df,
+  year,
+  month,
+  day,
+  hour,
+  minute,
+  lat,
+  lon,
+  alt,
+  nlocations = 1,
+  duration = -240,
+  vertical_motion = 5,
+  top_model_domain = 10000,
+  met = c("hrrr", "nams", "gfs0p25"),
+  nmet = abs(duration / 24) + 1, # 10 days plus 1, defaultdays
+  metpath = c(
+    "/work/noaa/lpdm/metfiles/hrrr/",
+    "/work/noaa/lpdm/metfiles/nams/",
+    "/work/noaa/lpdm/metfiles/gfs0p25/"
+  ),
+  metformat = c(
+    hrrr = "%Y%m%d_hrrr",
+    nams = "%Y%m%d_hysplit.t00z.namsa",
+    gfs0p25 = "%Y%m%d_gfs0p25",
+    era5 = "ERA5_%Y%m%d.ARL"
+  ),
+  ngases = 1,
+  gas = "Foot",
+  emissions_rate = 0,
+  hour_emissions = 0.01,
+  release_start = NULL,
+  nsim_grids = 1,
+  center_conc_grids = c(0, 0),
+  grid_spacing = c(0.1, 0.1),
+  grid_span = c(30, 30),
+  nconc = "cdump",
+  nvert_levels = 1,
+  height_vert_levels = 50,
+  sampling_start_time = c(0, 0, 0, 0, 0),
+  sampling_end_time = c(0, 0, 0, 0, 0),
+  sampling_interval_type = c(0, abs(duration), 0),
+  npol_depositing = 1,
+  particle_params = c(0, 0, 0),
+  dmwsrdre = c(0, 0, 0, 0, 0),
+  wrhcicbc = c(0, 0, 0),
+  radiactive_decay = 0,
+  pol_res = 0,
+  control = "CONTROL"
+) {
+  if (!missing(df)) {
+    if (
+      !"latitude" %in% names(df) ||
+        !"longitude" %in% names(df) ||
+        !"altitude" %in% names(df) ||
+        !"year" %in% names(df) ||
+        !"month" %in% names(df) ||
+        !"day" %in% names(df) ||
+        !"hour" %in% names(df) ||
+        !"minute" %in% names(df)
+    ) {
+      stop(
+        "Data frame must contain 'latitude', 'longitude', 'altitude',
+           'year', 'month', 'day', 'hour', and 'minute' columns."
+      )
     }
     # lat lon height
     lat <- df$latitude
@@ -142,13 +152,11 @@ obs_hysplit_control <- function(df,
 
     lon <- sprintf(lon, fmt = '%#.4f')
 
-
     yr <- df$year
     mo <- df$month
     dy <- df$day
     ho <- df$hour
     mi <- df$minute
-
   } else {
     # lat lon height
     lat <- sprintf(lat, fmt = '%#.4f')
@@ -161,31 +169,31 @@ obs_hysplit_control <- function(df,
     ho <- hour
     mi <- minute
     agl <- alt
-
   }
 
   start_loc <- paste(lat, lon, sprintf("%#.1f", agl))
 
-
-  rel_start <- paste(substr(yr, 3, 4), #I need to confirm
-                     sprintf(mo, fmt = '%02d'),
-                     sprintf(dy, fmt = '%02d'),
-                     sprintf(ho, fmt = '%02d'),
-                     sprintf(mi, fmt = '%02d'))
+  rel_start <- paste(
+    substr(yr, 3, 4), #I need to confirm
+    sprintf(mo, fmt = '%02d'),
+    sprintf(dy, fmt = '%02d'),
+    sprintf(ho, fmt = '%02d'),
+    sprintf(mi, fmt = '%02d')
+  )
 
   nmodels <- length(met)
 
-
-  hydate <- as.Date(ISOdate(year = yr,
-                            month = mo,
-                            day = dy + 1,
-                            hour = ho,
-                            min = mi,
-                            sec = 0,
-                            tz = "UTC"))
+  hydate <- as.Date(ISOdate(
+    year = yr,
+    month = mo,
+    day = dy + 1,
+    hour = ho,
+    min = mi,
+    sec = 0,
+    tz = "UTC"
+  ))
 
   # magick ####
-
 
   sink(control)
 
@@ -200,7 +208,6 @@ obs_hysplit_control <- function(df,
 
   cat(sprintf(ho + 1, fmt = '%02d'))
   cat("\n")
-
 
   cat(nlocations, sep = "\n")
 
@@ -224,8 +231,7 @@ obs_hysplit_control <- function(df,
   cat(sprintf("%#.1f", top_model_domain))
   cat("\n")
 
-
-  if(length(met) > 1) {
+  if (length(met) > 1) {
     cat(paste(length(met), nmet))
   } else {
     cat(nmet)
@@ -233,38 +239,30 @@ obs_hysplit_control <- function(df,
 
   cat("\n")
 
+  if (is.null(names(metformat))) {
+    stop("metformat must be a named vector")
+  }
 
-  if(is.null(names(metformat))) stop("metformat must be a named vector")
-
-  for(j in seq_along(met)) {
+  for (j in seq_along(met)) {
     metx <- met[j]
 
-    if(metx %in% c("nams",
-                   "gfs0p25",
-                   "hrrr",
-                   "era5")) {
-
-      for(i in  1:nmet){
+    if (metx %in% c("nams", "gfs0p25", "hrrr", "era5")) {
+      for (i in 1:nmet) {
         hyd <- as.Date(hydate - i)
 
         cat(
-          paste0(metpath[j],
-                 data.table::year(hyd),
-                 "/"))
+          paste0(metpath[j], data.table::year(hyd), "/")
+        )
         cat("\n")
-
 
         cat(
-          strftime(hyd,
-                   metformat[[metx]],
-                   tz = "UTC"))
+          strftime(hyd, metformat[[metx]], tz = "UTC")
+        )
         cat("\n")
-
       }
     } else {
       stop("met can be only nams, gfs0p25, hrrr, or era5")
     }
-
   }
 
   cat(ngases)
@@ -285,7 +283,6 @@ obs_hysplit_control <- function(df,
   cat(nsim_grids)
   cat("\n")
 
-
   cat(sprintf("%#.1f", center_conc_grids[1]))
 
   cat(" ")
@@ -293,7 +290,6 @@ obs_hysplit_control <- function(df,
   cat(sprintf("%#.1f", center_conc_grids[2]))
 
   cat("\n")
-
 
   cat(sprintf("%#.2f", grid_spacing[1]))
 
@@ -303,7 +299,6 @@ obs_hysplit_control <- function(df,
 
   cat("\n")
 
-
   cat(sprintf("%#.1f", grid_span[1]))
 
   cat(" ")
@@ -311,7 +306,6 @@ obs_hysplit_control <- function(df,
   cat(sprintf("%#.1f", grid_span[2]))
 
   cat("\n")
-
 
   cat("./\n")
 
@@ -351,11 +345,8 @@ obs_hysplit_control <- function(df,
   cat(sprintf(fmt = "%#.1f", pol_res))
   cat("\n")
 
-
   sink()
-
 }
-
 
 
 #' obs_hysplit_setup
@@ -443,144 +434,114 @@ obs_hysplit_control <- function(df,
 #' cat(readLines(setup_file),sep =  "\n")
 #' }
 #
-obs_hysplit_setup <- function(idsp = 2,
-                              capemin = 500,
-                              vscales = -1.0,
-                              kbls = 1,
-                              kblt = 5,
-                              kmixd = 0,
-                              initd = 0,
-                              veght = 0.5,
-                              kmix0 = 150,
-                              numpar = 500,
-                              maxpar = 500,
-                              ichem = 8,
-                              krand = 4,
-                              varsiwant = c('time','indx',
-                                            'lati','long','zagl',
-                                            'zsfc','foot','samt',
-                                            'temp','dswf','mlht','dens',
-                                            'dmas','sigw','tlgr'),
-                              ivmax = length(varsiwant),
-                              outdt = 15,
-                              extra_params,
-                              bypass_params,
-                              setup = "SETUP.CFG"){
+obs_hysplit_setup <- function(
+  idsp = 2,
+  capemin = 500,
+  vscales = -1.0,
+  kbls = 1,
+  kblt = 5,
+  kmixd = 0,
+  initd = 0,
+  veght = 0.5,
+  kmix0 = 150,
+  numpar = 500,
+  maxpar = 500,
+  ichem = 8,
+  krand = 4,
+  varsiwant = c(
+    'time',
+    'indx',
+    'lati',
+    'long',
+    'zagl',
+    'zsfc',
+    'foot',
+    'samt',
+    'temp',
+    'dswf',
+    'mlht',
+    'dens',
+    'dmas',
+    'sigw',
+    'tlgr'
+  ),
+  ivmax = length(varsiwant),
+  outdt = 15,
+  extra_params,
+  bypass_params,
+  setup = "SETUP.CFG"
+) {
   # start
-  write("&SETUP",
-        file=setup)
+  write("&SETUP", file = setup)
 
-  if(!missing(bypass_params)){
+  if (!missing(bypass_params)) {
+    for (i in seq_along(bypass_params)) {
+      bp <- paste0(" ", names(bypass_params)[i], " = ", bypass_params[i], ",")
 
-    for(i in seq_along(bypass_params)) {
-
-      bp <- paste0(" ",
-                   names(bypass_params)[i],
-                   " = ",
-                   bypass_params[i],
-                   ",")
-
-      write(bp,
-            file = setup,
-            append=TRUE)
-
+      write(bp, file = setup, append = TRUE)
     }
-
   } else {
+    write(paste0(" idsp = ", idsp, ","), file = setup, append = TRUE)
 
+    write(paste0(" capemin = ", capemin, ","), file = setup, append = TRUE)
 
-    write(paste0(" idsp = ", idsp, ","),
-          file = setup,
-          append=TRUE)
+    write(
+      paste0(" vscales = ", sprintf("%#.1f", vscales), ","),
+      file = setup,
+      append = TRUE
+    )
 
-    write(paste0(" capemin = ", capemin, ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" kbls = ", kbls, ","), file = setup, append = TRUE)
 
-    write(paste0(" vscales = ", sprintf("%#.1f", vscales), ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" kblt = ", kblt, ","), file = setup, append = TRUE)
 
-    write(paste0(" kbls = ", kbls, ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" kmixd = ", kmixd, ","), file = setup, append = TRUE)
 
-    write(paste0(" kblt = ", kblt, ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" initd = ", initd, ","), file = setup, append = TRUE)
 
-    write(paste0(" kmixd = ", kmixd, ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" veght = ", veght, ","), file = setup, append = TRUE)
 
-    write(paste0(" initd = ", initd, ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" kmix0 = ", kmix0, ","), file = setup, append = TRUE)
 
-    write(paste0(" veght = ", veght, ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" numpar = ", numpar, ","), file = setup, append = TRUE)
 
-    write(paste0(" kmix0 = ", kmix0, ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" maxpar = ", maxpar, ","), file = setup, append = TRUE)
 
-    write(paste0(" numpar = ", numpar, ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" ichem = ", ichem, ","), file = setup, append = TRUE)
 
-    write(paste0(" maxpar = ", maxpar, ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" krand = ", krand, ","), file = setup, append = TRUE)
 
-    write(paste0(" ichem = ", ichem, ","),
-          file = setup,
-          append=TRUE)
+    write(paste0(" ivmax = ", ivmax, ","), file = setup, append = TRUE)
 
-    write(paste0(" krand = ", krand, ","),
-          file = setup,
-          append=TRUE)
+    write(
+      paste0(
+        " varsiwant=",
+        paste(sQuote(varsiwant, q = ""), collapse = ","),
+        sep = ","
+      ),
+      file = setup,
+      append = TRUE
+    )
 
+    write(paste0(" outdt = ", outdt, ","), file = setup, append = TRUE)
 
-    write(paste0(" ivmax = ", ivmax, ","),
-          file = setup,
-          append=TRUE)
+    if (!missing(extra_params)) {
+      for (i in seq_along(extra_params)) {
+        ep <- paste0(
+          " ",
+          eval(parse(text = extra_params[i])),
+          " = ",
+          extra_params[i],
+          ","
+        )
 
-    write(paste0(" varsiwant=",
-                 paste(sQuote(varsiwant, q = ""),
-                       collapse = ","),
-                 sep = ","),
-          file = setup,
-          append=TRUE)
-
-
-    write(paste0(" outdt = ", outdt, ","),
-          file = setup,
-          append=TRUE)
-
-
-    if(!missing(extra_params)) {
-
-      for(i in seq_along(extra_params)) {
-        ep <- paste0(" ",
-                     eval(parse(text = extra_params[i])),
-                     " = ",
-                     extra_params[i],
-                     ",")
-
-        write(ep,
-              file = setup,
-              append=TRUE)
-
+        write(ep, file = setup, append = TRUE)
       }
     }
   }
 
   # end
-  write("/",
-        file = setup,
-        append=TRUE)
-
+  write("/", file = setup, append = TRUE)
 
   # sink(setup)
   #
@@ -636,7 +597,6 @@ obs_hysplit_setup <- function(idsp = 2,
   #
   # sink()
   # }
-
 }
 
 
@@ -661,14 +621,15 @@ obs_hysplit_setup <- function(idsp = 2,
 #' cat(readLines(ascdata_file), sep =  "\n")
 #' }
 #
-obs_hysplit_ascdata <- function(llc =  c(-90.0, -180.0),
-                                spacing = c(1.0, 1.0),
-                                n = c(180, 360),
-                                landusecat = 2,
-                                rough = 0.2,
-                                bdyfiles = '../bdyfiles/',
-                                ascdata = "ASCDATA.CFG"){
-
+obs_hysplit_ascdata <- function(
+  llc = c(-90.0, -180.0),
+  spacing = c(1.0, 1.0),
+  n = c(180, 360),
+  landusecat = 2,
+  rough = 0.2,
+  bdyfiles = '../bdyfiles/',
+  ascdata = "ASCDATA.CFG"
+) {
   sink(ascdata)
 
   cat(sprintf("%#.1f", llc[1]))
@@ -679,7 +640,6 @@ obs_hysplit_ascdata <- function(llc =  c(-90.0, -180.0),
 
   cat("  lat/lon of lower left corner (last record in file)\n")
 
-
   cat(sprintf("%#.1f", spacing[1]))
 
   cat("     ")
@@ -687,7 +647,6 @@ obs_hysplit_ascdata <- function(llc =  c(-90.0, -180.0),
   cat(sprintf("%#.1f", spacing[2]))
 
   cat("    lat/lon spacing in degrees between data points\n")
-
 
   cat(n, sep = "     ")
 
@@ -706,4 +665,231 @@ obs_hysplit_ascdata <- function(llc =  c(-90.0, -180.0),
   cat(" directory location of data files\n")
 
   sink()
+}
+
+
+#' obs_hysplit_control_read
+#'
+#' This function creates a CONTROL file for HYSPLIT model.
+#' It uses inputs from a data.frame with the receptor information.
+#'
+#' @param control CONTROL text file
+#' @return A list with CONTROL information
+#' @export
+#' @examples {
+#' # Do not run
+#' obs <- system.file("data-raw", package = "rtorf")
+#' index <- obs_summary(obs)
+#' dt <- obs_read(index)
+#' df <- dt[1]
+#' control_file <- tempfile()
+#' obs_hysplit_control(df, control = control_file)
+#' ff <- readLines(control_file)
+#'
+#' cat(ff, sep =  "\n")
+#' obs_hysplit_control_read(control_file)
+#'
+#' }
+#
+obs_hysplit_control_read <- function(
+  control = "CONTROL"
+) {
+  x <- readLines(control)
+
+  # time
+  t1 <- unlist(strsplit(x[1], " "))
+
+  t2 <- ISOdate(
+    year = year(as.POSIXct(t1[1], "%y", tz = "UTC")),
+    month = t1[2],
+    day = t1[3],
+    hour = t1[4],
+    0,
+    0,
+    tz = "UTC"
+  )
+
+  dt_time <- data.table::data.table(
+    control = x[1],
+    time = t2,
+    year = year(t2),
+    month = t1[2],
+    day = t1[3],
+    hour = t1[4],
+    minute = 0,
+    second = 0,
+    track_hours = x[4]
+  )
+
+  # space
+  sp <- unlist(strsplit(x[3], " "))
+
+  dt_space <- data.table::data.table(
+    lat = sp[1],
+    lon = sp[2],
+    alt = sp[3],
+    nlocations = x[2],
+    vertical_motion = x[5],
+    top_model = x[6]
+  )
+
+  # met
+  met <- unlist(strsplit(x[7], " "))
+
+  lmet <- lapply(met, as.numeric)
+
+  metfiles <- list(
+    models = length(lmet),
+    files = x[8:(7 + length(lmet) * lmet[[1]] * 2)]
+  )
+
+  # emis
+  end_met <- (7 + length(lmet) * lmet[[1]] * 2)
+
+  dt_emis <- data.table::data.table(
+    ngases = x[end_met + 1],
+    gas = x[end_met + 2],
+    emissions_rate = x[end_met + 3],
+    hours_emissions = x[end_met + 4]
+  )
+
+  rt <- unlist(strsplit(x[end_met + 5], " "))
+
+  trt <- ISOdate(
+    year = year(as.POSIXct(rt[1], "%y", tz = "UTC")),
+    month = rt[2],
+    day = rt[3],
+    hour = rt[4],
+    min = rt[5],
+    0,
+    tz = "UTC"
+  )
+
+  dt_time_release <- data.table::data.table(
+    control = x[end_met + 5],
+    time = trt,
+    year = year(trt),
+    month = rt[2],
+    day = rt[3],
+    hour = rt[4],
+    min = rt[5],
+    sec = 0
+  )
+
+  dtemis <- cbind(dt_emis, dt_time_release)
+
+  # grid
+
+  ngrids <- x[end_met + 6]
+
+  cg <- unlist(strsplit(x[end_met + 7], " "))
+  cg_lat <- cg[1]
+  cg_lon <- cg[2]
+
+  cgspc <- unlist(strsplit(x[end_met + 8], " "))
+  cgspc_y <- cgspc[1]
+  cgspc_x <- cgspc[2]
+
+  cgspan <- unlist(strsplit(x[end_met + 9], " "))
+  cgs_y <- cgspan[1]
+  cgs_x <- cgspan[2]
+
+  cgdir <- x[end_met + 10]
+
+  nconc <- x[end_met + 11]
+
+  num_vert <- x[end_met + 12]
+
+  height_vert_lev <- x[end_met + 13]
+
+  sampling_start_time <- x[end_met + 14]
+
+  sampling_end_time <- x[end_met + 15]
+
+  sampling_interval <- x[end_met + 16]
+
+  dt_grid <- data.table::data.table(
+    ngrids,
+    center_grid_lat = cg_lat,
+    center_grid_lon = cg_lon,
+    spacing_y = cgspc[1],
+    spacing_x = cgspc[2],
+    span_x = cgspan[1],
+    span_y = cgspan[2],
+    dir = cgdir,
+    name_conc = nconc,
+    num_vertical_vels = num_vert,
+    height_vertical_levels = height_vert_lev,
+    sampling_start_time,
+    sampling_end_time,
+    sampling_interval
+  )
+
+  # particle deposition
+
+  num_pol_depositing = x[end_met + 17]
+
+  pd <- unlist(strsplit(x[end_met + 18], " "))
+
+  particle_char <- x[end_met + 18]
+
+  particle_diamter_um <- pd[1]
+
+  density_gcc <- pd[2]
+
+  shape <- pd[3]
+
+  dep <- unlist(strsplit(x[end_met + 19], " "))
+
+  dep_velocity <- dep[1]
+
+  molecular_weight <- dep[2]
+
+  surface_reactivity_ratio <- dep[3]
+
+  diffusitivity_ratio <- dep[4]
+
+  henry_constant <- dep[5]
+
+  dt_pd <- data.table::data.table(
+    particle_diamter_um,
+    density_gcc,
+    shape,
+    dep_velocity,
+    molecular_weight,
+    surface_reactivity_ratio,
+    diffusitivity_ratio,
+    henry_constant
+  )
+
+  wet_removal <- unlist(strsplit(x[end_met + 20], " "))
+
+  actual_henry <- dep2[1]
+
+  in_cloud <- dep2[2]
+
+  below_cloud <- dep2[3]
+
+  radioactive_decay_half_life <- x[end_met + 21]
+
+  pollutant_resuspension <- x[end_met + 22]
+
+  dt_wr <- data.table::data.table(
+    actual_henry,
+    in_cloud,
+    below_cloud,
+    radioactive_decay_half_life,
+    pollutant_resuspension
+  )
+
+  l_control <- list(
+    time = dt_time,
+    space = dt_space,
+    met = metfiles,
+    emi = dtemis,
+    grid = dt_grid,
+    deposition = dt_pd,
+    wet_removal = dt_wr
+  )
+  return(l_control)
 }

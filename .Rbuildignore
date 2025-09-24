@@ -18,3 +18,5 @@
 ^doc$
 ^Meta$
 ^logo$
+^[.]?air[.]toml$
+^\.vscode$

@@ -54,6 +54,8 @@ Other helpers legacy:
 \code{\link{obs_id2pos}()},
 \code{\link{obs_interpret_udunits_time}()},
 \code{\link{obs_julian}()},
-\code{\link{obs_load_ncdf}()}
+\code{\link{obs_load_ncdf}()},
+\code{\link{obs_make_hysplit_nc4}()},
+\code{\link{obs_traj_foot}()}
 }
 \concept{helpers legacy}

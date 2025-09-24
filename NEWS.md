@@ -1,8 +1,12 @@
 NEWS
 ===========
 
+### rtorf 2.5.0 (Release date: 2025-09-24)
 
-### rtorf 2.4.0 (Release date: 2025-09-12)
+Adding more legacy code. Add note about availability of files
+
+
+### rtorf 2.4.0 (not released)
 
 Adding more legacy code. Add note about availability of files
 
