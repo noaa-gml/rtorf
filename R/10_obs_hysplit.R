@@ -785,6 +785,13 @@ obs_hysplit_control_read <- function(
 
   dtemis <- cbind(dt_emis, dt_time_release)
 
+  dtemis$hyemit.start <- list(as.numeric(c(
+    dt_time_release$year,
+    dt_time_release$month,
+    dt_time_release$day,
+    dt_time_release$hour
+  )))
+
   # grid
 
   ngrids <- x[end_met + 6]
