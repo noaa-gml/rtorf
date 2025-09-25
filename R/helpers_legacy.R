@@ -1409,8 +1409,8 @@ obs_traj_foot <- function(
   dmassTF = TRUE,
   lon.ll = -145,
   lat.ll = 11,
-  lon.res = 1 / 4,
-  lat.res = 1 / 6,
+  lon.res = 1,
+  lat.res = 1,
   numpix.x = 376,
   numpix.y = 324,
   npar = 500
@@ -1465,11 +1465,18 @@ obs_traj_foot <- function(
   part[, gitx := floor(1 / lon.res * (lon - lon.ll) + 1)]
   part[, gity := floor(1 / lat.res * (lat - lat.ll) + 1)]
 
+  # Clamp the gitx and gity values to be within the grid boundaries
+  part[gitx < 1, gitx := 1]
+  part[gitx > numpix.x, gitx := numpix.x]
+  part[gity < 1, gity := 1]
+  part[gity > numpix.y, gity := numpix.y]
+
   # Initialize the final 3D array to store gridded footprints
   foot.arr <- array(0, dim = c(numpix.y, numpix.x, length(foottimes) - 1))
 
   # Loop over each time interval to populate the array
   for (i in 1:(length(foottimes) - 1)) {
+    print(i)
     start_time <- foottimes[i]
     end_time <- foottimes[i + 1]
 
