@@ -2773,7 +2773,7 @@ obs_make_hysplit_nc4 <- function(
 #' @title obs_traj_foot
 #' @family helpers legacy
 #' @name obs_traj_foot
-#' @description return time
+#' @description return trajectory
 #' @param ident  character value specifying the trajectory ensemble to look at
 #' @param part  object containing particle run; if NULL, then determine from ident and pathname
 #' @param pathname  path where object with particle locations is saved
@@ -2825,7 +2825,7 @@ obs_traj_foot <- function(
     #Check if object exists
     if (read.r) {
       if (existsr(ident, pathname)) {
-        print(paste("obs_traj_foot(): starting with ident=", ident, sep = "")) #found object
+        print(paste0("obs_traj_foot(): starting with ident=", ident)) #found object
         part <- getr(ident, pathname) #get it
       } else {
         #if not there, break out of function, return NA
@@ -3187,4 +3187,71 @@ obs_traj_foot <- function(
   #For horizontal grids (lower left corner of south-west gridcell: 11N,145W; resolution: 1/4 lon, 1/6 lat, 376 (x) times 324 (y))
   dimnames(foot.arr) <- list(lats, lons, foottimes[1:(length(foottimes) - 1)])
   return(foot.arr)
+}
+
+
+#' @title obs_normalize_dmass
+#' @family helpers legacy
+#' @name obs_normalize_dmass
+#' @description add columns of
+#' @param part  particle data.table
+#' @return return footprint
+#' @export
+#' @examples {
+#' \dontrun{
+#' # Do not run
+#' }}
+obs_normalize_dmass <- function(
+  part
+) {
+  part <- data.table::as.data.table(part)
+
+  # check if btime is not presnet and add it
+  if (!"btime" %in% names(part)) {
+    cat("Adding btime\n")
+    time <- NULL
+    part[, btime := abs(time) / 60]
+  }
+
+  # must be in this order (might not be...)
+  # this is from lower time to bigger time by part index
+  # index from first to last repeating btime
+  data.table::setorderv(part, c("btime", "index")) #data.table
+
+  # identify particles with too strong dmass violation
+  part[
+    dmass < 1 / 1e3 |
+      dmass > 1e3,
+    unique(index)
+  ] -> ind
+
+  if (length(ind) >= length(part[, unique(index)]) / 2) {
+    stop(cat(
+      "More than 50% of particles have mass defect\n"
+    ))
+  }
+
+  # for those particles with strong dmass violation set dmass entries to NA
+  part[
+    dmass < 1 / 1e3 |
+      dmass > 1e3,
+    dmass := NA
+  ]
+
+  part[,
+    mean_dmass := mean(dmass, na.rm = T),
+    by = .(btime)
+  ]
+
+  # if mean_dmass is 0
+
+  part[mean_dmass == 0, mean_dmass := 0.0001] # legacy criteria
+
+  part[is.na(dmass), dmass := mean_dmass]
+
+  part[, "dmass"] <- part[, "dmass"] / mean.dmass
+
+  # normalize
+  part[, ndmass := dmass / mean_dmass]
+  return(part)
 }

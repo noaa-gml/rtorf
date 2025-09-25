@@ -65,7 +65,7 @@ account for those cases where a thinned particle table that may not contain all 
 return footprint
 }
 \description{
-return time
+return trajectory
 }
 \examples{
 {
@@ -81,6 +81,7 @@ Other helpers legacy:
 \code{\link{obs_interpret_udunits_time}()},
 \code{\link{obs_julian}()},
 \code{\link{obs_load_ncdf}()},
-\code{\link{obs_make_hysplit_nc4}()}
+\code{\link{obs_make_hysplit_nc4}()},
+\code{\link{obs_normalize_dmass}()}
 }
 \concept{helpers legacy}

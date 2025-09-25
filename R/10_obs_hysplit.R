@@ -926,3 +926,43 @@ obs_hysplit_control_read <- function(
   )
   return(l_control)
 }
+
+
+#' obs_grid
+#' Create grid for footprints
+#'
+#' @param numpix.x number of pixels in x direction
+#' @param numpix.y number of pixels in y direction
+#' @param lon.ll lower left corner of grid
+#' @param lat.ll lower left corner of grid
+#' @param lon.res resolution in degrees longitude
+#' @param lat.res resolution in degrees latitude
+#' @return A grid
+#' @note name it is not obs_hysplit_grid because we can create define grid in CONTROL
+#' @export
+#' @examples {
+#' # Do not run
+#' obs_hysplit_grid(control_file)
+#'
+#' }
+#
+obs_grid <- function(
+  numpix.x = 70,
+  numpix.y = 70,
+  lon.ll = 10,
+  lat.ll = -30,
+  lon.res = 1,
+  lat.res = 1
+) {
+  flat <- lat.ll + (lat.res) * (0:(numpix.y - 1))
+  flon <- lon.ll + (lon.res) * (0:(numpix.x - 1))
+
+  #get grid indices
+  #For horizontal grids (lower left corner of south-west gridcell: 11N,145W; resolution: 1/4 lon, 1/6 lat, 376 (x) times 324 (y))
+  lats <- seq(lat.ll, (lat.ll + (numpix.y - 1) * lat.res), lat.res)
+  lons <- seq(lon.ll, (lon.ll + (numpix.x - 1) * lon.res), lon.res)
+
+  #assumes westernmost gridcell is smallest longitude & easternmost
+  #gridcell is largest longitude; does not work over dateline
+  gitx <- floor(1 / lon.res * (part[, "lon"] - lon.ll) + 1)
+}

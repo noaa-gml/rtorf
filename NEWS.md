@@ -1,5 +1,8 @@
 NEWS
 ===========
+### rtorf 2.5.1 (Release date: 2025-09-25)
+
+add obs_normalize_dmass
 
 ### rtorf 2.5.0 (Release date: 2025-09-24)
 
