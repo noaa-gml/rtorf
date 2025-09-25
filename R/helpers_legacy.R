@@ -3249,8 +3249,6 @@ obs_normalize_dmass <- function(
 
   part[is.na(dmass), dmass := mean_dmass]
 
-  part[, "dmass"] <- part[, "dmass"] / mean.dmass
-
   # normalize
   part[, ndmass := dmass / mean_dmass]
   return(part)
