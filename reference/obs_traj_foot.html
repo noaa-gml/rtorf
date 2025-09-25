@@ -54,24 +54,17 @@
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">obs_traj_foot</span><span class="op">(</span></span>
-<span>  <span class="va">ident</span>,</span>
 <span>  part <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  timelabel <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  pathname <span class="op">=</span> <span class="st">""</span>,</span>
-<span>  foottimes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">360</span><span class="op">)</span>,</span>
 <span>  zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>,</span>
-<span>  coarse <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  foottimes <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">240</span>,</span>
 <span>  dmassTF <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  numpix.x <span class="op">=</span> <span class="fl">376</span>,</span>
-<span>  numpix.y <span class="op">=</span> <span class="fl">324</span>,</span>
 <span>  lon.ll <span class="op">=</span> <span class="op">-</span><span class="fl">145</span>,</span>
 <span>  lat.ll <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  lon.res <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">4</span>,</span>
 <span>  lat.res <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="fl">6</span>,</span>
-<span>  read.r <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  read.nc <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  nparstilt <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  eps.global <span class="op">=</span> <span class="fl">0.1</span></span>
+<span>  numpix.x <span class="op">=</span> <span class="fl">376</span>,</span>
+<span>  numpix.y <span class="op">=</span> <span class="fl">324</span>,</span>
+<span>  npar <span class="op">=</span> <span class="fl">500</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -79,69 +72,41 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-ident">ident<a class="anchor" aria-label="anchor" href="#arg-ident"></a></dt>
-<dd><p>character value specifying the trajectory ensemble to look at</p></dd>
-
-
-<dt id="arg-part">part<a class="anchor" aria-label="anchor" href="#arg-part"></a></dt>
-<dd><p>object containing particle run; if NULL, then determine from ident and pathname</p></dd>
-
-
-<dt id="arg-pathname">pathname<a class="anchor" aria-label="anchor" href="#arg-pathname"></a></dt>
-<dd><p>path where object with particle locations is saved</p></dd>
-
-
-<dt id="arg-foottimes">foottimes<a class="anchor" aria-label="anchor" href="#arg-foottimes"></a></dt>
-<dd><p>vector of times between which footprint or influence will be integrated</p></dd>
+<dl><dt id="arg-part">part<a class="anchor" aria-label="anchor" href="#arg-part"></a></dt>
+<dd><p>data.table with PARTICLE.DAT information</p></dd>
 
 
 <dt id="arg-zlim">zlim<a class="anchor" aria-label="anchor" href="#arg-zlim"></a></dt>
 <dd><p>(if not default 0,0): vertical interval for which particle distribution is looked at</p></dd>
 
 
-<dt id="arg-coarse">coarse<a class="anchor" aria-label="anchor" href="#arg-coarse"></a></dt>
-<dd><p>degrade resolution (for aggregation error): 0: only 20 km resolution;
-1-16: dynamic resolution, but limited highest resolution
-coarse:   (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
-coarsex:c(1,1,2,2,2,4,4,4,8, 8, 8,16,16,16,32,32) #factors by which grids have been made coarser
-coarsey:c(1,2,1,2,4,2,4,8,4, 8,16, 8,16,32,16,32)#e.g., '4' means grid is 4 times coarser</p></dd>
+<dt id="arg-foottimes">foottimes<a class="anchor" aria-label="anchor" href="#arg-foottimes"></a></dt>
+<dd><p>vector of times between which footprint or influence will be integrated</p></dd>
 
 
 <dt id="arg-dmasstf">dmassTF<a class="anchor" aria-label="anchor" href="#arg-dmasstf"></a></dt>
 <dd><p>default TRUE  weighting by accumulated mass due to violation of mass conservation in met fields</p></dd>
 
 
-<dt id="arg-numpix-x">numpix.x<a class="anchor" aria-label="anchor" href="#arg-numpix-x"></a></dt>
-<dd><p>default 376, number of pixels in x directions in grid</p></dd>
-
-
-<dt id="arg-numpix-y">numpix.y<a class="anchor" aria-label="anchor" href="#arg-numpix-y"></a></dt>
-<dd><p>default 324, number of pixels in y directions in grid</p></dd>
-
-
 <dt id="arg-lon-ll">lon.ll<a class="anchor" aria-label="anchor" href="#arg-lon-ll"></a></dt>
-<dd><p>default -145, lower left corner of grid (longitude of southwest corner of southwest corner gridcell)</p></dd>
+<dd><p>lower left corner of grid (longitude of southwest corner of southwest corner gridcell)</p></dd>
 
 
 <dt id="arg-lat-ll">lat.ll<a class="anchor" aria-label="anchor" href="#arg-lat-ll"></a></dt>
-<dd><p>default 11, lower left corner of grid (latitude of southwest corner of southwest corner gridcell)</p></dd>
+<dd><p>lower left corner of grid (latitude of southwest corner of southwest corner gridcell)</p></dd>
 
 
-<dt id="arg-read-r">read.r<a class="anchor" aria-label="anchor" href="#arg-read-r"></a></dt>
-<dd><p>default TRUE</p></dd>
+<dt id="arg-numpix-x">numpix.x<a class="anchor" aria-label="anchor" href="#arg-numpix-x"></a></dt>
+<dd><p>number of pixels in x directions in grid</p></dd>
 
 
-<dt id="arg-read-nc">read.nc<a class="anchor" aria-label="anchor" href="#arg-read-nc"></a></dt>
-<dd><p>default TRUE</p></dd>
+<dt id="arg-numpix-y">numpix.y<a class="anchor" aria-label="anchor" href="#arg-numpix-y"></a></dt>
+<dd><p>number of pixels in y directions in grid</p></dd>
 
 
-<dt id="arg-nparstilt">nparstilt<a class="anchor" aria-label="anchor" href="#arg-nparstilt"></a></dt>
-<dd><p>default NULL, number of particles stilt was run with (required in order to
+<dt id="arg-npar">npar<a class="anchor" aria-label="anchor" href="#arg-npar"></a></dt>
+<dd><p>default 500, number of particles hysplit was run with (required in order to
 account for those cases where a thinned particle table that may not contain all particle indices is used)</p></dd>
-
-
-<dt id="arg-eps-global">eps.global<a class="anchor" aria-label="anchor" href="#arg-eps-global"></a></dt>
-<dd><p>default 0.1</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -157,7 +122,6 @@ account for those cases where a thinned particle table that may not contain all 
 <code><a href="obs_interpret_udunits_time.html">obs_interpret_udunits_time</a>()</code>,
 <code><a href="obs_julian.html">obs_julian</a>()</code>,
 <code><a href="obs_load_ncdf.html">obs_load_ncdf</a>()</code>,
-<code><a href="obs_make_hysplit_nc4.html">obs_make_hysplit_nc4</a>()</code>,
 <code><a href="obs_normalize_dmass.html">obs_normalize_dmass</a>()</code></p></div>
     </div>
 
