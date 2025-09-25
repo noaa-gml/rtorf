@@ -1,8 +1,9 @@
 NEWS
 ===========
-### rtorf 2.5.1 (Release date: 2025-09-25)
+### rtorf 2.6.0 (Release date: 2025-09-25)
 
 add obs_normalize_dmass
+remove make_nc, npot needed at the moment. Focus on tracj
 
 ### rtorf 2.5.0 (Release date: 2025-09-24)
 
