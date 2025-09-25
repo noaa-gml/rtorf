@@ -39,6 +39,7 @@
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_format.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_format_et.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_freq.html</loc></url>
+<url><loc>https://noaa-gml.github.io/rtorf/reference/obs_grid.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_hysplit_ascdata.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_hysplit_control.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_hysplit_control_read.html</loc></url>
@@ -59,6 +60,7 @@
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_meta.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_nc.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_nc_get.html</loc></url>
+<url><loc>https://noaa-gml.github.io/rtorf/reference/obs_normalize_dmass.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_out.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_plot.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_rbind.html</loc></url>
