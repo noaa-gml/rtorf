@@ -62,7 +62,6 @@ Other helpers legacy:
 \code{\link{obs_info2id}()},
 \code{\link{obs_interpret_udunits_time}()},
 \code{\link{obs_load_ncdf}()},
-\code{\link{obs_make_hysplit_nc4}()},
 \code{\link{obs_normalize_dmass}()},
 \code{\link{obs_traj_foot}()}
 
@@ -72,7 +71,6 @@ Other helpers legacy:
 \code{\link{obs_info2id}()},
 \code{\link{obs_interpret_udunits_time}()},
 \code{\link{obs_load_ncdf}()},
-\code{\link{obs_make_hysplit_nc4}()},
 \code{\link{obs_normalize_dmass}()},
 \code{\link{obs_traj_foot}()}
 }

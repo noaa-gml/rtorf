@@ -5,61 +5,38 @@
 \title{obs_traj_foot}
 \usage{
 obs_traj_foot(
-  ident,
   part = NULL,
-  timelabel = NULL,
-  pathname = "",
-  foottimes = c(0, 360),
   zlim = c(0, 0),
-  coarse = 1,
+  foottimes = 1:240,
   dmassTF = TRUE,
-  numpix.x = 376,
-  numpix.y = 324,
   lon.ll = -145,
   lat.ll = 11,
   lon.res = 1/4,
   lat.res = 1/6,
-  read.r = TRUE,
-  read.nc = TRUE,
-  nparstilt = NULL,
-  eps.global = 0.1
+  numpix.x = 376,
+  numpix.y = 324,
+  npar = 500
 )
 }
 \arguments{
-\item{ident}{character value specifying the trajectory ensemble to look at}
-
-\item{part}{object containing particle run; if NULL, then determine from ident and pathname}
-
-\item{pathname}{path where object with particle locations is saved}
-
-\item{foottimes}{vector of times between which footprint or influence will be integrated}
+\item{part}{data.table with PARTICLE.DAT information}
 
 \item{zlim}{(if not default 0,0): vertical interval for which particle distribution is looked at}
 
-\item{coarse}{degrade resolution (for aggregation error): 0: only 20 km resolution;
-1-16: dynamic resolution, but limited highest resolution
-coarse:   (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16)
-coarsex:c(1,1,2,2,2,4,4,4,8, 8, 8,16,16,16,32,32) #factors by which grids have been made coarser
-coarsey:c(1,2,1,2,4,2,4,8,4, 8,16, 8,16,32,16,32)#e.g., '4' means grid is 4 times coarser}
+\item{foottimes}{vector of times between which footprint or influence will be integrated}
 
 \item{dmassTF}{default TRUE  weighting by accumulated mass due to violation of mass conservation in met fields}
 
-\item{numpix.x}{default 376, number of pixels in x directions in grid}
+\item{lon.ll}{lower left corner of grid (longitude of southwest corner of southwest corner gridcell)}
 
-\item{numpix.y}{default 324, number of pixels in y directions in grid}
+\item{lat.ll}{lower left corner of grid (latitude of southwest corner of southwest corner gridcell)}
 
-\item{lon.ll}{default -145, lower left corner of grid (longitude of southwest corner of southwest corner gridcell)}
+\item{numpix.x}{number of pixels in x directions in grid}
 
-\item{lat.ll}{default 11, lower left corner of grid (latitude of southwest corner of southwest corner gridcell)}
+\item{numpix.y}{number of pixels in y directions in grid}
 
-\item{read.r}{default TRUE}
-
-\item{read.nc}{default TRUE}
-
-\item{nparstilt}{default NULL, number of particles stilt was run with (required in order to
+\item{npar}{default 500, number of particles hysplit was run with (required in order to
 account for those cases where a thinned particle table that may not contain all particle indices is used)}
-
-\item{eps.global}{default 0.1}
 }
 \value{
 return footprint
@@ -81,7 +58,6 @@ Other helpers legacy:
 \code{\link{obs_interpret_udunits_time}()},
 \code{\link{obs_julian}()},
 \code{\link{obs_load_ncdf}()},
-\code{\link{obs_make_hysplit_nc4}()},
 \code{\link{obs_normalize_dmass}()}
 }
 \concept{helpers legacy}
