@@ -1835,6 +1835,7 @@ obs_normalize_dmass <- function(part = NULL) {
 #' \dontrun{
 #' # Do not run
 #' }}
+
 obs_grid <- function(
   min.x,
   max.x,

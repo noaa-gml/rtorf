@@ -746,12 +746,12 @@ obs_hysplit_control_read <- function(
   lmet <- lapply(met, as.numeric)
 
   metfiles <- list(
-    models = length(lmet),
-    files = x[8:(7 + length(lmet) * lmet[[1]] * 2)]
+    models = lmet[[1]],
+    files = x[8:(7 + lmet[[1]] * lmet[[2]] * 2)]
   )
 
   # emis
-  end_met <- (7 + length(lmet) * lmet[[1]] * 2)
+  end_met <- (7 + lmet[[1]] * lmet[[2]] * 2)
 
   dt_emis <- data.table::data.table(
     ngases = x[end_met + 1],
