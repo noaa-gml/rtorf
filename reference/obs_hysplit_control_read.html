@@ -205,69 +205,114 @@ It uses inputs from a data.frame with the receptor information.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $met</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $met$models</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $met$files</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "/work/noaa/lpdm/metfiles/hrrr/2011/" "20110216_hrrr"                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "/work/noaa/lpdm/metfiles/hrrr/2011/" "20110215_hrrr"                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "/work/noaa/lpdm/metfiles/hrrr/2011/" "20110214_hrrr"                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "/work/noaa/lpdm/metfiles/hrrr/2011/" "20110213_hrrr"                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "/work/noaa/lpdm/metfiles/hrrr/2011/" "20110212_hrrr"                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "/work/noaa/lpdm/metfiles/hrrr/2011/" "20110211_hrrr"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "20110216_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "20110215_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "20110214_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "20110213_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "20110212_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "20110211_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14] "20110210_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "20110209_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18] "20110208_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20] "20110207_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "/work/noaa/lpdm/metfiles/hrrr/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "20110206_hrrr"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [24] "20110216_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26] "20110215_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [28] "20110214_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [30] "20110213_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [32] "20110212_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [34] "20110211_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [36] "20110210_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [38] "20110209_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [40] "20110208_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [42] "20110207_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "/work/noaa/lpdm/metfiles/nams/2011/"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [44] "20110206_hysplit.t00z.namsa"           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [45] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [46] "20110216_gfs0p25"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [47] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [48] "20110215_gfs0p25"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [50] "20110214_gfs0p25"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [52] "20110213_gfs0p25"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [53] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [54] "20110212_gfs0p25"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [56] "20110211_gfs0p25"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [57] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [58] "20110210_gfs0p25"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [59] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [60] "20110209_gfs0p25"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [62] "20110208_gfs0p25"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [63] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [64] "20110207_gfs0p25"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [65] "/work/noaa/lpdm/metfiles/gfs0p25/2011/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [66] "20110206_gfs0p25"                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $emi</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 ngases           gas</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 &lt;char&gt;        &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: /work/noaa/lpdm/metfiles/hrrr/2011/ 20110210_hrrr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         emissions_rate hours_emissions</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 &lt;char&gt;          &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: /work/noaa/lpdm/metfiles/hrrr/2011/   20110209_hrrr</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                control   time  year  month    day   hour    min</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 &lt;char&gt; &lt;POSc&gt; &lt;int&gt; &lt;char&gt; &lt;char&gt; &lt;char&gt; &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: /work/noaa/lpdm/metfiles/hrrr/2011/   &lt;NA&gt;    NA   &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      sec hyemit.start                                   ident</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;num&gt;       &lt;list&gt;                                  &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     0  NA,NA,NA,NA NAxNAxNAxNAxNAx34.4290Nx141.0370Ex05800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ngases    gas emissions_rate hours_emissions        control</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;char&gt; &lt;char&gt;         &lt;char&gt;          &lt;char&gt;         &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      1   Foot              0            0.01 11 02 16 02 17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                   time  year  month    day   hour    min   sec</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;POSc&gt; &lt;int&gt; &lt;char&gt; &lt;char&gt; &lt;char&gt; &lt;char&gt; &lt;num&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 2011-02-16 02:17:00  2011     02     16     02     17     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           hyemit.start                                     ident</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;list&gt;                                    &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 2011,   2,  16,   2 2011x02x16x02x17x34.4290Nx141.0370Ex05800</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $grid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           ngrids                     center_grid_lat center_grid_lon</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;char&gt;                              &lt;char&gt;          &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 20110208_hrrr /work/noaa/lpdm/metfiles/hrrr/2011/            &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        spacing_y spacing_x                              span_x span_y</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;char&gt;    &lt;char&gt;                              &lt;char&gt; &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 20110207_hrrr      &lt;NA&gt; /work/noaa/lpdm/metfiles/hrrr/2011/   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              dir                           name_conc</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           &lt;char&gt;                              &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 20110206_hrrr /work/noaa/lpdm/metfiles/nams/2011/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              num_vertical_vels              height_vertical_levels</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;char&gt;                              &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 20110216_hysplit.t00z.namsa /work/noaa/lpdm/metfiles/nams/2011/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            sampling_start_time                   sampling_end_time</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;char&gt;                              &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 20110215_hysplit.t00z.namsa /work/noaa/lpdm/metfiles/nams/2011/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              sampling_interval</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 20110214_hysplit.t00z.namsa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ngrids center_grid_lat center_grid_lon spacing_y spacing_x span_x span_y</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;char&gt;          &lt;char&gt;          &lt;char&gt;    &lt;char&gt;    &lt;char&gt; &lt;char&gt; &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      1             0.0             0.0      0.10      0.10   30.0   30.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       dir name_conc num_vertical_vels height_vertical_levels</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    &lt;char&gt;    &lt;char&gt;            &lt;char&gt;                 &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:     ./     cdump                 1                     50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    sampling_start_time sampling_end_time sampling_interval</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;char&gt;            &lt;char&gt;            &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:      00 00 00 00 00    00 00 00 00 00         00 240 00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $deposition</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            particle_diamter_um density_gcc  shape</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;char&gt;      &lt;char&gt; &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 20110213_hysplit.t00z.namsa        &lt;NA&gt;   &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           dep_velocity molecular_weight</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 &lt;char&gt;           &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: /work/noaa/lpdm/metfiles/nams/2011/             &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    particle_diamter_um density_gcc  shape dep_velocity molecular_weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 &lt;char&gt;      &lt;char&gt; &lt;char&gt;       &lt;char&gt;           &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                 0.0         0.0    0.0          0.0              0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    surface_reactivity_ratio diffusitivity_ratio henry_constant</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                      &lt;char&gt;              &lt;char&gt;         &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                     &lt;NA&gt;                &lt;NA&gt;           &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                      0.0                 0.0            0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $wet_removal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                   actual_henry in_cloud below_cloud</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         &lt;char&gt;   &lt;char&gt;      &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: 20110212_hysplit.t00z.namsa     &lt;NA&gt;        &lt;NA&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            radioactive_decay_half_life      pollutant_resuspension</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                 &lt;char&gt;                      &lt;char&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1: /work/noaa/lpdm/metfiles/nams/2011/ 20110211_hysplit.t00z.namsa</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    actual_henry in_cloud below_cloud radioactive_decay_half_life</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          &lt;char&gt;   &lt;char&gt;      &lt;char&gt;                      &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:          0.0      0.0         0.0                         0.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    pollutant_resuspension</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    &lt;char&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1:                    0.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
