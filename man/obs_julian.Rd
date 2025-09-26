@@ -58,6 +58,7 @@ obs_julian(y = 2002,
 \seealso{
 Other helpers legacy: 
 \code{\link{obs_decimal_to_POSIX}()},
+\code{\link{obs_grid}()},
 \code{\link{obs_id2pos}()},
 \code{\link{obs_info2id}()},
 \code{\link{obs_interpret_udunits_time}()},
@@ -67,6 +68,7 @@ Other helpers legacy:
 
 Other helpers legacy: 
 \code{\link{obs_decimal_to_POSIX}()},
+\code{\link{obs_grid}()},
 \code{\link{obs_id2pos}()},
 \code{\link{obs_info2id}()},
 \code{\link{obs_interpret_udunits_time}()},

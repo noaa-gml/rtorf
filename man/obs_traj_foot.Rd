@@ -5,35 +5,40 @@
 \title{obs_traj_foot}
 \usage{
 obs_traj_foot(
+  ident,
   part = NULL,
+  timelabel = NULL,
+  pathname = "",
+  foottimes = 0:240,
   zlim = c(0, 0),
-  foottimes = 1:240,
+  coarse = 1,
   dmassTF = TRUE,
+  numpix.x = 70,
+  numpix.y = 70,
   lon.ll = -145,
   lat.ll = 11,
-  lon.res = 1/4,
-  lat.res = 1/6,
-  numpix.x = 376,
-  numpix.y = 324,
-  npar = 500
+  lon.res = 1,
+  lat.res = 1,
+  npar = 500,
+  eps.global = 0.1
 )
 }
 \arguments{
 \item{part}{data.table with PARTICLE.DAT information}
 
-\item{zlim}{(if not default 0,0): vertical interval for which particle distribution is looked at}
-
 \item{foottimes}{vector of times between which footprint or influence will be integrated}
 
-\item{dmassTF}{default TRUE  weighting by accumulated mass due to violation of mass conservation in met fields}
+\item{zlim}{(if not default 0,0): vertical interval for which particle distribution is looked at}
 
-\item{lon.ll}{lower left corner of grid (longitude of southwest corner of southwest corner gridcell)}
-
-\item{lat.ll}{lower left corner of grid (latitude of southwest corner of southwest corner gridcell)}
+\item{dmassTF}{default TRUE weighting by accumulated mass due to violation of mass conservation in met fields}
 
 \item{numpix.x}{number of pixels in x directions in grid}
 
 \item{numpix.y}{number of pixels in y directions in grid}
+
+\item{lon.ll}{lower left corner of grid (longitude of southwest corner of southwest corner gridcell)}
+
+\item{lat.ll}{lower left corner of grid (latitude of southwest corner of southwest corner gridcell)}
 
 \item{npar}{default 500, number of particles hysplit was run with (required in order to
 account for those cases where a thinned particle table that may not contain all particle indices is used)}
@@ -53,6 +58,7 @@ return trajectory
 \seealso{
 Other helpers legacy: 
 \code{\link{obs_decimal_to_POSIX}()},
+\code{\link{obs_grid}()},
 \code{\link{obs_id2pos}()},
 \code{\link{obs_info2id}()},
 \code{\link{obs_interpret_udunits_time}()},
