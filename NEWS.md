@@ -1,5 +1,10 @@
 NEWS
 ===========
+
+### rtorf 2.7.0 (Release date: 2025-09-25)
+
+add normalize mass, grid and tracj
+
 ### rtorf 2.6.0 (Release date: 2025-09-25)
 
 add obs_normalize_dmass

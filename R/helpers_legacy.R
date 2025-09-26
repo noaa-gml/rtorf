@@ -1745,7 +1745,7 @@ obs_traj_foot <- function(
         emissgrid[yfine, xfine] <- sum(influence[selunix]) / (npixfx * npixfy) #'dilute' influence over larger area of fine grid
       } # for each gridcell...
 
-      emissgrid.all <- emissgrid.all + emissgrid / nparstilt #uses number of particles used to determine footprint
+      emissgrid.all <- emissgrid.all + emissgrid / npar #uses number of particles used to determine footprint
     } #for different emissname
 
     #JCL(5/23/2004)------- not normalize by 'foottimes',b/c want TIME-INTEGRATED footprint----------------#
