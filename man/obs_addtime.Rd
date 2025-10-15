@@ -2,12 +2,12 @@
 % Please edit documentation in R/03_addtime_obs.R
 \name{obs_addtime}
 \alias{obs_addtime}
-\title{Add times into obspack}
+\title{Add times}
 \usage{
 obs_addtime(dt, verbose = TRUE, tz = "UTC", timeonly = FALSE)
 }
 \arguments{
-\item{dt}{obspack data.table}
+\item{dt}{data.table}
 
 \item{verbose}{Logical, to show more info}
 
@@ -41,6 +41,7 @@ dt <- obs_addtime(dt)
 \seealso{
 Other time: 
 \code{\link{obs_addltime}()},
+\code{\link{obs_addmtime}()},
 \code{\link{obs_addstime}()}
 }
 \concept{time}

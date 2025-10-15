@@ -4,6 +4,7 @@ NEWS
 ### rtorf 2.8.0 (Release date: 2025-10-15)
 
 add obs_select_sec to select based on closest time, rather than agg
+add obs_add_mtime to add matlab time
 
 
 ### rtorf 2.7.0 (Release date: 2025-09-25)

@@ -2,7 +2,7 @@
 % Please edit documentation in R/03_addtime_obs.R
 \name{obs_addltime}
 \alias{obs_addltime}
-\title{local hour (bsed on longitude and time)}
+\title{add local time}
 \usage{
 obs_addltime(
   dt,
@@ -45,6 +45,7 @@ time depending n longitude is by John Miller (GML/NOAA)
 }
 \seealso{
 Other time: 
+\code{\link{obs_addmtime}()},
 \code{\link{obs_addstime}()},
 \code{\link{obs_addtime}()}
 }

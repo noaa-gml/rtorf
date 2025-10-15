@@ -1,11 +1,11 @@
-#' @title Add times into obspack
+#' @title Add times
 #'
 #' @description
 #' This function add timeUTC as POSIX class,
 #' local time and ending sampling time
 #'
 #' @family time
-#' @param dt obspack data.table
+#' @param dt data.table
 #' @param verbose Logical, to show more info
 #' @param tz Timezone, default "UTC"
 #' @param timeonly return only timeUTC column
@@ -95,7 +95,7 @@ obs_addtime <- function(dt, verbose = TRUE, tz = "UTC", timeonly = FALSE) {
 }
 
 
-#' @title local hour (bsed on longitude and time)
+#' @title add local time
 #' @family time
 #' @name obs_addltime
 #' @description Calculate an approximation of local hour
@@ -145,7 +145,7 @@ obs_addltime <- function(
   if (timeonly) return(dt$local_time) else return(dt)
 }
 
-#' @title Add solar time into obspack
+#' @title Add solar time
 #'
 #' @description
 #' This function add timeUTC as POSIX class,
@@ -182,4 +182,37 @@ obs_addstime <- function(dt, tz = "UTC") {
   )
 
   return(timeUTC_st)
+}
+
+
+#' @title Add matlab time
+#'
+#' @description
+#' This function add timeUTC as POSIX class,
+#' local time and ending sampling time
+#'
+#' @family time
+#' @param dt obspack data.table
+#' @param tz Timezone, default "UTC"
+#' @return return the same data.frame adding solar time
+#' @importFrom data.table setDT
+#'
+#' @export
+#' @examples {
+#' # Do not run
+#' obs <- system.file("data-raw", package = "rtorf")
+#' index <-  obs_summary(obs)
+#' dt <- obs_read(index)
+#' dt <- obs_addtime(dt)
+#' }
+obs_addmtime <- function(time, origin = "1970-01-01", tz = "UTC") {
+  if (!inherits(dt, "data.table")) {
+    data.table::setDT(dt)
+  }
+
+  # The constant 719529 is the number of days between 0000-01-01 and 1970-01-01
+
+  timeUTC <- as.POSIXct((time - 719529) * 86400, origin = origin, tz = tz)
+
+  return(timeUTC)
 }
