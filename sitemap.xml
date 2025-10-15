@@ -25,6 +25,7 @@
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_POSIX_to_idate.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_POSIX_to_julian.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_addltime.html</loc></url>
+<url><loc>https://noaa-gml.github.io/rtorf/reference/obs_addmtime.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_addstime.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_addtime.html</loc></url>
 <url><loc>https://noaa-gml.github.io/rtorf/reference/obs_agg.html</loc></url>
