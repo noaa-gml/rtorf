@@ -2,7 +2,7 @@
 % Please edit documentation in R/04_aggregate_obs.R
 \name{obs_agg}
 \alias{obs_agg}
-\title{Aggregates ObsPack by time}
+\title{Aggregates Observations by time}
 \usage{
 obs_agg(
   dt,
@@ -16,7 +16,7 @@ obs_agg(
 )
 }
 \arguments{
-\item{dt}{obspack data.table}
+\item{dt}{data.table}
 
 \item{cols}{Character which defines columns to be aggregated}
 
@@ -27,11 +27,10 @@ obs_agg(
 \item{verbose}{logical to show more information}
 }
 \value{
-A data.frame with with an index obspack.
+A data.frame with with an index.
 }
 \description{
-This function add timeUTC as POSIX class,
-local time and ending sampling time
+This function add aggregate cols by `key_time`
 }
 \note{
 By default add column timeUTC based on the input column `key_time`

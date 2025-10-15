@@ -1832,10 +1832,12 @@ obs_normalize_dmass <- function(part = NULL) {
 #' @return return footprint
 #' @export
 #' @examples {
-#' \dontrun{
 #' # Do not run
-#' }}
-
+#' obs <- system.file("data-raw", package = "rtorf")
+#' index <-  obs_summary(obs)
+#' dt <- obs_read(index)
+#' dt <- obs_addtime(dt)
+#' }
 obs_grid <- function(
   min.x,
   max.x,
