@@ -60,12 +60,6 @@ obs_agg <- function(
   if (!any(names(dt) %in% "key_time")) {
     stop("missing `key_time`")
   }
-  if (!any(names(dt) %in% "site_code")) {
-    stop("missing `site_code`")
-  }
-  if (!any(names(dt) %in% "altitude_final")) {
-    stop("missing `altitude_final`")
-  }
 
   # Remember aircraft
   # Only aircraft need to be aggregated every 20 seconds
@@ -116,7 +110,7 @@ obs_agg <- function(
   #
   #     }
 
-  data.table::setorderv(x = dt, cols = c("site_code", "timeUTC"), order = 1)
+  data.table::setorderv(x = dt, cols = c("timeUTC"), order = 1)
 
   # dt$timeUTC <- as.character(dt$timeUTC)
 
