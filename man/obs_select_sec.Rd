@@ -36,6 +36,11 @@ By default add column timeUTC based on the input column `key_time`
 \examples{
 \dontrun{
 # Do not run
-# dt <- obs_addtime(dt)
+obs <- system.file("data-raw", package = "rtorf")
+index <- obs_summary(obs)
+dt <- obs_read(index)
+dx <- obs_read(index, expr = "altitude_final == '5800'")
+dx <- obs_addtime(dx[, -"site_code"])
+dy <- obs_select_sec(dx)
 }
 }

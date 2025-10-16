@@ -14,7 +14,9 @@
 #' @export
 #' @examples \dontrun{
 #' # Do not run
-#' # dt <- obs_addtime(dt)
+#' obs <- system.file("data-raw", package = "rtorf")
+#' index <- obs_summary(obs)
+#' dt <- obs_read(index)
 #' }
 obs_agg <- function(
   dt,
@@ -138,7 +140,12 @@ obs_agg <- function(
 #' @export
 #' @examples \dontrun{
 #' # Do not run
-#' # dt <- obs_addtime(dt)
+#' obs <- system.file("data-raw", package = "rtorf")
+#' index <- obs_summary(obs)
+#' dt <- obs_read(index)
+#' dx <- obs_read(index, expr = "altitude_final == '5800'")
+#' dx <- obs_addtime(dx[, -"site_code"])
+#' dy <- obs_select_sec(dx)
 #' }
 obs_select_sec <- function(
   dt,
@@ -162,7 +169,7 @@ obs_select_sec <- function(
   }
 
   # 1. Calculate the 'target_time' (the nearest preceding 30-second mark)
-  timeUTC <- target_time <- seconds <- NULL
+  timeUTC <- target_time <- NULL
   dt[, target_time := floor(as.numeric(timeUTC) / seconds) * seconds]
 
   dt[,
@@ -172,9 +179,10 @@ obs_select_sec <- function(
   # 2. Calculate the difference from the 'target_time' and the *next* 30-second mark
   #    We want the difference to the closest target:
   dt[, diff_to_target := abs(as.numeric(timeUTC) - as.numeric(target_time))]
+
   dt[,
     diff_to_next_target := abs(
-      as.numeric(timeUTC) - (as.numeric(target_time) + 30)
+      as.numeric(timeUTC) - (as.numeric(target_time) + seconds)
     )
   ]
 
