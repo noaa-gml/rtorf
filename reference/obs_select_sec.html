@@ -102,7 +102,12 @@ Good for aircrafts</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
 <span class="r-in"><span><span class="co"># Do not run</span></span></span>
-<span class="r-in"><span><span class="co"># dt &lt;- obs_addtime(dt)</span></span></span>
+<span class="r-in"><span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"data-raw"</span>, package <span class="op">=</span> <span class="st">"rtorf"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">index</span> <span class="op">&lt;-</span> <span class="fu"><a href="obs_summary.html">obs_summary</a></span><span class="op">(</span><span class="va">obs</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="obs_read.html">obs_read</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dx</span> <span class="op">&lt;-</span> <span class="fu"><a href="obs_read.html">obs_read</a></span><span class="op">(</span><span class="va">index</span>, expr <span class="op">=</span> <span class="st">"altitude_final == '5800'"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dx</span> <span class="op">&lt;-</span> <span class="fu"><a href="obs_addtime.html">obs_addtime</a></span><span class="op">(</span><span class="va">dx</span><span class="op">[</span>, <span class="op">-</span><span class="st">"site_code"</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">dy</span> <span class="op">&lt;-</span> <span class="fu">obs_select_sec</span><span class="op">(</span><span class="va">dx</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
