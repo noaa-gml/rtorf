@@ -371,7 +371,17 @@ obs_convolve <- function(
       cat(names(nc_f$var), "\n")
     }
 
-    flux <- ncdf4::ncvar_get(nc_f, df_times_foot$yt[j]) * factor
+    if (missing(name_var_flux)) {
+      flux <- ncdf4::ncvar_get(nc_f, df_times_foot$yt[j]) * factor
+    } else if (is.character(name_var_flux)) {
+      flux <- ncdf4::ncvar_get(nc_f, name_var_flux) * factor # here I'm assuming one date per NetCDF
+    } else if (is.integer(name_var_flux)) {
+      flux <- ncdf4::ncvar_get(nc_f, names(nc_f$var)[name_var_flux]) * factor
+    } else {
+      stop(
+        "name_var_flux can be missing assumed var name date, integer or character"
+      )
+    }
 
     conv[,, j] <- foot[,, j] * flux
 
