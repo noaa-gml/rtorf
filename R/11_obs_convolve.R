@@ -22,59 +22,69 @@
 #' @examples {
 #' # obs_convolve(...)
 #' }
-obs_convolve <- function(foot_path = "AAA",
-                         name_foot = "foot1",
-                         flon = "foot1lon",
-                         flat = "foot1lat",
-                         time_foot,
-                         flux = "CTCO2",
-                         df_flux,
-                         flux_format = "%Y%m%d.nc",
-                         factor = 1e9,
-                         fn = NULL,
-                         as_list = FALSE,
-                         verbose = TRUE){
-
+obs_convolve <- function(
+  foot_path = "AAA",
+  name_foot = "foot1",
+  flon = "foot1lon",
+  flat = "foot1lat",
+  time_foot,
+  flux = "CTCO2",
+  df_flux,
+  flux_format = "%Y%m%d.nc",
+  factor = 1e9,
+  fn = NULL,
+  as_list = FALSE,
+  verbose = TRUE
+) {
   # footprint information
 
-  if(length(foot_path) != 1) {
+  if (length(foot_path) != 1) {
     stop("foot_path must be a single string")
   }
 
-  if(verbose) cat(paste0("Reading ", foot_path, "\n"))
-
-
-  if(missing(df_flux)) stop("df_flux is missing, it must be a data.table with columns `f` and `nf`")
-
-  if(!inherits(df_flux, "data.table")) {
-    stop("df_flux must be a data.table with columns `f` (full path) and `nf` (file name)")
+  if (verbose) {
+    cat(paste0("Reading ", foot_path, "\n"))
   }
 
-  if(!any("f" %in% names(df_flux))) {
-    stop("df_flux must be a data.table with columns `f` (full path) and `nf` (file name)")
+  if (missing(df_flux)) {
+    stop(
+      "df_flux is missing, it must be a data.table with columns `f` and `nf`"
+    )
   }
 
+  if (!inherits(df_flux, "data.table")) {
+    stop(
+      "df_flux must be a data.table with columns `f` (full path) and `nf` (file name)"
+    )
+  }
 
-  if(!any("nf" %in% names(df_flux))) {
-    stop("df_flux must be a data.table with columns `f` (full path) and `nf` (file name)")
+  if (!any("f" %in% names(df_flux))) {
+    stop(
+      "df_flux must be a data.table with columns `f` (full path) and `nf` (file name)"
+    )
+  }
+
+  if (!any("nf" %in% names(df_flux))) {
+    stop(
+      "df_flux must be a data.table with columns `f` (full path) and `nf` (file name)"
+    )
   }
 
   nc <- ncdf4::nc_open(foot_path)
 
-  if(verbose) {
+  if (verbose) {
     cf <- ncdf4::ncatt_get(nc, 0, "Conventions")$value
-    if(any(grepl("CF", cf))) print(paste0("Footprint Conventions = ", cf))
+    if (any(grepl("CF", cf))) print(paste0("Footprint Conventions = ", cf))
   }
 
-  if(any(name_foot %in% names(nc$var))){
-    if(verbose) cat(paste0("Reading ",
-                           name_foot,
-                           "\n"))
+  if (any(name_foot %in% names(nc$var))) {
+    if (verbose) {
+      cat(paste0("Reading ", name_foot, "\n"))
+    }
     foot <- ncdf4::ncvar_get(nc, name_foot)
   } else {
     stop(paste0("Variable ", name_foot, " not found among: ", names(nc$var)))
   }
-
 
   foot1lat <- ncdf4::ncvar_get(nc, flat)
   foot1lon <- ncdf4::ncvar_get(nc, flon)
@@ -84,67 +94,98 @@ obs_convolve <- function(foot_path = "AAA",
   # footprint times
 
   df_times_foot <- data.table::data.table(
-    time_start  = rep(time_foot,
-                      dim(foot)[3]) # 240
+    time_start = rep(time_foot, dim(foot)[3]) # 240
   )
 
   seq_time_start <- time_start <- nf <- hr <- NULL
-  df_times_foot[, seq_time_start :=  seq.POSIXt(time_start[1],
-                                                length.out = dim(foot)[3],
-                                                by = "-1 hour",
-                                                tz = "UTC")]
+  df_times_foot[,
+    seq_time_start := seq.POSIXt(
+      time_start[1],
+      length.out = dim(foot)[3],
+      by = "-1 hour",
+      tz = "UTC"
+    )
+  ]
   # first time is the footprint time, ;last time, 240 hours in the past.
   # df_times_foot has time_start seq_time_start
   # seq_time_start has the time to match emissions
 
-  if(verbose){
-    cat("footprints, from ",
-        strftime(df_times_foot$seq_time_start[1],
-                 format = "%Y-%m-%d %H:%M:%S",
-                 tz = "UTC"),
-        " to ",
-        strftime(df_times_foot$seq_time_start[dim(foot)[3]],
-                 format = "%Y-%m-%d %H:%M:%S",
-                 tz = "UTC"), "\n")
+  if (verbose) {
+    cat(
+      "footprints, from ",
+      strftime(
+        df_times_foot$seq_time_start[1],
+        format = "%Y-%m-%d %H:%M:%S",
+        tz = "UTC"
+      ),
+      " to ",
+      strftime(
+        df_times_foot$seq_time_start[dim(foot)[3]],
+        format = "%Y-%m-%d %H:%M:%S",
+        tz = "UTC"
+      ),
+      "\n"
+    )
   }
 
   dim_names <- list(
     paste0("lon_", sprintf("%02d", 1:dim(foot)[1])),
     paste0("lat_", sprintf("%02d", 1:dim(foot)[2])),
-    strftime(df_times_foot$seq_time_start,
-             format = "%Y-%m-%d %H:%M:%S",
-             tz = "UTC") # this  can vary, what if I have hourly fluxes?, or m
+    strftime(
+      df_times_foot$seq_time_start,
+      format = "%Y-%m-%d %H:%M:%S",
+      tz = "UTC"
+    ) # this  can vary, what if I have hourly fluxes?, or m
   )
 
   dimnames(foot) <- dim_names
 
-  if(!flux %in% c('CTCO2', 'monthly', 'month', 'daily', 'day', 'yearly', 'year')) {
-    stop("flux must be 'CTCO2', 'monthly', 'month', 'daily', 'day', 'yearly', 'year'")
+  if (
+    !flux %in% c('CTCO2', 'monthly', 'month', 'daily', 'day', 'yearly', 'year')
+  ) {
+    stop(
+      "flux must be 'CTCO2', 'monthly', 'month', 'daily', 'day', 'yearly', 'year'"
+    )
   }
 
-
   # flux information
-  if(flux == "CTCO2") {
-
+  if (flux == "CTCO2") {
     # CTCO2 has three hour average file order from 1 to 8
-    df_times_foot[, hr := data.table::fifelse(
-      data.table::hour(seq_time_start) %in% 0:(0+2), 1,
-      data.table::fifelse(
-        data.table::hour(seq_time_start) %in% 3:(3+2), 2,
+    df_times_foot[,
+      hr := data.table::fifelse(
+        data.table::hour(seq_time_start) %in% 0:(0 + 2),
+        1,
         data.table::fifelse(
-          data.table::hour(seq_time_start) %in% 6:(6+2), 3,
+          data.table::hour(seq_time_start) %in% 3:(3 + 2),
+          2,
           data.table::fifelse(
-            data.table::hour(seq_time_start) %in% 9:(9+2), 4,
+            data.table::hour(seq_time_start) %in% 6:(6 + 2),
+            3,
             data.table::fifelse(
-              data.table::hour(seq_time_start) %in% 12:(12+2), 5,
+              data.table::hour(seq_time_start) %in% 9:(9 + 2),
+              4,
               data.table::fifelse(
-                data.table::hour(seq_time_start) %in% 15:(15+2), 6,
+                data.table::hour(seq_time_start) %in% 12:(12 + 2),
+                5,
                 data.table::fifelse(
-                  data.table::hour(seq_time_start) %in% 18:(18+2), 7,
+                  data.table::hour(seq_time_start) %in% 15:(15 + 2),
+                  6,
                   data.table::fifelse(
-                    data.table::hour(seq_time_start) %in% 21:(21+2), 8,
-                    0))))))))]
-
+                    data.table::hour(seq_time_start) %in% 18:(18 + 2),
+                    7,
+                    data.table::fifelse(
+                      data.table::hour(seq_time_start) %in% 21:(21 + 2),
+                      8,
+                      0
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      )
+    ]
 
     # convolving matching times bio
 
@@ -153,74 +194,86 @@ obs_convolve <- function(foot_path = "AAA",
     conv_fossil <- foot # to preserve same dimensions and iterate in last index
     conv_fire <- foot # to preserve same dimensions and iterate in last index
 
-
-    for(j in 1:dim(foot)[3]) {
-
-      dx_f <- df_flux[nf == strftime(df_times_foot$seq_time_start,
-                                     format = flux_format,
-                                     tz = "UTC")[j]]
-
+    for (j in 1:dim(foot)[3]) {
+      dx_f <- df_flux[
+        nf ==
+          strftime(
+            df_times_foot$seq_time_start,
+            format = flux_format,
+            tz = "UTC"
+          )[j]
+      ]
 
       # flux
       f <- dx_f$f
 
-      if(verbose) cat(paste0("Reading ", f, "\n"))
+      if (verbose) {
+        cat(paste0("Reading ", f, "\n"))
+      }
 
       nc_f <- ncdf4::nc_open(f)
 
-      if(verbose)  {
+      if (verbose) {
         cat("vars: \n")
         cat(names(nc_f$var), "\n")
       }
 
-
       # bio
-      flux_bio <- ncdf4::ncvar_get(nc_f, paste0("bio_flux_opt_",
-                                                df_times_foot$hr[j]))*factor
+      flux_bio <- ncdf4::ncvar_get(
+        nc_f,
+        paste0("bio_flux_opt_", df_times_foot$hr[j])
+      ) *
+        factor
 
-      conv_bio[,, j] <- foot[,, j]*flux_bio
+      conv_bio[,, j] <- foot[,, j] * flux_bio
 
       # ocn
-      flux_ocn <- ncdf4::ncvar_get(nc_f, paste0("ocn_flux_opt_",
-                                                df_times_foot$hr[j]))*factor
+      flux_ocn <- ncdf4::ncvar_get(
+        nc_f,
+        paste0("ocn_flux_opt_", df_times_foot$hr[j])
+      ) *
+        factor
 
-      conv_ocn[,, j] <- foot[,, j]*flux_ocn
+      conv_ocn[,, j] <- foot[,, j] * flux_ocn
 
       # fossil
-      flux_fossil <- ncdf4::ncvar_get(nc_f, paste0("fossil_flux_imp_",
-                                                   df_times_foot$hr[j]))*factor
+      flux_fossil <- ncdf4::ncvar_get(
+        nc_f,
+        paste0("fossil_flux_imp_", df_times_foot$hr[j])
+      ) *
+        factor
 
-      conv_fossil[,, j] <- foot[,, j]*flux_fossil
+      conv_fossil[,, j] <- foot[,, j] * flux_fossil
 
       # bio
-      flux_fire <- ncdf4::ncvar_get(nc_f, paste0("fire_flux_imp_",
-                                                 df_times_foot$hr[j]))*factor
+      flux_fire <- ncdf4::ncvar_get(
+        nc_f,
+        paste0("fire_flux_imp_", df_times_foot$hr[j])
+      ) *
+        factor
 
-      conv_fire[,, j] <- foot[,, j]*flux_fire
+      conv_fire[,, j] <- foot[,, j] * flux_fire
 
       ncdf4::nc_close(nc_f)
 
       # print(paste0(round(j/240*100, 2), " %"))
-
     }
 
     conv_total <- conv_bio +
-      conv_ocn  +
+      conv_ocn +
       conv_fossil +
       conv_fire
 
-    if(!is.null(fn)) {
-
-      conv_total <- apply(conv_total, c(1,2), fn)
-      conv_bio <- apply(conv_bio, c(1,2), fn)
-      conv_ocn <- apply(conv_ocn, c(1,2), fn)
-      conv_fossil <- apply(conv_fossil, c(1,2), fn)
-      conv_fire <- apply(conv_fire, c(1,2), fn)
-      foot <- apply(foot, c(1,2), fn)
+    if (!is.null(fn)) {
+      conv_total <- apply(conv_total, c(1, 2), fn)
+      conv_bio <- apply(conv_bio, c(1, 2), fn)
+      conv_ocn <- apply(conv_ocn, c(1, 2), fn)
+      conv_fossil <- apply(conv_fossil, c(1, 2), fn)
+      conv_fire <- apply(conv_fire, c(1, 2), fn)
+      foot <- apply(foot, c(1, 2), fn)
     }
 
-
-    if(!as_list)  {
+    if (!as_list) {
       simplify2array(list(
         foot = foot,
         conv_total = conv_total,
@@ -230,7 +283,7 @@ obs_convolve <- function(foot_path = "AAA",
         conv_fire = conv_fire
       )) -> out
       return(out)
-    } else{
+    } else {
       return(list(
         foot = foot,
         conv_total = conv_total,
@@ -240,86 +293,97 @@ obs_convolve <- function(foot_path = "AAA",
         conv_fire = conv_fire,
         lat = foot1lat,
         lon = foot1lon,
-        time = if(!missing(fn)) time_foot else df_times_foot$seq_time_start
+        time = if (!missing(fn)) time_foot else df_times_foot$seq_time_start
       ))
-
     }
-
   }
   yt <- NULL
 
   #name in flux nc is "%Y-%m-01"
-  if(flux %in% c("monthly", "month")) {
+  if (flux %in% c("monthly", "month")) {
     #
 
-    df_times_foot[, yt := strftime(seq_time_start,
-                                   format = "%Y-%m-01",
-                                   tz = "UTC")]
+    df_times_foot[,
+      yt := strftime(seq_time_start, format = "%Y-%m-01", tz = "UTC")
+    ]
     #name in flux nc is "%Y-%m-%d"
-  } else if(flux %in% c("daily", "day")){
-    df_times_foot[, yt := strftime(seq_time_start,
-                                   format = "%Y-%m-%d",
-                                   tz = "UTC")]
-
-  } else if(flux %in% c("yearly", "year")){
-    df_times_foot[, yt := strftime(seq_time_start,
-                                   format = "%Y-01-01",
-                                   tz = "UTC")]
+  } else if (flux %in% c("daily", "day")) {
+    df_times_foot[,
+      yt := strftime(seq_time_start, format = "%Y-%m-%d", tz = "UTC")
+    ]
+  } else if (flux %in% c("yearly", "year")) {
+    df_times_foot[,
+      yt := strftime(seq_time_start, format = "%Y-01-01", tz = "UTC")
+    ]
   }
-    conv <- foot # to preserve same dimensions and iterate in last index
+  conv <- foot # to preserve same dimensions and iterate in last index
 
-  for(j in 1:dim(foot)[3]) {
+  for (j in 1:dim(foot)[3]) {
+    dx_f <- df_flux[
+      nf ==
+        strftime(
+          df_times_foot$seq_time_start,
+          format = flux_format,
+          tz = "UTC"
+        )[j]
+    ]
 
-    dx_f <- df_flux[nf == strftime(df_times_foot$seq_time_start,
-                                   format = flux_format,
-                                   tz = "UTC")[j]]
+    if (nrow(dx_f) == 0) {
+      cat(
+        "df_flux$nf is ",
+        df_flux$nf[1],
+        "\n",
+        "But expected  is: ",
+        strftime(
+          df_times_foot$seq_time_start,
+          format = flux_format,
+          tz = "UTC"
+        )[j],
+        "\n"
+      )
+    }
 
     # flux
     f <- dx_f$f
 
-    if(verbose) cat(paste0("Reading ", f, "\n"))
+    if (verbose) {
+      cat(paste0("Reading ", f, "\n"))
+    }
 
     nc_f <- ncdf4::nc_open(f)
 
-    if(verbose)  {
+    if (verbose) {
       cat("vars: \n")
       cat(names(nc_f$var), "\n")
     }
 
-    flux <- ncdf4::ncvar_get(nc_f, df_times_foot$yt[j])*factor
+    flux <- ncdf4::ncvar_get(nc_f, df_times_foot$yt[j]) * factor
 
-    conv[,, j] <- foot[,, j]*flux
+    conv[,, j] <- foot[,, j] * flux
 
     ncdf4::nc_close(nc_f)
 
     # print(paste0(round(j/240*100, 2), " %"))
-
   }
 
-  if(!is.null(fn)) {
-
-    conv <- apply(conv, c(1,2), fn, na.rm = T)
-    foot <- apply(foot, c(1,2), fn, na.rm = T)
+  if (!is.null(fn)) {
+    conv <- apply(conv, c(1, 2), fn, na.rm = T)
+    foot <- apply(foot, c(1, 2), fn, na.rm = T)
   }
 
-
-  if(!as_list)  {
+  if (!as_list) {
     simplify2array(list(
       foot = foot,
       conv = conv
     )) -> out
     return(out)
-  } else{
+  } else {
     return(list(
       foot = foot,
       conv = conv,
       lat = foot1lat,
       lon = foot1lon,
-      time = if(!missing(fn)) time_foot else df_times_foot$seq_time_start
+      time = if (!missing(fn)) time_foot else df_times_foot$seq_time_start
     ))
-
   }
-
-
-
 }
