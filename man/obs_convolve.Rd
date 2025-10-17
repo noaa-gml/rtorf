@@ -13,6 +13,7 @@ obs_convolve(
   flux = "CTCO2",
   df_flux,
   flux_format = "\%Y\%m\%d.nc",
+  name_var_flux = 1,
   factor = 1e+09,
   fn = NULL,
   as_list = FALSE,
@@ -35,6 +36,10 @@ obs_convolve(
 \item{df_flux}{data.table with columns f (full path) and nf file name 'Ymd.nc'}
 
 \item{flux_format}{string with date format 'Ymd.nc'}
+
+\item{name_var_flux}{string or numeric of position for the name var in the flux format.
+e.g.: If missing, asusmes date ("2020-01-01"), if string something like ("flux"),
+if numeric, identify the var names and you select which of them (first, second, etc)}
 
 \item{factor}{number to multiply fluxes.}
 

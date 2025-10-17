@@ -10,6 +10,9 @@
 #' @param flux String, default NOAA "CTCO2". Implies bio, ocn, fossil, fire.
 #' @param df_flux data.table with columns f (full path) and nf file name 'Ymd.nc'
 #' @param flux_format string with date format 'Ymd.nc'
+#' @param name_var_flux string or numeric of position for the name var in the flux format.
+#' e.g.: If missing, asusmes date ("2020-01-01"), if string something like ("flux"),
+#' if numeric, identify the var names and you select which of them (first, second, etc)
 #' @param factor number to multiply fluxes.
 #' @param fn string with function to aggregate convolved fluxes, e.g. `mean`, `sum`, `max`, etc.
 #' @param as_list Logical, to return list of arrays
@@ -31,6 +34,7 @@ obs_convolve <- function(
   flux = "CTCO2",
   df_flux,
   flux_format = "%Y%m%d.nc",
+  name_var_flux = 1,
   factor = 1e9,
   fn = NULL,
   as_list = FALSE,
@@ -40,6 +44,16 @@ obs_convolve <- function(
 
   if (length(foot_path) != 1) {
     stop("foot_path must be a single string")
+  }
+
+  if (verbose) {
+    if (missing(name_var_flux)) {
+      cat("Expected var as date, e.g.: '2020-12-01'\n")
+    } else if (is.character(name_var_flux)) {
+      cat("Reading flux var: ", name_var_flux, "\n")
+    } else {
+      cat("Reading flux var by position ", name_var_flux, "\n")
+    }
   }
 
   if (verbose) {
