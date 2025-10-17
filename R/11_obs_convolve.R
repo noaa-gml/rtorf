@@ -375,7 +375,7 @@ obs_convolve <- function(
       flux <- ncdf4::ncvar_get(nc_f, df_times_foot$yt[j]) * factor
     } else if (is.character(name_var_flux)) {
       flux <- ncdf4::ncvar_get(nc_f, name_var_flux) * factor # here I'm assuming one date per NetCDF
-    } else if (is.integer(name_var_flux)) {
+    } else if (is.numeric(name_var_flux)) {
       flux <- ncdf4::ncvar_get(nc_f, names(nc_f$var)[name_var_flux]) * factor
     } else {
       stop(
