@@ -319,16 +319,7 @@ obs_convolve <- function(
   conv <- foot # to preserve same dimensions and iterate in last index
 
   for (j in 1:dim(foot)[3]) {
-    dx_f <- df_flux[
-      nf ==
-        strftime(
-          df_times_foot$seq_time_start,
-          format = flux_format,
-          tz = "UTC"
-        )[j]
-    ]
-
-    if (nrow(dx_f) == 0) {
+    if (verbose) {
       cat(
         "df_flux$nf is ",
         df_flux$nf[1],
@@ -342,6 +333,15 @@ obs_convolve <- function(
         "\n"
       )
     }
+
+    dx_f <- df_flux[
+      nf ==
+        strftime(
+          df_times_foot$seq_time_start,
+          format = flux_format,
+          tz = "UTC"
+        )[j]
+    ]
 
     # flux
     f <- dx_f$f

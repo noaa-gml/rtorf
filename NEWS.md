@@ -1,5 +1,8 @@
 NEWS
 ===========
+### rtorf 2.8.2 (Release date: 2025-10-17)
+
+Add message to show what I'm comparing in obs_convolve
 
 ### rtorf 2.8.1 (Release date: 2025-10-15)
 
