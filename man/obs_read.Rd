@@ -93,7 +93,7 @@ Then, the relationship with hysplit is:
 }
 }
 \examples{
-{
+\dontrun{
 # Do not run
 obs <- system.file("data-raw", package = "rtorf")
 index <- obs_summary(obs)

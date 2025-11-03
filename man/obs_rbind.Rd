@@ -21,7 +21,7 @@ return rbind obs data.tables
 }
 \examples{
 \dontrun{
-# do not run
+# Do not run
 }
 }
 \seealso{

@@ -16,10 +16,9 @@ return footprint
 add columns of
 }
 \examples{
-{
 \dontrun{
 # Do not run
-}}
+}
 #' # Do not run
 }
 \seealso{

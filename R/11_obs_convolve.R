@@ -22,8 +22,8 @@
 #' name as "%y-%m-01", "%Y-%m-%d" or "%Y-01-01" respectively.
 #' @export
 #' @import ncdf4 data.table
-#' @examples {
-#' # obs_convolve(...)
+#' @examples \dontrun{
+#' # do not run
 #' }
 obs_convolve <- function(
   foot_path = "AAA",

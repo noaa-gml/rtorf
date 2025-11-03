@@ -26,7 +26,7 @@ them as columns. This new columns are used later to
 be filtered
 }
 \examples{
-{
+\dontrun{
 # Do not run
 obs <- system.file("data-raw", package = "rtorf")
 index <- obs_summary(obs)

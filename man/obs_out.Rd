@@ -21,8 +21,8 @@ Just the opposite of intersect
 Helpers
 }
 \examples{
-{
-# Do not run
+\dontrun{
+#do not run
 }
 }
 \seealso{

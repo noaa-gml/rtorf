@@ -35,13 +35,10 @@ return footprint/receptor id
 Helpers Legacy
 }
 \examples{
-{
 \dontrun{
 # Do not run
 obs_julian(1, 2020, 1)
 }
-}
-{
 \dontrun{
 # Do not run
 obs_julian(y = 2002,
@@ -52,7 +49,6 @@ obs_julian(y = 2002,
             m = 8,
             d = 3,
             legacy = FALSE)
-}
 }
 }
 \seealso{

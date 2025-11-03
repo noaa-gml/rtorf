@@ -9,8 +9,8 @@
 #' @param y vector
 #' @return vector opposite of intersect
 #' @export
-#' @examples {
-#' # Do not run
+#' @examples \dontrun{
+#' #do not run
 #' }
 obs_out <- function(x, y) {
   sort(c(setdiff(x, y), setdiff(y, x)))
@@ -31,10 +31,8 @@ obs_out <- function(x, y) {
 #' @importFrom data.table rbindlist
 #' @importFrom utils object.size
 #' @export
-#' @examples {
-#' \dontrun{
+#' @examples \dontrun{
 #' # Do not run
-#' }
 #' }
 obs_list.dt <- function(ldf, na, verbose = TRUE) {
   ldf <- Filter(function(x) dim(x)[1] > 0, ldf)
@@ -66,6 +64,9 @@ obs_list.dt <- function(ldf, na, verbose = TRUE) {
 #' @return numeric vector
 #' @name obs_freq
 #' @export
+#' @examples \dontrun{
+#' # Do not run
+#' }
 obs_freq <- function(x, freq, ...) {
   if (freq[1] > (min(x, na.rm = TRUE))) {
     stop("first freq must be equal or lower than min(x)")
@@ -89,7 +90,8 @@ obs_freq <- function(x, freq, ...) {
 #' @return numeric vector
 #' @importFrom data.table second
 #' @export
-#' @examples {
+#' @examples \dontrun{
+#' # Do not run
 #' x <- Sys.time() + seq(1, 55, 1)
 #' paste0(x,"  ",
 #'        obs_roundtime(x), "  ",
@@ -116,7 +118,7 @@ obs_roundtime <- function(x, n = 10) {
 #' @importFrom data.table data.table
 #' @export
 #' @examples \dontrun{
-#' # do not run
+#' # Do not run
 #' }
 obs_rbind <- function(dt1, dt2, verbose = TRUE) {
   if (verbose) {
@@ -179,7 +181,8 @@ obs_rbind <- function(dt1, dt2, verbose = TRUE) {
 #' @param ... extra data.table arguments
 #' @importFrom utils str
 #' @export
-#' @examples {
+#' @examples \dontrun{
+#' # Do not run
 #' df <- data.frame(a = rnorm(n = 10),
 #'                  time = Sys.time() + 1:10)
 #'
@@ -231,7 +234,8 @@ obs_write_csvy <- function(
 #' @param n number of files to search for "---" yaml
 #' @param ... extra data.table arguments
 #' @export
-#' @examples {
+#' @examples \dontrun{
+#' # Do not run
 #' df <- data.frame(a = rnorm(n = 10),
 #'                  time = Sys.time() + 1:10)
 #'
@@ -269,7 +273,8 @@ obs_read_csvy <- function(f, n = 100, ...) {
 #' @param dec Integer, number of decimals
 #' @note source https://stackoverflow.com/a/47015304/2418532
 #' @export
-#' @examples {
+#' @examples \dontrun{
+#' # Do not run
 #' # in bash:
 #' # printf "%07.4f" 72.05785
 #' # results in 72.0578
@@ -326,7 +331,8 @@ obs_trunc <- function(n, dec) {
 #'
 #'
 #' @export
-#' @examples {
+#' @examples \dontrun{
+#' # Do not run
 #' obs_footname(time = Sys.time(),
 #'              second = data.table::second(Sys.Time()),
 #'              lat = 0,
@@ -487,7 +493,7 @@ obs_footname <- function(
 #' @export
 #' @seealso \code{tools::file_ext()}
 #' @examples \dontrun{
-#' # do not run
+#' # Do not run
 #' }
 fex <- function(x) {
   pos <- regexpr("\\.([[:alnum:]]+)$", x)

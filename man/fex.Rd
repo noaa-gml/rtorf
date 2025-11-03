@@ -17,7 +17,7 @@ source tools::file_ext
 }
 \examples{
 \dontrun{
-# do not run
+# Do not run
 }
 }
 \seealso{

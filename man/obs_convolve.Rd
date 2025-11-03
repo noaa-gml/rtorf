@@ -58,7 +58,7 @@ when flux is "monthly", "daily" or "yearly", it assumes flux variable has the sa
 name as "%y-%m-01", "%Y-%m-%d" or "%Y-01-01" respectively.
 }
 \examples{
-{
-# obs_convolve(...)
+\dontrun{
+# do not run
 }
 }

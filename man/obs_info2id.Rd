@@ -34,7 +34,6 @@ a string with the receptor id
 return footprint/receptor id
 }
 \examples{
-{
 \dontrun{
 # Do not run
 obs_info2id(yr = 2002,
@@ -45,7 +44,6 @@ obs_info2id(yr = 2002,
             lat = 42,
             lon = -90,
             alt = 1) [1]
-}
 }
 }
 \seealso{

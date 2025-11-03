@@ -19,6 +19,11 @@ numeric vector
 \description{
 return numeric vector in intervals
 }
+\examples{
+\dontrun{
+# Do not run
+}
+}
 \seealso{
 Other helpers: 
 \code{\link{fex}()},

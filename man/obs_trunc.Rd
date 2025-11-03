@@ -18,7 +18,8 @@ Trunc numbers with a specified number of decimals.
 source https://stackoverflow.com/a/47015304/2418532
 }
 \examples{
-{
+\dontrun{
+# Do not run
 # in bash:
 # printf "\%07.4f" 72.05785
 # results in 72.0578

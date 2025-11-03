@@ -53,12 +53,10 @@ This function returns a data.frame index of all files
 available in obspack.
 }
 \examples{
-{
 \dontrun{
 # Do not run
 obs <- system.file("data-raw", package = "rtorf")
 index <- obs_summary(obs)
-}
 }
 {
 \dontrun{

@@ -60,7 +60,7 @@ A data.frame with with an index obspack.
 Read obspack metadata
 }
 \examples{
-{
+\dontrun{
 # Do not run
 obs <- system.file("data-raw", package = "rtorf")
 index <- obs_summary(obs)

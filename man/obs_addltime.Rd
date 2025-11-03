@@ -37,10 +37,8 @@ Calculate an approximation of local hour
 time depending n longitude is by John Miller (GML/NOAA)
 }
 \examples{
-{
 \dontrun{
 # Do not run
-}
 }
 }
 \seealso{

@@ -31,7 +31,8 @@ Add YAML header info and writes a the data.frame
 into disk. The YAML section includes notes and str(dt).
 }
 \examples{
-{
+\dontrun{
+# Do not run
 df <- data.frame(a = rnorm(n = 10),
                  time = Sys.time() + 1:10)
 

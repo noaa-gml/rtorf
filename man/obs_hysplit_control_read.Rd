@@ -17,7 +17,7 @@ This function creates a CONTROL file for HYSPLIT model.
 It uses inputs from a data.frame with the receptor information.
 }
 \examples{
-{
+\dontrun{
 # Do not run
 obs <- system.file("data-raw", package = "rtorf")
 index <- obs_summary(obs)

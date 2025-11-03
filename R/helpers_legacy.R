@@ -10,8 +10,7 @@
 #' @param asdf Logical, to return as data.frame or not
 #' @return data.frame with time and location based on input
 #' @export
-#' @examples
-#' \dontrun{
+#' @examples \dontrun{
 #' # Do not run
 #' id <- '2002x08x03x10x45.00Nx090.00Ex00030'
 #' (obs_id2pos(id, asdf = TRUE) -> dx)
@@ -118,11 +117,9 @@ obs_id2pos <- function(id, sep = "x", asdf = FALSE) {
 #' @param origin. string
 #' @return returns day since 1/1/1960
 #' @export
-#' @examples {
-#' \dontrun{
+#' @examples \dontrun{
 #' # Do not run
 #' obs_julian(1, 2020, 1)
-#' }
 #' }
 obs_julian <- function(m, d, y, origin.) {
   # returns day since 1/1/1960
@@ -196,8 +193,7 @@ obs_julian <- function(m, d, y, origin.) {
 #' @param long Logical, to add minute, and rounded with 2 decimals, instead of 4. default TRUE
 #' @return a string with the receptor id
 #' @export
-#' @examples {
-#' \dontrun{
+#' @examples \dontrun{
 #' # Do not run
 #' obs_info2id(yr = 2002,
 #'             mo = 8,
@@ -207,7 +203,6 @@ obs_julian <- function(m, d, y, origin.) {
 #'             lat = 42,
 #'             lon = -90,
 #'             alt = 1) [1]
-#' }
 #' }
 obs_info2id <- function(
   yr,
@@ -304,8 +299,7 @@ obs_info2id <- function(
 #' @param verbose logical, to show more messages
 #' @return a string with the receptor id
 #' @export
-#' @examples {
-#' \dontrun{
+#' @examples \dontrun{
 #' # Do not run
 #' obs_julian(y = 2002,
 #'             m = 8,
@@ -315,7 +309,6 @@ obs_info2id <- function(
 #'             m = 8,
 #'             d = 3,
 #'             legacy = FALSE)
-#' }
 #' }
 obs_julian <- function(y, m, d, origin., legacy = FALSE, verbose = TRUE) {
   if (legacy) {
@@ -424,10 +417,9 @@ obs_julian <- function(y, m, d, origin., legacy = FALSE, verbose = TRUE) {
 #' @param eps.global default 0.01
 #' @return return footprint
 #' @export
-#' @examples {
-#' \dontrun{
+#' @examples \dontrun{
 #' # Do not run
-#' }}
+#' }
 obs_traj_foot <- function(
   ident,
   part = NULL,
@@ -796,10 +788,9 @@ obs_traj_foot <- function(
 #' @param part particle data.table
 #' @return return footprint
 #' @export
-#' @examples {
-#' \dontrun{
+#' @examples \dontrun{
 #' # Do not run
-#' }}
+#' }
 obs_normalize_dmass <- function(part = NULL) {
   # Convert part to a data.table if it isn't one already
   if (!inherits(part, "data.table")) {

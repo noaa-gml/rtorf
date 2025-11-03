@@ -676,7 +676,7 @@ obs_hysplit_ascdata <- function(
 #' @param control CONTROL text file
 #' @return A list with CONTROL information
 #' @export
-#' @examples {
+#' @examples \dontrun{
 #' # Do not run
 #' obs <- system.file("data-raw", package = "rtorf")
 #' index <- obs_summary(obs)
@@ -690,7 +690,6 @@ obs_hysplit_ascdata <- function(
 #' obs_hysplit_control_read(control_file)
 #'
 #' }
-#
 obs_hysplit_control_read <- function(
   control = "CONTROL"
 ) {

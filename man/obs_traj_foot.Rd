@@ -64,10 +64,9 @@ return footprint
 return trajectory
 }
 \examples{
-{
 \dontrun{
 # Do not run
-}}
+}
 }
 \seealso{
 Other helpers legacy: 

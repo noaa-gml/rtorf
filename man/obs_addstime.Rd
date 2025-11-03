@@ -19,7 +19,7 @@ This function add timeUTC as POSIX class,
 local time and ending sampling time
 }
 \examples{
-{
+\dontrun{
 # Do not run
 obs <- system.file("data-raw", package = "rtorf")
 index <-  obs_summary(obs)

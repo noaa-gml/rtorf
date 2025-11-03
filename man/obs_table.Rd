@@ -26,7 +26,7 @@ are made by the columns "name", "sector", "site_name",
 "site_utc2lst"
 }
 \examples{
-{
+\dontrun{
 # Do not run
 obs <- system.file("data-raw", package = "rtorf")
 index <- obs_summary(obs)

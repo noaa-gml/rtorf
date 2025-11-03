@@ -25,10 +25,8 @@ Some treatments for list of data.frames
 3. rbindlist and return data.table
 }
 \examples{
-{
 \dontrun{
 # Do not run
-}
 }
 }
 \seealso{

@@ -18,7 +18,7 @@
 #' 2. Else, use column time_interval
 #'
 #' @export
-#' @examples {
+#' @examples \dontrun{
 #' # Do not run
 #' obs <- system.file("data-raw", package = "rtorf")
 #' index <-  obs_summary(obs)
@@ -110,10 +110,8 @@ obs_addtime <- function(dt, verbose = TRUE, tz = "UTC", timeonly = FALSE) {
 #' @return data.table with local time columns
 #' @note time depending n longitude is by John Miller (GML/NOAA)
 #' @export
-#' @examples {
-#' \dontrun{
+#' @examples \dontrun{
 #' # Do not run
-#' }
 #' }
 obs_addltime <- function(
   dt,
@@ -158,7 +156,7 @@ obs_addltime <- function(
 #' @importFrom data.table setDT
 #'
 #' @export
-#' @examples {
+#' @examples \dontrun{
 #' # Do not run
 #' obs <- system.file("data-raw", package = "rtorf")
 #' index <-  obs_summary(obs)
@@ -199,7 +197,7 @@ obs_addstime <- function(dt, tz = "UTC") {
 #' @importFrom data.table setDT
 #'
 #' @export
-#' @examples {
+#' @examples \dontrun{
 #' # Do not run
 #' obs <- system.file("data-raw", package = "rtorf")
 #' index <-  obs_summary(obs)

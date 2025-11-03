@@ -33,8 +33,7 @@ Array of convolved footprints, or lis tof convolved fluxes and lat lon
 Reads NetCDF var and returns the spatial array
 }
 \examples{
-{
-# Do not run
+\dontrun{
 #nc_path <- paste0("Z:/footprints/aircraft/flask/2018/04",
 #"/hysplit2018x04x08x15x15x38.7459Nx077.5584Wx00594.nc")
 #f <- obs_nc_get(nc_path = nc_path)

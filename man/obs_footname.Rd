@@ -62,7 +62,8 @@ source https://stackoverflow.com/a/47015304/2418532
 # The format for longitude is 3 integers, a point and 4 decimals
 }
 \examples{
-{
+\dontrun{
+# Do not run
 obs_footname(time = Sys.time(),
              second = data.table::second(Sys.Time()),
              lat = 0,

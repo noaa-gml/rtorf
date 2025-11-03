@@ -17,7 +17,8 @@ obs_read_csvy(f, n = 100, ...)
 Reads CSVY, print YAML and fread file.
 }
 \examples{
-{
+\dontrun{
+# Do not run
 df <- data.frame(a = rnorm(n = 10),
                  time = Sys.time() + 1:10)
 

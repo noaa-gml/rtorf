@@ -18,7 +18,8 @@ numeric vector
 return rounded seconds from time
 }
 \examples{
-{
+\dontrun{
+# Do not run
 x <- Sys.time() + seq(1, 55, 1)
 paste0(x,"  ",
        obs_roundtime(x), "  ",

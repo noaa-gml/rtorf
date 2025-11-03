@@ -30,7 +30,7 @@ with the calculation using midpoint_time
 2. Else, use column time_interval
 }
 \examples{
-{
+\dontrun{
 # Do not run
 obs <- system.file("data-raw", package = "rtorf")
 index <-  obs_summary(obs)
