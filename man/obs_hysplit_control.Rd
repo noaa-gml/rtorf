@@ -14,6 +14,7 @@ obs_hysplit_control(
   lat,
   lon,
   alt,
+  start_time = NULL,
   nlocations = 1,
   duration = -240,
   vertical_motion = 5,
@@ -67,6 +68,8 @@ obs_hysplit_control(
 \item{lon}{longitude, if missing df.}
 
 \item{alt}{altitude, if missing df.}
+
+\item{start_time}{String to be added, default derived from df.}
 
 \item{nlocations}{number of locations.}
 

@@ -192,7 +192,8 @@ obs_addstime <- function(dt, tz = "UTC") {
 #' local time and ending sampling time
 #'
 #' @family time
-#' @param dt obspack data.table
+#' @param time numeric time from MATLAB
+#' @param origin default "1970-01-01"
 #' @param tz Timezone, default "UTC"
 #' @return return the same data.frame adding solar time
 #' @importFrom data.table setDT

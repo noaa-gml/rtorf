@@ -9,7 +9,7 @@ It uses inputs from a data.frame with the receptor information."><meta property=
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,6 +66,7 @@ It uses inputs from a data.frame with the receptor information.</p>
 <span>  <span class="va">lat</span>,</span>
 <span>  <span class="va">lon</span>,</span>
 <span>  <span class="va">alt</span>,</span>
+<span>  start_time <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  nlocations <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  duration <span class="op">=</span> <span class="op">-</span><span class="fl">240</span>,</span>
 <span>  vertical_motion <span class="op">=</span> <span class="fl">5</span>,</span>
@@ -140,6 +141,10 @@ It uses inputs from a data.frame with the receptor information.</p>
 
 <dt id="arg-alt">alt<a class="anchor" aria-label="anchor" href="#arg-alt"></a></dt>
 <dd><p>altitude, if missing df.</p></dd>
+
+
+<dt id="arg-start-time">start_time<a class="anchor" aria-label="anchor" href="#arg-start-time"></a></dt>
+<dd><p>String to be added, default derived from df.</p></dd>
 
 
 <dt id="arg-nlocations">nlocations<a class="anchor" aria-label="anchor" href="#arg-nlocations"></a></dt>
@@ -309,7 +314,7 @@ continuous 1.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Detected 1 files without agl</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Searching flask...</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1: ch4_aoa_aircraft-flask_19_allvalid.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11 02 16 03</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 02 16 02 17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 34.4290 141.0370 5800.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -240</span>

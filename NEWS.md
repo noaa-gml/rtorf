@@ -1,5 +1,11 @@
 # NEWS
 
+
+### rtorf 3.0.0 (Release date: 2025-11-03)
+
+Add second argument in obs_footname. Deprecated obs_format, since it formatted in obs_hysplit_control Deleted a bunch of legacy code
+Check code for green flag R CMD check
+
 ### rtorf 2.9.0 (Release date: 2025-11-03)
 
 Add second argument in obs_footname. Deprecated obs_format, since it formatted in obs_hysplit_control Deleted a bunch of legacy code

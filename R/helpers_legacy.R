@@ -459,6 +459,9 @@ obs_traj_foot <- function(
     }
   }
 
+  # null args for checking
+  foot <- index <- NULL
+
   #get grid indices
   #For horizontal grids (lower left corner of south-west gridcell: 11N,145W; resolution: 1/4 lon, 1/6 lat, 376 (x) times 324 (y))
   lats <- seq(lat.ll, (lat.ll + (numpix.y - 1) * lat.res), lat.res)
@@ -793,6 +796,9 @@ obs_normalize_dmass <- function(part = NULL) {
   if (!inherits(part, "data.table")) {
     part <- data.table::as.data.table(part)
   }
+
+  # null args for checking
+  btime <- dmass <- index <- mean.dmass <- ndmas <- NULL
 
   # check if btime is not presnet and add it
   if (!"btime" %in% names(part)) {

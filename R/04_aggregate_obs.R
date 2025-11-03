@@ -163,7 +163,7 @@ obs_select_sec <- function(
   }
 
   # 1. Calculate the 'target_time' (the nearest preceding 30-second mark)
-  timeUTC <- target_time <- NULL
+  timeUTC <- target_time <- diff_to_target <- diff_to_next_target <- window_id <- sumx <- NULL
   dt[, target_time := floor(as.numeric(timeUTC) / seconds) * seconds]
 
   dt[,

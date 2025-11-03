@@ -7,9 +7,11 @@
 obs_addmtime(time, origin = "1970-01-01", tz = "UTC")
 }
 \arguments{
-\item{tz}{Timezone, default "UTC"}
+\item{time}{numeric time from MATLAB}
 
-\item{dt}{obspack data.table}
+\item{origin}{default "1970-01-01"}
+
+\item{tz}{Timezone, default "UTC"}
 }
 \value{
 return the same data.frame adding solar time

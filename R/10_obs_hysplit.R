@@ -13,6 +13,7 @@
 #' @param lat latitude, if missing df.
 #' @param lon longitude, if missing df.
 #' @param alt altitude, if missing df.
+#' @param start_time String to be added, default derived from df.
 #' @param nlocations number of locations.
 #' @param duration number of hours of release. (Negative is backwards in time).
 #' @param vertical_motion Vertical motion option.  (0:data 1:isob 2:isen 3:dens
@@ -87,6 +88,7 @@ obs_hysplit_control <- function(
   lat,
   lon,
   alt,
+  start_time = NULL,
   nlocations = 1,
   duration = -240,
   vertical_motion = 5,
@@ -181,6 +183,13 @@ obs_hysplit_control <- function(
     sprintf(mi, fmt = '%02d')
   )
 
+  if (missing(start_time)) {
+    start_time <- rel_start
+  }
+
+  if (!is.character(start_time)) {
+    stop("start_time neds to be hcaracter with format yy mm dd hh mm")
+  }
   nmodels <- length(met)
 
   hydate <- as.Date(ISOdate(
@@ -197,16 +206,7 @@ obs_hysplit_control <- function(
 
   sink(control)
 
-  cat(substr(yr, 3, 4))
-  cat(" ")
-
-  cat(sprintf(mo, fmt = '%02d'))
-  cat(" ")
-
-  cat(sprintf(dy, fmt = '%02d'))
-  cat(" ")
-
-  cat(sprintf(ho + 1, fmt = '%02d'))
+  cat(start_time)
   cat("\n")
 
   cat(nlocations, sep = "\n")
@@ -694,6 +694,9 @@ obs_hysplit_ascdata <- function(
 obs_hysplit_control_read <- function(
   control = "CONTROL"
 ) {
+  # null arguments for check
+  time <- dt <- lat <- lon <- alt <- ident <- NULL
+
   x <- readLines(control)
 
   # time
