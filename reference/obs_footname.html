@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.8.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.9.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,6 +60,7 @@
 <span>  <span class="va">day</span>,</span>
 <span>  <span class="va">hour</span>,</span>
 <span>  <span class="va">minute</span>,</span>
+<span>  <span class="va">second</span>,</span>
 <span>  <span class="va">lat</span>,</span>
 <span>  <span class="va">lon</span>,</span>
 <span>  <span class="va">alt</span>,</span>
@@ -95,6 +96,10 @@
 
 <dt id="arg-minute">minute<a class="anchor" aria-label="anchor" href="#arg-minute"></a></dt>
 <dd><p>numeric number</p></dd>
+
+
+<dt id="arg-second">second<a class="anchor" aria-label="anchor" href="#arg-second"></a></dt>
+<dd><p>numeric number, optional</p></dd>
 
 
 <dt id="arg-lat">lat<a class="anchor" aria-label="anchor" href="#arg-lat"></a></dt>
@@ -154,6 +159,11 @@ generates the expected name.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">obs_footname</span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             second <span class="op">=</span> <span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/IDateTime.html" class="external-link">second</a></span><span class="op">(</span><span class="fu">Sys.Time</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>             lat <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>             lon <span class="op">=</span> <span class="fl">0</span>,</span></span>
+<span class="r-in"><span>             alt <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">obs_footname</span><span class="op">(</span>year <span class="op">=</span> <span class="fl">2020</span>,</span></span>
 <span class="r-in"><span>             month <span class="op">=</span> <span class="fl">12</span>,</span></span>
 <span class="r-in"><span>             day <span class="op">=</span> <span class="fl">30</span>,</span></span>
