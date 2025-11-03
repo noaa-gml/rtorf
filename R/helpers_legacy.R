@@ -10,7 +10,7 @@
 #' @param asdf Logical, to return as data.frame or not
 #' @return data.frame with time and location based on input
 #' @export
-#' @examples {
+#' @examples
 #' \dontrun{
 #' # Do not run
 #' id <- '2002x08x03x10x45.00Nx090.00Ex00030'
@@ -22,7 +22,7 @@
 #' (obs_id2pos(rep(id, 2)) -> dx)
 #' (obs_id2pos(rep(id, 2), asdf = TRUE) -> dx)
 #' }
-#' }
+
 obs_id2pos <- function(id, sep = "x", asdf = FALSE) {
   # revers of id2pos function to read identifying label for
   # multiple receptors (location&time) returns time as fractional
@@ -403,16 +403,25 @@ obs_julian <- function(y, m, d, origin., legacy = FALSE, verbose = TRUE) {
 #' @family helpers legacy
 #' @name obs_traj_foot
 #' @description return trajectory
+#' @param ident foot id
 #' @param part data.table with PARTICLE.DAT information
-#' @param zlim (if not default 0,0): vertical interval for which particle distribution is looked at
+#' @param timelabel timelabel
+#' @param pathname pathname
 #' @param foottimes vector of times between which footprint or influence will be integrated
+#' @param zlim zlim
+#' @param coarse default 1
 #' @param dmassTF default TRUE weighting by accumulated mass due to violation of mass conservation in met fields
-#' @param lon.ll lower left corner of grid (longitude of southwest corner of southwest corner gridcell)
-#' @param lat.ll lower left corner of grid (latitude of southwest corner of southwest corner gridcell)
 #' @param numpix.x number of pixels in x directions in grid
 #' @param numpix.y number of pixels in y directions in grid
+#' @param lon.ll lower left corner of grid (longitude of southwest corner of southwest corner gridcell)
+#' @param lat.ll lower left corner of grid (latitude of southwest corner of southwest corner gridcell)
+#' @param lon.ll lower left lon
+#' @param lat.ll lower left lat
+#' @param lon.res resolution
+#' @param lat.res resolution
 #' @param npar default 500, number of particles hysplit was run with (required in order to
 #' account for those cases where a thinned particle table that may not contain all particle indices is used)
+#' @param eps.global default 0.01
 #' @return return footprint
 #' @export
 #' @examples {
@@ -460,7 +469,7 @@ obs_traj_foot <- function(
   }
 
   # null args for checking
-  foot <- index <- NULL
+  foot <- index <- sumx <- NULL
 
   #get grid indices
   #For horizontal grids (lower left corner of south-west gridcell: 11N,145W; resolution: 1/4 lon, 1/6 lat, 376 (x) times 324 (y))
@@ -798,7 +807,7 @@ obs_normalize_dmass <- function(part = NULL) {
   }
 
   # null args for checking
-  btime <- dmass <- index <- mean.dmass <- ndmas <- NULL
+  btime <- dmass <- index <- mean.dmass <- ndmass <- NULL
 
   # check if btime is not presnet and add it
   if (!"btime" %in% names(part)) {
@@ -839,100 +848,4 @@ obs_normalize_dmass <- function(part = NULL) {
 
   # Select and rename columns, and return
   return(part)
-}
-
-
-#' @title obs_grid
-#' @family helpers legacy
-#' @name obs_grid
-#' @description add columns of
-#' @param min.x grid indices
-#' @param max.x grid indices
-#' @param min.y grid indices
-#' @param max.y grid indices
-#' @param numpix.x number pixels x
-#' @param numpix.y number pixels y
-#' @param coarse.factor integer to coarse the grid resolution
-#' @return return footprint
-#' @export
-#' @examples {
-#' \dontrun{
-#' # Do not run
-#' }}
-obs_grid <- function(
-  min.x,
-  max.x,
-  min.y,
-  max.y,
-  numpix.x,
-  numpix.y,
-  coarse.factor = 1
-) {
-  leng <- length(min.x)
-  #number of elements, or timepoints
-  #this will come in handy later
-  ran.x <- max.x - min.x
-  ran.y <- max.y - min.y
-  ran.x <- cummax(ran.x) #don't allow resolution to get finer at earlier btimes
-  ran.y <- cummax(ran.y)
-  #adapt coarse.factor
-  cf <- c(1, 2, 4, 8, 16, 32)
-  mr <- c(0, 6, 12, 24, 48, 96)
-  mr <- cbind(cf, mr)
-  mr <- mr[mr[, "cf"] == coarse.factor, "mr"]
-  ran.x[ran.x < mr] <- mr * rep(1, leng)[ran.x < mr]
-  ran.y[ran.y < mr] <- mr * rep(1, leng)[ran.y < mr]
-  #calculate ranges
-  minranx <- c(0, 0, 6, 6, 6, 12, 12, 12, 24, 24, 24, 48, 48, 48, 96, 96)
-  minrany <- c(0, 6, 0, 6, 12, 6, 12, 24, 12, 24, 48, 24, 48, 96, 48, 96)
-  gridname <- rep(0, leng)
-  #Loop through each of 16 elements of 'minranx' & 'maxrany' one at a time
-  #'gridname' represents different resolutions of emission grid--16 is coarsest & 1 is finest
-  for (i in 1:length(minranx)) {
-    minranxTF <- ran.x >= minranx[i]
-    minranyTF <- ran.y >= minrany[i]
-    gridname[minranxTF & minranyTF] <- i
-  }
-
-  if (coarse.factor == 0) {
-    gridname <- rep(1, leng)
-  } #use high resolution for coarse.factor 0
-  #xpart & ypart can range betw. 0~3.These tell you which piece of whole grid is needed.
-  #If value is 0, then means that ENTIRE grid is used.
-  #Note that only when resolution is fine (gridname<=3) is emission grid broken down.
-  #Note also that broken down emission grids can OVERLAP.
-  xpart <- rep(0, leng)
-  ypart <- rep(0, leng)
-  first.x <- (min.x >= 1) & (max.x <= 0.5 * numpix.x)
-  second.x <- (min.x > 0.25 * numpix.x) & (max.x <= 0.75 * numpix.x)
-  third.x <- (min.x > 0.5 * numpix.x) & (max.x <= 1 * numpix.x)
-  first.y <- (min.y >= 1) & (max.y <= 0.5 * numpix.y)
-  second.y <- (min.y > 0.25 * numpix.y) & (max.y <= 0.75 * numpix.y)
-  third.y <- (min.y > 0.5 * numpix.y) & (max.y <= 1 * numpix.y)
-  largedx <- !(first.x | second.x | third.x)
-  largedy <- !(first.y | second.y | third.y)
-  sel <- gridname == 1
-  xpart[first.x & sel] <- 1
-  xpart[second.x & sel] <- 2
-  xpart[third.x & sel] <- 3
-  ypart[first.y & sel] <- 1
-  ypart[second.y & sel] <- 2
-  ypart[third.y & sel] <- 3
-  sel <- gridname == 2
-  xpart[first.x & sel] <- 1
-  xpart[second.x & sel] <- 2
-  xpart[third.x & sel] <- 3
-  ypart[(!largedx) & sel] <- 1
-  #if deltax is small enough, then ypart must = 1
-  sel <- gridname == 3
-  ypart[first.y & sel] <- 1
-  ypart[second.y & sel] <- 2
-  ypart[third.y & sel] <- 3
-  xpart[(!largedy) & sel] <- 1
-  #if deltay is small enough, then xpart must = 1
-  #deltax or deltay is too large, so have to use coarse grid
-  xpart[largedx | largedy] <- 0
-  ypart[largedx | largedy] <- 0
-  result <- data.table::data.table(xpart, ypart, gridname)
-  return(result)
 }

@@ -60,9 +60,6 @@ source https://stackoverflow.com/a/47015304/2418532
 # latitude and longitude have been round with 4 decimals
 # The format for latitude is 2 integers, a point and 4 decimals
 # The format for longitude is 3 integers, a point and 4 decimals
-
-# In other words, it is similar to `obs_format`, but `obs_footname`,
-generates the expected name.
 }
 \examples{
 {

@@ -207,10 +207,6 @@ obs_addstime <- function(dt, tz = "UTC") {
 #' dt <- obs_addtime(dt)
 #' }
 obs_addmtime <- function(time, origin = "1970-01-01", tz = "UTC") {
-  if (!inherits(dt, "data.table")) {
-    data.table::setDT(dt)
-  }
-
   # The constant 719529 is the number of days between 0000-01-01 and 1970-01-01
 
   timeUTC <- as.POSIXct((time - 719529) * 86400, origin = origin, tz = tz)

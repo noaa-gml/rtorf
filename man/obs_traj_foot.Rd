@@ -24,11 +24,19 @@ obs_traj_foot(
 )
 }
 \arguments{
+\item{ident}{foot id}
+
 \item{part}{data.table with PARTICLE.DAT information}
+
+\item{timelabel}{timelabel}
+
+\item{pathname}{pathname}
 
 \item{foottimes}{vector of times between which footprint or influence will be integrated}
 
-\item{zlim}{(if not default 0,0): vertical interval for which particle distribution is looked at}
+\item{zlim}{zlim}
+
+\item{coarse}{default 1}
 
 \item{dmassTF}{default TRUE weighting by accumulated mass due to violation of mass conservation in met fields}
 
@@ -36,12 +44,18 @@ obs_traj_foot(
 
 \item{numpix.y}{number of pixels in y directions in grid}
 
-\item{lon.ll}{lower left corner of grid (longitude of southwest corner of southwest corner gridcell)}
+\item{lon.ll}{lower left lon}
 
-\item{lat.ll}{lower left corner of grid (latitude of southwest corner of southwest corner gridcell)}
+\item{lat.ll}{lower left lat}
+
+\item{lon.res}{resolution}
+
+\item{lat.res}{resolution}
 
 \item{npar}{default 500, number of particles hysplit was run with (required in order to
 account for those cases where a thinned particle table that may not contain all particle indices is used)}
+
+\item{eps.global}{default 0.01}
 }
 \value{
 return footprint

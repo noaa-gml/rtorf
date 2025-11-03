@@ -695,7 +695,7 @@ obs_hysplit_control_read <- function(
   control = "CONTROL"
 ) {
   # null arguments for check
-  time <- dt <- lat <- lon <- alt <- ident <- NULL
+  time <- dt <- lat <- lon <- alt <- ident <- id <- NULL
 
   x <- readLines(control)
 

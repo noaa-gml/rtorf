@@ -10,9 +10,7 @@
 #' @return vector opposite of intersect
 #' @export
 #' @examples {
-#' \dontrun{
 #' # Do not run
-#' }
 #' }
 obs_out <- function(x, y) {
   sort(c(setdiff(x, y), setdiff(y, x)))
@@ -326,8 +324,6 @@ obs_trunc <- function(n, dec) {
 #' # The format for latitude is 2 integers, a point and 4 decimals
 #' # The format for longitude is 3 integers, a point and 4 decimals
 #'
-#' # In other words, it is similar to `obs_format`, but `obs_footname`,
-#' generates the expected name.
 #'
 #' @export
 #' @examples {

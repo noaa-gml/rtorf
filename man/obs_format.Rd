@@ -6,28 +6,8 @@
 \usage{
 obs_format()
 }
-\arguments{
-\item{dt}{`data.table`}
-
-\item{spf}{columns to be formatted with `sprintf`}
-
-\item{spffmt}{format to be applied to spf}
-
-\item{rnd}{columns to be round}
-
-\item{rndn}{Round number to be applied to `rnd`}
-
-\item{spfrnd}{Logical, sprintf `rnd` columns after being round ?}
-
-\item{out}{outfile path used by data.table::fwrite.}
-
-\item{...}{data.table::fwrite arguments.}
-}
 \description{
-return data.frame with formatted fields
-}
-\note{
-source https://stackoverflow.com/a/47015304/2418532
+Formatting data
 }
 \examples{
 \dontrun{

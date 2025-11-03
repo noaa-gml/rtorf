@@ -22,9 +22,7 @@ Helpers
 }
 \examples{
 {
-\dontrun{
 # Do not run
-}
 }
 }
 \seealso{

@@ -23,7 +23,6 @@ return ndata.frame based on footprint/receptor id
 Helpers Legacy
 }
 \examples{
-{
 \dontrun{
 # Do not run
 id <- '2002x08x03x10x45.00Nx090.00Ex00030'
@@ -34,7 +33,6 @@ id <- c('2002x08x03x10x00x45.000Nx090.000Ex00030',
 (obs_id2pos(id, asdf = TRUE) -> dx)
 (obs_id2pos(rep(id, 2)) -> dx)
 (obs_id2pos(rep(id, 2), asdf = TRUE) -> dx)
-}
 }
 }
 \seealso{

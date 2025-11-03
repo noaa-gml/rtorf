@@ -174,16 +174,6 @@ obs_addzero <- function(x, ...) {
 #' @title Formatting data
 #' @family helpers
 #' @name obs_format
-#' @description return data.frame with formatted fields
-#' @param dt `data.table`
-#' @param spf columns to be formatted with `sprintf`
-#' @param spffmt format to be applied to spf
-#' @param rnd columns to be round
-#' @param rndn Round number to be applied to `rnd`
-#' @param spfrnd Logical, sprintf `rnd` columns after being round ?
-#' @param out outfile path used by data.table::fwrite.
-#' @param ... data.table::fwrite arguments.
-#' @note source https://stackoverflow.com/a/47015304/2418532
 #' @export
 #' @examples \dontrun{
 #' # do not run
