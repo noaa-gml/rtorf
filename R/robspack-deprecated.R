@@ -9,8 +9,6 @@
 NULL
 
 
-
-
 #' @title Index of the ObsPack files (Deprecated)
 #'
 #' @description
@@ -36,18 +34,22 @@ NULL
 #' index <- obs_summary(obs)
 #' }
 #' }
-obs_index <- function(obs,
-                      categories = c("aircraft-pfp",
-                                     "aircraft-insitu",
-                                     "surface-insitu",
-                                     "tower-insitu",
-                                     "aircore",
-                                     "surface-pfp",
-                                     "shipboard-insitu",
-                                     "flask"),
-                      lnchar = 11,
-                      out = paste0(tempfile(), "_index.csv"),
-                      verbose = TRUE){
+obs_index <- function(
+  obs,
+  categories = c(
+    "aircraft-pfp",
+    "aircraft-insitu",
+    "surface-insitu",
+    "tower-insitu",
+    "aircore",
+    "surface-pfp",
+    "shipboard-insitu",
+    "flask"
+  ),
+  lnchar = 11,
+  out = paste0(tempfile(), "_index.csv"),
+  verbose = TRUE
+) {
   # cat("Please, use `obs_summary` instead")
   #
   #
@@ -166,4 +168,62 @@ obs_addzero <- function(x, ...) {
   # }
   .Deprecated("sprintf")
   "obs_addzero"
+}
+
+
+#' @title Formatting data
+#' @family helpers
+#' @name obs_format
+#' @description return data.frame with formatted fields
+#' @param dt `data.table`
+#' @param spf columns to be formatted with `sprintf`
+#' @param spffmt format to be applied to spf
+#' @param rnd columns to be round
+#' @param rndn Round number to be applied to `rnd`
+#' @param spfrnd Logical, sprintf `rnd` columns after being round ?
+#' @param out outfile path used by data.table::fwrite.
+#' @param ... data.table::fwrite arguments.
+#' @note source https://stackoverflow.com/a/47015304/2418532
+#' @export
+#' @examples \dontrun{
+#' # do not run
+#' }
+obs_format <- function() {
+  #   dt,
+  #   spf = c(
+  #     "month",
+  #     "day",
+  #     "hour",
+  #     "minute",
+  #     "second",
+  #     "month_end",
+  #     "day_end",
+  #     "hour_end",
+  #     "minute_end",
+  #     "second_end"
+  #   ),
+  #   spffmt = "%02d",
+  #   rnd = c("latitude", "longitude"),
+  #   rndn = 4,
+  #   spfrnd = TRUE,
+  #   out,
+  #   ...
+  # ) {
+  #   for (i in seq_along(spf)) {
+  #     dt[[spf[i]]] <- sprintf(fmt = spffmt, as.numeric(dt[[spf[i]]]))
+  #   }
+  #   for (i in seq_along(rnd)) {
+  #     dt[[rnd[i]]] <- round(dt[[rnd[i]]], rndn)
+  #   }
+  #   if (spfrnd) {
+  #     for (i in seq_along(rnd)) {
+  #       dt[[rnd[i]]] <- sprintf(fmt = "%2.4f", dt[[rnd[i]]])
+  #     }
+  #   }
+  #   if (!missing(out)) {
+  #     data.table::fwrite(x = dt, x = out, ...)
+  #   }
+  #   return(dt)
+  .Deprecated("obs_hysplit_control")
+  "obs_format"
 }

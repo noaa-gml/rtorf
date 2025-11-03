@@ -39,12 +39,9 @@ id <- c('2002x08x03x10x00x45.000Nx090.000Ex00030',
 }
 \seealso{
 Other helpers legacy: 
-\code{\link{obs_decimal_to_POSIX}()},
 \code{\link{obs_grid}()},
 \code{\link{obs_info2id}()},
-\code{\link{obs_interpret_udunits_time}()},
 \code{\link{obs_julian}()},
-\code{\link{obs_load_ncdf}()},
 \code{\link{obs_normalize_dmass}()},
 \code{\link{obs_traj_foot}()}
 }

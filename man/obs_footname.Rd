@@ -11,6 +11,7 @@ obs_footname(
   day,
   hour,
   minute,
+  second,
   lat,
   lon,
   alt,
@@ -31,6 +32,8 @@ obs_footname(
 \item{hour}{numeric number}
 
 \item{minute}{numeric number}
+
+\item{second}{numeric number, optional}
 
 \item{lat}{numeric number}
 
@@ -63,6 +66,11 @@ generates the expected name.
 }
 \examples{
 {
+obs_footname(time = Sys.time(),
+             second = data.table::second(Sys.Time()),
+             lat = 0,
+             lon = 0,
+             alt = 0)
 obs_footname(year = 2020,
              month = 12,
              day = 30,

@@ -15,8 +15,7 @@
 #' }
 #' }
 obs_out <- function(x, y) {
-  sort(c(setdiff(x, y),
-         setdiff(y, x)))
+  sort(c(setdiff(x, y), setdiff(y, x)))
 }
 
 
@@ -40,13 +39,11 @@ obs_out <- function(x, y) {
 #' }
 #' }
 obs_list.dt <- function(ldf, na, verbose = TRUE) {
-
   ldf <- Filter(function(x) dim(x)[1] > 0, ldf)
 
   lm <- lapply(ldf, names)
 
   na <- Reduce(intersect, lapply(ldf, names))
-
 
   lxx <- function(x, names) {
     lapply(seq_along(x), function(i) {
@@ -55,10 +52,11 @@ obs_list.dt <- function(ldf, na, verbose = TRUE) {
     data.table::rbindlist(lx)
   }
   dt <- lxx(ldf, na)
-  if(verbose) print(format(utils::object.size(dt), units = "Mb"))
+  if (verbose) {
+    print(format(utils::object.size(dt), units = "Mb"))
+  }
   return(dt)
 }
-
 
 
 #' @title return numeric vector in intervals
@@ -71,15 +69,17 @@ obs_list.dt <- function(ldf, na, verbose = TRUE) {
 #' @name obs_freq
 #' @export
 obs_freq <- function(x, freq, ...) {
-  if(freq[1] > (min(x, na.rm = TRUE))) {
+  if (freq[1] > (min(x, na.rm = TRUE))) {
     stop("first freq must be equal or lower than min(x)")
   }
   # add and feq
-  return(freq[findInterval(x = x,
-                           vec = freq,
-                           rightmost.closed = T,
-                           left.open = T,
-                           ...)])
+  return(freq[findInterval(
+    x = x,
+    vec = freq,
+    rightmost.closed = T,
+    left.open = T,
+    ...
+  )])
 }
 
 #' @title round seconds from "POSIXct" "POSIXt"  classes
@@ -99,8 +99,10 @@ obs_freq <- function(x, freq, ...) {
 #'                 seq(0, 55, 10)))
 #' }
 obs_roundtime <- function(x, n = 10) {
-  if(!inherits(x, "POSIXct")) stop("`x` must have classes `POSIXct` `POSIXt` ")
-  y <- (( data.table::second(x) + 5/2) %/% n)*n
+  if (!inherits(x, "POSIXct")) {
+    stop("`x` must have classes `POSIXct` `POSIXt` ")
+  }
+  y <- ((data.table::second(x) + 5 / 2) %/% n) * n
   y <- ifelse(y == 60, 0, y)
   return(y)
 }
@@ -118,29 +120,30 @@ obs_roundtime <- function(x, n = 10) {
 #' @examples \dontrun{
 #' # do not run
 #' }
-obs_rbind <- function(dt1,
-                      dt2,
-                      verbose = TRUE) {
-  if(verbose) cat("Identifying common names\n")
+obs_rbind <- function(dt1, dt2, verbose = TRUE) {
+  if (verbose) {
+    cat("Identifying common names\n")
+  }
 
-  neco <- intersect(names(dt1),
-                    names(dt2))
-  if(verbose) print(neco)
+  neco <- intersect(names(dt1), names(dt2))
+  if (verbose) {
+    print(neco)
+  }
 
   dt1 <- dt1[,
-             neco,
-             with = F]
+    neco,
+    with = F
+  ]
 
   dt2 <- dt2[,
-             neco,
-             with = F]
+    neco,
+    with = F
+  ]
 
   cl1 <- (lapply(dt1, class))
   cl2 <- (lapply(dt2, class))
 
-  dt <- data.table::data.table(names = neco,
-                               class1 = cl1,
-                               class2 = cl2)
+  dt <- data.table::data.table(names = neco, class1 = cl1, class2 = cl2)
 
   lx <- lapply(1:nrow(dt), function(i) {
     (cl1[[i]] == cl2[[i]])[1]
@@ -148,11 +151,15 @@ obs_rbind <- function(dt1,
 
   dt$equal <- lx
 
-  if(verbose) cat("Comparing classes by column\n")
+  if (verbose) {
+    cat("Comparing classes by column\n")
+  }
 
   equal <- NULL
-  if(nrow(dt[equal == F]) > 0) {
-    if(verbose) cat("Found different classes:\n")
+  if (nrow(dt[equal == F]) > 0) {
+    if (verbose) {
+      cat("Found different classes:\n")
+    }
     print(dt[equal == F])
     # stop()
   }
@@ -185,33 +192,37 @@ obs_rbind <- function(dt1,
 #' readLines(f)
 #' data.table::fread(f, h = TRUE)
 #' }
-obs_write_csvy <- function(dt,
-                           notes,
-                           out = paste0(tempfile(), ".csvy"),
-                           sep = ",",
-                           nchar.max = 80,
-                           ...) {
+obs_write_csvy <- function(
+  dt,
+  notes,
+  out = paste0(tempfile(), ".csvy"),
+  sep = ",",
+  nchar.max = 80,
+  ...
+) {
   sink(file = out)
   cat("---\n")
   cat("name: Metadata \n")
   cat(notes, sep = "\n")
   cat("structure: \n")
-  print(utils::str(object = dt,
-                   vec.len = 2,
-                   width = 60,
-                   strict.width = "cut",
-                   nchar.max = nchar.max))
+  print(utils::str(
+    object = dt,
+    vec.len = 2,
+    width = 60,
+    strict.width = "cut",
+    nchar.max = nchar.max
+  ))
   cat("---\n")
   sink()
-  data.table::fwrite(x = dt,
-                     file = out,
-                     sep = sep,
-                     append = TRUE,
-                     col.names = TRUE,
-                     ...)
-
+  data.table::fwrite(
+    x = dt,
+    file = out,
+    sep = sep,
+    append = TRUE,
+    col.names = TRUE,
+    ...
+  )
 }
-
 
 
 #' @title reads CSVY
@@ -236,15 +247,11 @@ obs_write_csvy <- function(dt,
 #' readLines(f)
 #' data.table::fread(f)
 #' }
-obs_read_csvy <- function(f,
-                          n = 100,
-                          ...) {
-
-
+obs_read_csvy <- function(f, n = 100, ...) {
   nr <- readLines(f, n = 100)
 
   lis <- grep("---", nr)
-  if(length(lis) == 1) {
+  if (length(lis) == 1) {
     nr <- readLines(f, n = 200)
     lis <- grep("---", nr)
   }
@@ -253,12 +260,7 @@ obs_read_csvy <- function(f,
 
   yaml <- readLines(f, n = l2)
   print(yaml)
-  data.table::fread(f,
-                    h = TRUE,
-                    skip = l2,
-                    ...)
-
-
+  data.table::fread(f, h = TRUE, skip = l2, ...)
 }
 
 #' @title Trunc numbers with a desired number of decimals
@@ -284,11 +286,14 @@ obs_read_csvy <- function(f,
 #'         format = "f",
 #'         flag = "0")
 #'}
-obs_trunc <- function(n, dec){
-  n <- n + (10^-(dec+5))
+obs_trunc <- function(n, dec) {
+  n <- n + (10^-(dec + 5))
   f <- NULL
-  splitNumber <- strsplit(x=format(n, digits=20, format=f), split="\\.")[[1]]
-  decimalPartTrunc <- substr(x=splitNumber[2], start=1, stop=dec)
+  splitNumber <- strsplit(
+    x = format(n, digits = 20, format = f),
+    split = "\\."
+  )[[1]]
+  decimalPartTrunc <- substr(x = splitNumber[2], start = 1, stop = dec)
   truncatedNumber <- as.numeric(paste0(splitNumber[1], ".", decimalPartTrunc))
   return(truncatedNumber)
 }
@@ -304,6 +309,7 @@ obs_trunc <- function(n, dec){
 #' @param day numeric number
 #' @param hour numeric number
 #' @param minute numeric number
+#' @param second numeric number, optional
 #' @param lat numeric number
 #' @param lon numeric number
 #' @param alt numeric number
@@ -325,6 +331,11 @@ obs_trunc <- function(n, dec){
 #'
 #' @export
 #' @examples {
+#' obs_footname(time = Sys.time(),
+#'              second = data.table::second(Sys.Time()),
+#'              lat = 0,
+#'              lon = 0,
+#'              alt = 0)
 #' obs_footname(year = 2020,
 #'              month = 12,
 #'              day = 30,
@@ -344,20 +355,21 @@ obs_trunc <- function(n, dec){
 #'              alt = 497,
 #'              fullpath = TRUE)
 #' }
-obs_footname <- function(time = NULL,
-                         year,
-                         month,
-                         day,
-                         hour,
-                         minute,
-                         lat,
-                         lon,
-                         alt,
-                         fullpath = FALSE,
-                         out,
-                         ...){
-
-
+obs_footname <- function(
+  time = NULL,
+  year,
+  month,
+  day,
+  hour,
+  minute,
+  second,
+  lat,
+  lon,
+  alt,
+  fullpath = FALSE,
+  out,
+  ...
+) {
   lats <- ifelse(lat > 0, "N", "S")
   lat <- abs(lat)
 
@@ -366,144 +378,109 @@ obs_footname <- function(time = NULL,
 
   agl <- alt
 
+  if (!is.null(time)) {
+    dt1 <- paste0(
+      sprintf(data.table::year(time), fmt = '%02d'),
+      "/",
+      sprintf(data.table::month(time), fmt = '%02d'),
+      "/hysplit"
+    )
 
-
-  if(!is.null(time)) {
-    dt1 <- paste0(sprintf(data.table::year(time), fmt = '%02d'),
-                  "/",
-                  sprintf(data.table::month(time), fmt = '%02d'),
-                  "/hysplit")
-
-    dt <- paste0(sprintf(data.table::year(time), fmt = '%02d'),
-                 "x",
-                 sprintf(data.table::month(time), fmt = '%02d'),
-                 "x",
-                 sprintf(as.numeric(strftime(time, "%d", tz = "UTC")), fmt = '%02d'),
-                 "x",
-                 sprintf(data.table::hour(time), fmt = '%02d'),
-                 "x",
-                 sprintf(data.table::minute(time), fmt = '%02d'),
-                 "x",
-                 formatC(lat, # this approach works whendata is round(x, 4)
-                         digits = 4,
-                         width = 7,
-                         format = "f",
-                         flag = "0"),
-                 lats,
-                 "x",
-                 # sprintf(round(lon, 4), fmt = '0%7.4f'),
-                 formatC(lon, # this approach works whendata is round(x, 4)
-                         digits = 4,
-                         width = 8,
-                         format = "f",
-                         flag = "0"),
-                 lons,
-                 "x",
-                 sprintf(round(agl), fmt = '%05d'))
-
+    dt <- paste0(
+      sprintf(data.table::year(time), fmt = '%02d'),
+      "x",
+      sprintf(data.table::month(time), fmt = '%02d'),
+      "x",
+      sprintf(as.numeric(strftime(time, "%d", tz = "UTC")), fmt = '%02d'),
+      "x",
+      sprintf(data.table::hour(time), fmt = '%02d'),
+      "x",
+      sprintf(data.table::minute(time), fmt = '%02d'),
+      "x",
+      if (!missing(second)) {
+        paste0(sprintf(data.table::second(time), fmt = '%02d'), "x")
+      } else {
+        NULL
+      },
+      formatC(
+        lat, # this approach works whendata is round(x, 4)
+        digits = 4,
+        width = 7,
+        format = "f",
+        flag = "0"
+      ),
+      lats,
+      "x",
+      # sprintf(round(lon, 4), fmt = '0%7.4f'),
+      formatC(
+        lon, # this approach works whendata is round(x, 4)
+        digits = 4,
+        width = 8,
+        format = "f",
+        flag = "0"
+      ),
+      lons,
+      "x",
+      sprintf(round(agl), fmt = '%05d')
+    )
   } else {
-    dt1 <- paste0(sprintf(year, fmt = '%02d'),
-                  "/",
-                  sprintf(month, fmt = '%02d'),
-                  "/hysplit")
+    dt1 <- paste0(
+      sprintf(year, fmt = '%02d'),
+      "/",
+      sprintf(month, fmt = '%02d'),
+      "/hysplit"
+    )
 
-    dt <- paste0(sprintf(year, fmt = '%02d'),
-                 "x",
-                 sprintf(month, fmt = '%02d'),
-                 "x",
-                 sprintf(day, fmt = '%02d'),
-                 "x",
-                 sprintf(hour, fmt = '%02d'),
-                 "x",
-                 sprintf(minute, fmt = '%02d'),
-                 "x",
-                 formatC(lat, # this approach works whendata is round(x, 4)
-                         digits = 4,
-                         width = 7,
-                         format = "f",
-                         flag = "0"),
-                 lats,
-                 "x",
-                 # sprintf(round(lon, 4), fmt = '0%7.4f'),
-                 formatC(lon, # this approach works whendata is round(x, 4)
-                         digits = 4,
-                         width = 8,
-                         format = "f",
-                         flag = "0"),
-                 lons,
-                 "x",
-                 sprintf(round(agl), fmt = '%05d')
-                 )
-
+    dt <- paste0(
+      sprintf(year, fmt = '%02d'),
+      "x",
+      sprintf(month, fmt = '%02d'),
+      "x",
+      sprintf(day, fmt = '%02d'),
+      "x",
+      sprintf(hour, fmt = '%02d'),
+      "x",
+      sprintf(minute, fmt = '%02d'),
+      "x",
+      if (!missing(second)) {
+        paste0(sprintf(second, fmt = '%02d'), "x")
+      } else {
+        NULL
+      },
+      formatC(
+        lat, # this approach works whendata is round(x, 4)
+        digits = 4,
+        width = 7,
+        format = "f",
+        flag = "0"
+      ),
+      lats,
+      "x",
+      # sprintf(round(lon, 4), fmt = '0%7.4f'),
+      formatC(
+        lon, # this approach works whendata is round(x, 4)
+        digits = 4,
+        width = 8,
+        format = "f",
+        flag = "0"
+      ),
+      lons,
+      "x",
+      sprintf(round(agl), fmt = '%05d')
+    )
   }
 
-  if(fullpath) {
+  if (fullpath) {
     x <- paste0(dt1, dt, ".nc")
   } else {
     x <- dt
   }
-  if(!missing(out)) {
-    data.table::fwrite(x = data.table::as.data.table(x),
-                       x = out,
-                       ...)
+  if (!missing(out)) {
+    data.table::fwrite(x = data.table::as.data.table(x), x = out, ...)
   }
   return(x)
-
 }
 
-
-#' @title Formatting data
-#' @family helpers
-#' @name obs_format
-#' @description return data.frame with formatted fields
-#' @param dt `data.table`
-#' @param spf columns to be formatted with `sprintf`
-#' @param spffmt format to be applied to spf
-#' @param rnd columns to be round
-#' @param rndn Round number to be applied to `rnd`
-#' @param spfrnd Logical, sprintf `rnd` columns after being round ?
-#' @param out outfile path used by data.table::fwrite.
-#' @param ... data.table::fwrite arguments.
-#' @note source https://stackoverflow.com/a/47015304/2418532
-#' @export
-#' @examples \dontrun{
-#' # do not run
-#' }
-obs_format <- function(dt,
-                       spf = c("month", "day", "hour",
-                               "minute", "second",
-                               "month_end", "day_end", "hour_end",
-                               "minute_end", "second_end"),
-                       spffmt = "%02d",
-                       rnd = c("latitude", "longitude"),
-                       rndn = 4,
-                       spfrnd = TRUE,
-                       out,
-                       ...){
-
-  for(i in seq_along(spf)) {
-    dt[[spf[i]]] <- sprintf(fmt = spffmt, as.numeric(dt[[spf[i]]]))
-  }
-
-  for(i in seq_along(rnd)) {
-    dt[[rnd[i]]] <- round(dt[[rnd[i]]], rndn)
-  }
-
-  if(spfrnd) {
-    for(i in seq_along(rnd)) {
-      dt[[rnd[i]]] <- sprintf(fmt = "%2.4f", dt[[rnd[i]]])
-    }
-
-  }
-
-  if(!missing(out)) {
-    data.table::fwrite(x = dt,
-                       x = out,
-                       ...)
-  }
-  return(dt)
-
-}
 
 #' @title File extension
 #' @family helpers
@@ -516,7 +493,7 @@ obs_format <- function(dt,
 #' @examples \dontrun{
 #' # do not run
 #' }
-fex <- function (x) {
+fex <- function(x) {
   pos <- regexpr("\\.([[:alnum:]]+)$", x)
   ifelse(pos > -1L, substring(x, pos + 1L), "")
 }
@@ -532,7 +509,6 @@ fex <- function (x) {
 #' @examples \dontrun{
 #' # do not run
 #' }
-sr <- function(x, n){
-  substr(x, nchar(x)-n+1, nchar(x))
+sr <- function(x, n) {
+  substr(x, nchar(x) - n + 1, nchar(x))
 }
-

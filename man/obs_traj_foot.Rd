@@ -57,13 +57,10 @@ return trajectory
 }
 \seealso{
 Other helpers legacy: 
-\code{\link{obs_decimal_to_POSIX}()},
 \code{\link{obs_grid}()},
 \code{\link{obs_id2pos}()},
 \code{\link{obs_info2id}()},
-\code{\link{obs_interpret_udunits_time}()},
 \code{\link{obs_julian}()},
-\code{\link{obs_load_ncdf}()},
 \code{\link{obs_normalize_dmass}()}
 }
 \concept{helpers legacy}
