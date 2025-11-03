@@ -77,8 +77,20 @@
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-part">part<a class="anchor" aria-label="anchor" href="#arg-part"></a></dt>
+<dl><dt id="arg-ident">ident<a class="anchor" aria-label="anchor" href="#arg-ident"></a></dt>
+<dd><p>foot id</p></dd>
+
+
+<dt id="arg-part">part<a class="anchor" aria-label="anchor" href="#arg-part"></a></dt>
 <dd><p>data.table with PARTICLE.DAT information</p></dd>
+
+
+<dt id="arg-timelabel">timelabel<a class="anchor" aria-label="anchor" href="#arg-timelabel"></a></dt>
+<dd><p>timelabel</p></dd>
+
+
+<dt id="arg-pathname">pathname<a class="anchor" aria-label="anchor" href="#arg-pathname"></a></dt>
+<dd><p>pathname</p></dd>
 
 
 <dt id="arg-foottimes">foottimes<a class="anchor" aria-label="anchor" href="#arg-foottimes"></a></dt>
@@ -86,7 +98,11 @@
 
 
 <dt id="arg-zlim">zlim<a class="anchor" aria-label="anchor" href="#arg-zlim"></a></dt>
-<dd><p>(if not default 0,0): vertical interval for which particle distribution is looked at</p></dd>
+<dd><p>zlim</p></dd>
+
+
+<dt id="arg-coarse">coarse<a class="anchor" aria-label="anchor" href="#arg-coarse"></a></dt>
+<dd><p>default 1</p></dd>
 
 
 <dt id="arg-dmasstf">dmassTF<a class="anchor" aria-label="anchor" href="#arg-dmasstf"></a></dt>
@@ -102,16 +118,28 @@
 
 
 <dt id="arg-lon-ll">lon.ll<a class="anchor" aria-label="anchor" href="#arg-lon-ll"></a></dt>
-<dd><p>lower left corner of grid (longitude of southwest corner of southwest corner gridcell)</p></dd>
+<dd><p>lower left lon</p></dd>
 
 
 <dt id="arg-lat-ll">lat.ll<a class="anchor" aria-label="anchor" href="#arg-lat-ll"></a></dt>
-<dd><p>lower left corner of grid (latitude of southwest corner of southwest corner gridcell)</p></dd>
+<dd><p>lower left lat</p></dd>
+
+
+<dt id="arg-lon-res">lon.res<a class="anchor" aria-label="anchor" href="#arg-lon-res"></a></dt>
+<dd><p>resolution</p></dd>
+
+
+<dt id="arg-lat-res">lat.res<a class="anchor" aria-label="anchor" href="#arg-lat-res"></a></dt>
+<dd><p>resolution</p></dd>
 
 
 <dt id="arg-npar">npar<a class="anchor" aria-label="anchor" href="#arg-npar"></a></dt>
 <dd><p>default 500, number of particles hysplit was run with (required in order to
 account for those cases where a thinned particle table that may not contain all particle indices is used)</p></dd>
+
+
+<dt id="arg-eps-global">eps.global<a class="anchor" aria-label="anchor" href="#arg-eps-global"></a></dt>
+<dd><p>default 0.01</p></dd>
 
 </dl></div>
     <div class="section level2">
