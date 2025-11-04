@@ -91,41 +91,14 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># Do not run</span></span></span>
 <span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">55</span>, <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">x</span>,<span class="st">"  "</span>,</span></span>
 <span class="r-in"><span>       <span class="fu">obs_roundtime</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="st">"  "</span>,</span></span>
 <span class="r-in"><span>       <span class="fu"><a href="obs_freq.html">obs_freq</a></span><span class="op">(</span><span class="fu">data.table</span><span class="fu">::</span><span class="fu"><a href="https://rdatatable.gitlab.io/data.table/reference/IDateTime.html" class="external-link">second</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">55</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "2025-11-03 23:38:57.983705  50  50" "2025-11-03 23:38:58.983705  0  50" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "2025-11-03 23:38:59.983705  0  50"  "2025-11-03 23:39:00.983705  0  0"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "2025-11-03 23:39:01.983705  0  0"   "2025-11-03 23:39:02.983705  0  0"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "2025-11-03 23:39:03.983705  0  0"   "2025-11-03 23:39:04.983705  0  0"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "2025-11-03 23:39:05.983705  0  0"   "2025-11-03 23:39:06.983705  0  0"  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "2025-11-03 23:39:07.983705  0  0"   "2025-11-03 23:39:08.983705  10  0" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "2025-11-03 23:39:09.983705  10  0"  "2025-11-03 23:39:10.983705  10  0" </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "2025-11-03 23:39:11.983705  10  10" "2025-11-03 23:39:12.983705  10  10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [17] "2025-11-03 23:39:13.983705  10  10" "2025-11-03 23:39:14.983705  10  10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "2025-11-03 23:39:15.983705  10  10" "2025-11-03 23:39:16.983705  10  10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] "2025-11-03 23:39:17.983705  10  10" "2025-11-03 23:39:18.983705  20  10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [23] "2025-11-03 23:39:19.983705  20  10" "2025-11-03 23:39:20.983705  20  10"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "2025-11-03 23:39:21.983705  20  20" "2025-11-03 23:39:22.983705  20  20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [27] "2025-11-03 23:39:23.983705  20  20" "2025-11-03 23:39:24.983705  20  20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [29] "2025-11-03 23:39:25.983705  20  20" "2025-11-03 23:39:26.983705  20  20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "2025-11-03 23:39:27.983705  20  20" "2025-11-03 23:39:28.983705  30  20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [33] "2025-11-03 23:39:29.983705  30  20" "2025-11-03 23:39:30.983705  30  20"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [35] "2025-11-03 23:39:31.983705  30  30" "2025-11-03 23:39:32.983705  30  30"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "2025-11-03 23:39:33.983705  30  30" "2025-11-03 23:39:34.983705  30  30"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [39] "2025-11-03 23:39:35.983705  30  30" "2025-11-03 23:39:36.983705  30  30"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [41] "2025-11-03 23:39:37.983705  30  30" "2025-11-03 23:39:38.983705  40  30"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "2025-11-03 23:39:39.983705  40  30" "2025-11-03 23:39:40.983705  40  30"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [45] "2025-11-03 23:39:41.983705  40  40" "2025-11-03 23:39:42.983705  40  40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [47] "2025-11-03 23:39:43.983705  40  40" "2025-11-03 23:39:44.983705  40  40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "2025-11-03 23:39:45.983705  40  40" "2025-11-03 23:39:46.983705  40  40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [51] "2025-11-03 23:39:47.983705  40  40" "2025-11-03 23:39:48.983705  50  40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [53] "2025-11-03 23:39:49.983705  50  40" "2025-11-03 23:39:50.983705  50  40"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "2025-11-03 23:39:51.983705  50  50"</span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
