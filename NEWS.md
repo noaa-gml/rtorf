@@ -1,5 +1,11 @@
 # NEWS
 
+### rtorf 3.1.0 (Release date: 2025-11-11)
+
+fix obs_hysplit_control. It was nor wokring for the last day of the month
+Added verbose argument.
+
+
 
 ### rtorf 3.0.0 (Release date: 2025-11-03)
 

@@ -46,7 +46,8 @@ obs_hysplit_control(
   wrhcicbc = c(0, 0, 0),
   radiactive_decay = 0,
   pol_res = 0,
-  control = "CONTROL"
+  control = "CONTROL",
+  verbose = FALSE
 )
 }
 \arguments{
@@ -149,6 +150,8 @@ continuous 1.}
 \item{pol_res}{Pollutant Resuspension (1/m)}
 
 \item{control}{name of the file, default "CONTROL"}
+
+\item{verbose}{logical, to show more information}
 }
 \value{
 A CONTROL file

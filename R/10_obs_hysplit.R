@@ -63,6 +63,7 @@
 #' @param radiactive_decay days
 #' @param pol_res Pollutant Resuspension (1/m)
 #' @param control name of the file, default "CONTROL"
+#' @param verbose logical, to show more information
 #' @return A CONTROL file
 #' @export
 #' @examples {
@@ -127,7 +128,8 @@ obs_hysplit_control <- function(
   wrhcicbc = c(0, 0, 0),
   radiactive_decay = 0,
   pol_res = 0,
-  control = "CONTROL"
+  control = "CONTROL",
+  verbose = FALSE
 ) {
   if (!missing(df)) {
     if (
@@ -175,6 +177,10 @@ obs_hysplit_control <- function(
 
   start_loc <- paste(lat, lon, sprintf("%#.1f", agl))
 
+  if (nchar(yr) != 4) {
+    stop("year must have for digits")
+  }
+
   rel_start <- paste(
     substr(yr, 3, 4), #I need to confirm
     sprintf(mo, fmt = '%02d'),
@@ -183,24 +189,38 @@ obs_hysplit_control <- function(
     sprintf(mi, fmt = '%02d')
   )
 
+  if (verbose) {
+    print(paste0("start: ", rel_start))
+  }
+
   if (missing(start_time)) {
     start_time <- rel_start
   }
 
   if (!is.character(start_time)) {
-    stop("start_time neds to be hcaracter with format yy mm dd hh mm")
+    stop("start_time neds to be character with format yy mm dd hh mm")
   }
   nmodels <- length(met)
 
   hydate <- as.Date(ISOdate(
     year = yr,
     month = mo,
-    day = dy + 1,
+    day = dy,
     hour = ho,
     min = mi,
     sec = 0,
     tz = "UTC"
   ))
+
+  if (verbose) {
+    print(paste0("hydate: ", hydate))
+  }
+
+  if (verbose) {
+    print(paste("location:", lat, lon, sprintf("%#.1f", agl)))
+  }
+
+  hydate <- hydate + 1
 
   # magick ####
 
