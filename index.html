@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,7 +89,9 @@
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"noaa-gml/rtorf"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/noaa-gml/rtorf" class="external-link">rtorf</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span>
+<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"rtorf"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## [1] '3.1.0'</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="obspack-summary">ObsPack summary<a class="anchor" aria-label="anchor" href="#obspack-summary"></a>
@@ -98,36 +100,28 @@
 <blockquote>
 <p>We first define the categories</p>
 </blockquote>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cate</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"aircraft-pfp"</span>,</span>
-<span>         <span class="st">"aircraft-insitu"</span>,</span>
-<span>         <span class="st">"aircraft-flask"</span>,</span>
-<span>         <span class="st">"surface-insitu"</span>,</span>
-<span>         <span class="st">"surface-flask"</span>, </span>
-<span>         <span class="st">"surface-pfp"</span>,   </span>
-<span>         <span class="st">"tower-insitu"</span>,  </span>
-<span>         <span class="st">"aircore"</span>,       </span>
-<span>         <span class="st">"shipboard-insitu"</span>,</span>
-<span>         <span class="st">"shipboard-flask"</span><span class="op">)</span> </span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cate</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"aircraft-pfp"</span>,</span>
+<span>  <span class="st">"aircraft-insitu"</span>,</span>
+<span>  <span class="st">"aircraft-flask"</span>,</span>
+<span>  <span class="st">"surface-insitu"</span>,</span>
+<span>  <span class="st">"surface-flask"</span>,</span>
+<span>  <span class="st">"surface-pfp"</span>,</span>
+<span>  <span class="st">"tower-insitu"</span>,</span>
+<span>  <span class="st">"aircore"</span>,</span>
+<span>  <span class="st">"shipboard-insitu"</span>,</span>
+<span>  <span class="st">"shipboard-flask"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">obs</span> <span class="op">&lt;-</span> <span class="st">"Z:/obspack/obspack_ch4_1_GLOBALVIEWplus_v5.1_2023-03-08/data/nc/"</span></span>
 <span><span class="va">index</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/obs_summary.html">obs_summary</a></span><span class="op">(</span>obs <span class="op">=</span> <span class="va">obs</span>, categories <span class="op">=</span> <span class="va">cate</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="do">## Number of files of index: 429</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="do">##               sector     N</span></span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="do">##               &lt;char&gt; &lt;int&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="do">##  1:     aircraft-pfp    40</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="do">##  2:  aircraft-insitu    15</span></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="do">##  3:    surface-flask   106</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="do">##  4:   surface-insitu   174</span></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="do">##  5:   aircraft-flask     4</span></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="do">##  6:          aircore     1</span></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="do">##  7:      surface-pfp    33</span></span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="do">##  8:     tower-insitu    51</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="do">##  9:  shipboard-flask     4</span></span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="do">## 10: shipboard-insitu     1</span></span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="do">## 11:    Total sectors   429</span></span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="do">## Detected 190 files with agl</span></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="do">## Detected 239 files without agl</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="do">## Number of files of index: 0</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="do">##           sector     N</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="do">##           &lt;char&gt; &lt;int&gt;</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="do">## 1: Total sectors     0</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="do">## Detected 0 files with agl</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="do">## Detected 0 files without agl</span></span></code></pre></div>
 <p>For each one of these dataset ids, check the articles in the documentation</p>
 <p><a href="https://noaa-gml.github.io/rtorf/" class="uri">https://noaa-gml.github.io/rtorf/</a></p>
 <p>e.g. for the <code>aircraft-pfp</code> we can read <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><msub><mi>O</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">CO_2</annotation></semantics></math> and <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><msub><mi>H</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">CH_4</annotation></semantics></math><a href="https://noaa-gml.github.io/rtorf/articles/aircraft-pfp.html">here</a></p>
@@ -198,7 +192,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>
