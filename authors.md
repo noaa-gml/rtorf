@@ -10,7 +10,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/noaa-gml/rtorf/blob/master/inst/CITATION)
+[`inst/CITATION`](https://github.com/noaa-gml/rtorf/blob/main/inst/CITATION)
 
 Schuldt, et al. Multi-laboratory compilation of atmospheric methane data
 for the period 1983-2021.NOAA - Global Monitoring Laboratory,
