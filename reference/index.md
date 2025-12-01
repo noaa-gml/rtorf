@@ -18,6 +18,8 @@
   : obs_convolve
 - [`obs_find_receptors()`](https://noaa-gml.github.io/rtorf/reference/obs_find_receptors.md)
   : Compares expected receptors
+- [`obs_foot()`](https://noaa-gml.github.io/rtorf/reference/obs_foot.md)
+  : obs_footprints
 - [`obs_footname()`](https://noaa-gml.github.io/rtorf/reference/obs_footname.md)
   : Expected footprint name
 - [`obs_format()`](https://noaa-gml.github.io/rtorf/reference/obs_format.md)

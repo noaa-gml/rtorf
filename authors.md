@@ -10,7 +10,7 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/noaa-gml/rtorf/blob/main/inst/CITATION)
+[`inst/CITATION`](https://github.com/noaa-gml/rtorf/blob/master/inst/CITATION)
 
 Schuldt, et al. Multi-laboratory compilation of atmospheric methane data
 for the period 1983-2021.NOAA - Global Monitoring Laboratory,
@@ -26,13 +26,13 @@ for the period 1983-2021.NOAA - Global Monitoring Laboratory,
     }
 
 Ibarra-Espinosa S (2025). *rtorf: 'rtorf' Tools for Observations,
-Receptors and Footprints*. R package version 3.1.0,
+Receptors and Footprints*. R package version 3.2.0,
 <https://github.com/noaa-gml/rtorf>.
 
     @Manual{,
       title = {rtorf: 'rtorf' Tools for Observations, Receptors and Footprints},
       author = {Sergio Ibarra-Espinosa},
       year = {2025},
-      note = {R package version 3.1.0},
+      note = {R package version 3.2.0},
       url = {https://github.com/noaa-gml/rtorf},
     }
