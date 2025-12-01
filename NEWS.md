@@ -1,5 +1,9 @@
 # NEWS
 
+### rtorf 3.1.0 (Release date: 2025-12-01)
+
+Add obs_foot to read, process footprints parallel
+
 ### rtorf 3.1.0 (Release date: 2025-11-11)
 
 fix obs_hysplit_control. It was nor wokring for the last day of the month
