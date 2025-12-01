@@ -411,3 +411,130 @@ obs_convolve <- function(
     ))
   }
 }
+
+
+#' obs_footprints
+#'
+#' This function returns a arrays (or list of arrays) of convolved footpritns with flux
+#'
+#' @param foot_path path for footprint (length 1).
+#' @param name_foot name of the footprint variable in the NetCDF file.
+#' @param flon name of lons
+#' @param flat name of lats
+#' @param time_foot Time of the footprints (in the name file) or third dimension
+#' @param fn string with function to aggregate convolved fluxes, e.g. `mean`, `sum`, `max`, etc.
+#' @param as_list Logical, to return list of arrays
+#' @param verbose Logical, to display more information
+#' @export
+#' @import ncdf4 data.table
+#' @examples \dontrun{
+#' # do not run
+#' }
+obs_foot <- function(
+  foot_path = "AAA",
+  name_foot = "foot1",
+  flon = "foot1lon",
+  flat = "foot1lat",
+  time_foot,
+  fn = NULL,
+  as_list = FALSE,
+  verbose = TRUE
+) {
+  # footprint information
+
+  if (length(foot_path) != 1) {
+    stop("foot_path must be a single string")
+  }
+
+  if (verbose) {
+    cat(paste0("Reading ", foot_path, "\n"))
+  }
+
+  nc <- ncdf4::nc_open(foot_path)
+
+  if (verbose) {
+    cf <- ncdf4::ncatt_get(nc, 0, "Conventions")$value
+    if (any(grepl("CF", cf))) print(paste0("Footprint Conventions = ", cf))
+  }
+
+  if (any(name_foot %in% names(nc$var))) {
+    if (verbose) {
+      cat(paste0("Reading ", name_foot, "\n"))
+    }
+    foot <- ncdf4::ncvar_get(nc, name_foot)
+  } else {
+    stop(paste0("Variable ", name_foot, " not found among: ", names(nc$var)))
+  }
+
+  foot1lat <- ncdf4::ncvar_get(nc, flat)
+  foot1lon <- ncdf4::ncvar_get(nc, flon)
+
+  ncdf4::nc_close(nc)
+
+  # footprint times
+
+  df_times_foot <- data.table::data.table(
+    time_start = rep(time_foot, dim(foot)[3]) # 240
+  )
+
+  seq_time_start <- time_start <- nf <- hr <- NULL
+  df_times_foot[,
+    seq_time_start := seq.POSIXt(
+      time_start[1],
+      length.out = dim(foot)[3],
+      by = "-1 hour",
+      tz = "UTC"
+    )
+  ]
+  # first time is the footprint time, ;last time, 240 hours in the past.
+  # df_times_foot has time_start seq_time_start
+  # seq_time_start has the time to match emissions
+
+  if (verbose) {
+    cat(
+      "footprints, from ",
+      strftime(
+        df_times_foot$seq_time_start[1],
+        format = "%Y-%m-%d %H:%M:%S",
+        tz = "UTC"
+      ),
+      " to ",
+      strftime(
+        df_times_foot$seq_time_start[dim(foot)[3]],
+        format = "%Y-%m-%d %H:%M:%S",
+        tz = "UTC"
+      ),
+      "\n"
+    )
+  }
+
+  dim_names <- list(
+    paste0("lon_", sprintf("%02d", 1:dim(foot)[1])),
+    paste0("lat_", sprintf("%02d", 1:dim(foot)[2])),
+    strftime(
+      df_times_foot$seq_time_start,
+      format = "%Y-%m-%d %H:%M:%S",
+      tz = "UTC"
+    ) # this  can vary, what if I have hourly fluxes?, or m
+  )
+
+  dimnames(foot) <- dim_names
+
+  if (!is.null(fn)) {
+    foot <- apply(foot, c(1, 2), fn, na.rm = T)
+  }
+
+  if (!as_list) {
+    simplify2array(list(
+      foot = foot
+    )) -> out
+    return(out)
+  } else {
+    return(list(
+      foot = foot,
+      lat = foot1lat,
+      lon = foot1lon,
+      time = if (!missing(fn)) time_foot else df_times_foot$seq_time_start
+    ))
+  }
+}
