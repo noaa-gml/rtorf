@@ -1,5 +1,5 @@
-pandoc: 3.7.0.1
-pkgdown: 2.1.2
+pandoc: 3.6.3
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   aircore: aircore.html
@@ -14,7 +14,7 @@ articles:
   surface-insitu: surface-insitu.html
   surface-pfp: surface-pfp.html
   tower-insitu: tower-insitu.html
-last_built: 2025-12-01T21:54Z
+last_built: 2025-12-11T20:25Z
 urls:
   reference: https://noaa-gml.github.io/rtorf/reference
   article: https://noaa-gml.github.io/rtorf/articles

@@ -188,10 +188,9 @@ obs_select_sec <- function(
   dt[diff_to_next_target < diff_to_target, window_id := target_time + seconds]
 
   # Now, we group by 'window_id' and select the row with the minimum difference to that target
-  DT_filtered <- dt[,
-    .SD[which.min(abs(as.numeric(timeUTC) - as.numeric(window_id)))], # Select the row that minimizes time diff to 'window_id'
-    by = window_id
-  ]
+  mindif <- NULL
+  df[, mindif := diff_to_target == min(diff_to_target), by = window_id]
+  df <- dt[mindif == TRUE]
 
-  return(DT_filtered)
+  return(df)
 }

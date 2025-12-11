@@ -450,26 +450,26 @@ obs_foot <- function(
     cat(paste0("Reading ", foot_path, "\n"))
   }
 
-  nc <- ncdf4::nc_open(foot_path)
+  ncf <- ncdf4::nc_open(foot_path)
 
   if (verbose) {
-    cf <- ncdf4::ncatt_get(nc, 0, "Conventions")$value
+    cf <- ncdf4::ncatt_get(ncf, 0, "Conventions")$value
     if (any(grepl("CF", cf))) print(paste0("Footprint Conventions = ", cf))
   }
 
-  if (any(name_foot %in% names(nc$var))) {
+  if (any(name_foot %in% names(ncf$var))) {
     if (verbose) {
       cat(paste0("Reading ", name_foot, "\n"))
     }
-    foot <- ncdf4::ncvar_get(nc, name_foot)
+    foot <- ncdf4::ncvar_get(ncf, name_foot)
   } else {
-    stop(paste0("Variable ", name_foot, " not found among: ", names(nc$var)))
+    stop(paste0("Variable ", name_foot, " not found among: ", names(ncf$var)))
   }
 
-  foot1lat <- ncdf4::ncvar_get(nc, flat)
-  foot1lon <- ncdf4::ncvar_get(nc, flon)
+  foot1lat <- ncdf4::ncvar_get(ncf, flat)
+  foot1lon <- ncdf4::ncvar_get(ncf, flon)
 
-  ncdf4::nc_close(nc)
+  ncdf4::nc_close(ncf)
 
   # footprint times
 

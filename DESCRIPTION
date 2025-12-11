@@ -1,7 +1,7 @@
 Package: rtorf
 Type: Package
 Title: 'rtorf' Tools for Observations, Receptors and Footprints
-Version: 3.2.0
+Version: 3.2.1
 Authors@R: c( 
   person(given = "Sergio", family = "Ibarra-Espinosa",
          role = c("aut", "cre"),
