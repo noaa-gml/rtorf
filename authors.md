@@ -26,13 +26,13 @@ for the period 1983-2021.NOAA - Global Monitoring Laboratory,
     }
 
 Ibarra-Espinosa S (2025). *rtorf: 'rtorf' Tools for Observations,
-Receptors and Footprints*. R package version 3.2.0,
+Receptors and Footprints*. R package version 3.2.1,
 <https://github.com/noaa-gml/rtorf>.
 
     @Manual{,
       title = {rtorf: 'rtorf' Tools for Observations, Receptors and Footprints},
       author = {Sergio Ibarra-Espinosa},
       year = {2025},
-      note = {R package version 3.2.0},
+      note = {R package version 3.2.1},
       url = {https://github.com/noaa-gml/rtorf},
     }

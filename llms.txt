@@ -34,7 +34,7 @@ utils::packageVersion("rtorf")
 ```
 
 ``` R
-## [1] '3.2.0'
+## [1] '3.2.1'
 ```
 
 ## ObsPack summary
@@ -74,22 +74,12 @@ index <- obs_summary(obs = obs, categories = cate)
 ```
 
 ``` R
-## Number of files of index: 429
-##               sector     N
-##               <char> <int>
-##  1:     aircraft-pfp    40
-##  2:  aircraft-insitu    15
-##  3:    surface-flask   106
-##  4:   surface-insitu   174
-##  5:   aircraft-flask     4
-##  6:          aircore     1
-##  7:      surface-pfp    33
-##  8:     tower-insitu    51
-##  9:  shipboard-flask     4
-## 10: shipboard-insitu     1
-## 11:    Total sectors   429
-## Detected 190 files with agl
-## Detected 239 files without agl
+## Number of files of index: 0
+##           sector     N
+##           <char> <int>
+## 1: Total sectors     0
+## Detected 0 files with agl
+## Detected 0 files without agl
 ```
 
 For each one of these dataset ids, check the articles in the
