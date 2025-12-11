@@ -189,7 +189,7 @@ obs_select_sec <- function(
 
   # Now, we group by 'window_id' and select the row with the minimum difference to that target
   mindif <- NULL
-  df[, mindif := diff_to_target == min(diff_to_target), by = window_id]
+  dt[, mindif := diff_to_target == min(diff_to_target), by = window_id]
   df <- dt[mindif == TRUE]
 
   return(df)
