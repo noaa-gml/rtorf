@@ -11,7 +11,7 @@ obs_nc(
   lon,
   time_nc,
   vars_out = c("total", "bio", "ocn", "fossil", "fire"),
-  units_out = "(ppb/nanomol m-2 s-1)*nanomol m-2 s-1",
+  units_out,
   nc_out,
   larrays,
   verbose = FALSE
@@ -38,7 +38,7 @@ obs_nc(
 
 - units_out:
 
-  units for the NetCDF variables to be created.
+  units for the NetCDF variables to be created. NO DEFAULT.
 
 - nc_out:
 
@@ -68,6 +68,7 @@ if (FALSE) { # \dontrun{
 # obs_nc(lat = foot$lat,
 #        lon = foot$lon,
 #        time_nc = ISOdatetime(2018, 4, 8, 15, 15, 38),
+#        units_out = "(ppb/nanomol m-2 s-1)*nanomol m-2 s-1",
 #        vars_out = c("a", "b"),
 #        nc_out  = nco,
 #        larrays = list(a = foot, b = foot),
