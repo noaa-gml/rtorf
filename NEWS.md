@@ -1,5 +1,9 @@
 # NEWS
 
+### rtorf 3.2.2 (Release date: 2026-01-02)
+
+fix Removes default units from obs_nc to force user to add them  manually.
+
 ### rtorf 3.2.1 (Release date: 2025-12-11)
 
 fix obs_select_sec

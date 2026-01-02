@@ -9,7 +9,7 @@ obs_nc(
   lon,
   time_nc,
   vars_out = c("total", "bio", "ocn", "fossil", "fire"),
-  units_out = "(ppb/nanomol m-2 s-1)*nanomol m-2 s-1",
+  units_out,
   nc_out,
   larrays,
   verbose = FALSE
@@ -24,7 +24,7 @@ obs_nc(
 
 \item{vars_out}{names for the variables to be created in the NetCDF.}
 
-\item{units_out}{units for the NetCDF variables to be created.}
+\item{units_out}{units for the NetCDF variables to be created. NO DEFAULT.}
 
 \item{nc_out}{path for the created NetCDF.}
 
@@ -49,6 +49,7 @@ with custom dimensions, and attributes
 # obs_nc(lat = foot$lat,
 #        lon = foot$lon,
 #        time_nc = ISOdatetime(2018, 4, 8, 15, 15, 38),
+#        units_out = "(ppb/nanomol m-2 s-1)*nanomol m-2 s-1",
 #        vars_out = c("a", "b"),
 #        nc_out  = nco,
 #        larrays = list(a = foot, b = foot),

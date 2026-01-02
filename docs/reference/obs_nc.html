@@ -9,7 +9,7 @@ with custom dimensions, and attributes"><meta property="og:image" content="https
 
     <a class="navbar-brand me-2" href="../index.html">rtorf</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.2.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">3.2.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@ with custom dimensions, and attributes</p>
 <span>  <span class="va">lon</span>,</span>
 <span>  <span class="va">time_nc</span>,</span>
 <span>  vars_out <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"total"</span>, <span class="st">"bio"</span>, <span class="st">"ocn"</span>, <span class="st">"fossil"</span>, <span class="st">"fire"</span><span class="op">)</span>,</span>
-<span>  units_out <span class="op">=</span> <span class="st">"(ppb/nanomol m-2 s-1)*nanomol m-2 s-1"</span>,</span>
+<span>  <span class="va">units_out</span>,</span>
 <span>  <span class="va">nc_out</span>,</span>
 <span>  <span class="va">larrays</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">FALSE</span></span>
@@ -89,7 +89,7 @@ with custom dimensions, and attributes</p>
 
 
 <dt id="arg-units-out">units_out<a class="anchor" aria-label="anchor" href="#arg-units-out"></a></dt>
-<dd><p>units for the NetCDF variables to be created.</p></dd>
+<dd><p>units for the NetCDF variables to be created. NO DEFAULT.</p></dd>
 
 
 <dt id="arg-nc-out">nc_out<a class="anchor" aria-label="anchor" href="#arg-nc-out"></a></dt>
@@ -120,6 +120,7 @@ with custom dimensions, and attributes</p>
 <span class="r-in"><span><span class="co"># obs_nc(lat = foot$lat,</span></span></span>
 <span class="r-in"><span><span class="co">#        lon = foot$lon,</span></span></span>
 <span class="r-in"><span><span class="co">#        time_nc = ISOdatetime(2018, 4, 8, 15, 15, 38),</span></span></span>
+<span class="r-in"><span><span class="co">#        units_out = "(ppb/nanomol m-2 s-1)*nanomol m-2 s-1",</span></span></span>
 <span class="r-in"><span><span class="co">#        vars_out = c("a", "b"),</span></span></span>
 <span class="r-in"><span><span class="co">#        nc_out  = nco,</span></span></span>
 <span class="r-in"><span><span class="co">#        larrays = list(a = foot, b = foot),</span></span></span>

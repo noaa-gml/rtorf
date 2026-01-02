@@ -7,7 +7,7 @@
 #' @param lon longs arrau
 #' @param time_nc Times.
 #' @param vars_out names for the variables to be created in the NetCDF.
-#' @param units_out units for the NetCDF variables to be created.
+#' @param units_out units for the NetCDF variables to be created. NO DEFAULT.
 #' @param nc_out path for the created NetCDF.
 #' @param larrays list of arrays, length equal to vars_out.
 #' @param verbose Logical, to display more information.
@@ -22,6 +22,7 @@
 #' # obs_nc(lat = foot$lat,
 #' #        lon = foot$lon,
 #' #        time_nc = ISOdatetime(2018, 4, 8, 15, 15, 38),
+#' #        units_out = "(ppb/nanomol m-2 s-1)*nanomol m-2 s-1",
 #' #        vars_out = c("a", "b"),
 #' #        nc_out  = nco,
 #' #        larrays = list(a = foot, b = foot),
@@ -32,7 +33,7 @@ obs_nc <- function(
   lon,
   time_nc,
   vars_out = c("total", "bio", "ocn", "fossil", "fire"),
-  units_out = "(ppb/nanomol m-2 s-1)*nanomol m-2 s-1",
+  units_out,
   nc_out,
   larrays,
   verbose = FALSE
@@ -53,6 +54,10 @@ obs_nc <- function(
 
   if (missing(time_nc)) {
     stop("Missing time_nc")
+  }
+
+  if (missing(units_out)) {
+    stop("Missing units_out")
   }
 
   latnc <- ncdf4::ncdim_def("longitude", "degreesE", as.double(lat))
