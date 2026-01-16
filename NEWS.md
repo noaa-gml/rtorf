@@ -1,5 +1,10 @@
 # NEWS
 
+### rtorf 3.2.2 (Release date: 2026-01-16)
+
+Prepare for CRAN.
+Update DESCRIPTION
+
 ### rtorf 3.2.2 (Release date: 2026-01-02)
 
 fix Removes default units from obs_nc to force user to add them  manually.

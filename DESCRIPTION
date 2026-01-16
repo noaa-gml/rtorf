@@ -1,7 +1,7 @@
 Package: rtorf
 Type: Package
-Title: 'rtorf' Tools for Observations, Receptors and Footprints
-Version: 3.2.2
+Title: R Tools for Observations, Footprints and Receptors (rtorf) and HYSPLIT Configuration Tools
+Version: 3.2.3
 Authors@R: c( 
   person(given = "Sergio", family = "Ibarra-Espinosa",
          role = c("aut", "cre"),
@@ -11,16 +11,26 @@ Authors@R: c(
          role="ctb", 
          email="lei.hu@noaa.gov",
          comment = c(ORCID = "0000-0002-5624-3832"))) 
-Description: Reads, process, and plots Observations such as the CH4 ObsPack GLOBALView+ data from NOAA and perform different filters and analyses. 
+Description: Provides a suite of tools to ingest, process, and visualize 
+    atmospheric observation data, specifically tailored for the NOAA Global 
+    Monitoring Laboratory (GML) ObsPack GLOBALView+ products 
+    <https://gml.noaa.gov/ccgg/obspack/index.html>. Includes specialized 
+    routines for filtering trace gas time-series data based on 
+    meteorological and quality control parameters. Additionally, 
+    streamlines the generation of configuration files for the Hybrid 
+    Single-Particle Lagrangian Integrated Trajectory (HYSPLIT) model 
+    <https://www.ready.noaa.gov/HYSPLIT.php>, supporting high-throughput 
+    parallel processing of trajectory simulations.
 Depends: R (>= 2.10)
 Imports: data.table, utils, lubridate, cptcity, graphics, ncdf4
+SystemRequirements: netcdf (>=4.0)
 License: MIT + file LICENSE
 URL: https://github.com/noaa-gml/rtorf,
     https://noaa-gml.github.io/rtorf/
 BugReports: https://github.com/noaa-gml/rtorf/issues/
 Encoding: UTF-8
 RoxygenNote: 7.3.3
-Date: 2026-01-02
+Date: 2026-01-16
 Suggests: 
     knitr,
     rmarkdown,
