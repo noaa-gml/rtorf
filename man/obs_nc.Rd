@@ -40,7 +40,7 @@ Creates NetCDF based on dimension from another NetCDF
 with custom dimensions, and attributes
 }
 \examples{
-\dontrun{
+\donttest{
 # nc_path <- paste0("Z:/footprints/aircraft/flask/2018",
 # "/04/hysplit2018x04x08x15x15x38.7459Nx077.5584Wx00594.nc")
 # foot <- obs_nc_get(nc_path, all = TRUE)

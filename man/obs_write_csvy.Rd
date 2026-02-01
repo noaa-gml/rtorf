@@ -26,6 +26,9 @@ obs_write_csvy(
 
 \item{...}{extra data.table arguments}
 }
+\value{
+a csvy file to disk
+}
 \description{
 Add YAML header info and writes a the data.frame
 into disk. The YAML section includes notes and str(dt).

@@ -1,6 +1,10 @@
 # NEWS
 
-### rtorf 3.2.2 (Release date: 2026-01-16)
+### rtorf 3.2.4 (Release date: 2026-02-01)
+
+Fix documentation for CRAN.
+
+### rtorf 3.2.3 (Release date: 2026-01-16)
 
 Prepare for CRAN.
 Update DESCRIPTION

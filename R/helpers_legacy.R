@@ -214,7 +214,7 @@ obs_info2id <- function(
   lon,
   alt,
   sep = "x",
-  long = T
+  long = TRUE
 ) {
   # function to create identifying label for single receptor
   # (location&time) expects alt as altitude above ground in meters

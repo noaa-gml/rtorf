@@ -32,6 +32,9 @@ obs_foot(
 
 \item{verbose}{Logical, to display more information}
 }
+\value{
+An array of footprints, or a list of footprints, latitudes, longitudes and time.
+}
 \description{
 This function returns a arrays (or list of arrays) of convolved footpritns with flux
 }

@@ -4,11 +4,11 @@
 \name{rtorf-package}
 \alias{rtorf}
 \alias{rtorf-package}
-\title{rtorf: R Tools for Observations, Footprints and Receptors (rtorf) and HYSPLIT Configuration Tools}
+\title{rtorf: Observations, Footprints and Receptors ('rtorf') and HYSPLIT Configuration Tools}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Provides a suite of tools to ingest, process, and visualize atmospheric observation data, specifically tailored for the NOAA Global Monitoring Laboratory (GML) ObsPack GLOBALView+ products \url{https://gml.noaa.gov/ccgg/obspack/index.html}. Includes specialized routines for filtering trace gas time-series data based on meteorological and quality control parameters. Additionally, streamlines the generation of configuration files for the Hybrid Single-Particle Lagrangian Integrated Trajectory (HYSPLIT) model \url{https://www.ready.noaa.gov/HYSPLIT.php}, supporting high-throughput parallel processing of trajectory simulations.
+Ingest, process, and visualize atmospheric observation data, specifically tailored for the NOAA Global Monitoring Laboratory (GML) ObsPack GLOBALView+ products \url{https://gml.noaa.gov/ccgg/obspack/index.html}. Includes specialized routines for filtering trace gas time-series data based on meteorological and quality control parameters. Additionally, streamlines the generation of configuration files for the Hybrid Single-Particle Lagrangian Integrated Trajectory (HYSPLIT) model \url{https://www.ready.noaa.gov/HYSPLIT.php}, supporting high-throughput parallel processing of trajectory simulations.
 }
 \seealso{
 Useful links:

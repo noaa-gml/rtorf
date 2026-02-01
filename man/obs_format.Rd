@@ -6,6 +6,9 @@
 \usage{
 obs_format()
 }
+\value{
+formatted characters
+}
 \description{
 Formatting data
 }

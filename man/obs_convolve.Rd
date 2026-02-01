@@ -49,6 +49,10 @@ if numeric, identify the var names and you select which of them (first, second, 
 
 \item{verbose}{Logical, to display more information}
 }
+\value{
+An array of footprints and convolved footprints, or a list of footprints, convolved fooprints,
+latitudes, longitudes and time.
+}
 \description{
 This function returns a arrays (or list of arrays) of convolved footpritns with flux
 }

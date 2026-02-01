@@ -17,6 +17,8 @@
 #' @param fn string with function to aggregate convolved fluxes, e.g. `mean`, `sum`, `max`, etc.
 #' @param as_list Logical, to return list of arrays
 #' @param verbose Logical, to display more information
+#' @return An array of footprints and convolved footprints, or a list of footprints, convolved fooprints,
+#' latitudes, longitudes and time.
 #' @note main assumption is that fluxes have same spatial dimensions as footprints
 #' when flux is "monthly", "daily" or "yearly", it assumes flux variable has the same
 #' name as "%y-%m-01", "%Y-%m-%d" or "%Y-01-01" respectively.
@@ -425,6 +427,7 @@ obs_convolve <- function(
 #' @param fn string with function to aggregate convolved fluxes, e.g. `mean`, `sum`, `max`, etc.
 #' @param as_list Logical, to return list of arrays
 #' @param verbose Logical, to display more information
+#' @return An array of footprints, or a list of footprints, latitudes, longitudes and time.
 #' @export
 #' @import ncdf4 data.table
 #' @examples \dontrun{

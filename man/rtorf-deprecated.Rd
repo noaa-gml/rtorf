@@ -10,6 +10,9 @@ obs_addzero(x, ...)
 \arguments{
 \item{x}{integer}
 }
+\value{
+character
+}
 \description{
 The functions listed below are deprecated and will be defunct in
   the near future. When possible, alternative functions with similar

@@ -9,6 +9,11 @@ fex(x)
 \arguments{
 \item{x}{character vector giving file paths.}
 }
+\value{
+A character vector of the same length as \code{x} containing the file
+extensions without the leading dot. Files without an extension return an
+empty string ("").
+}
 \description{
 file extension
 }

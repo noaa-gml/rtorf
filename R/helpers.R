@@ -179,6 +179,7 @@ obs_rbind <- function(dt1, dt2, verbose = TRUE) {
 #' @param sep  The separator between columns. Default is ",".
 #' @param nchar.max  Max nchar for str.
 #' @param ... extra data.table arguments
+#' @return a csvy file to disk
 #' @importFrom utils str
 #' @export
 #' @examples \dontrun{
@@ -233,6 +234,7 @@ obs_write_csvy <- function(
 #' @param f path to csvy file
 #' @param n number of files to search for "---" yaml
 #' @param ... extra data.table arguments
+#' @return a data.table from a csvy file
 #' @export
 #' @examples \dontrun{
 #' # Do not run
@@ -271,6 +273,7 @@ obs_read_csvy <- function(f, n = 100, ...) {
 #' @description Trunc numbers with a specified number of decimals.
 #' @param n Numeric  number
 #' @param dec Integer, number of decimals
+#' @return truncated number
 #' @note source https://stackoverflow.com/a/47015304/2418532
 #' @export
 #' @examples \dontrun{
@@ -319,6 +322,7 @@ obs_trunc <- function(n, dec) {
 #' @param fullpath Logical, to add or not YYYY/MO/hysplit to id
 #' @param out outfile path.
 #' @param ... data.table::fwrite arguments.
+#' @return A concatenation of characters representing a spatio-temporal point.
 #' @note source https://stackoverflow.com/a/47015304/2418532
 #'
 #' # IMPORTANT!!!
@@ -489,6 +493,9 @@ obs_footname <- function(
 #' @name fex
 #' @description file extension
 #' @param x character vector giving file paths.
+#' @return A character vector of the same length as \code{x} containing the file
+#' extensions without the leading dot. Files without an extension return an
+#' empty string ("").
 #' @note source tools::file_ext
 #' @export
 #' @seealso \code{tools::file_ext()}
@@ -507,6 +514,7 @@ fex <- function(x) {
 #' @description file extension
 #' @param x a character vector.
 #' @param n integer.
+#' @return last n characters
 #' @export
 #' @examples \dontrun{
 #' # do not run
