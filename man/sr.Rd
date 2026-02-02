@@ -11,6 +11,9 @@ sr(x, n)
 
 \item{n}{integer.}
 }
+\value{
+last n characters
+}
 \description{
 file extension
 }

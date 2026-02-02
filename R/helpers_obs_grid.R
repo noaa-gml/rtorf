@@ -11,8 +11,11 @@
 #' @param coarse.factor integer to coarse the grid resolution
 #' @return return footprint
 #' @export
-#' @examples \dontrun{
-#' # Do not run
+#' @examples
+#' \dontrun{
+#' # Example usage:
+#' # obs_grid(min.x = 1, max.x = 10, min.y = 1, max.y = 10,
+#' #          numpix.x = 100, numpix.y = 100, coarse.factor = 1)
 #' }
 obs_grid <- function(
   min.x,

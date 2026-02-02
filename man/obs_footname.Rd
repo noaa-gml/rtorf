@@ -47,6 +47,9 @@ obs_footname(
 
 \item{...}{data.table::fwrite arguments.}
 }
+\value{
+A concatenation of characters representing a spatio-temporal point.
+}
 \description{
 return the expected name for the NetCDF footprint
 }

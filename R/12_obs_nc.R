@@ -13,7 +13,7 @@
 #' @param verbose Logical, to display more information.
 #' @return A NetCDF file with the custom attributes and units
 #' @export
-#' @examples \dontrun{
+#' @examples \donttest{
 #' # nc_path <- paste0("Z:/footprints/aircraft/flask/2018",
 #' # "/04/hysplit2018x04x08x15x15x38.7459Nx077.5584Wx00594.nc")
 #' # foot <- obs_nc_get(nc_path, all = TRUE)
@@ -132,7 +132,7 @@ obs_nc <- function(
 #' @param all Logical, if TRUE, return list of array, lon and lats
 #' @return Array of convolved footprints, or lis tof convolved fluxes and lat lon
 #' @export
-#' @examples \dontrun{
+#' @examples \donttest{
 #' #nc_path <- paste0("Z:/footprints/aircraft/flask/2018/04",
 #' #"/hysplit2018x04x08x15x15x38.7459Nx077.5584Wx00594.nc")
 #' #f <- obs_nc_get(nc_path = nc_path)

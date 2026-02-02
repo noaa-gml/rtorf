@@ -125,6 +125,7 @@ obs_index <- function(
 #' @family helpers
 #' @description transform integer to character and add zero at left
 #' @param x integer
+#' @return character
 #' @rdname rtorf-deprecated
 #' @seealso \code{\link{rtorf-deprecated}}
 #' @export
@@ -175,6 +176,7 @@ obs_addzero <- function(x, ...) {
 #' @family helpers
 #' @name obs_format
 #' @export
+#' @return formatted characters
 #' @examples \dontrun{
 #' # do not run
 #' }

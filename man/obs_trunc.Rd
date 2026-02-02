@@ -11,6 +11,9 @@ obs_trunc(n, dec)
 
 \item{dec}{Integer, number of decimals}
 }
+\value{
+truncated number
+}
 \description{
 Trunc numbers with a specified number of decimals.
 }

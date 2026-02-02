@@ -4,7 +4,7 @@
 \alias{obs_info2id}
 \title{obs_info2id}
 \usage{
-obs_info2id(yr, mo, dy, hr, mn = 0, lat, lon, alt, sep = "x", long = T)
+obs_info2id(yr, mo, dy, hr, mn = 0, lat, lon, alt, sep = "x", long = TRUE)
 }
 \arguments{
 \item{yr}{year}

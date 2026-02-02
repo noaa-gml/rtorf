@@ -13,6 +13,9 @@ obs_read_csvy(f, n = 100, ...)
 
 \item{...}{extra data.table arguments}
 }
+\value{
+a data.table from a csvy file
+}
 \description{
 Reads CSVY, print YAML and fread file.
 }
